@@ -1,0 +1,379 @@
+fileFormatVersion: 2
+guid: d43b445195e474d36b7e15622037d8d9
+timeCreated: 1544155776
+licenseType: Store
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Armature.Athena
+    100002: Armour
+    100004: //RootNode
+    100006: Body
+    100008: Bone
+    100010: Bracelet
+    100012: Bracelet_train_1
+    100014: Bracelet_train_2
+    100016: Bracelet_train_3
+    100018: Crest_1
+    100020: Crest_2
+    100022: Crest_3
+    100024: Crest_4
+    100026: Crest_5
+    100028: Dress
+    100030: finger_index.01.L
+    100032: finger_index.01.R
+    100034: finger_index.02.L
+    100036: finger_index.02.R
+    100038: finger_index.03.L
+    100040: finger_index.03.R
+    100042: finger_middle.01.L
+    100044: finger_middle.01.R
+    100046: finger_middle.02.L
+    100048: finger_middle.02.R
+    100050: finger_middle.03.L
+    100052: finger_middle.03.R
+    100054: finger_pinky.01.L
+    100056: finger_pinky.01.R
+    100058: finger_pinky.02.L
+    100060: finger_pinky.02.R
+    100062: finger_pinky.03.L
+    100064: finger_pinky.03.R
+    100066: finger_ring.01.L
+    100068: finger_ring.01.R
+    100070: finger_ring.02.L
+    100072: finger_ring.02.R
+    100074: finger_ring.03.L
+    100076: finger_ring.03.R
+    100078: forearm.L
+    100080: forearm.R
+    100082: Glove.L
+    100084: Glove.R
+    100086: hand.L
+    100088: hand.R
+    100090: Head
+    100092: Helmet
+    100094: Legs_lower
+    100096: Legs_upper
+    100098: Neck
+    100100: Scroll
+    100102: Scroll 1
+    100104: Scroll.BOT
+    100106: shoulder.L
+    100108: shoulder.R
+    100110: Spear
+    100112: thumb.01.L
+    100114: thumb.01.R
+    100116: thumb.02.L
+    100118: thumb.02.R
+    100120: thumb.03.L
+    100122: thumb.03.R
+    100124: Toga
+    100126: Torso
+    100128: Train_1
+    100130: Train_2
+    100132: upper_arm.L
+    100134: upper_arm.R
+    100136: WGT-hand.L.001
+    100138: WGT-hand.R.001
+    400000: Armature.Athena
+    400002: Armour
+    400004: //RootNode
+    400006: Body
+    400008: Bone
+    400010: Bracelet
+    400012: Bracelet_train_1
+    400014: Bracelet_train_2
+    400016: Bracelet_train_3
+    400018: Crest_1
+    400020: Crest_2
+    400022: Crest_3
+    400024: Crest_4
+    400026: Crest_5
+    400028: Dress
+    400030: finger_index.01.L
+    400032: finger_index.01.R
+    400034: finger_index.02.L
+    400036: finger_index.02.R
+    400038: finger_index.03.L
+    400040: finger_index.03.R
+    400042: finger_middle.01.L
+    400044: finger_middle.01.R
+    400046: finger_middle.02.L
+    400048: finger_middle.02.R
+    400050: finger_middle.03.L
+    400052: finger_middle.03.R
+    400054: finger_pinky.01.L
+    400056: finger_pinky.01.R
+    400058: finger_pinky.02.L
+    400060: finger_pinky.02.R
+    400062: finger_pinky.03.L
+    400064: finger_pinky.03.R
+    400066: finger_ring.01.L
+    400068: finger_ring.01.R
+    400070: finger_ring.02.L
+    400072: finger_ring.02.R
+    400074: finger_ring.03.L
+    400076: finger_ring.03.R
+    400078: forearm.L
+    400080: forearm.R
+    400082: Glove.L
+    400084: Glove.R
+    400086: hand.L
+    400088: hand.R
+    400090: Head
+    400092: Helmet
+    400094: Legs_lower
+    400096: Legs_upper
+    400098: Neck
+    400100: Scroll
+    400102: Scroll 1
+    400104: Scroll.BOT
+    400106: shoulder.L
+    400108: shoulder.R
+    400110: Spear
+    400112: thumb.01.L
+    400114: thumb.01.R
+    400116: thumb.02.L
+    400118: thumb.02.R
+    400120: thumb.03.L
+    400122: thumb.03.R
+    400124: Toga
+    400126: Torso
+    400128: Train_1
+    400130: Train_2
+    400132: upper_arm.L
+    400134: upper_arm.R
+    400136: WGT-hand.L.001
+    400138: WGT-hand.R.001
+    2300000: WGT-hand.L.001
+    2300002: WGT-hand.R.001
+    3300000: WGT-hand.L.001
+    3300002: WGT-hand.R.001
+    4300000: WGT-hand.R.001
+    4300002: WGT-hand.L.001
+    4300004: Scroll
+    4300006: Body
+    4300008: Toga
+    4300010: Dress
+    4300012: Glove.L
+    4300014: Glove.R
+    4300016: Spear
+    4300018: Helmet
+    4300020: Bracelet
+    4300022: Armour
+    7400000: Armature.Athena|CircleAction
+    7400002: Armature.Athena|DeclarationOfPeace
+    7400004: Armature.Athena|Hit
+    7400006: Armature.Athena|Idle
+    7400008: Armature.Athena|ImperialBlast
+    7400010: Body|CircleAction
+    7400012: Dress|CircleAction
+    7400014: Glove.L|CircleAction
+    7400016: Bracelet|CircleAction
+    7400018: Armour|CircleAction
+    7400020: Armature.Athena|ArmourAction
+    7400022: Armature.Athena|BraceletAction
+    7400024: Armature.Athena|HelmetAction
+    7400026: Armature.Athena|SpearAction
+    7400028: Body|ArmourAction
+    7400030: Body|BraceletAction
+    7400032: Body|HelmetAction
+    7400034: Body|SpearAction
+    7400036: Dress|ArmourAction
+    7400038: Dress|BraceletAction
+    7400040: Dress|HelmetAction
+    7400042: Dress|SpearAction
+    7400044: Glove.L|ArmourAction
+    7400046: Glove.L|BraceletAction
+    7400048: Glove.L|HelmetAction
+    7400050: Glove.L|SpearAction
+    7400052: Spear|ArmourAction
+    7400054: Spear|BraceletAction
+    7400056: Spear|CircleAction
+    7400058: Spear|HelmetAction
+    7400060: Spear|SpearAction
+    7400062: Helmet|ArmourAction
+    7400064: Helmet|BraceletAction
+    7400066: Helmet|CircleAction
+    7400068: Helmet|HelmetAction
+    7400070: Helmet|SpearAction
+    7400072: Bracelet|ArmourAction
+    7400074: Bracelet|BraceletAction
+    7400076: Bracelet|HelmetAction
+    7400078: Bracelet|SpearAction
+    7400080: Armour|ArmourAction
+    7400082: Armour|BraceletAction
+    7400084: Armour|HelmetAction
+    7400086: Armour|SpearAction
+    7400088: Armature.Athena|Afflicted
+    7400090: Armature.Athena|Collapse
+    7400092: Armature.Athena|CollapsedLoop
+    9500000: //RootNode
+    13700000: Armour
+    13700002: Body
+    13700004: Bracelet
+    13700006: Dress
+    13700008: Glove.L
+    13700010: Glove.R
+    13700012: Helmet
+    13700014: Scroll
+    13700016: Spear
+    13700018: Toga
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Armour
+    second: {fileID: 2100000, guid: 920d7065bbcd941f18d0ba8b8ca5176e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cloth
+    second: {fileID: 2100000, guid: 5b2d69b3f52f941e38862fdc69484b3d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dress
+    second: {fileID: 2100000, guid: 01f57b62d1a60455abde54e7aa4dd66c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyes
+    second: {fileID: 2100000, guid: 75915722884fc487cb30b61fefec65e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glove
+    second: {fileID: 2100000, guid: 82cc2e5ad80a142e380047feaf171ee2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GloveBand
+    second: {fileID: 2100000, guid: 664bc3665e9b44dbd86c6d36c01a5f28, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GlovePatchGold
+    second: {fileID: 2100000, guid: de145eadc4e6044fea0e4bf0f4caf489, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GlovePatchLeather
+    second: {fileID: 2100000, guid: f14a26cc692754fb08407dbd65ddb5c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Jewel
+    second: {fileID: 2100000, guid: 496a4dc9854f34e929bb1ebbb9a86ad3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plume
+    second: {fileID: 2100000, guid: ddd1424cff7a14319b55348b96a2ae41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ScrollHandle
+    second: {fileID: 2100000, guid: 0b712bceb15e94ec596d8c22dd61090b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ScrollLinnen
+    second: {fileID: 2100000, guid: 2245171157a604c3abaffc42660f42a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skin
+    second: {fileID: 2100000, guid: 2860279ceb8d040ff98b8490a0954a28, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spear_body
+    second: {fileID: 2100000, guid: c6d892e811bc841ff9ee2930aff65f82, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spear_head
+    second: {fileID: 2100000, guid: f0c977b3b01fa4d3bb812d09776a9e03, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spear_leather
+    second: {fileID: 2100000, guid: 7e58f3cc398674779a7b240b7d1d6dfe, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

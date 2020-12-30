@@ -1,0 +1,12 @@
+{
+    "name": "AresEditor",
+    "references": [
+        "AresMain"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
