@@ -151,3 +151,90 @@ System memory in use after: 125.7 MB.
 Unloading 35 unused Assets to reduce memory usage. Loaded Objects now: 2913.
 Total: 16.908300 ms (FindLiveObjects: 0.403000 ms CreateObjectMapping: 0.167700 ms MarkObjects: 16.221400 ms  DeleteObjects: 0.114400 ms)
 
+========================================================================
+Received Import Request.
+  Time since last request: 335.569811 seconds.
+  path: Assets/Examples/[Demo] Battle For Asclepius/Assets/BFA Battle Rules.asset
+  artifactKey: Guid(ecbec65958b3e4c22a5fc0ccb969eda1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Examples/[Demo] Battle For Asclepius/Assets/BFA Battle Rules.asset using Guid(ecbec65958b3e4c22a5fc0ccb969eda1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbee0e690c933f5ad64bf14ce4fbee7b') in 0.051632 seconds
+  Import took 0.057324 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001017 seconds.
+  path: Assets/Examples/[Demo] Battle For Asclepius/Assets/BFA Battle Rules.asset
+  artifactKey: Guid(ecbec65958b3e4c22a5fc0ccb969eda1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Examples/[Demo] Battle For Asclepius/Assets/BFA Battle Rules.asset using Guid(ecbec65958b3e4c22a5fc0ccb969eda1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbee0e690c933f5ad64bf14ce4fbee7b') in 0.004246 seconds
+  Import took 0.008393 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.908061 seconds.
+  path: Assets/Examples/[Demo] Battle For Asclepius/Assets/BFA Inventory Generator.asset
+  artifactKey: Guid(3666b0e1f78234f34bfbc264c1dc9aa7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Examples/[Demo] Battle For Asclepius/Assets/BFA Inventory Generator.asset using Guid(3666b0e1f78234f34bfbc264c1dc9aa7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c618b96d386dc536f4e2704727ed43e5') in 0.034500 seconds
+  Import took 0.038809 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 19.510943 seconds.
+  path: Assets/Examples/[Demo] Battle For Asclepius/Battle For Asclepius.unity
+  artifactKey: Guid(1eee07087b8b14dfeb4c444c9010876b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Examples/[Demo] Battle For Asclepius/Battle For Asclepius.unity using Guid(1eee07087b8b14dfeb4c444c9010876b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '49fa231368bdefc15da00dc95391fda7') in 0.011021 seconds
+  Import took 0.017478 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.007175 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.64 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+System.ArgumentException: Empty path name is not legal.
+  at System.IO.StreamReader..ctor (System.String path, System.Text.Encoding encoding, System.Boolean detectEncodingFromByteOrderMarks, System.Int32 bufferSize, System.Boolean checkHost) [0x00033] in <9577ac7a62ef43179789031239ba8798>:0 
+  at System.IO.StreamReader..ctor (System.String path, System.Text.Encoding encoding, System.Boolean detectEncodingFromByteOrderMarks, System.Int32 bufferSize) [0x00000] in <9577ac7a62ef43179789031239ba8798>:0 
+  at System.IO.StreamReader..ctor (System.String path, System.Boolean detectEncodingFromByteOrderMarks) [0x0000d] in <9577ac7a62ef43179789031239ba8798>:0 
+  at System.IO.StreamReader..ctor (System.String path) [0x00000] in <9577ac7a62ef43179789031239ba8798>:0 
+  at (wrapper remoting-invoke-with-check) System.IO.StreamReader..ctor(string)
+  at InControl.NativeProfileListGenerator.GetFileContents (System.String fileName) [0x00001] in C:\Projects\WeAreTheLast\code_unity\We Are The Last\Assets\InControl\Editor\NativeProfileListGenerator.cs:75 
+  at InControl.NativeProfileListGenerator.PutFileContents (System.String filePath, System.String content) [0x00001] in C:\Projects\WeAreTheLast\code_unity\We Are The Last\Assets\InControl\Editor\NativeProfileListGenerator.cs:85 
+  at InControl.NativeProfileListGenerator.DiscoverProfiles () [0x00115] in C:\Projects\WeAreTheLast\code_unity\We Are The Last\Assets\InControl\Editor\NativeProfileListGenerator.cs:66 
+  at InControl.NativeProfileListGenerator..cctor () [0x0000e] in C:\Projects\WeAreTheLast\code_unity\We Are The Last\Assets\InControl\Editor\NativeProfileListGenerator.cs:19 
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+System.ArgumentException: Empty path name is not legal.
+  at System.IO.StreamReader..ctor (System.String path, System.Text.Encoding encoding, System.Boolean detectEncodingFromByteOrderMarks, System.Int32 bufferSize, System.Boolean checkHost) [0x00033] in <9577ac7a62ef43179789031239ba8798>:0 
+  at System.IO.StreamReader..ctor (System.String path, System.Text.Encoding encoding, System.Boolean detectEncodingFromByteOrderMarks, System.Int32 bufferSize) [0x00000] in <9577ac7a62ef43179789031239ba8798>:0 
+  at System.IO.StreamReader..ctor (System.String path, System.Boolean detectEncodingFromByteOrderMarks) [0x0000d] in <9577ac7a62ef43179789031239ba8798>:0 
+  at System.IO.StreamReader..ctor (System.String path) [0x00000] in <9577ac7a62ef43179789031239ba8798>:0 
+  at (wrapper remoting-invoke-with-check) System.IO.StreamReader..ctor(string)
+  at InControl.UnityProfileListGenerator.GetFileContents (System.String fileName) [0x00001] in C:\Projects\WeAreTheLast\code_unity\We Are The Last\Assets\InControl\Editor\UnityProfileListGenerator.cs:75 
+  at InControl.UnityProfileListGenerator.PutFileContents (System.String filePath, System.String content) [0x00001] in C:\Projects\WeAreTheLast\code_unity\We Are The Last\Assets\InControl\Editor\UnityProfileListGenerator.cs:84 
+  at InControl.UnityProfileListGenerator.DiscoverProfiles () [0x00115] in C:\Projects\WeAreTheLast\code_unity\We Are The Last\Assets\InControl\Editor\UnityProfileListGenerator.cs:66 
+  at InControl.UnityProfileListGenerator..cctor () [0x0000e] in C:\Projects\WeAreTheLast\code_unity\We Are The Last\Assets\InControl\Editor\UnityProfileListGenerator.cs:19 
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:LogError (object)
+UnityEditor.EditorAssemblies:ProcessInitializeOnLoadAttributes (System.Type[])
+
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.560 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.58 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2432 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 117.3 MB.
+System memory in use after: 117.5 MB.
+
+Unloading 35 unused Assets to reduce memory usage. Loaded Objects now: 2916.
+Total: 19.782000 ms (FindLiveObjects: 0.314000 ms CreateObjectMapping: 0.114500 ms MarkObjects: 19.201400 ms  DeleteObjects: 0.149200 ms)
+
