@@ -1,3 +1,6 @@
+code_unity/We Are The Last/Temp/
+code_unity/We Are The Last/Library/
+code_unity/We Are The Last/Logs/
 
 # Visual Studio 2015 cache directory
 #code_unity/WeAreTheLast/.vs/
@@ -28,6 +31,3 @@ sysinfo.txt
 *.unitypackage
 
 .DS_Store
-code_unity/WeAreTheLast/Library/
-code_unity/We Are The Last/Temp/
-code_unity/We Are The Last/Logs/
