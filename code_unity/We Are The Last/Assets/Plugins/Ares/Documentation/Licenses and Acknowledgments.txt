@@ -1,18 +1,0 @@
-Sound effects:
-    ·RPG Sound Pack (CC0) by Ben ("artisticdude"):
-      https://opengameart.org/content/rpg-sound-pack
-
-    ·3 Hoar's thunders (CC0) by mangiabambini:
-      https://freesound.org/people/mangiabambini/sounds/169083/
-
-    ·Misc. sound effects (CC0) and editing by Kasper den Ouden
-      https://www.linkedin.com/in/kasper-den-ouden-5b8b1384/ 
-
-Models:
-    ·Athena and Ares created from Sintel Lite (CC BY 3.0) by Ben Dansie:
-      https://www.blendswap.com/blends/view/7093
-
-
-Miscellaneous:
-    ·Promo art chain icon (Flaticon Basic License) by Vectors Market from www.flaticon.com:
-      https://www.flaticon.com/free-icon/link_321834
