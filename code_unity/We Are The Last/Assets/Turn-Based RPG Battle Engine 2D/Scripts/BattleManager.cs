@@ -665,7 +665,7 @@ public class BattleManager : MonoBehaviour
 
               //Getting text object
               Text txt = outcomeScreen.transform.GetChild(0).gameObject.GetComponent<Text>();
-              txt.text = "Team " + victor.ToString() + " wins!";
+              txt.text = "Team " + victor.ToString() + " wins!" + " Try again, enjoy multiple realities of shit outcomes. There are so many universes where you screwed up even more, such a joy to watch when I have my morning shit. ";
 
               //Displaying outcome
               outcomeScreen.SetActive(true);
