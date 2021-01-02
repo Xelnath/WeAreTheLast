@@ -3165,6 +3165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4227fc92ece228540baa2fbabe2ef3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  database: {fileID: 11400000, guid: 30091eb6b9cf7d44e997ea0d3a28746b, type: 2}
   characters:
   - name: Therapist
     id: 0

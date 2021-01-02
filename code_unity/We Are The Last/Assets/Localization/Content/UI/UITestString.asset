@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52ec5b897fa222248a450e05401d0f60, type: 3}
+  m_Name: UITestString
+  m_EditorClassIdentifier: 
+  Guid: e9135ffc-2375-4c81-ad15-e66454567557
+  connectionData: {fileID: 11400000, guid: 14beba0a4b67dfb4989fe03cac9cc00d, type: 2}
+  SheetName: UI
+  MetaDataLocal:
+    ID: UITestString
+    ChangeToID: 
+    Version: 16
+    Timestamp: 2019-10-26 04:56:17Z
+    LineDirections: Phalanx is rushing into the citadel.
+    Emotion: 0
+    RecordingLine: What... (huff) is... the... meaning... of this...?
+    Tags: a,b,c,d
+    Character: Phalanx
+    SoundFile: 
+    Screenshot: 
+  MetaDataRemote:
+    ID: UITestString
+    ChangeToID: 
+    Version: 15
+    Timestamp: 
+    LineDirections: Phalanx is rushing into the citadel.
+    Emotion: 0
+    RecordingLine: What... (huff) is... the... meaning... of this...?
+    Tags: a,b,c,d
+    Character: Phalanx
+    SoundFile: 
+    Screenshot: 
+  LastRefresh: 2019-10-26 04:56:17Z
+  Local:
+    English: What... is... the... meaning... of this...?!!! Modified
+    French: 
+    Italian: 
+    German: 
+    Spanish: 
+    Japanese: 
+    Portugese: 
+    ChineseStandard: 
+    Russian: 
+  Remote:
+    English: What... is... the... meaning... of this...?!!!
+    French: 
+    Italian: 
+    German: 
+    Spanish: 
+    Japanese: 
+    Portugese: 
+    ChineseStandard: 
+    Russian: 

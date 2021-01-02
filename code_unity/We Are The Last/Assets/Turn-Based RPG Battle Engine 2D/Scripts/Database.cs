@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ClassDB;
+using Sirenix.OdinInspector;
 
 public class Database : MonoBehaviour {
 
-	public static Database core;
+	public static DatabaseScriptableObject core;
 
+	public DatabaseScriptableObject database;
+	
 	//A list of all in-game characters
 	public List<character> characters = new List<character>();
 
@@ -19,8 +22,21 @@ public class Database : MonoBehaviour {
 	//Used by "EditorDatabase.cs" to determine which tab is currently selected
 	[HideInInspector] public int tab;
 
-	void Awake () { if (core == null) { core = this; } }
+	void Awake () { if (core == null) { core = database; } }
 
+	[ShowInInspector]
+	void CreateAsset()
+	{
+		DatabaseScriptableObject dso = ScriptableObject.CreateInstance<DatabaseScriptableObject>();
+
+		dso.characters = characters;
+		dso.items = items;
+		dso.skills = skills;
+		
+		ScriptableObjectUtils.CreateAsset( dso, "database" );
+
+		database = dso;
+	}
 }
 
 

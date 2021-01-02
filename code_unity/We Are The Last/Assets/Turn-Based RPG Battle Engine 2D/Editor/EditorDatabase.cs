@@ -7,7 +7,7 @@ using ClassDB;
 
 //This script is responsible for the visual appearance of the Database script in the inspector.
 
-[CustomEditor(typeof(Database))]
+//[CustomEditor(typeof(Database))]
 public class EditorDatabase : Editor
 {
 
