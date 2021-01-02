@@ -11,15 +11,15 @@ public class FunctionDB : MonoBehaviour {
 
 	//The following functions are used to find certain element indexes in specified lists by given criteria
 	public int findCharacterIndexById (int seekId) {
-		return DatabaseScriptableObject.core.characters.FindIndex(x => x.id == seekId);
+		return Database.core.characters.FindIndex(x => x.id == seekId);
 	}
 
 	public int findSkillIndexById (int seekId) {
-		return DatabaseScriptableObject.core.skills.FindIndex(x => x.id == seekId);
+		return Database.core.skills.FindIndex(x => x.id == seekId);
 	}
 
 	public int findItemIndexById (int seekId) {
-		return DatabaseScriptableObject.core.items.FindIndex(x => x.id == seekId);
+		return Database.core.items.FindIndex(x => x.id == seekId);
 	}
 
 	public int findAttributeIndexById (int seekId, character c) {
@@ -136,7 +136,7 @@ public class FunctionDB : MonoBehaviour {
 	public int activeCharacter (List<int> l, int startingIndex, int inc) {
 
 		for (int e = startingIndex + inc; e < l.Count; e++) {
-			if (DatabaseScriptableObject.core.characters[FunctionDB.core.findCharacterIndexById(l[e])].isActive) {
+			if (Database.core.characters[FunctionDB.core.findCharacterIndexById(l[e])].isActive) {
 				return e;
 			}
 		}
