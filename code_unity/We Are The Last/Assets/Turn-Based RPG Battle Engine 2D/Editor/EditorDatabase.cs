@@ -34,7 +34,15 @@ public class EditorDatabase : Editor
   {
 
     me = (Database)target;
-    myTarget = me.database;
+    if ( !Application.isPlaying )
+    {
+      myTarget = me.database;
+    }
+    else
+    {
+      myTarget = Database.dynamic;
+    }
+
     soTarget = new SerializedObject(myTarget);
 
     class1 = soTarget.FindProperty("items");
