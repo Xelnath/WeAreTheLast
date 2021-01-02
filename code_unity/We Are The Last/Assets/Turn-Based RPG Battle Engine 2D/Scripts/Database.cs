@@ -1,25 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using ClassDB;
+using Sirenix.OdinInspector;
 
+[Guid("0A9B4ADA-B1D7-4857-B633-C100308C4D83")]
 public class Database : MonoBehaviour {
 
-	public static Database core;
+	public static DatabaseScriptableObject staticDB;
 
-	//A list of all in-game characters
-	public List<character> characters = new List<character>();
+	public DatabaseScriptableObject database;
 
-	//A list of all in-game items
-	public List<item> items = new List<item>();
+	public static DatabaseScriptableObject dynamic;
 
-	//A list of all in-game skills
-	public List<skill> skills = new List<skill>();
-
-	//Used by "EditorDatabase.cs" to determine which tab is currently selected
-	[HideInInspector] public int tab;
-
-	void Awake () { if (core == null) { core = this; } }
+	void Awake () { 
+		if (dynamic == null) {
+			staticDB = database;
+			dynamic = ScriptableObject.CreateInstance<DatabaseScriptableObject>();
+			dynamic.Copy( staticDB );
+		} 
+	}
 
 }
 

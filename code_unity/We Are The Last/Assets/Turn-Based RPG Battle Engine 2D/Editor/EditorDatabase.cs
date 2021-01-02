@@ -13,7 +13,8 @@ public class EditorDatabase : Editor
 
   private static SerializedObject soTarget;
 
-  private static Database myTarget;
+  private static DatabaseScriptableObject myTarget;
+  private static Database me;
 
   private string toolBarStr;
 
@@ -32,8 +33,17 @@ public class EditorDatabase : Editor
   private void OnEnable()
   {
 
-    myTarget = (Database)target;
-    soTarget = new SerializedObject(target);
+    me = (Database)target;
+    if ( !Application.isPlaying )
+    {
+      myTarget = me.database;
+    }
+    else
+    {
+      myTarget = Database.dynamic;
+    }
+
+    soTarget = new SerializedObject(myTarget);
 
     class1 = soTarget.FindProperty("items");
     class2 = soTarget.FindProperty("skills");

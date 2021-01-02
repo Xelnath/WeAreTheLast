@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Examples/[Demo] Battle For Asclepius/Battle For Asclepius.unity
-    guid: 1eee07087b8b14dfeb4c444c9010876b
+    path: Assets/Scenes/ArtTest.unity
+    guid: 150a59c1632528a4389de4c37dbeefed
   m_configObjects: {}

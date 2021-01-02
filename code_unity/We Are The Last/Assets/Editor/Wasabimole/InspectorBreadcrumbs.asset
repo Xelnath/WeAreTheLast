@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b1d283b8bb753941a0e3aefd4cea2f6, type: 3}
+  m_Name: InspectorBreadcrumbs
+  m_EditorClassIdentifier: 
+  DataVersion: 123
+  CurrentSelection:
+    OReference: {fileID: 0}
+    OType: 2
+    CPosition: {x: 7.4185486, y: -0.5532228, z: 2.2798595}
+    CRotation: {x: 0, y: 0, z: 0, w: 1}
+    CSize: 10
+    COrtho: 1
+  Back:
+  - OReference: {fileID: 102900000, guid: c6ddb026f52db9b40b8a0d739770b247, type: 3}
+    OType: 3
+    CPosition: {x: 7.4185486, y: -0.5532228, z: 2.2798595}
+    CRotation: {x: 0, y: 0, z: 0, w: 1}
+    CSize: 10
+    COrtho: 1
+  - OReference: {fileID: 11400000, guid: 4bfb11a770ccb41488f919ae0c39a6af, type: 2}
+    OType: 1
+    CPosition: {x: 7.4185486, y: -0.5532228, z: 2.2798595}
+    CRotation: {x: 0, y: 0, z: 0, w: 1}
+    CSize: 10
+    COrtho: 1
+  - OReference: {fileID: 102900000, guid: 1bff08b605b61d04f8a11e798c29315a, type: 3}
+    OType: 3
+    CPosition: {x: 7.4185486, y: -0.5532228, z: 2.2798595}
+    CRotation: {x: 0, y: 0, z: 0, w: 1}
+    CSize: 10
+    COrtho: 1
+  - OReference: {fileID: 102900000, guid: 309cbdaa271be0944b352b9c4c873dec, type: 3}
+    OType: 3
+    CPosition: {x: 7.4185486, y: -0.5532228, z: 2.2798595}
+    CRotation: {x: 0, y: 0, z: 0, w: 1}
+    CSize: 10
+    COrtho: 1
+  - OReference: {fileID: 102900000, guid: d7448dac61ca2744281b8f2b15201ebf, type: 3}
+    OType: 3
+    CPosition: {x: 7.4185486, y: -0.5532228, z: 2.2798595}
+    CRotation: {x: 0, y: 0, z: 0, w: 1}
+    CSize: 10
+    COrtho: 1
+  - OReference: {fileID: 11400000, guid: 30091eb6b9cf7d44e997ea0d3a28746b, type: 2}
+    OType: 1
+    CPosition: {x: 7.4185486, y: -0.5532228, z: 2.2798595}
+    CRotation: {x: 0, y: 0, z: 0, w: 1}
+    CSize: 10
+    COrtho: 1
+  - OReference: {fileID: 11400000, guid: 4bfb11a770ccb41488f919ae0c39a6af, type: 2}
+    OType: 1
+    CPosition: {x: 7.4185486, y: -0.5532228, z: 2.2798595}
+    CRotation: {x: 0, y: 0, z: 0, w: 1}
+    CSize: 10
+    COrtho: 1
+  - OReference: {fileID: 102900000, guid: c6ddb026f52db9b40b8a0d739770b247, type: 3}
+    OType: 3
+    CPosition: {x: 7.4185486, y: -0.5532228, z: 2.2798595}
+    CRotation: {x: 0, y: 0, z: 0, w: 1}
+    CSize: 10
+    COrtho: 1
+  - OReference: {fileID: 11400000, guid: 30091eb6b9cf7d44e997ea0d3a28746b, type: 2}
+    OType: 1
+    CPosition: {x: 7.4185486, y: -0.5532228, z: 2.2798595}
+    CRotation: {x: 0, y: 0, z: 0, w: 1}
+    CSize: 10
+    COrtho: 1
+  - OReference: {fileID: 0}
+    OType: 2
+    CPosition: {x: 7.4185486, y: -0.5532228, z: 2.2798595}
+    CRotation: {x: 0, y: 0, z: 0, w: 1}
+    CSize: 10
+    COrtho: 1
+  Forward: []

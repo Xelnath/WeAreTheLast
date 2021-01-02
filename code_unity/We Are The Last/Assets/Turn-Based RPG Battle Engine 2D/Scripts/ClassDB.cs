@@ -68,7 +68,22 @@ namespace ClassDB {
 
 		//Is the character active
 		public bool isActive;
-		
+
+		public void Copy( character toCopy )
+		{
+			name = toCopy.name;
+			id = toCopy.id;
+			description = toCopy.description;
+			icon = toCopy.icon;
+			animationController = toCopy.animationController;
+			aiFunctions = toCopy.aiFunctions;
+			isActive = toCopy.isActive;
+
+			skills = toCopy.skills.DeepClone();
+			items = toCopy.items.DeepClone();
+			characterAttributes = toCopy.characterAttributes.DeepClone();
+			aiFunctions = toCopy.aiFunctions.DeepClone();
+		}
 	}
 
 	[System.Serializable]

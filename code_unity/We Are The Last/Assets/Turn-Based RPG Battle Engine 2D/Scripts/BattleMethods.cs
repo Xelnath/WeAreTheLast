@@ -18,14 +18,14 @@ public class BattleMethods : MonoBehaviour
   {
 
     //Getting character
-    var character = Database.core.characters[FunctionDB.core.findCharacterIndexById(BattleManager.core.activeCharacterId)];
+    var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(BattleManager.core.activeCharacterId)];
     //Getting skills
     var skillIds = character.skills;
 
     foreach (int skillId in skillIds)
     {
 
-      var skill = Database.core.skills[FunctionDB.core.findSkillIndexById(skillId)];
+      var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(skillId)];
       //Getting functions to call
       var functionsToCall = skill.functionsToCall;
 
@@ -56,11 +56,11 @@ public class BattleMethods : MonoBehaviour
 
       if (actionType == 0)
       {
-        requiredTp = Database.core.skills[FunctionDB.core.findSkillIndexById(actionId)].turnPointCost;
+        requiredTp = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(actionId)].turnPointCost;
       }
       else if (actionType == 1)
       {
-        requiredTp = Database.core.items[FunctionDB.core.findItemIndexById(actionId)].turnPointCost;
+        requiredTp = Database.dynamic.items[FunctionDB.core.findItemIndexById(actionId)].turnPointCost;
       }
       else
       {
@@ -121,7 +121,7 @@ public class BattleMethods : MonoBehaviour
         //Id
         var charId = targets[i];
         //Getting character's health
-        var character = Database.core.characters[FunctionDB.core.findCharacterIndexById(charId)];
+        var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
 
         //If health is 0, exclude character
         if (!character.isActive)
@@ -290,7 +290,7 @@ public class BattleMethods : MonoBehaviour
       var activeCharId = BattleManager.core.activeCharacterId;
 
       //Getting character
-      character character = Database.core.characters[FunctionDB.core.findCharacterIndexById(activeCharId)];
+      character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(activeCharId)];
 
       //Getting attribute
       characterAttribute attribute = character.characterAttributes[FunctionDB.core.findAttributeIndexById(attrId, character)];
@@ -311,7 +311,7 @@ public class BattleMethods : MonoBehaviour
       {
 
         //Getting character
-        character character = Database.core.characters[FunctionDB.core.findCharacterIndexById(target)];
+        character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(target)];
 
         //Getting attribute
         characterAttribute attribute = character.characterAttributes[FunctionDB.core.findAttributeIndexById(attrId, character)];
@@ -372,7 +372,7 @@ public class BattleMethods : MonoBehaviour
       FunctionDB.core.StartCoroutine(FunctionDB.core.displayValue(FunctionDB.core.findCharInstanceById(activeCharId), v, 0, 0.3f));
 
       //Getting character
-      character character = Database.core.characters[FunctionDB.core.findCharacterIndexById(activeCharId)];
+      character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(activeCharId)];
       //Getting attribute
       characterAttribute attribute = character.characterAttributes[FunctionDB.core.findAttributeIndexById(attrId, character)];
 
@@ -392,7 +392,7 @@ public class BattleMethods : MonoBehaviour
         FunctionDB.core.StartCoroutine(FunctionDB.core.displayValue(FunctionDB.core.findCharInstanceById(target), v, 0, 0.3f));
 
         //Getting character
-        character character = Database.core.characters[FunctionDB.core.findCharacterIndexById(target)];
+        character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(target)];
 
         //Making sure that the specific target has that attribute
         if (FunctionDB.core.findAttributeIndexById(attrId, character) > -1)
@@ -423,7 +423,7 @@ public class BattleMethods : MonoBehaviour
     //Character id
     var characterId = charId > -1 ? charId : BattleManager.core.activeCharacterId;
     //Getting character
-    character c = Database.core.characters[FunctionDB.core.findCharacterIndexById(characterId)];
+    character c = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(characterId)];
     //Getting item
     var itemIndex = FunctionDB.core.findItemIndexById(itemId);
 

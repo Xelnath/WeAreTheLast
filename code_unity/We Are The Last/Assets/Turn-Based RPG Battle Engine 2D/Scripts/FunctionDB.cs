@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ClassDB;
+using TMPro;
 using UnityEngine.UI;
 
 //This script contains functions used across multiple scripts
@@ -11,15 +12,15 @@ public class FunctionDB : MonoBehaviour {
 
 	//The following functions are used to find certain element indexes in specified lists by given criteria
 	public int findCharacterIndexById (int seekId) {
-		return Database.core.characters.FindIndex(x => x.id == seekId);
+		return Database.dynamic.characters.FindIndex(x => x.id == seekId);
 	}
 
 	public int findSkillIndexById (int seekId) {
-		return Database.core.skills.FindIndex(x => x.id == seekId);
+		return Database.dynamic.skills.FindIndex(x => x.id == seekId);
 	}
 
 	public int findItemIndexById (int seekId) {
-		return Database.core.items.FindIndex(x => x.id == seekId);
+		return Database.dynamic.items.FindIndex(x => x.id == seekId);
 	}
 
 	public int findAttributeIndexById (int seekId, character c) {
@@ -136,7 +137,7 @@ public class FunctionDB : MonoBehaviour {
 	public int activeCharacter (List<int> l, int startingIndex, int inc) {
 
 		for (int e = startingIndex + inc; e < l.Count; e++) {
-			if (Database.core.characters[FunctionDB.core.findCharacterIndexById(l[e])].isActive) {
+			if (Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(l[e])].isActive) {
 				return e;
 			}
 		}
@@ -312,7 +313,7 @@ public class FunctionDB : MonoBehaviour {
 		GameObject g = Instantiate (ObjectDB.core.battleUIValuePrefab, newCoordinates, Quaternion.identity, body.transform);
 
 		//Setting text
-		g.GetComponent<Text>().text = value.ToString();
+		g.GetComponent<TextMeshProUGUI>().text = value.ToString();
 
 		//Making value follow target
 		StartCoroutine(follow (g, target, xAdjustment, yAdjustment));

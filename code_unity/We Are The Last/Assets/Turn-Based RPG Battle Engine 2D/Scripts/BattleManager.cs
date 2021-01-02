@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using ClassDB;
+using TMPro;
 
 public class BattleManager : MonoBehaviour
 {
@@ -365,7 +366,7 @@ public class BattleManager : MonoBehaviour
   {
 
     //Getting current character
-    var curChar = Database.core.characters[FunctionDB.core.findCharacterIndexById(activeCharacterId)];
+    var curChar = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(activeCharacterId)];
 
     //Getting functions to call
     var functionsToCall = curChar.aiFunctions;
@@ -403,7 +404,7 @@ public class BattleManager : MonoBehaviour
   {
 
     GameObject actionCostObject = ObjectDB.core.actionCostObject;
-    Text acoText = actionCostObject.transform.GetChild(0).gameObject.GetComponent<Text>();
+    TextMeshProUGUI acoText = actionCostObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
 
     while (true)
     {
@@ -414,7 +415,7 @@ public class BattleManager : MonoBehaviour
         if (a.actionObject == EventSystem.current.currentSelectedGameObject)
         {
 
-          ObjectDB.core.battleUIActionDescriptionObject.GetComponent<Text>().text = a.description;
+          ObjectDB.core.battleUIActionDescriptionObject.GetComponent<TextMeshProUGUI>().text = a.description;
 
           if (a.turnPointCost != -1)
           {
@@ -439,7 +440,7 @@ public class BattleManager : MonoBehaviour
   IEnumerator actionTargetDisplayManager()
   {
     GameObject actionTargetsObject = ObjectDB.core.actionTargetsObject;
-    Text t = actionTargetsObject.transform.GetChild(0).gameObject.GetComponent<Text>();
+    TextMeshProUGUI t = actionTargetsObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
 
     while (true)
     {
@@ -536,7 +537,7 @@ public class BattleManager : MonoBehaviour
         var charId = info.characterId;
 
         //Getting currently active character
-        var activeCharacter = Database.core.characters[FunctionDB.core.findCharacterIndexById(charId)];
+        var activeCharacter = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
         //Getting attribute in question
         var charAttribute = activeCharacter.characterAttributes[FunctionDB.core.findAttributeIndexById(0, activeCharacter)];
 
@@ -547,7 +548,7 @@ public class BattleManager : MonoBehaviour
         if (curValue == 0)
         {
 
-          Database.core.characters[FunctionDB.core.findCharacterIndexById(charId)].isActive = false;
+          Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)].isActive = false;
           FunctionDB.core.setAnimation(charId, "death");
 
           //If the character in question is the active character, skip to the next character
@@ -560,7 +561,7 @@ public class BattleManager : MonoBehaviour
         else
         {
           //Marking character as active
-          Database.core.characters[FunctionDB.core.findCharacterIndexById(charId)].isActive = true;
+          Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)].isActive = true;
 
           //Is the death animation playing ?
           if (FunctionDB.core.checkAnimation(charId, "death"))
@@ -583,7 +584,7 @@ public class BattleManager : MonoBehaviour
   {
 
     //Getting character by id
-    character character = Database.core.characters[FunctionDB.core.findCharacterIndexById(charId)];
+    character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
     //Getting character instance by id
     GameObject characterInstance = FunctionDB.core.findCharInstanceById(charId);
     //Getting attribute index
@@ -618,7 +619,7 @@ public class BattleManager : MonoBehaviour
 
       //Updating text
       characterAttribute attr = character.characterAttributes[charAttrIndx];
-      t.GetComponent<Text>().text = attr.curValue.ToString() + "/" + attr.maxValue.ToString();
+      t.GetComponent<TextMeshProUGUI>().text = attr.curValue.ToString() + "/" + attr.maxValue.ToString();
       yield return new WaitForEndOfFrame();
     }
 
@@ -646,8 +647,8 @@ public class BattleManager : MonoBehaviour
           {
 
             //Getting player and enemy team count
-            int playerCount = activePlayerTeam.Where(x => Database.core.characters[FunctionDB.core.findCharacterIndexById(x)].isActive).ToArray().Count();
-            int enemyCount = activeEnemyTeam.Where(x => Database.core.characters[FunctionDB.core.findCharacterIndexById(x)].isActive).ToArray().Count();
+            int playerCount = activePlayerTeam.Where(x => Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(x)].isActive).ToArray().Count();
+            int enemyCount = activeEnemyTeam.Where(x => Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(x)].isActive).ToArray().Count();
 
             //Since there are only 2 teams, a value above 1 means a third loop.
             //This means that something went wrong (and one of the teams probably won).
@@ -766,7 +767,7 @@ public class BattleManager : MonoBehaviour
     //Updating label
     while (true)
     {
-      child.GetComponent<Text>().text = turnPoints.ToString() + " / " + maxTurnPoints.ToString();
+      child.GetComponent<TextMeshProUGUI>().text = turnPoints.ToString() + " / " + maxTurnPoints.ToString();
       yield return new WaitForEndOfFrame();
     }
   }
@@ -803,7 +804,7 @@ public class BattleManager : MonoBehaviour
         {
 
           //Getting character
-          var character = Database.core.characters[FunctionDB.core.findCharacterIndexById(info.characterId)];
+          var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(info.characterId)];
 
           //Attributes list
           List<characterAttribute> attributes = character.characterAttributes;
@@ -833,8 +834,8 @@ public class BattleManager : MonoBehaviour
           //Setting attributes
           if (attributes.Count >= 2)
           {
-            attributeSlot1.GetComponent<Text>().text = attributes[0].name + " " + attributes[0].curValue.ToString() + " / " + attributes[0].maxValue.ToString();
-            attributeSlot2.GetComponent<Text>().text = attributes[1].name + " " + attributes[1].curValue.ToString() + " / " + attributes[1].maxValue.ToString();
+            attributeSlot1.GetComponent<TextMeshProUGUI>().text = attributes[0].name + " " + attributes[0].curValue.ToString() + " / " + attributes[0].maxValue.ToString();
+            attributeSlot2.GetComponent<TextMeshProUGUI>().text = attributes[1].name + " " + attributes[1].curValue.ToString() + " / " + attributes[1].maxValue.ToString();
           }
           else
           {
@@ -860,7 +861,7 @@ public class BattleManager : MonoBehaviour
     Transform warningChild = warningObject.transform.GetChild(0);
 
     //setting text
-    warningChild.gameObject.GetComponent<Text>().text = warning;
+    warningChild.gameObject.GetComponent<TextMeshProUGUI>().text = warning;
 
     //displaying object
     warningObject.SetActive(true);
@@ -897,7 +898,7 @@ public class BattleManager : MonoBehaviour
     //Get button gameObject
     GameObject autoButtonObject = ObjectDB.core.autoBattleButtonObject;
     //Getting text
-    Text autoText = autoButtonObject.transform.GetChild(0).gameObject.GetComponent<Text>();
+    TextMeshProUGUI autoText = autoButtonObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
 
     if (autoBattle)
     {

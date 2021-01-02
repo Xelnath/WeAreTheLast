@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.EventSystems;
 using ClassDB;
+using TMPro;
 
 //This script generates various lists
 public class BattleGen : MonoBehaviour
@@ -63,7 +64,7 @@ public class BattleGen : MonoBehaviour
       }
 
       //Setting button text
-      g.transform.GetChild(0).gameObject.GetComponent<Text>().text = ai.name;
+      g.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = ai.name;
 
       //Adding element to current action list
       curActionInfo cai = new curActionInfo();
@@ -102,7 +103,7 @@ public class BattleGen : MonoBehaviour
     {
 
       //Getting character
-      var character = Database.core.characters[FunctionDB.core.findCharacterIndexById(charId)];
+      var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
 
       //Getting animation controller
       var controller = character.animationController;
@@ -155,15 +156,15 @@ public class BattleGen : MonoBehaviour
           iconObject.GetComponent<Image>().sprite = character.icon;
 
           //Name
-          nameObject.GetComponent<Text>().text = character.name;
+          nameObject.GetComponent<TextMeshProUGUI>().text = character.name;
 
           //Attribute1
           var attributes = character.characterAttributes;
 
           if (attributes.Count >= 2)
           {
-            attributeSlot1.GetComponent<Text>().text = attributes[0].name + " " + attributes[0].curValue.ToString() + " / " + attributes[0].maxValue.ToString();
-            attributeSlot2.GetComponent<Text>().text = attributes[1].name + " " + attributes[1].curValue.ToString() + " / " + attributes[1].maxValue.ToString();
+            attributeSlot1.GetComponent<TextMeshProUGUI>().text = attributes[0].name + " " + attributes[0].curValue.ToString() + " / " + attributes[0].maxValue.ToString();
+            attributeSlot2.GetComponent<TextMeshProUGUI>().text = attributes[1].name + " " + attributes[1].curValue.ToString() + " / " + attributes[1].maxValue.ToString();
           }
           else
           {
@@ -192,7 +193,7 @@ public class BattleGen : MonoBehaviour
 
     //Getting skill list
     var charIndex = FunctionDB.core.findCharacterIndexById(characterId);
-    var character = Database.core.characters[charIndex];
+    var character = Database.dynamic.characters[charIndex];
     var skillList = character.skills;
 
     //Used to set focus on the first element instantiated
@@ -206,7 +207,7 @@ public class BattleGen : MonoBehaviour
 
       //Getting skill data
       var skillIndex = FunctionDB.core.findSkillIndexById(s);
-      var skill = Database.core.skills[skillIndex];
+      var skill = Database.dynamic.skills[skillIndex];
 
       if (skill.unlocked)
       {
@@ -217,7 +218,7 @@ public class BattleGen : MonoBehaviour
         GameObject t = Instantiate(optionPrefab, actionsWindow.transform);
 
         //Set skill text
-        t.transform.GetChild(0).gameObject.GetComponent<Text>().text = skill.name;
+        t.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = skill.name;
 
         //Getting button component
         Button b = t.GetComponent<Button>();
@@ -277,7 +278,7 @@ public class BattleGen : MonoBehaviour
 
     //Getting character
     var charIndex = FunctionDB.core.findCharacterIndexById(characterId);
-    var character = Database.core.characters[charIndex];
+    var character = Database.dynamic.characters[charIndex];
 
     //Used for setting focus
     bool focusSet = false;
@@ -300,7 +301,7 @@ public class BattleGen : MonoBehaviour
 
         //Getting item
         var itemIndex = FunctionDB.core.findItemIndexById(itemId);
-        var item = Database.core.items[itemIndex];
+        var item = Database.dynamic.items[itemIndex];
 
         //functions to call list
         var functionsToCall = item.functionsToCall;
@@ -309,7 +310,7 @@ public class BattleGen : MonoBehaviour
         GameObject t = Instantiate(optionPrefab, actionsWindow.transform);
 
         //Setting item text
-        t.transform.GetChild(0).gameObject.GetComponent<Text>().text = item.name;
+        t.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = item.name;
 
         //Getting button component
         Button b = t.GetComponent<Button>();
@@ -390,7 +391,7 @@ public class BattleGen : MonoBehaviour
     for (int i = 0; i < toGen.Count; i++)
     {
       //Getting character
-      var character = Database.core.characters[FunctionDB.core.findCharacterIndexById(toGen[i])];
+      var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(toGen[i])];
 
       //If the character is not active, remove from list
       if (!character.isActive)
@@ -410,13 +411,13 @@ public class BattleGen : MonoBehaviour
 
       //Getting character
       var charIndex = FunctionDB.core.findCharacterIndexById(charId);
-      var character = Database.core.characters[charIndex];
+      var character = Database.dynamic.characters[charIndex];
 
       //Spawning option
       GameObject t = Instantiate(optionPrefab, actionsWindow.transform);
 
       //Setting char name
-      t.transform.GetChild(0).gameObject.GetComponent<Text>().text = character.name;
+      t.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = character.name;
 
       //Setting focus
       if (!focusSet)
@@ -466,7 +467,7 @@ public class BattleGen : MonoBehaviour
 
     //Instatiating back button
     GameObject backButtonObject = Instantiate(optionPrefab, actionsWindow.transform);
-    backButtonObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = "Finish selection";
+    backButtonObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "Finish selection";
 
     //Getting Button
     Button backButton = backButtonObject.GetComponent<Button>();
@@ -499,7 +500,7 @@ public class BattleGen : MonoBehaviour
 
     //Instatiating back button
     GameObject backButtonObject = Instantiate(optionPrefab, actionsWindow.transform);
-    backButtonObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = "Back";
+    backButtonObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "Back";
 
     //Getting Button
     Button backButton = backButtonObject.GetComponent<Button>();
