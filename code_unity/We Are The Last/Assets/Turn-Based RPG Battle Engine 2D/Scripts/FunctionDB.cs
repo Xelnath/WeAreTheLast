@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ClassDB;
+using TMPro;
 using UnityEngine.UI;
 
 //This script contains functions used across multiple scripts
@@ -312,7 +313,7 @@ public class FunctionDB : MonoBehaviour {
 		GameObject g = Instantiate (ObjectDB.core.battleUIValuePrefab, newCoordinates, Quaternion.identity, body.transform);
 
 		//Setting text
-		g.GetComponent<Text>().text = value.ToString();
+		g.GetComponent<TextMeshProUGUI>().text = value.ToString();
 
 		//Making value follow target
 		StartCoroutine(follow (g, target, xAdjustment, yAdjustment));
