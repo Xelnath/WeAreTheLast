@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using ClassDB;
+using TMPro;
 
 public class BattleManager : MonoBehaviour
 {
@@ -403,7 +404,7 @@ public class BattleManager : MonoBehaviour
   {
 
     GameObject actionCostObject = ObjectDB.core.actionCostObject;
-    Text acoText = actionCostObject.transform.GetChild(0).gameObject.GetComponent<Text>();
+    TextMeshProUGUI acoText = actionCostObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
 
     while (true)
     {
@@ -414,7 +415,7 @@ public class BattleManager : MonoBehaviour
         if (a.actionObject == EventSystem.current.currentSelectedGameObject)
         {
 
-          ObjectDB.core.battleUIActionDescriptionObject.GetComponent<Text>().text = a.description;
+          ObjectDB.core.battleUIActionDescriptionObject.GetComponent<TextMeshProUGUI>().text = a.description;
 
           if (a.turnPointCost != -1)
           {
@@ -439,7 +440,7 @@ public class BattleManager : MonoBehaviour
   IEnumerator actionTargetDisplayManager()
   {
     GameObject actionTargetsObject = ObjectDB.core.actionTargetsObject;
-    Text t = actionTargetsObject.transform.GetChild(0).gameObject.GetComponent<Text>();
+    TextMeshProUGUI t = actionTargetsObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
 
     while (true)
     {
@@ -618,7 +619,7 @@ public class BattleManager : MonoBehaviour
 
       //Updating text
       characterAttribute attr = character.characterAttributes[charAttrIndx];
-      t.GetComponent<Text>().text = attr.curValue.ToString() + "/" + attr.maxValue.ToString();
+      t.GetComponent<TextMeshProUGUI>().text = attr.curValue.ToString() + "/" + attr.maxValue.ToString();
       yield return new WaitForEndOfFrame();
     }
 
@@ -766,7 +767,7 @@ public class BattleManager : MonoBehaviour
     //Updating label
     while (true)
     {
-      child.GetComponent<Text>().text = turnPoints.ToString() + " / " + maxTurnPoints.ToString();
+      child.GetComponent<TextMeshProUGUI>().text = turnPoints.ToString() + " / " + maxTurnPoints.ToString();
       yield return new WaitForEndOfFrame();
     }
   }
@@ -833,8 +834,8 @@ public class BattleManager : MonoBehaviour
           //Setting attributes
           if (attributes.Count >= 2)
           {
-            attributeSlot1.GetComponent<Text>().text = attributes[0].name + " " + attributes[0].curValue.ToString() + " / " + attributes[0].maxValue.ToString();
-            attributeSlot2.GetComponent<Text>().text = attributes[1].name + " " + attributes[1].curValue.ToString() + " / " + attributes[1].maxValue.ToString();
+            attributeSlot1.GetComponent<TextMeshProUGUI>().text = attributes[0].name + " " + attributes[0].curValue.ToString() + " / " + attributes[0].maxValue.ToString();
+            attributeSlot2.GetComponent<TextMeshProUGUI>().text = attributes[1].name + " " + attributes[1].curValue.ToString() + " / " + attributes[1].maxValue.ToString();
           }
           else
           {
@@ -860,7 +861,7 @@ public class BattleManager : MonoBehaviour
     Transform warningChild = warningObject.transform.GetChild(0);
 
     //setting text
-    warningChild.gameObject.GetComponent<Text>().text = warning;
+    warningChild.gameObject.GetComponent<TextMeshProUGUI>().text = warning;
 
     //displaying object
     warningObject.SetActive(true);
@@ -897,7 +898,7 @@ public class BattleManager : MonoBehaviour
     //Get button gameObject
     GameObject autoButtonObject = ObjectDB.core.autoBattleButtonObject;
     //Getting text
-    Text autoText = autoButtonObject.transform.GetChild(0).gameObject.GetComponent<Text>();
+    TextMeshProUGUI autoText = autoButtonObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
 
     if (autoBattle)
     {

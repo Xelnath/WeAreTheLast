@@ -27,7 +27,7 @@ MonoBehaviour:
     - name: HP
       id: 0
       maxValue: 100
-      curValue: 70
+      curValue: 0
     - name: MP
       id: 1
       maxValue: 100
@@ -37,8 +37,8 @@ MonoBehaviour:
       parametersArray: []
       waitForPreviousFunction: 0
       isCoroutine: 0
-      isRunning: 0
-    isActive: 1
+      isRunning: 1
+    isActive: 0
   - name: Model
     id: 1
     description: Psychopath
@@ -51,7 +51,7 @@ MonoBehaviour:
     - name: HP
       id: 0
       maxValue: 100
-      curValue: 40
+      curValue: 0
     - name: MP
       id: 1
       maxValue: 10
@@ -61,8 +61,8 @@ MonoBehaviour:
       parametersArray: []
       waitForPreviousFunction: 0
       isCoroutine: 0
-      isRunning: 0
-    isActive: 1
+      isRunning: 1
+    isActive: 0
   - name: Rockstar
     id: 2
     description: Presenter
@@ -75,7 +75,7 @@ MonoBehaviour:
     - name: HP
       id: 0
       maxValue: 100
-      curValue: 70
+      curValue: 0
     - name: MP
       id: 1
       maxValue: 10
@@ -85,8 +85,8 @@ MonoBehaviour:
       parametersArray: []
       waitForPreviousFunction: 0
       isCoroutine: 0
-      isRunning: 0
-    isActive: 1
+      isRunning: 1
+    isActive: 0
   - name: Character 4
     id: 3
     description: A guy named steve
@@ -99,7 +99,7 @@ MonoBehaviour:
     - name: HP
       id: 0
       maxValue: 100
-      curValue: 60
+      curValue: 10
     - name: MP
       id: 1
       maxValue: 10
@@ -123,7 +123,7 @@ MonoBehaviour:
     - name: HP
       id: 0
       maxValue: 100
-      curValue: 100
+      curValue: 50
     - name: MP
       id: 1
       maxValue: 10
@@ -147,7 +147,7 @@ MonoBehaviour:
     - name: HP
       id: 0
       maxValue: 100
-      curValue: 100
+      curValue: 70
     - name: MP
       id: 1
       maxValue: 10
@@ -349,4 +349,4 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-  tab: 0
+  tab: 1
