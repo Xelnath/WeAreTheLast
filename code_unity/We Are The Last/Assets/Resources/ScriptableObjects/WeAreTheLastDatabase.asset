@@ -27,7 +27,7 @@ MonoBehaviour:
     - name: HP
       id: 0
       maxValue: 100
-      curValue: 0
+      curValue: 100
     - name: MP
       id: 1
       maxValue: 100
@@ -51,7 +51,7 @@ MonoBehaviour:
     - name: HP
       id: 0
       maxValue: 100
-      curValue: 0
+      curValue: 100
     - name: MP
       id: 1
       maxValue: 10
@@ -75,7 +75,7 @@ MonoBehaviour:
     - name: HP
       id: 0
       maxValue: 100
-      curValue: 0
+      curValue: 100
     - name: MP
       id: 1
       maxValue: 10
@@ -349,4 +349,4 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-  tab: 1
+  tab: 2
