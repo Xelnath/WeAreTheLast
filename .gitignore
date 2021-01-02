@@ -31,3 +31,4 @@ sysinfo.txt
 *.unitypackage
 
 .DS_Store
+code_unity/We Are The Last/obj/
