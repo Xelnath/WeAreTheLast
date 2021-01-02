@@ -214,6 +214,13 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    - functionName: moveToTarget
+      parametersArray:
+      - float:2
+      - float:0.1
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
     - functionName: playAnimation
       parametersArray:
       - int:-1
@@ -265,6 +272,12 @@ MonoBehaviour:
       - string:walk
       waitForPreviousFunction: 1
       isCoroutine: 0
+      isRunning: 0
+    - functionName: moveBack
+      parametersArray:
+      - float:0.2
+      waitForPreviousFunction: 1
+      isCoroutine: 1
       isRunning: 0
     - functionName: rotateCharacter
       parametersArray:
