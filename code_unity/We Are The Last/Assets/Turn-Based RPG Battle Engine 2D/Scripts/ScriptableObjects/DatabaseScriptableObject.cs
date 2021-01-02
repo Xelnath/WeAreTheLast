@@ -34,4 +34,18 @@ public class DatabaseScriptableObject : ScriptableObject
 	//Used by "EditorDatabase.cs" to determine which tab is currently selected
 	[HideInInspector] public int tab;
 
+	public void Copy( DatabaseScriptableObject toCopy )
+	{
+		characters.Clear();
+
+		for ( int i = 0; i < toCopy.characters.Count; ++i )
+		{
+			var n = new character();
+			n.Copy( toCopy.characters[i] );
+			characters.Add( n );
+		}
+
+		items = toCopy.items.DeepClone();
+		skills = toCopy.skills.DeepClone();
+	}
 }

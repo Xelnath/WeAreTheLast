@@ -366,7 +366,7 @@ public class BattleManager : MonoBehaviour
   {
 
     //Getting current character
-    var curChar = Database.core.characters[FunctionDB.core.findCharacterIndexById(activeCharacterId)];
+    var curChar = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(activeCharacterId)];
 
     //Getting functions to call
     var functionsToCall = curChar.aiFunctions;
@@ -537,7 +537,7 @@ public class BattleManager : MonoBehaviour
         var charId = info.characterId;
 
         //Getting currently active character
-        var activeCharacter = Database.core.characters[FunctionDB.core.findCharacterIndexById(charId)];
+        var activeCharacter = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
         //Getting attribute in question
         var charAttribute = activeCharacter.characterAttributes[FunctionDB.core.findAttributeIndexById(0, activeCharacter)];
 
@@ -548,7 +548,7 @@ public class BattleManager : MonoBehaviour
         if (curValue == 0)
         {
 
-          Database.core.characters[FunctionDB.core.findCharacterIndexById(charId)].isActive = false;
+          Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)].isActive = false;
           FunctionDB.core.setAnimation(charId, "death");
 
           //If the character in question is the active character, skip to the next character
@@ -561,7 +561,7 @@ public class BattleManager : MonoBehaviour
         else
         {
           //Marking character as active
-          Database.core.characters[FunctionDB.core.findCharacterIndexById(charId)].isActive = true;
+          Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)].isActive = true;
 
           //Is the death animation playing ?
           if (FunctionDB.core.checkAnimation(charId, "death"))
@@ -584,7 +584,7 @@ public class BattleManager : MonoBehaviour
   {
 
     //Getting character by id
-    character character = Database.core.characters[FunctionDB.core.findCharacterIndexById(charId)];
+    character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
     //Getting character instance by id
     GameObject characterInstance = FunctionDB.core.findCharInstanceById(charId);
     //Getting attribute index
@@ -647,8 +647,8 @@ public class BattleManager : MonoBehaviour
           {
 
             //Getting player and enemy team count
-            int playerCount = activePlayerTeam.Where(x => Database.core.characters[FunctionDB.core.findCharacterIndexById(x)].isActive).ToArray().Count();
-            int enemyCount = activeEnemyTeam.Where(x => Database.core.characters[FunctionDB.core.findCharacterIndexById(x)].isActive).ToArray().Count();
+            int playerCount = activePlayerTeam.Where(x => Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(x)].isActive).ToArray().Count();
+            int enemyCount = activeEnemyTeam.Where(x => Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(x)].isActive).ToArray().Count();
 
             //Since there are only 2 teams, a value above 1 means a third loop.
             //This means that something went wrong (and one of the teams probably won).
@@ -804,7 +804,7 @@ public class BattleManager : MonoBehaviour
         {
 
           //Getting character
-          var character = Database.core.characters[FunctionDB.core.findCharacterIndexById(info.characterId)];
+          var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(info.characterId)];
 
           //Attributes list
           List<characterAttribute> attributes = character.characterAttributes;

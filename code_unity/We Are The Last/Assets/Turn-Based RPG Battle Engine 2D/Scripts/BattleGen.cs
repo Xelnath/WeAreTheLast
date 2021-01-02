@@ -103,7 +103,7 @@ public class BattleGen : MonoBehaviour
     {
 
       //Getting character
-      var character = Database.core.characters[FunctionDB.core.findCharacterIndexById(charId)];
+      var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
 
       //Getting animation controller
       var controller = character.animationController;
@@ -193,7 +193,7 @@ public class BattleGen : MonoBehaviour
 
     //Getting skill list
     var charIndex = FunctionDB.core.findCharacterIndexById(characterId);
-    var character = Database.core.characters[charIndex];
+    var character = Database.dynamic.characters[charIndex];
     var skillList = character.skills;
 
     //Used to set focus on the first element instantiated
@@ -207,7 +207,7 @@ public class BattleGen : MonoBehaviour
 
       //Getting skill data
       var skillIndex = FunctionDB.core.findSkillIndexById(s);
-      var skill = Database.core.skills[skillIndex];
+      var skill = Database.dynamic.skills[skillIndex];
 
       if (skill.unlocked)
       {
@@ -278,7 +278,7 @@ public class BattleGen : MonoBehaviour
 
     //Getting character
     var charIndex = FunctionDB.core.findCharacterIndexById(characterId);
-    var character = Database.core.characters[charIndex];
+    var character = Database.dynamic.characters[charIndex];
 
     //Used for setting focus
     bool focusSet = false;
@@ -301,7 +301,7 @@ public class BattleGen : MonoBehaviour
 
         //Getting item
         var itemIndex = FunctionDB.core.findItemIndexById(itemId);
-        var item = Database.core.items[itemIndex];
+        var item = Database.dynamic.items[itemIndex];
 
         //functions to call list
         var functionsToCall = item.functionsToCall;
@@ -391,7 +391,7 @@ public class BattleGen : MonoBehaviour
     for (int i = 0; i < toGen.Count; i++)
     {
       //Getting character
-      var character = Database.core.characters[FunctionDB.core.findCharacterIndexById(toGen[i])];
+      var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(toGen[i])];
 
       //If the character is not active, remove from list
       if (!character.isActive)
@@ -411,7 +411,7 @@ public class BattleGen : MonoBehaviour
 
       //Getting character
       var charIndex = FunctionDB.core.findCharacterIndexById(charId);
-      var character = Database.core.characters[charIndex];
+      var character = Database.dynamic.characters[charIndex];
 
       //Spawning option
       GameObject t = Instantiate(optionPrefab, actionsWindow.transform);

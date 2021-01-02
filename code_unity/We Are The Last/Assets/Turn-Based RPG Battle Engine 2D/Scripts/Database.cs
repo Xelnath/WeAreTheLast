@@ -8,11 +8,19 @@ using Sirenix.OdinInspector;
 [Guid("0A9B4ADA-B1D7-4857-B633-C100308C4D83")]
 public class Database : MonoBehaviour {
 
-	public static DatabaseScriptableObject core;
+	public static DatabaseScriptableObject staticDB;
 
 	public DatabaseScriptableObject database;
 
-	void Awake () { if (core == null) { core = database; } }
+	public static DatabaseScriptableObject dynamic;
+
+	void Awake () { 
+		if (dynamic == null) {
+			staticDB = database;
+			dynamic = ScriptableObject.CreateInstance<DatabaseScriptableObject>();
+			dynamic.Copy( staticDB );
+		} 
+	}
 
 }
 
