@@ -615,7 +615,7 @@ public class BattleManager : MonoBehaviour
       //Adjusting coordinates
       pos = characterInstance.transform.position;
       newPos = new Vector3(pos.x, pos.y + yOffset, pos.z);
-      t.transform.position = newPos;
+      FunctionDB.uiCoordinateCheck( t, newPos );
 
       //Updating text
       characterAttribute attr = character.characterAttributes[charAttrIndx];

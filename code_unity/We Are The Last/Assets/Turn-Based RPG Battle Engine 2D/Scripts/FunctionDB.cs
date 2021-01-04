@@ -331,6 +331,8 @@ public class FunctionDB : MonoBehaviour {
 		//Spawning Object
 		GameObject g = Instantiate (ObjectDB.core.battleUIValuePrefab, newCoordinates, Quaternion.identity, body.transform);
 
+		uiCoordinateCheck( g, newCoordinates ); 
+		
 		//Setting text
 		g.GetComponent<TextMeshProUGUI>().text = value.ToString();
 
@@ -343,6 +345,25 @@ public class FunctionDB : MonoBehaviour {
 
 	}
 
+	public static void uiCoordinateCheck(GameObject sourceObject, Vector3 worldPosition )
+	{
+		if ( sourceObject.GetComponent<RectTransform>() )
+		{
+			var canvas = sourceObject.GetComponentInParent<Canvas>();
+			var canvasRect = canvas.GetComponentInParent<RectTransform>();
+			var camera = Camera.main;
+			Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint( camera, worldPosition );
+			Vector2 result;
+			RectTransformUtility.ScreenPointToLocalPointInRectangle( canvasRect, screenPoint,
+				canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : camera, out result );
+
+			sourceObject.transform.position = canvas.transform.TransformPoint( result );
+		}
+		else
+		{
+			sourceObject.transform.position = worldPosition;
+		}
+	}
 
 	void Awake () { if (core == null) { core = this; } }
 
