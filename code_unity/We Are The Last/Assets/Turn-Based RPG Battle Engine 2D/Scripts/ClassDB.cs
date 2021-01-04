@@ -82,6 +82,20 @@ namespace ClassDB {
 			}
 		}
 
+		public void addDontReplaceAttribute( characterAttribute newAttribute )
+		{
+			for ( int i = 0; i < characterAttributes.Count; ++i )
+			{
+				if ( characterAttributes[i].name == newAttribute.name )
+				{
+					return;
+				}
+			}
+
+			newAttribute.id = characterAttributes.Count;
+			characterAttributes.Add( newAttribute );
+		}
+
 		public void Copy( character toCopy )
 		{
 			name = toCopy.name;

@@ -363,6 +363,101 @@ public class BattleMethods : MonoBehaviour
     BattleManager.core.setQueueStatus("checkAttribute", false);
   }
 
+  void addOrChangeAttribute( bool self, string attributeName, string value, float maxValue )
+  {
+    
+    //This function converts a string to an expression and assings the derived value to the attribute
+    float v;
+    bool set = false;
+
+    switch (value.Substring(0, 1))
+    {
+      case "-":
+        v = -float.Parse(value.Substring(1));
+        break;
+      case "+":
+        v = float.Parse(value.Substring(1));
+        break;
+      case "=":
+        v = float.Parse(value.Substring(1));
+        set = true;
+        break;
+      default:
+        v = float.Parse(value);
+        set = true;
+        break;
+    }
+    
+    if (self)
+    {
+
+      //Active char id
+      var activeCharId = BattleManager.core.activeCharacterId;
+
+      //Displaying change
+      FunctionDB.core.StartCoroutine(FunctionDB.core.displayValue(FunctionDB.core.findCharInstanceById(activeCharId), v, 0, 0.3f));
+
+      //Getting character
+      character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(activeCharId)];
+
+      var index = FunctionDB.core.findAttributeIndexByName( attributeName, character );
+      if ( index == -1 )
+      {
+        character.addDontReplaceAttribute( new characterAttribute
+        {
+          name = attributeName,
+          curValue = v,
+          maxValue = maxValue
+        } );
+      }
+      else
+      {
+          characterAttribute attribute = character.characterAttributes[FunctionDB.core.findAttributeIndexById(index, character)];
+
+          //Applying change
+          if (!set) attribute.curValue = (attribute.curValue + v) > 0 ? (attribute.curValue + v) : 0;
+          else attribute.curValue = v > 0 ? v : 0;
+      }
+
+    }
+    else
+    {
+      //For each action target
+      foreach ( int target in BattleManager.core.actionTargets )
+      {
+
+        //Displaying change
+        FunctionDB.core.StartCoroutine( FunctionDB.core.displayValue( FunctionDB.core.findCharInstanceById( target ), v,
+          0, 0.3f ) );
+
+        //Getting character
+        character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( target )];
+
+        var index = FunctionDB.core.findAttributeIndexByName( attributeName, character );
+        if ( index == -1 )
+        {
+          character.addDontReplaceAttribute( new characterAttribute
+          {
+            name = attributeName,
+            curValue = v,
+            maxValue = maxValue
+          } );
+        }
+        else
+        {
+          characterAttribute attribute =
+            character.characterAttributes[FunctionDB.core.findAttributeIndexById( index, character )];
+
+          //Applying change
+          if ( !set ) attribute.curValue = ( attribute.curValue + v ) > 0 ? ( attribute.curValue + v ) : 0;
+          else attribute.curValue = v > 0 ? v : 0;
+        }
+      }
+    }
+
+    BattleManager.core.setQueueStatus("addOrChangeAttribute", false);
+  }
+
   /*
 	This function allows to change any of the active player or target attributes.
 	Attribute id is the id of the attribute to change.

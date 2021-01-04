@@ -399,11 +399,12 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: changeAttribute
+    - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false
-      - int:2
+      - string:TAUNT
       - string:=1
+      - float:5
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -430,4 +431,4 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-  tab: 2
+  tab: 1

@@ -26,6 +26,9 @@ public class FunctionDB : MonoBehaviour {
 	public int findAttributeIndexById (int seekId, character c) {
 		return c.characterAttributes.FindIndex(x => x.id == seekId);
 	}
+	public int findAttributeIndexByName (string name, character c) {
+		return c.characterAttributes.FindIndex(x => x.name == name);
+	}
 
 	public int findFunctionQueueIndexByCallInfo (callInfo ci) {
 		return BattleManager.core.functionQueue.FindIndex(x => x == ci);
@@ -287,11 +290,27 @@ public class FunctionDB : MonoBehaviour {
 	public IEnumerator follow (GameObject sourceObject, GameObject targetObject, float xAdjustment, float yAdjustment) {
 
 		while (sourceObject != null && targetObject != null) {
-
 			Vector3 temp1 = targetObject.transform.position;
 			temp1 = new Vector3 (temp1.x + xAdjustment, temp1.y + yAdjustment, sourceObject.transform.position.z);
+			
+			// Get the rect transform
+			var followUI = sourceObject.GetComponent<RectTransform>();
+			if ( followUI != null )
+			{
+				var canvas = sourceObject.GetComponentInParent<Canvas>();
+				var canvasRect = canvas.GetComponentInParent<RectTransform>();
+				var camera = Camera.main;
+				Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint( camera, temp1 );
+				Vector2 result;
+				RectTransformUtility.ScreenPointToLocalPointInRectangle( canvasRect, screenPoint,
+					canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : camera, out result );
 
-			sourceObject.transform.position = temp1;
+				sourceObject.transform.position = canvas.transform.TransformPoint( result );
+			}
+			else
+			{
+				sourceObject.transform.position = temp1;
+			}
 
 			yield return new WaitForEndOfFrame();
 		}
