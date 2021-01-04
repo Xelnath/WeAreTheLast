@@ -97,6 +97,11 @@ namespace ClassDB {
 			characterAttributes = toCopy.characterAttributes.DeepClone();
 			aiFunctions = toCopy.aiFunctions.DeepClone();
 		}
+
+		public override string ToString()
+		{
+			return $"Character: {name} isTaunting {isTaunting}";
+		}
 	}
 
 	[System.Serializable]

@@ -159,7 +159,7 @@ public class BattleMethods : MonoBehaviour
     // Prefer taunted
     if ( tauntTargets.Count > 0 )
     {
-      var charId = targets[UnityEngine.Random.Range( 0, tauntTargets.Count )];
+      var charId = tauntTargets[UnityEngine.Random.Range( 0, tauntTargets.Count )];
       character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
       if ( character.isTaunting )
       {
