@@ -134,13 +134,13 @@ public class BattleMethods : MonoBehaviour
       int randIndex = AIGetRandomTarget(targets);
 
       //Adding character to targets
-      BattleManager.core.actionTargets.Add(targets[randIndex]);
+      BattleManager.core.actionTargets.Add(randIndex);
     }
 
     BattleManager.core.setQueueStatus("selectCharacter", false);
 
   }
-
+  
   private int AIGetRandomTarget(List<int> targets)
   {
     List<int> tauntTargets = new List<int>();
@@ -159,17 +159,17 @@ public class BattleMethods : MonoBehaviour
     // Prefer taunted
     if ( tauntTargets.Count > 0 )
     {
-      var chosen = UnityEngine.Random.Range( 0, tauntTargets.Count );
-      character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(chosen)];
+      var charId = targets[UnityEngine.Random.Range( 0, tauntTargets.Count )];
+      character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
       if ( character.isTaunting )
       {
         character.useTauntCharge();
       }
-
-        return chosen;
+      
+      return charId;
     }
 
-    return UnityEngine.Random.Range(0, targets.Count);
+    return targets[UnityEngine.Random.Range(0, targets.Count)];
   }
 
 
