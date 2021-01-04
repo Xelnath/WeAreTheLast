@@ -121,7 +121,7 @@ public class BattleMethods : MonoBehaviour
         //Id
         var charId = targets[i];
         //Getting character's health
-        var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
+        character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
 
         //If health is 0, exclude character
         if (!character.isActive)
@@ -131,7 +131,7 @@ public class BattleMethods : MonoBehaviour
       }
 
       //Getting random character
-      int randIndex = UnityEngine.Random.Range(0, targets.Count);
+      int randIndex = AIGetRandomTarget(targets);
 
       //Adding character to targets
       BattleManager.core.actionTargets.Add(targets[randIndex]);
@@ -139,6 +139,37 @@ public class BattleMethods : MonoBehaviour
 
     BattleManager.core.setQueueStatus("selectCharacter", false);
 
+  }
+
+  private int AIGetRandomTarget(List<int> targets)
+  {
+    List<int> tauntTargets = new List<int>();
+    for ( int i = 0; i < targets.Count; ++i )
+    {
+        //Id
+        var charId = targets[i];
+        //Getting character's health
+        character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
+        if ( character.isTaunting )
+        {
+          tauntTargets.Add( charId );
+        }
+    }
+
+    // Prefer taunted
+    if ( tauntTargets.Count > 0 )
+    {
+      var chosen = UnityEngine.Random.Range( 0, tauntTargets.Count );
+      character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(chosen)];
+      if ( character.isTaunting )
+      {
+        character.useTauntCharge();
+      }
+
+        return chosen;
+    }
+
+    return UnityEngine.Random.Range(0, targets.Count);
   }
 
 
@@ -355,6 +386,10 @@ public class BattleMethods : MonoBehaviour
         break;
       case "+":
         v = float.Parse(value.Substring(1));
+        break;
+      case "=":
+        v = float.Parse(value.Substring(1));
+        set = true;
         break;
       default:
         v = float.Parse(value);

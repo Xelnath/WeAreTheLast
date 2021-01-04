@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 //A collection of custom classes used across the asset
@@ -68,6 +69,18 @@ namespace ClassDB {
 
 		//Is the character active
 		public bool isActive;
+		
+		//Is the character being misdirected onto using the mentalist
+		public bool isTaunting => characterAttributes.Any( x => x.name == "TAUNT" && x.curValue > 0 );
+
+		public void useTauntCharge()
+		{
+			var attr = characterAttributes.Where( x => x.name == "TAUNT" && x.curValue > 0 );
+			if ( attr.Any() )
+			{
+				attr.First().curValue--;
+			}
+		}
 
 		public void Copy( character toCopy )
 		{
