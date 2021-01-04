@@ -34,6 +34,8 @@ public class DatabaseScriptableObject : ScriptableObject
 	//Used by "EditorDatabase.cs" to determine which tab is currently selected
 	[HideInInspector] public int tab;
 
+	public int CounterSkillID = -1;
+	
 	public void Copy( DatabaseScriptableObject toCopy )
 	{
 		characters.Clear();

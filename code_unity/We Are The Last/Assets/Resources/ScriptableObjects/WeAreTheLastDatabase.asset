@@ -36,12 +36,17 @@ MonoBehaviour:
       id: 2
       maxValue: 5
       curValue: 0
+    - name: COUNTER
+      id: 2
+      maxValue: 1
+      curValue: 1
     aiFunctions:
     - functionName: sampleAi
       parametersArray: []
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 1
+    counterSkill: 3
     isActive: 1
   - name: Model
     id: 1
@@ -70,6 +75,7 @@ MonoBehaviour:
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 1
+    counterSkill: -1
     isActive: 1
   - name: Rockstar
     id: 2
@@ -98,6 +104,7 @@ MonoBehaviour:
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 1
+    counterSkill: -1
     isActive: 1
   - name: Character 4
     id: 3
@@ -122,6 +129,7 @@ MonoBehaviour:
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 1
+    counterSkill: -1
     isActive: 0
   - name: Character 4
     id: 4
@@ -146,6 +154,7 @@ MonoBehaviour:
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 1
+    counterSkill: -1
     isActive: 1
   - name: Character 4
     id: 5
@@ -170,6 +179,7 @@ MonoBehaviour:
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 1
+    counterSkill: -1
     isActive: 0
   items:
   - name: Apple
@@ -268,6 +278,26 @@ MonoBehaviour:
     - functionName: wait
       parametersArray:
       - float:0.4
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:idle
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: provokeReaction
+      parametersArray:
+      - int:0
+      - int:0
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: waitForReaction
+      parametersArray:
+      - int:0
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
@@ -431,4 +461,97 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+  - name: Counter
+    id: 3
+    description: A simple counterattack
+    unlocked: 1
+    turnPointCost: 0
+    functionsToCall:
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:walk
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: moveToTarget
+      parametersArray:
+      - float:2
+      - float:0.1
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:attack
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAudioOnce
+      parametersArray:
+      - int:1
+      - int:1
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: changeAttribute
+      parametersArray:
+      - bool:false
+      - int:0
+      - string:-10
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFX
+      parametersArray:
+      - bool:false
+      - float:2
+      - string:attack
+      - float:0
+      - float:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:0.6
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: rotateCharacter
+      parametersArray:
+      - int:-1
+      - float:180
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:walk
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: moveBack
+      parametersArray:
+      - float:0.2
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: rotateCharacter
+      parametersArray:
+      - int:-1
+      - float:180
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:idle
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
   tab: 1
+  CounterSkillID: -1

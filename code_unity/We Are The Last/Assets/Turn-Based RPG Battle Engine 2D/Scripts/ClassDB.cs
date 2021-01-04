@@ -67,6 +67,8 @@ namespace ClassDB {
 		//A list of A.I functions
 		public List<callInfo> aiFunctions = new List<callInfo>();
 
+		public int counterSkill = -1;
+		
 		//Is the character active
 		public bool isActive;
 		
@@ -80,6 +82,24 @@ namespace ClassDB {
 			{
 				attr.First().curValue--;
 			}
+		}
+
+		public List<callInfo> getCounter()
+		{
+			if ( counterSkill > -1 )
+			{
+				//Getting skill data
+				var skillIndex = FunctionDB.core.findSkillIndexById( counterSkill );
+				var skill = Database.dynamic.skills[skillIndex];
+
+				if ( skill.unlocked )
+				{
+					//Getting function data
+					var functionsToCall = new List<callInfo>( skill.functionsToCall );
+					return functionsToCall;
+				}
+			}
+			return new List<callInfo>() { };
 		}
 
 		public void addDontReplaceAttribute( characterAttribute newAttribute )
@@ -105,6 +125,7 @@ namespace ClassDB {
 			animationController = toCopy.animationController;
 			aiFunctions = toCopy.aiFunctions;
 			isActive = toCopy.isActive;
+			counterSkill = toCopy.counterSkill;
 
 			skills = toCopy.skills.DeepClone();
 			items = toCopy.items.DeepClone();
@@ -137,6 +158,11 @@ namespace ClassDB {
 		public bool waitForPreviousFunction;
 		public bool isCoroutine;
 		public bool isRunning;
+
+		public override string ToString()
+		{
+			return $"callInfo ({functionName}) - {isRunning}";
+		}
 	}
 
 	[System.Serializable]

@@ -18,7 +18,7 @@ public class BattleMethods : MonoBehaviour
   {
 
     //Getting character
-    var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(BattleManager.core.activeCharacterId)];
+    var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(BattleManager.core.CurrentContext.activeCharacterId)];
     //Getting skills
     var skillIds = character.skills;
 
@@ -30,9 +30,9 @@ public class BattleMethods : MonoBehaviour
       var functionsToCall = skill.functionsToCall;
 
       //Storing the functions list to functionQueue
-      BattleManager.core.functionQueue = functionsToCall;
+      BattleManager.core.CurrentContext.functionQueue = functionsToCall;
 
-      BattleManager.core.StartCoroutine(BattleManager.core.methodCaller());
+      BattleManager.core.StartCoroutine(BattleManager.functionQueueCaller(BattleManager.core.CurrentContext));
 
       break;
     }
@@ -82,7 +82,7 @@ public class BattleMethods : MonoBehaviour
 
 
 
-    BattleManager.core.setQueueStatus("subtractTurnPoints", false);
+    BattleManager.setQueueStatus("subtractTurnPoints", false);
 
   }
 
@@ -98,14 +98,14 @@ public class BattleMethods : MonoBehaviour
   void selectCharacter(bool targetSameTeam, int targetLimit)
   {
 
-    BattleManager.core.targetLimit = targetLimit;
-    BattleManager.core.actionTargets.Clear();
+    BattleManager.core.RunningContext.targetLimit = targetLimit;
+    BattleManager.core.RunningContext.actionTargets.Clear();
 
     if (!(BattleManager.core.autoBattle || BattleManager.core.activeTeam == 1))
     {
 
-      if (targetSameTeam) BattleGen.core.targetGen(true, false, targetLimit);
-      else BattleGen.core.targetGen(false, true, targetLimit);
+      if (targetSameTeam) BattleGen.core.targetGen(BattleManager.core.RunningContext, true, false, targetLimit);
+      else BattleGen.core.targetGen(BattleManager.core.RunningContext, false, true, targetLimit);
 
     }
     else
@@ -113,7 +113,7 @@ public class BattleMethods : MonoBehaviour
 
       //Getting target list
       int targetInt = targetSameTeam ? 0 : 1;
-      List<int> targets = BattleManager.core.activeTeam == targetInt ? BattleManager.core.activePlayerTeam : BattleManager.core.activeEnemyTeam;
+      List<int> targets = BattleManager.core.activeTeam == targetInt ? BattleManager.core.RunningContext.attackerTeam : BattleManager.core.RunningContext.defenderTeam;
 
       //Excluding invalid characters
       for (int i = 0; i < targets.Count; i++)
@@ -134,10 +134,10 @@ public class BattleMethods : MonoBehaviour
       int randIndex = AIGetRandomTarget(targets);
 
       //Adding character to targets
-      BattleManager.core.actionTargets.Add(randIndex);
+      BattleManager.core.RunningContext.actionTargets.Add(randIndex);
     }
 
-    BattleManager.core.setQueueStatus("selectCharacter", false);
+    BattleManager.setQueueStatus("selectCharacter", false);
 
   }
   
@@ -189,19 +189,19 @@ public class BattleMethods : MonoBehaviour
     while (true)
     {
       //Is the amount of tagrets currently selected equal to the target limit?
-      limitReached = BattleManager.core.targetLimit == BattleManager.core.actionTargets.Count;
+      limitReached = BattleManager.core.RunningContext.targetLimit == BattleManager.core.RunningContext.actionTargets.Count;
 
       //If the previous is true, the function is told to terminate if the player has not selected anything, and the player has indeed selected no targets -
-      if (limitReached && terminateOnEmpty && BattleManager.core.actionTargets.Count == 0)
+      if (limitReached && terminateOnEmpty && BattleManager.core.RunningContext.actionTargets.Count == 0)
       {
         //Stop the execution of the function chain by erasing it.
-        BattleManager.core.functionQueue.Clear();
+        BattleManager.core.RunningContext.functionQueue.Clear();
         break;
       }
       else if (limitReached)
       {
         //Otheriwse, if the limit has been simply reached, mark this function as not running.
-        BattleManager.core.setQueueStatus("waitForSelection", false);
+        BattleManager.setQueueStatus("waitForSelection", false);
         break;
       }
 
@@ -211,6 +211,18 @@ public class BattleMethods : MonoBehaviour
 
   }
 
+  //Waiting for a reaction Queue to end
+  IEnumerator waitForReaction(object[] parms)
+  {
+    while ( BattleManager.core.ReactionContext != null && BattleManager.core.ReactionContext.functionQueue.Count > 0 )
+    {
+      yield return new WaitForEndOfFrame();
+    }
+    //Marking function as not running.
+    BattleManager.setQueueStatus( "waitForReaction", false );
+  }
+
+
   //Waiting for a fixed amount of seconds
   IEnumerator wait(object[] parms)
   {
@@ -219,7 +231,49 @@ public class BattleMethods : MonoBehaviour
     //Waiting
     yield return new WaitForSeconds(timeToWait);
     //Marking function as not running.
-    BattleManager.core.setQueueStatus("wait", false);
+    BattleManager.setQueueStatus("wait", false);
+  }
+
+  
+  // Provoke reaction from enemy if it can counter
+  IEnumerator provokeReaction( object[] parms )
+  {
+    //For each action target
+    foreach ( int target in BattleManager.core.RunningContext.actionTargets )
+    {
+
+      //Getting character
+      int victimId = FunctionDB.core.findCharacterIndexById( target );
+      character character = Database.dynamic.characters[victimId];
+
+      if ( !character.isActive ) continue;
+
+      int blockIndex = FunctionDB.core.findAttributeIndexByName( "COUNTER", character );
+      if ( blockIndex < 0 ) continue;
+
+      //Getting attribute
+      characterAttribute attribute = character.characterAttributes[blockIndex];
+
+      //Checking value
+      if ( attribute.curValue > 0 )
+      {
+        BattleManager.core.ReactionContext = new BattleManager.BattleManagerContext();
+        BattleManager.core.ReactionContext.actionTargets = new List<int>()
+          { BattleManager.core.RunningContext.activeCharacterId };
+        BattleManager.core.ReactionContext.Init( victimId, BattleManager.core.activePlayerTeam,
+          BattleManager.core.activeEnemyTeam );
+        BattleManager.core.ReactionContext.targetLimit = 1;
+        BattleManager.core.ReactionContext.functionQueue = character.getCounter();
+        StartCoroutine( BattleManager.reactionQueueCaller( BattleManager.core.ReactionContext ) );
+      }
+    }
+
+    //Marking function as not running.
+    BattleManager.core.RunningContext = BattleManager.core.CurrentContext;
+    BattleManager.setQueueStatus( "provokeReaction", false );
+    
+    //Waiting
+    yield return new WaitForEndOfFrame();
   }
 
   /*
@@ -235,10 +289,10 @@ public class BattleMethods : MonoBehaviour
     float speed = (float)parms[1];
 
     //Active character id and destination character id
-    var sourceCharId = BattleManager.core.activeCharacterId;
+    var sourceCharId = BattleManager.core.RunningContext.activeCharacterId;
     var destinationCharId = -1;
 
-    if (BattleManager.core.actionTargets.Count > 0) destinationCharId = BattleManager.core.actionTargets[0];
+    if (BattleManager.core.RunningContext.actionTargets.Count > 0) destinationCharId = BattleManager.core.RunningContext.actionTargets[0];
     else Debug.Log("No targets selected");
 
     if (destinationCharId != -1)
@@ -270,7 +324,7 @@ public class BattleMethods : MonoBehaviour
 
     }
 
-    BattleManager.core.setQueueStatus("moveToTarget", false);
+    BattleManager.setQueueStatus("moveToTarget", false);
   }
 
   //Moving battler pack to spawn point
@@ -281,7 +335,7 @@ public class BattleMethods : MonoBehaviour
     float speed = (float)parms[0];
 
     //Getting active char id
-    int charId = BattleManager.core.activeCharacterId;
+    int charId = BattleManager.core.RunningContext.activeCharacterId;
 
     //Getting character object
     GameObject charObject = FunctionDB.core.findCharInstanceById(charId);
@@ -301,7 +355,7 @@ public class BattleMethods : MonoBehaviour
       yield return new WaitForEndOfFrame();
     }
 
-    BattleManager.core.setQueueStatus("moveBack", false);
+    BattleManager.setQueueStatus("moveBack", false);
 
   }
 
@@ -318,7 +372,7 @@ public class BattleMethods : MonoBehaviour
     if (self)
     {
       //Active char id
-      var activeCharId = BattleManager.core.activeCharacterId;
+      var activeCharId = BattleManager.core.RunningContext.activeCharacterId;
 
       //Getting character
       character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(activeCharId)];
@@ -330,7 +384,7 @@ public class BattleMethods : MonoBehaviour
       if (attribute.curValue < minValue)
       {
         //Stopping skill chain and displaying warning
-        BattleManager.core.functionQueue.Clear();
+        BattleManager.core.RunningContext.functionQueue.Clear();
         BattleManager.core.startWarningRoutine("Not enough " + attribute.name, 2f);
       }
 
@@ -338,7 +392,7 @@ public class BattleMethods : MonoBehaviour
     else
     {
       //For each action target
-      foreach (int target in BattleManager.core.actionTargets)
+      foreach (int target in BattleManager.core.RunningContext.actionTargets)
       {
 
         //Getting character
@@ -351,7 +405,7 @@ public class BattleMethods : MonoBehaviour
         if (attribute.curValue < minValue)
         {
           //Stopping skill chain and displaying warning
-          BattleManager.core.functionQueue.Clear();
+          BattleManager.core.RunningContext.functionQueue.Clear();
           BattleManager.core.startWarningRoutine("Not enough " + attribute.name, 2f);
           break;
         }
@@ -360,7 +414,7 @@ public class BattleMethods : MonoBehaviour
 
 
 
-    BattleManager.core.setQueueStatus("checkAttribute", false);
+    BattleManager.setQueueStatus("checkAttribute", false);
   }
 
   void addOrChangeAttribute( bool self, string attributeName, string value, float maxValue )
@@ -392,7 +446,7 @@ public class BattleMethods : MonoBehaviour
     {
 
       //Active char id
-      var activeCharId = BattleManager.core.activeCharacterId;
+      var activeCharId = BattleManager.core.RunningContext.activeCharacterId;
 
       //Displaying change
       FunctionDB.core.StartCoroutine(FunctionDB.core.displayValue(FunctionDB.core.findCharInstanceById(activeCharId), v, 0, 0.3f));
@@ -423,7 +477,7 @@ public class BattleMethods : MonoBehaviour
     else
     {
       //For each action target
-      foreach ( int target in BattleManager.core.actionTargets )
+      foreach ( int target in BattleManager.core.RunningContext.actionTargets )
       {
 
         //Displaying change
@@ -455,7 +509,7 @@ public class BattleMethods : MonoBehaviour
       }
     }
 
-    BattleManager.core.setQueueStatus("addOrChangeAttribute", false);
+    BattleManager.setQueueStatus("addOrChangeAttribute", false);
   }
 
   /*
@@ -496,7 +550,7 @@ public class BattleMethods : MonoBehaviour
     {
 
       //Active char id
-      var activeCharId = BattleManager.core.activeCharacterId;
+      var activeCharId = BattleManager.core.RunningContext.activeCharacterId;
 
       //Displaying change
       FunctionDB.core.StartCoroutine(FunctionDB.core.displayValue(FunctionDB.core.findCharInstanceById(activeCharId), v, 0, 0.3f));
@@ -515,7 +569,7 @@ public class BattleMethods : MonoBehaviour
     {
 
       //For each action target
-      foreach (int target in BattleManager.core.actionTargets)
+      foreach (int target in BattleManager.core.RunningContext.actionTargets)
       {
 
         //Displaying change
@@ -538,7 +592,7 @@ public class BattleMethods : MonoBehaviour
       }
     }
 
-    BattleManager.core.setQueueStatus("changeAttribute", false);
+    BattleManager.setQueueStatus("changeAttribute", false);
   }
 
   /*
@@ -551,7 +605,7 @@ public class BattleMethods : MonoBehaviour
   {
 
     //Character id
-    var characterId = charId > -1 ? charId : BattleManager.core.activeCharacterId;
+    var characterId = charId > -1 ? charId : BattleManager.core.RunningContext.activeCharacterId;
     //Getting character
     character c = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(characterId)];
     //Getting item
@@ -581,11 +635,11 @@ public class BattleMethods : MonoBehaviour
   {
 
     //getting active character if a character id was not provided
-    var charIdNew = charId > -1 ? charId : BattleManager.core.activeCharacterId;
+    var charIdNew = charId > -1 ? charId : BattleManager.core.RunningContext.activeCharacterId;
     //Playing the animation
     FunctionDB.core.setAnimation(charIdNew, conditionName);
 
-    BattleManager.core.setQueueStatus("playAnimation", false);
+    BattleManager.setQueueStatus("playAnimation", false);
   }
 
 
@@ -600,7 +654,7 @@ public class BattleMethods : MonoBehaviour
     //Calling function to play audio once
     FunctionDB.core.playAudioOnce(audioSourceIndex, audioId);
 
-    BattleManager.core.setQueueStatus("playAudioOnce", false);
+    BattleManager.setQueueStatus("playAudioOnce", false);
   }
 
 
@@ -612,11 +666,11 @@ public class BattleMethods : MonoBehaviour
   void rotateCharacter(int charId, float degree)
   {
     ;
-    var charIdNew = charId > -1 ? charId : BattleManager.core.activeCharacterId;
+    var charIdNew = charId > -1 ? charId : BattleManager.core.RunningContext.activeCharacterId;
     var charObject = FunctionDB.core.findCharInstanceById(charIdNew);
     charObject.transform.Rotate(0, degree, 0);
 
-    BattleManager.core.setQueueStatus("rotateCharacter", false);
+    BattleManager.setQueueStatus("rotateCharacter", false);
   }
 
   /*
@@ -638,7 +692,7 @@ public class BattleMethods : MonoBehaviour
       b.interactable = state;
     }
 
-    BattleManager.core.setQueueStatus("toggleActions", false);
+    BattleManager.setQueueStatus("toggleActions", false);
 
   }
 
@@ -663,7 +717,7 @@ public class BattleMethods : MonoBehaviour
     {
 
       //Active char id
-      var activeCharId = BattleManager.core.activeCharacterId;
+      var activeCharId = BattleManager.core.RunningContext.activeCharacterId;
 
       //Getting character instace
       GameObject charInstance = FunctionDB.core.findCharInstanceById(activeCharId);
@@ -692,7 +746,7 @@ public class BattleMethods : MonoBehaviour
     {
 
       //For each action target
-      foreach (int target in BattleManager.core.actionTargets)
+      foreach (int target in BattleManager.core.RunningContext.actionTargets)
       {
 
         //Getting character instace
@@ -719,7 +773,7 @@ public class BattleMethods : MonoBehaviour
       }
     }
 
-    BattleManager.core.setQueueStatus("displayFX", false);
+    BattleManager.setQueueStatus("displayFX", false);
   }
 
   void Awake() { if (core == null) core = this; }

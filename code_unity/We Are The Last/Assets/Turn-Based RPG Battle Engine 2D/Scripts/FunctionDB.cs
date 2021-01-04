@@ -31,11 +31,11 @@ public class FunctionDB : MonoBehaviour {
 	}
 
 	public int findFunctionQueueIndexByCallInfo (callInfo ci) {
-		return BattleManager.core.functionQueue.FindIndex(x => x == ci);
+		return BattleManager.core.RunningContext.functionQueue.FindIndex(x => x == ci);
 	}
 
 	public int findFunctionQueueIndexByName (string s) {
-		return BattleManager.core.functionQueue.FindIndex(x => x.functionName == s);
+		return BattleManager.core.RunningContext.functionQueue.FindIndex(x => x.functionName == s);
 	}
 
 	//Getting battle manager characters list index by id
@@ -147,7 +147,6 @@ public class FunctionDB : MonoBehaviour {
 
 		return -1;
 	}
-
 
 	Coroutine audioTransitionRoutine;
 
