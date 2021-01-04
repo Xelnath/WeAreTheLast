@@ -194,7 +194,7 @@ public class BattleManager : MonoBehaviour
         {
 
           //Starting coroutine to display health.
-          StartCoroutine(battleAreahealthManager(i, 0.1f));
+          StartCoroutine(battleAreahealthManager(i, 1.1f));
         }
 
 
