@@ -19,7 +19,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 27d615c5f545db846bc939904a978394, type: 3}
     animationController: {fileID: 9100000, guid: 241b9021678cb8e4cb2a79dc3041ebe9,
       type: 2}
-    skills: 00000000
+    skills: 0000000004000000
     items:
     - id: 0
       quantity: 1
@@ -257,11 +257,10 @@ MonoBehaviour:
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
-    - functionName: changeAttribute
+    - functionName: damageTargets
       parametersArray:
-      - bool:false
+      - int:-10
       - int:0
-      - string:-10
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -348,6 +347,7 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    endOfRound: []
   - name: Heal
     id: 1
     description: Heal character
@@ -404,6 +404,7 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    endOfRound: []
   - name: Redirect
     id: 2
     description: 'Cause enemies to '
@@ -461,6 +462,7 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    endOfRound: []
   - name: Counter
     id: 3
     description: A simple counterattack
@@ -551,6 +553,101 @@ MonoBehaviour:
       - int:-1
       - string:idle
       waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    endOfRound: []
+  - name: Defend
+    id: 4
+    description: Target takes less damage this around.
+    unlocked: 1
+    turnPointCost: 100
+    functionsToCall:
+    - functionName: selectCharacter
+      parametersArray:
+      - bool:true
+      - int:1
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: waitForSelection
+      parametersArray:
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: toggleActions
+      parametersArray:
+      - bool:false
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:false
+      - string:DEFEND
+      - string:=80
+      - float:100
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:false
+      - string:DEFENDROUNDS
+      - string:=1
+      - float:100
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFX
+      parametersArray:
+      - bool:false
+      - float:2
+      - string:heal
+      - float:-0.8
+      - float:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: toggleActions
+      parametersArray:
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: subtractTurnPoints
+      parametersArray:
+      - int:0
+      - int:2
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    endOfRound:
+    - functionName: checkAttributeByName
+      parametersArray:
+      - bool:true
+      - string:DEFEND
+      - int:1
+      - bool:false
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:true
+      - string:DEFEND
+      - string:=0
+      - float:100
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:true
+      - string:DEFENDROUNDS
+      - string:=-1
+      - float:100
+      waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
   tab: 1

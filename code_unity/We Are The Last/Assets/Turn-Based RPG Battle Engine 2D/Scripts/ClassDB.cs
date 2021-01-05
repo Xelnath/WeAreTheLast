@@ -42,6 +42,9 @@ namespace ClassDB {
 
 		//A list of functions to be called when the skill is used
 		public List<callInfo> functionsToCall = new List<callInfo>();
+		
+		//A list of functions to be called when the round ends
+		public List<callInfo> endOfRound = new List<callInfo>();
 	}
 
 	[System.Serializable]
@@ -114,6 +117,36 @@ namespace ClassDB {
 
 			newAttribute.id = characterAttributes.Count;
 			characterAttributes.Add( newAttribute );
+		}
+
+		public IEnumerator endRound()
+		{
+			for ( int i = 0; i < skills.Count; ++i )
+			{
+				var skillId = skills[i];
+			    var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(skillId)];
+
+			    var functionsToCall = skill.endOfRound;
+			    if ( functionsToCall.Count > 0 )
+			    {
+				    BattleManager.core.CurrentContext.Init( id, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
+				    BattleManager.core.CurrentContext.functionQueue = functionsToCall;
+				    yield return BattleManager.functionQueueCaller( BattleManager.core.CurrentContext );
+			    }
+			}
+
+			if ( counterSkill >= 0 )
+			{
+				var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(counterSkill)];
+
+				var functionsToCall = skill.endOfRound;
+			    if ( functionsToCall.Count > 0 )
+			    {
+				    BattleManager.core.CurrentContext.Init( id, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
+				    BattleManager.core.CurrentContext.functionQueue = functionsToCall;
+				    yield return BattleManager.functionQueueCaller( BattleManager.core.CurrentContext );
+			    }
+			}
 		}
 
 		public void Copy( character toCopy )

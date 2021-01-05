@@ -316,7 +316,12 @@ public class FunctionDB : MonoBehaviour {
 	}
 
 	//This function is used to display on-screen values such as damage
-	public IEnumerator displayValue (GameObject target, float value, float xAdjustment, float yAdjustment) {
+	public IEnumerator displayValue ( GameObject target, float value, float xAdjustment, float yAdjustment )
+	{
+		yield return displayValue( target, value.ToString(), xAdjustment, yAdjustment );
+	}
+
+	public IEnumerator displayValue (GameObject target, string value, float xAdjustment, float yAdjustment) {
 
 		//Getting coordinates
 		Vector3 coordinates = target.transform.position;

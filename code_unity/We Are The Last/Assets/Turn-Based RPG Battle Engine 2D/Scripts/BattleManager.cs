@@ -326,7 +326,7 @@ public class BattleManager : MonoBehaviour
       BattleManager.core.RunningContext = BattleManager.core.CurrentContext;
     }
 
-    private static IEnumerator call( BattleManagerContext context, callInfo ftc )
+  private static IEnumerator call( BattleManagerContext context, callInfo ftc )
   {
     
       var method = ftc.functionName;
@@ -732,28 +732,15 @@ public class BattleManager : MonoBehaviour
             //However, to make sure that we don't continue the battle on second loop if a team has won, we need to make sure that both teams have more than 1 active members.
             if (counter > 1 || playerCount == 0 || enemyCount == 0)
             {
-
-              //Outcome
               yield return new WaitForSeconds(2);
-
               int victor = playerCount > enemyCount ? 0 : 1;
 
-              //Getting outcome screen
-              GameObject outcomeScreen = ObjectDB.core.outcomeWidow;
-
-              //Getting text object
-              Text txt = outcomeScreen.transform.GetChild(0).gameObject.GetComponent<Text>();
-              txt.text = "Team " + victor.ToString() + " wins!" + " Try again, enjoy multiple realities of shit outcomes. There are so many universes where you screwed up even more, such a joy to watch when I have my morning shit. ";
-
-              //Displaying outcome
-              outcomeScreen.SetActive(true);
-
-              //toggling actions
-              BattleMethods.core.toggleActions(false);
+              EndGame( victor );
 
               //Please add any follow up actions here.
               break;
             }
+
 
             //Getting active team.
             List<int> team = activeTeam == 0 ? CurrentContext.attackerTeam : CurrentContext.defenderTeam;
@@ -790,6 +777,12 @@ public class BattleManager : MonoBehaviour
             //Swap teams and try again
             swapTeam(CurrentContext);
             counter++;
+            
+            // The enemies finished going.
+            if ( activeTeam == 0 )
+            {
+              EndRound();
+            }
 
           }
 
@@ -808,6 +801,49 @@ public class BattleManager : MonoBehaviour
       yield return new WaitForEndOfFrame();
     }
 
+  }
+
+  private void EndRound()
+  {
+    foreach ( var charId in activePlayerTeam )
+    {
+      var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
+      if ( !character.isActive  )
+      {
+        continue;
+      }
+
+      StartCoroutine( character.endRound() );
+    }
+    
+    foreach ( var charId in activeEnemyTeam )
+    {
+      var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
+      if ( !character.isActive  )
+      {
+        continue;
+      }
+
+      StartCoroutine( character.endRound() );
+    }
+  }
+
+  private void EndGame(int victor)
+  {
+      //Outcome
+
+      //Getting outcome screen
+      GameObject outcomeScreen = ObjectDB.core.outcomeWidow;
+
+      //Getting text object
+      Text txt = outcomeScreen.transform.GetChild(0).gameObject.GetComponent<Text>();
+      txt.text = "Team " + victor.ToString() + " wins!" + " Try again, enjoy multiple realities of shit outcomes. There are so many universes where you screwed up even more, such a joy to watch when I have my morning shit. ";
+
+      //Displaying outcome
+      outcomeScreen.SetActive(true);
+
+      //toggling actions
+      BattleMethods.core.toggleActions(false);
   }
 
   //This method simply swaps the team
