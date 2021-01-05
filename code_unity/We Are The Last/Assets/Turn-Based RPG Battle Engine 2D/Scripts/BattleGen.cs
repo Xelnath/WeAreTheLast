@@ -17,6 +17,8 @@ public class BattleGen : MonoBehaviour
   GameObject actionsWindow;
   GameObject optionPrefab;
 
+  public StoryControl story;
+
   //The list of main options
   public List<actionInfo> mainActions = new List<actionInfo>();
 
@@ -115,6 +117,9 @@ public class BattleGen : MonoBehaviour
         GameObject instance = Instantiate(ObjectDB.core.battlerPrefab, teamSpawns[counter].transform);
         //Setting animator
         instance.GetComponent<Animator>().runtimeAnimatorController = controller;
+        //Setting charId
+        instance.GetComponent<Character>().id = character.name.Substring(0,1);
+        story.Actors.Add(instance.GetComponent<Character>());
         //Setting GameObject's name
         instance.name = character.name;
 
