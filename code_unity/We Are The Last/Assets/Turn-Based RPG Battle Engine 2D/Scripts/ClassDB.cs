@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 //A collection of custom classes used across the asset
@@ -41,6 +42,14 @@ namespace ClassDB {
 
 		//A list of functions to be called when the skill is used
 		public List<callInfo> functionsToCall = new List<callInfo>();
+		
+		//A list of functions to be called when the round ends
+		public List<callInfo> endOfRound = new List<callInfo>();
+
+		public override string ToString()
+		{
+			return $"{name} ({id}) - {unlocked} - pts: {turnPointCost}";
+		}
 	}
 
 	[System.Serializable]
@@ -66,8 +75,89 @@ namespace ClassDB {
 		//A list of A.I functions
 		public List<callInfo> aiFunctions = new List<callInfo>();
 
+		public int counterSkill = -1;
+		
 		//Is the character active
 		public bool isActive;
+		
+		//Is the character being misdirected onto using the mentalist
+		public bool isTaunting => characterAttributes.Any( x => x.name == "TAUNT" && x.curValue > 0 );
+
+		public void useTauntCharge()
+		{
+			var attr = characterAttributes.Where( x => x.name == "TAUNT" && x.curValue > 0 );
+			if ( attr.Any() )
+			{
+				attr.First().curValue--;
+			}
+		}
+
+		public List<callInfo> getCounter()
+		{
+			if ( counterSkill > -1 )
+			{
+				//Getting skill data
+				var skillIndex = FunctionDB.core.findSkillIndexById( counterSkill );
+				var skill = Database.dynamic.skills[skillIndex];
+
+				if ( skill.unlocked )
+				{
+					//Getting function data
+					var functionsToCall = new List<callInfo>( skill.functionsToCall );
+					return functionsToCall;
+				}
+			}
+			return new List<callInfo>() { };
+		}
+
+		public void addDontReplaceAttribute( characterAttribute newAttribute )
+		{
+			for ( int i = 0; i < characterAttributes.Count; ++i )
+			{
+				if ( characterAttributes[i].name == newAttribute.name )
+				{
+					return;
+				}
+			}
+
+			newAttribute.id = characterAttributes.Count;
+			characterAttributes.Add( newAttribute );
+		}
+
+		public IEnumerator endRound(BattleManager.BattleManagerContext context)
+		{
+			for ( int i = 0; i < skills.Count; ++i )
+			{
+				var skillId = skills[i];
+			    var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(skillId)];
+
+			    var functionsToCall = skill.endOfRound;
+			    if ( functionsToCall.Count > 0 )
+			    {
+				    context.Init( id, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
+				    context.functionQueue = functionsToCall;
+				    context.activeSkillId = skillId;
+				    context.actionTargets.Clear();
+				    yield return BattleManager.functionQueueCaller( context );
+			    }
+			}
+
+			if ( counterSkill >= 0 )
+			{
+				var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(counterSkill)];
+
+				var functionsToCall = skill.endOfRound;
+			    if ( functionsToCall.Count > 0 )
+			    {
+				    BattleManager.core.CurrentContext.Init( id, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
+				    BattleManager.core.CurrentContext.functionQueue = functionsToCall;
+  		            BattleManager.core.CurrentContext.activeSkillId = skill.id;
+				    BattleManager.core.CurrentContext.actionTargets.Clear();
+
+				    yield return BattleManager.functionQueueCaller( BattleManager.core.CurrentContext );
+			    }
+			}
+		}
 
 		public void Copy( character toCopy )
 		{
@@ -78,11 +168,17 @@ namespace ClassDB {
 			animationController = toCopy.animationController;
 			aiFunctions = toCopy.aiFunctions;
 			isActive = toCopy.isActive;
+			counterSkill = toCopy.counterSkill;
 
 			skills = toCopy.skills.DeepClone();
 			items = toCopy.items.DeepClone();
 			characterAttributes = toCopy.characterAttributes.DeepClone();
 			aiFunctions = toCopy.aiFunctions.DeepClone();
+		}
+
+		public override string ToString()
+		{
+			return $"Character: {name} isTaunting {isTaunting}";
 		}
 	}
 
@@ -105,6 +201,11 @@ namespace ClassDB {
 		public bool waitForPreviousFunction;
 		public bool isCoroutine;
 		public bool isRunning;
+
+		public override string ToString()
+		{
+			return $"callInfo ({functionName}) - {isRunning}";
+		}
 	}
 
 	[System.Serializable]

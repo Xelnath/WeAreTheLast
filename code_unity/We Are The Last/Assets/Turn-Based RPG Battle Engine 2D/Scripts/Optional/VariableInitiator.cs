@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 //This script should be used in your main project in order to properly initiate battle.
 //Please refer to the doc for more info.
@@ -11,11 +12,11 @@ public class VariableInitiator : MonoBehaviour {
 	//These variables should be modified on the main scene, before the battle scene is loaded.
 	//The content of these variables will be copied over to Battle Manager
 
-	[Tooltip("Current player's team.")]
-	public List<int> activePlayerTeam;
+	[FormerlySerializedAs( "activePlayerTeam" )] [Tooltip("Current player's team.")]
+	public List<int> initialPlayerTeam;
 
-	[Tooltip("Current enemy team.")]
-	public List<int> activeEnemyTeam;
+	[FormerlySerializedAs( "activeEnemyTeam" )] [Tooltip("Current enemy team.")]
+	public List<int> initialEnemyTeam;
 
 	[Tooltip("Starting character.")]
 	public int startingCharacter;
@@ -41,8 +42,8 @@ public class VariableInitiator : MonoBehaviour {
 		//If battle manager exists on the scene, it means that we are on a battle scene.
 		//Thus, we should transfer our setup to the battle manager.
 		if (BattleManager.core != null) {
-			BattleManager.core.activePlayerTeam = activePlayerTeam;
-			BattleManager.core.activeEnemyTeam = activeEnemyTeam;
+			BattleManager.core.CurrentContext.attackerTeam = initialPlayerTeam;
+			BattleManager.core.CurrentContext.defenderTeam = initialEnemyTeam;
 			BattleManager.core.startingCharacter = startingCharacter;
 			BattleManager.core.startingMusicId = startingMusicId;
 			BattleManager.core.musicSourceIndex = musicSourceIndex;

@@ -189,7 +189,7 @@ public class BattleGen : MonoBehaviour
     FunctionDB.core.emptyWindow(actionsWindow);
 
     //Getting character id
-    var characterId = BattleManager.core.activeCharacterId;
+    var characterId = BattleManager.core.CurrentContext.activeCharacterId;
 
     //Getting skill list
     var charIndex = FunctionDB.core.findCharacterIndexById(characterId);
@@ -240,8 +240,9 @@ public class BattleGen : MonoBehaviour
 
           if ((curTp - skill.turnPointCost) >= 0)
           {
-            BattleManager.core.functionQueue = new List<callInfo>(functionsToCall);
-            BattleManager.core.StartCoroutine(BattleManager.core.methodCaller());
+            BattleManager.core.CurrentContext.functionQueue = new List<callInfo>(functionsToCall);
+            BattleManager.core.CurrentContext.activeSkillId = skill.id;
+            BattleManager.core.StartCoroutine(BattleManager.functionQueueCaller(BattleManager.core.CurrentContext));
           }
           else
           {
@@ -274,7 +275,7 @@ public class BattleGen : MonoBehaviour
     FunctionDB.core.emptyWindow(actionsWindow);
 
     //Getting character id
-    var characterId = BattleManager.core.activeCharacterId;
+    var characterId = BattleManager.core.CurrentContext.activeCharacterId;
 
     //Getting character
     var charIndex = FunctionDB.core.findCharacterIndexById(characterId);
@@ -331,8 +332,8 @@ public class BattleGen : MonoBehaviour
 
           if ((curTp - item.turnPointCost) >= 0)
           {
-            BattleManager.core.functionQueue = new List<callInfo>(functionsToCall);
-            BattleManager.core.StartCoroutine(BattleManager.core.methodCaller());
+            BattleManager.core.CurrentContext.functionQueue = new List<callInfo>(functionsToCall);
+            BattleManager.core.StartCoroutine(BattleManager.functionQueueCaller(BattleManager.core.CurrentContext));
           }
           else
           {
@@ -358,9 +359,55 @@ public class BattleGen : MonoBehaviour
 
   }
 
+  public List<int> getValidTargets(BattleManager.BattleManagerContext context, bool genPlayerTeam, bool genEnemyTeam, int targetLimit)
+  {
+    
+    //Creating a list of ids to generate
+    List<int> toGen = new List<int>();
+
+    //Adding players team
+    if (genPlayerTeam)
+    {
+      toGen.AddRange(context.attackerTeam);
+    }
+
+    //Adding enemy team
+    if (genEnemyTeam)
+    {
+      toGen.AddRange(context.defenderTeam);
+    }
+
+    //Excluding invalid characters
+    for (int i = 0; i < toGen.Count; i++)
+    {
+      //Getting character
+      var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(toGen[i])];
+
+      //If the character is not active, remove from list
+      if (!character.isActive)
+      {
+        toGen.RemoveAt(i);
+      }
+    }
+
+    //Clearing current actions window
+    BattleManager.core.curActions.Clear();
+
+    List<int> selected = new List<int>();
+    while ( targetLimit > 0 && toGen.Count > 0 )
+    {
+      int index = UnityEngine.Random.Range( 0, toGen.Count );
+      int charId = toGen[index];
+      toGen.RemoveAt( index );
+      selected.Add( charId );
+    }
+
+    return selected;
+  }
+
   //This function generates a target list
   //Note: This function does not include complex filter, please feel free to add your own if necessary
-  public void targetGen(bool genPlayerTeam, bool genEnemyTeam, int targetLimit)
+  public void targetGen(BattleManager.BattleManagerContext context, bool genPlayerTeam, bool genEnemyTeam, int targetLimit)
   {
 
     //Emptying list
@@ -370,7 +417,7 @@ public class BattleGen : MonoBehaviour
     bool focusSet = false;
 
     //Setting targetLimit
-    BattleManager.core.targetLimit = targetLimit;
+    context.targetLimit = targetLimit;
 
     //Creating a list of ids to generate
     List<int> toGen = new List<int>();
@@ -378,13 +425,13 @@ public class BattleGen : MonoBehaviour
     //Adding players team
     if (genPlayerTeam)
     {
-      toGen.AddRange(BattleManager.core.activePlayerTeam);
+      toGen.AddRange(context.attackerTeam);
     }
 
     //Adding enemy team
     if (genEnemyTeam)
     {
-      toGen.AddRange(BattleManager.core.activeEnemyTeam);
+      toGen.AddRange(context.defenderTeam);
     }
 
     //Excluding invalid characters
@@ -401,7 +448,7 @@ public class BattleGen : MonoBehaviour
     }
 
     //Cleaning action target List
-    BattleManager.core.actionTargets.Clear();
+    context.actionTargets.Clear();
 
     //Clearing current actions window
     BattleManager.core.curActions.Clear();
@@ -433,11 +480,11 @@ public class BattleGen : MonoBehaviour
       {
 
         //Making sure that the character is not already in the target list
-        var selectMore = BattleManager.core.targetLimit > BattleManager.core.actionTargets.Count;
-        if (!BattleManager.core.actionTargets.Exists(x => x == charId) && selectMore)
+        var selectMore = context.targetLimit > context.actionTargets.Count;
+        if (!context.actionTargets.Exists(x => x == charId) && selectMore)
         {
-          BattleManager.core.actionTargets.Add(charId);
-          selectMore = BattleManager.core.targetLimit > BattleManager.core.actionTargets.Count;
+          context.actionTargets.Add(charId);
+          selectMore = context.targetLimit > context.actionTargets.Count;
         }
 
         if (!selectMore)
@@ -480,7 +527,7 @@ public class BattleGen : MonoBehaviour
       mainGen();
 
       //Terminating selection process
-      BattleManager.core.targetLimit = BattleManager.core.actionTargets.Count;
+      BattleManager.core.CurrentContext.targetLimit = BattleManager.core.CurrentContext.actionTargets.Count;
 
     });
 
@@ -528,7 +575,7 @@ public class BattleGen : MonoBehaviour
   //This function nullifies turn points, ending the turn
   void endTurn()
   {
-    BattleMethods.core.subtractTurnPoints(-1, -1);
+    BattleMethods.core.subtractTurnPoints( BattleManager.core.CurrentContext, -1, -1);
   }
 
   void Awake() { if (core == null) { core = this; } }

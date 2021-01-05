@@ -26,13 +26,16 @@ public class FunctionDB : MonoBehaviour {
 	public int findAttributeIndexById (int seekId, character c) {
 		return c.characterAttributes.FindIndex(x => x.id == seekId);
 	}
-
-	public int findFunctionQueueIndexByCallInfo (callInfo ci) {
-		return BattleManager.core.functionQueue.FindIndex(x => x == ci);
+	public int findAttributeIndexByName (string name, character c) {
+		return c.characterAttributes.FindIndex(x => x.name == name);
 	}
 
-	public int findFunctionQueueIndexByName (string s) {
-		return BattleManager.core.functionQueue.FindIndex(x => x.functionName == s);
+	public int findFunctionQueueIndexByCallInfo (BattleManager.BattleManagerContext ctx, callInfo ci) {
+		return ctx.functionQueue.FindIndex(x => x == ci);
+	}
+
+	public int findFunctionQueueIndexByName (BattleManager.BattleManagerContext ctx, string s) {
+		return ctx.functionQueue.FindIndex(x => x.functionName == s);
 	}
 
 	//Getting battle manager characters list index by id
@@ -144,7 +147,6 @@ public class FunctionDB : MonoBehaviour {
 
 		return -1;
 	}
-
 
 	Coroutine audioTransitionRoutine;
 
@@ -287,18 +289,39 @@ public class FunctionDB : MonoBehaviour {
 	public IEnumerator follow (GameObject sourceObject, GameObject targetObject, float xAdjustment, float yAdjustment) {
 
 		while (sourceObject != null && targetObject != null) {
-
 			Vector3 temp1 = targetObject.transform.position;
 			temp1 = new Vector3 (temp1.x + xAdjustment, temp1.y + yAdjustment, sourceObject.transform.position.z);
+			
+			// Get the rect transform
+			var followUI = sourceObject.GetComponent<RectTransform>();
+			if ( followUI != null )
+			{
+				var canvas = sourceObject.GetComponentInParent<Canvas>();
+				var canvasRect = canvas.GetComponentInParent<RectTransform>();
+				var camera = Camera.main;
+				Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint( camera, temp1 );
+				Vector2 result;
+				RectTransformUtility.ScreenPointToLocalPointInRectangle( canvasRect, screenPoint,
+					canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : camera, out result );
 
-			sourceObject.transform.position = temp1;
+				sourceObject.transform.position = canvas.transform.TransformPoint( result );
+			}
+			else
+			{
+				sourceObject.transform.position = temp1;
+			}
 
 			yield return new WaitForEndOfFrame();
 		}
 	}
 
 	//This function is used to display on-screen values such as damage
-	public IEnumerator displayValue (GameObject target, float value, float xAdjustment, float yAdjustment) {
+	public IEnumerator displayValue ( GameObject target, float value, float xAdjustment, float yAdjustment )
+	{
+		yield return displayValue( target, value.ToString(), xAdjustment, yAdjustment );
+	}
+
+	public IEnumerator displayValue (GameObject target, string value, float xAdjustment, float yAdjustment) {
 
 		//Getting coordinates
 		Vector3 coordinates = target.transform.position;
@@ -312,6 +335,8 @@ public class FunctionDB : MonoBehaviour {
 		//Spawning Object
 		GameObject g = Instantiate (ObjectDB.core.battleUIValuePrefab, newCoordinates, Quaternion.identity, body.transform);
 
+		uiCoordinateCheck( g, newCoordinates ); 
+		
 		//Setting text
 		g.GetComponent<TextMeshProUGUI>().text = value.ToString();
 
@@ -324,6 +349,25 @@ public class FunctionDB : MonoBehaviour {
 
 	}
 
+	public static void uiCoordinateCheck(GameObject sourceObject, Vector3 worldPosition )
+	{
+		if ( sourceObject.GetComponent<RectTransform>() )
+		{
+			var canvas = sourceObject.GetComponentInParent<Canvas>();
+			var canvasRect = canvas.GetComponentInParent<RectTransform>();
+			var camera = Camera.main;
+			Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint( camera, worldPosition );
+			Vector2 result;
+			RectTransformUtility.ScreenPointToLocalPointInRectangle( canvasRect, screenPoint,
+				canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : camera, out result );
+
+			sourceObject.transform.position = canvas.transform.TransformPoint( result );
+		}
+		else
+		{
+			sourceObject.transform.position = worldPosition;
+		}
+	}
 
 	void Awake () { if (core == null) { core = this; } }
 
