@@ -623,21 +623,11 @@ MonoBehaviour:
       isCoroutine: 0
       isRunning: 0
     endOfRound:
-    - functionName: checkAttributeByName
+    - functionName: autoSelectTargets
       parametersArray:
+      - int:4
       - bool:true
-      - string:DEFEND
-      - int:1
       - bool:false
-      waitForPreviousFunction: 0
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: addOrChangeAttribute
-      parametersArray:
-      - bool:true
-      - string:DEFEND
-      - string:=0
-      - float:100
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0

@@ -358,6 +358,52 @@ public class BattleGen : MonoBehaviour
 
   }
 
+  public List<int> getValidTargets(BattleManager.BattleManagerContext context, bool genPlayerTeam, bool genEnemyTeam, int targetLimit)
+  {
+    
+    //Creating a list of ids to generate
+    List<int> toGen = new List<int>();
+
+    //Adding players team
+    if (genPlayerTeam)
+    {
+      toGen.AddRange(context.attackerTeam);
+    }
+
+    //Adding enemy team
+    if (genEnemyTeam)
+    {
+      toGen.AddRange(context.defenderTeam);
+    }
+
+    //Excluding invalid characters
+    for (int i = 0; i < toGen.Count; i++)
+    {
+      //Getting character
+      var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(toGen[i])];
+
+      //If the character is not active, remove from list
+      if (!character.isActive)
+      {
+        toGen.RemoveAt(i);
+      }
+    }
+
+    //Clearing current actions window
+    BattleManager.core.curActions.Clear();
+
+    List<int> selected = new List<int>();
+    while ( targetLimit > 0 && toGen.Count > 0 )
+    {
+      int index = UnityEngine.Random.Range( 0, toGen.Count );
+      int charId = toGen[index];
+      toGen.RemoveAt( index );
+      selected.Add( charId );
+    }
+
+    return selected;
+  }
+
   //This function generates a target list
   //Note: This function does not include complex filter, please feel free to add your own if necessary
   public void targetGen(BattleManager.BattleManagerContext context, bool genPlayerTeam, bool genEnemyTeam, int targetLimit)

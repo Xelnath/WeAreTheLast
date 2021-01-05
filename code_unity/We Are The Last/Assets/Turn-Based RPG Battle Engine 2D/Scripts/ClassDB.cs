@@ -45,6 +45,11 @@ namespace ClassDB {
 		
 		//A list of functions to be called when the round ends
 		public List<callInfo> endOfRound = new List<callInfo>();
+
+		public override string ToString()
+		{
+			return $"{name} ({id}) - {unlocked} - pts: {turnPointCost}";
+		}
 	}
 
 	[System.Serializable]

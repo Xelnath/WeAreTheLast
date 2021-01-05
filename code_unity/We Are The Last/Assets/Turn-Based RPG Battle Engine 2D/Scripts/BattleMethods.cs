@@ -88,6 +88,12 @@ public class BattleMethods : MonoBehaviour
 
   }
 
+  void autoSelectTargets( int targetLimit, bool allowFriendly, bool allowHostile )
+  {
+    BattleManager.core.RunningContext.targetLimit = targetLimit;
+    BattleManager.core.RunningContext.actionTargets = BattleGen.core.getValidTargets( BattleManager.core.RunningContext, allowFriendly, allowHostile, targetLimit );
+    BattleManager.setQueueStatus( "autoSelectTargets", false );
+  }
 
   /*
 	Target selection used by skills and items.
