@@ -241,6 +241,7 @@ public class BattleGen : MonoBehaviour
           if ((curTp - skill.turnPointCost) >= 0)
           {
             BattleManager.core.CurrentContext.functionQueue = new List<callInfo>(functionsToCall);
+            BattleManager.core.CurrentContext.activeSkillId = skill.id;
             BattleManager.core.StartCoroutine(BattleManager.functionQueueCaller(BattleManager.core.CurrentContext));
           }
           else

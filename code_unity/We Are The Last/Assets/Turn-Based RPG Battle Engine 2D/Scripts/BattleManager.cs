@@ -39,14 +39,17 @@ public class BattleManager : MonoBehaviour
 
   public class BattleManagerContext
   {
+    [Tooltip( "The id of the currently active skill." )]
+    public int activeSkillId = -1;
+    
     //Hidden variables
-    [Tooltip( "The id of the currently active character." )] [HideInInspector]
+    [Tooltip( "The id of the currently active character." )]
     public int activeCharacterId = -1;
 
-    [Tooltip( "A list of targets selected for a specific action." )] [HideInInspector]
+    [Tooltip( "A list of targets selected for a specific action." )]
     public List<int> actionTargets = new List<int>();
 
-    [Tooltip( "Selection limit for action targets." )] [HideInInspector]
+    [Tooltip( "Selection limit for action targets." )]
     public int targetLimit;
 
     [Tooltip( "Current attacker's team." )]
@@ -388,7 +391,7 @@ public class BattleManager : MonoBehaviour
           catch (Exception e)
           {
             Debug.Log(e);
-            Debug.Log("Please check " + method + ".");
+            Debug.Log($"Please check {method}. {ftc} - index: [{queueIndex}] of {BattleManager.core.RunningContext.activeSkillId}");
           }
 
         }

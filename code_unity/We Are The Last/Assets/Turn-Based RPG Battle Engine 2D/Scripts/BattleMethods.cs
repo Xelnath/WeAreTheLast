@@ -32,8 +32,8 @@ public class BattleMethods : MonoBehaviour
       var functionsToCall = skill.functionsToCall;
 
       //Storing the functions list to functionQueue
+      BattleManager.core.CurrentContext.activeSkillId = skillId;
       BattleManager.core.CurrentContext.functionQueue = functionsToCall;
-
       BattleManager.core.StartCoroutine( BattleManager.functionQueueCaller( BattleManager.core.CurrentContext ) );
 
       break;
@@ -445,7 +445,7 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( "checkAttribute", false );
   }
 
-  void addOrChangeAttribute( bool self, string attributeName, string value, float maxValue )
+  void addOrChangeAttribute( bool self, string attributeName, string value, float maxValue, bool showText )
   {
 
     //This function converts a string to an expression and assings the derived value to the attribute
@@ -471,11 +471,15 @@ public class BattleMethods : MonoBehaviour
     }
 
     forEachCharacterDo( self,
-      (character) => { 
-        
-        //Displaying change
-        FunctionDB.core.StartCoroutine( FunctionDB.core.displayValue( FunctionDB.core.findCharInstanceById( character.id ), v,
-          0, 0.3f ) );
+      (character) => {
+
+        if ( showText )
+        {
+          //Displaying change
+          FunctionDB.core.StartCoroutine( FunctionDB.core.displayValue(
+            FunctionDB.core.findCharInstanceById( character.id ), v,
+            0, 1.3f ) );
+        }
 
         var index = FunctionDB.core.findAttributeIndexByName( attributeName, character );
         if ( index == -1 )
@@ -510,7 +514,7 @@ public class BattleMethods : MonoBehaviour
 	If self is true, the attribute of the currently active character will be modified. However, if self is false, the attributes (with teh specified ids) of all
 	selected targets will be modified.
 	*/
-  void changeAttribute( bool self, int attrId, string value )
+  void changeAttribute( bool self, int attrId, string value, bool showValue )
   {
 
     //This function converts a string to an expression and assings the derived value to the attribute
@@ -540,8 +544,12 @@ public class BattleMethods : MonoBehaviour
       //Displaying change
       if ( FunctionDB.core.findAttributeIndexById( attrId, character ) > -1 )
       {
-        FunctionDB.core.StartCoroutine(
-          FunctionDB.core.displayValue( FunctionDB.core.findCharInstanceById( character.id ), v, 0, 0.3f ) );
+        if ( showValue )
+        {
+          FunctionDB.core.StartCoroutine(
+            FunctionDB.core.displayValue( FunctionDB.core.findCharInstanceById( character.id ), v, 0, 1.3f ) );
+        }
+
         //Getting attribute
         characterAttribute attribute =
           character.characterAttributes[FunctionDB.core.findAttributeIndexById( attrId, character )];

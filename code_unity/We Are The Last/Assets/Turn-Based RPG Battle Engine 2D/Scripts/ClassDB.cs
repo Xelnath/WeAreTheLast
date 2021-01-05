@@ -136,6 +136,7 @@ namespace ClassDB {
 			    {
 				    BattleManager.core.CurrentContext.Init( id, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
 				    BattleManager.core.CurrentContext.functionQueue = functionsToCall;
+				    BattleManager.core.CurrentContext.activeSkillId = skillId;
 				    yield return BattleManager.functionQueueCaller( BattleManager.core.CurrentContext );
 			    }
 			}
@@ -149,6 +150,8 @@ namespace ClassDB {
 			    {
 				    BattleManager.core.CurrentContext.Init( id, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
 				    BattleManager.core.CurrentContext.functionQueue = functionsToCall;
+  		            BattleManager.core.CurrentContext.activeSkillId = skill.id;
+
 				    yield return BattleManager.functionQueueCaller( BattleManager.core.CurrentContext );
 			    }
 			}
