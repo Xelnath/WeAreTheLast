@@ -124,7 +124,7 @@ namespace ClassDB {
 			characterAttributes.Add( newAttribute );
 		}
 
-		public IEnumerator endRound()
+		public IEnumerator endRound(BattleManager.BattleManagerContext context)
 		{
 			for ( int i = 0; i < skills.Count; ++i )
 			{
@@ -134,11 +134,11 @@ namespace ClassDB {
 			    var functionsToCall = skill.endOfRound;
 			    if ( functionsToCall.Count > 0 )
 			    {
-				    BattleManager.core.CurrentContext.Init( id, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
-				    BattleManager.core.CurrentContext.functionQueue = functionsToCall;
-				    BattleManager.core.CurrentContext.activeSkillId = skillId;
-				    BattleManager.core.CurrentContext.actionTargets.Clear();
-				    yield return BattleManager.functionQueueCaller( BattleManager.core.CurrentContext );
+				    context.Init( id, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
+				    context.functionQueue = functionsToCall;
+				    context.activeSkillId = skillId;
+				    context.actionTargets.Clear();
+				    yield return BattleManager.functionQueueCaller( context );
 			    }
 			}
 

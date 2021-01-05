@@ -575,7 +575,7 @@ public class BattleGen : MonoBehaviour
   //This function nullifies turn points, ending the turn
   void endTurn()
   {
-    BattleMethods.core.subtractTurnPoints(-1, -1);
+    BattleMethods.core.subtractTurnPoints( BattleManager.core.CurrentContext, -1, -1);
   }
 
   void Awake() { if (core == null) { core = this; } }

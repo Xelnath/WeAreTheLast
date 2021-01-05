@@ -10,17 +10,16 @@ using ClassDB;
 //A class containing custom methods
 public class BattleMethods : MonoBehaviour
 {
-
   public static BattleMethods core;
 
   //This is a sample AI function that simply runs the first skill available to the AI on a random target
-  void sampleAi()
+  void sampleAi(BattleManager.BattleManagerContext context)
   {
 
     //Getting character
     var character =
       Database.dynamic.characters[
-        FunctionDB.core.findCharacterIndexById( BattleManager.core.CurrentContext.activeCharacterId )];
+        FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
     //Getting skills
     var skillIds = character.skills;
 
@@ -32,9 +31,9 @@ public class BattleMethods : MonoBehaviour
       var functionsToCall = skill.functionsToCall;
 
       //Storing the functions list to functionQueue
-      BattleManager.core.CurrentContext.activeSkillId = skillId;
-      BattleManager.core.CurrentContext.functionQueue = functionsToCall;
-      BattleManager.core.StartCoroutine( BattleManager.functionQueueCaller( BattleManager.core.CurrentContext ) );
+      context.activeSkillId = skillId;
+      context.functionQueue = functionsToCall;
+      BattleManager.core.StartCoroutine( BattleManager.functionQueueCaller( context ) );
 
       break;
     }
@@ -47,18 +46,17 @@ public class BattleMethods : MonoBehaviour
 	Action Id is the id of the action (skill or item) in the database.
 	If actionId is -1 or action type is -1, the function will set remaining points to 0.
 	 */
-  public void subtractTurnPoints( int actionType, int actionId )
+  public void subtractTurnPoints( BattleManager.BattleManagerContext context, int actionType, int actionId )
   {
 
     if ( actionId != -1 && actionType != -1 )
     {
-
       int tp = BattleManager.core.turnPoints;
       int requiredTp = 0;
 
       if ( actionType == 0 )
       {
-        requiredTp = Database.dynamic.skills[FunctionDB.core.findSkillIndexById( actionId )].turnPointCost;
+        requiredTp = Database.dynamic.skills[context.activeSkillId].turnPointCost;
       }
       else if ( actionType == 1 )
       {
@@ -82,17 +80,15 @@ public class BattleMethods : MonoBehaviour
     }
     else BattleManager.core.turnPoints = 0;
 
-
-
-    BattleManager.setQueueStatus( "subtractTurnPoints", false );
+    BattleManager.setQueueStatus( context,  "subtractTurnPoints", false );
 
   }
 
-  void autoSelectTargets( int targetLimit, bool allowFriendly, bool allowHostile )
+  void autoSelectTargets( BattleManager.BattleManagerContext context, int targetLimit, bool allowFriendly, bool allowHostile )
   {
-    BattleManager.core.RunningContext.targetLimit = targetLimit;
-    BattleManager.core.RunningContext.actionTargets = BattleGen.core.getValidTargets( BattleManager.core.RunningContext, allowFriendly, allowHostile, targetLimit );
-    BattleManager.setQueueStatus( "autoSelectTargets", false );
+    context.targetLimit = targetLimit;
+    context.actionTargets = BattleGen.core.getValidTargets( context, allowFriendly, allowHostile, targetLimit );
+    BattleManager.setQueueStatus( context,  "autoSelectTargets", false );
   }
 
   /*
@@ -103,17 +99,17 @@ public class BattleMethods : MonoBehaviour
 	TargetLimit is the maximum amount of targets the player can select. All targets are fed into the action targets list of BattleManager.
 	 */
 
-  void selectCharacter( bool targetSameTeam, int targetLimit )
+  void selectCharacter( BattleManager.BattleManagerContext context, bool targetSameTeam, int targetLimit )
   {
 
-    BattleManager.core.RunningContext.targetLimit = targetLimit;
-    BattleManager.core.RunningContext.actionTargets.Clear();
+    context.targetLimit = targetLimit;
+    context.actionTargets.Clear();
 
     if ( !( BattleManager.core.autoBattle || BattleManager.core.activeTeam == 1 ) )
     {
 
-      if ( targetSameTeam ) BattleGen.core.targetGen( BattleManager.core.RunningContext, true, false, targetLimit );
-      else BattleGen.core.targetGen( BattleManager.core.RunningContext, false, true, targetLimit );
+      if ( targetSameTeam ) BattleGen.core.targetGen( context, true, false, targetLimit );
+      else BattleGen.core.targetGen( context, false, true, targetLimit );
 
     }
     else
@@ -122,8 +118,8 @@ public class BattleMethods : MonoBehaviour
       //Getting target list
       int targetInt = targetSameTeam ? 0 : 1;
       List<int> targets = BattleManager.core.activeTeam == targetInt
-        ? BattleManager.core.RunningContext.attackerTeam
-        : BattleManager.core.RunningContext.defenderTeam;
+        ? context.attackerTeam
+        : context.defenderTeam;
 
       //Excluding invalid characters
       for ( int i = 0; i < targets.Count; i++ )
@@ -144,10 +140,10 @@ public class BattleMethods : MonoBehaviour
       int randIndex = AIGetRandomTarget( targets );
 
       //Adding character to targets
-      BattleManager.core.RunningContext.actionTargets.Add( randIndex );
+      context.actionTargets.Add( randIndex );
     }
 
-    BattleManager.setQueueStatus( "selectCharacter", false );
+    BattleManager.setQueueStatus( context,  "selectCharacter", false );
 
   }
 
@@ -190,29 +186,29 @@ public class BattleMethods : MonoBehaviour
 
   IEnumerator waitForSelection( object[] parms )
   {
-
+    BattleManager.BattleManagerContext context = parms[0] as BattleManager.BattleManagerContext; 
     //Terminate current function chain if no characters were selected ?
-    bool terminateOnEmpty = (bool) parms[0];
+    bool terminateOnEmpty = (bool) parms[1];
     //Has the target limit been reached
     bool limitReached = false;
 
     while ( true )
     {
       //Is the amount of tagrets currently selected equal to the target limit?
-      limitReached = BattleManager.core.RunningContext.targetLimit ==
-                     BattleManager.core.RunningContext.actionTargets.Count;
+      limitReached = context.targetLimit ==
+                     context.actionTargets.Count;
 
       //If the previous is true, the function is told to terminate if the player has not selected anything, and the player has indeed selected no targets -
-      if ( limitReached && terminateOnEmpty && BattleManager.core.RunningContext.actionTargets.Count == 0 )
+      if ( limitReached && terminateOnEmpty && context.actionTargets.Count == 0 )
       {
         //Stop the execution of the function chain by erasing it.
-        BattleManager.core.RunningContext.functionQueue.Clear();
+        context.functionQueue.Clear();
         break;
       }
       else if ( limitReached )
       {
         //Otheriwse, if the limit has been simply reached, mark this function as not running.
-        BattleManager.setQueueStatus( "waitForSelection", false );
+        BattleManager.setQueueStatus( context,  "waitForSelection", false );
         break;
       }
 
@@ -220,38 +216,32 @@ public class BattleMethods : MonoBehaviour
 
     }
 
-  }
-
-  //Waiting for a reaction Queue to end
-  IEnumerator waitForReaction( object[] parms )
-  {
-    while ( BattleManager.core.ReactionContext != null && BattleManager.core.ReactionContext.functionQueue.Count > 0 )
-    {
-      yield return new WaitForEndOfFrame();
-    }
-
-    //Marking function as not running.
-    BattleManager.setQueueStatus( "waitForReaction", false );
   }
 
 
   //Waiting for a fixed amount of seconds
   IEnumerator wait( object[] parms )
   {
+    BattleManager.BattleManagerContext context = parms[0] as BattleManager.BattleManagerContext; 
+
     //Time to wait in seconds.
-    float timeToWait = (float) parms[0];
+    float timeToWait = (float) parms[1];
     //Waiting
     yield return new WaitForSeconds( timeToWait );
     //Marking function as not running.
-    BattleManager.setQueueStatus( "wait", false );
+    BattleManager.setQueueStatus( context,  "wait", false );
   }
 
 
   // Provoke reaction from enemy if it can counter
   IEnumerator provokeReaction( object[] parms )
   {
+    BattleManager.BattleManagerContext context = parms[0] as BattleManager.BattleManagerContext; 
+
+    List<BattleManager.BattleManagerContext> reactionSet = new List<BattleManager.BattleManagerContext>();
+    
     //For each action target
-    foreach ( int target in BattleManager.core.RunningContext.actionTargets )
+    foreach ( int target in context.actionTargets )
     {
 
       //Getting character
@@ -269,23 +259,53 @@ public class BattleMethods : MonoBehaviour
       //Checking value
       if ( attribute.curValue > 0 )
       {
-        BattleManager.core.ReactionContext = new BattleManager.BattleManagerContext();
-        BattleManager.core.ReactionContext.actionTargets = new List<int>()
-          { BattleManager.core.RunningContext.activeCharacterId };
-        BattleManager.core.ReactionContext.Init( victimId, BattleManager.core.activePlayerTeam,
-          BattleManager.core.activeEnemyTeam );
-        BattleManager.core.ReactionContext.targetLimit = 1;
-        BattleManager.core.ReactionContext.functionQueue = character.getCounter();
-        StartCoroutine( BattleManager.reactionQueueCaller( BattleManager.core.ReactionContext ) );
+        int counterActorID = victimId;
+        character counteringCharacter = character;
+        int counterSourceIndex = FunctionDB.core.findAttributeIndexByName( "COUNTERSOURCE", character );
+        if ( counterSourceIndex >= 0 )
+        {
+          //Getting attribute
+          characterAttribute counterSource = character.characterAttributes[counterSourceIndex];
+          counterActorID = Mathf.FloorToInt( counterSource.curValue );
+          counteringCharacter = Database.dynamic.characters[counterActorID];
+        }
+        
+        var c = new BattleManager.BattleManagerContext();
+        c.actionTargets = new List<int>() { context.activeCharacterId };
+        c.Init( counterActorID, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
+        c.targetLimit = 1;
+        c.functionQueue = counteringCharacter.getCounter();
+        reactionSet.Add( c );
       }
     }
 
     //Marking function as not running.
-    BattleManager.core.RunningContext = BattleManager.core.CurrentContext;
-    BattleManager.setQueueStatus( "provokeReaction", false );
+    context = BattleManager.core.CurrentContext;
+    BattleManager.setQueueStatus( context,  "provokeReaction", false );
+
+    if ( reactionSet.Count > 0 )
+    {
+      BattleManager.core.ReactionContext = reactionSet[0];
+    }
+
+    StartCoroutine( BattleManager.reactionQueueCaller( reactionSet.ToArray() ) );
 
     //Waiting
     yield return new WaitForEndOfFrame();
+  }
+
+  //Waiting for a reaction Queue to end
+  IEnumerator waitForReaction( object[] parms )
+  {
+    BattleManager.BattleManagerContext context = parms[0] as BattleManager.BattleManagerContext; 
+
+    while ( BattleManager.core.ReactionContext != null && BattleManager.core.ReactionContext.functionQueue.Count > 0 )
+    {
+      yield return new WaitForEndOfFrame();
+    }
+
+    //Marking function as not running.
+    BattleManager.setQueueStatus( context,  "waitForReaction", false );
   }
 
   /*
@@ -293,19 +313,20 @@ public class BattleMethods : MonoBehaviour
 	 */
   IEnumerator moveToTarget( object[] parms )
   {
+    BattleManager.BattleManagerContext context = parms[0] as BattleManager.BattleManagerContext; 
 
     //The distance to maintain between the character and the target.
-    float distance = (float) parms[0];
+    float distance = (float) parms[1];
 
     //Movements speed.
-    float speed = (float) parms[1];
+    float speed = (float) parms[2];
 
     //Active character id and destination character id
-    var sourceCharId = BattleManager.core.RunningContext.activeCharacterId;
+    var sourceCharId = context.activeCharacterId;
     var destinationCharId = -1;
 
-    if ( BattleManager.core.RunningContext.actionTargets.Count > 0 )
-      destinationCharId = BattleManager.core.RunningContext.actionTargets[0];
+    if ( context.actionTargets.Count > 0 )
+      destinationCharId = context.actionTargets[0];
     else Debug.Log( "No targets selected" );
 
     if ( destinationCharId != -1 )
@@ -338,18 +359,19 @@ public class BattleMethods : MonoBehaviour
 
     }
 
-    BattleManager.setQueueStatus( "moveToTarget", false );
+    BattleManager.setQueueStatus( context,  "moveToTarget", false );
   }
 
   //Moving battler pack to spawn point
   IEnumerator moveBack( object[] parms )
   {
+    BattleManager.BattleManagerContext context = parms[0] as BattleManager.BattleManagerContext; 
 
     //Movement speed
-    float speed = (float) parms[0];
+    float speed = (float) parms[1];
 
     //Getting active char id
-    int charId = BattleManager.core.RunningContext.activeCharacterId;
+    int charId = context.activeCharacterId;
 
     //Getting character object
     GameObject charObject = FunctionDB.core.findCharInstanceById( charId );
@@ -369,7 +391,7 @@ public class BattleMethods : MonoBehaviour
       yield return new WaitForEndOfFrame();
     }
 
-    BattleManager.setQueueStatus( "moveBack", false );
+    BattleManager.setQueueStatus( context,  "moveBack", false );
 
   }
 
@@ -380,9 +402,9 @@ public class BattleMethods : MonoBehaviour
 	Attribute id is the id of the attribute to check (of the latter character).
 	Min Value is the minimum value that the attribute can have. If the value of the attribute is below the minimum value, the skill chain will be stopped.
 	 */
-  void checkAttribute( bool self, int attrId, float minValue )
+  void checkAttribute( BattleManager.BattleManagerContext context, bool self, int attrId, float minValue )
   {
-    forEachCharacterDo( self, ( character ) =>
+    forEachCharacterDo( context, self, ( character ) =>
     {
 
       //Getting attribute
@@ -393,13 +415,13 @@ public class BattleMethods : MonoBehaviour
       if ( attribute.curValue < minValue )
       {
         //Stopping skill chain and displaying warning
-        BattleManager.core.RunningContext.functionQueue.Clear();
+        context.functionQueue.Clear();
         BattleManager.core.startWarningRoutine( "Not enough " + attribute.name, 2f );
       }
 
     } );
 
-    BattleManager.setQueueStatus( "checkAttribute", false );
+    BattleManager.setQueueStatus( context,  "checkAttribute", false );
   }
 
   /*
@@ -409,10 +431,10 @@ public class BattleMethods : MonoBehaviour
 	Attribute id is the id of the attribute to check (of the latter character).
 	Min Value is the minimum value that the attribute can have. If the value of the attribute is below the minimum value, the skill chain will be stopped.
 	 */
-  void checkAttributeByName( bool self, string attrName, float minValue, bool warn )
+  void checkAttributeByName( BattleManager.BattleManagerContext context, bool self, string attrName, float minValue, bool warn )
   {
 
-    forEachCharacterDo( self, ( character ) =>
+    forEachCharacterDo( context, self, ( character ) =>
     {
       bool pass = true;
       var index = FunctionDB.core.findAttributeIndexByName( attrName, character );
@@ -433,7 +455,7 @@ public class BattleMethods : MonoBehaviour
       if ( !pass )
       {
         //Stopping skill chain and displaying warning
-        BattleManager.core.RunningContext.functionQueue.Clear();
+        context.functionQueue.Clear();
         if ( warn )
         {
           BattleManager.core.startWarningRoutine( "Not enough " + attrName, 2f );
@@ -442,10 +464,10 @@ public class BattleMethods : MonoBehaviour
 
     } );
 
-    BattleManager.setQueueStatus( "checkAttribute", false );
+    BattleManager.setQueueStatus( context,  "checkAttribute", false );
   }
   
-  void addOrChangeAttribute( bool self, string attributeName, string value, float maxValue, bool showText )
+  void addOrChangeAttribute( BattleManager.BattleManagerContext context, bool self, string attributeName, string value, float maxValue, bool showText )
   {
 
     //This function converts a string to an expression and assings the derived value to the attribute
@@ -470,7 +492,7 @@ public class BattleMethods : MonoBehaviour
         break;
     }
 
-    forEachCharacterDo( self,
+    forEachCharacterDo( context, self,
       (character) => {
 
         if ( showText )
@@ -493,8 +515,7 @@ public class BattleMethods : MonoBehaviour
         }
         else
         {
-          characterAttribute attribute =
-            character.characterAttributes[FunctionDB.core.findAttributeIndexById( index, character )];
+          characterAttribute attribute = character.characterAttributes[index];
 
           //Applying change
           if ( !set ) attribute.curValue = ( attribute.curValue + v ) > 0 ? ( attribute.curValue + v ) : 0;
@@ -502,7 +523,7 @@ public class BattleMethods : MonoBehaviour
         }
       } );
 
-    BattleManager.setQueueStatus( "addOrChangeAttribute", false );
+    BattleManager.setQueueStatus( context,  "addOrChangeAttribute", false );
   }
 
   /*
@@ -514,7 +535,7 @@ public class BattleMethods : MonoBehaviour
 	If self is true, the attribute of the currently active character will be modified. However, if self is false, the attributes (with teh specified ids) of all
 	selected targets will be modified.
 	*/
-  void changeAttribute( bool self, int attrId, string value, bool showValue )
+  void changeAttribute( BattleManager.BattleManagerContext context, bool self, int attrId, string value, bool showValue )
   {
 
     //This function converts a string to an expression and assings the derived value to the attribute
@@ -539,7 +560,7 @@ public class BattleMethods : MonoBehaviour
         break;
     }
 
-    forEachCharacterDo( self, ( character ) =>
+    forEachCharacterDo( context, self, ( character ) =>
     {
       //Displaying change
       if ( FunctionDB.core.findAttributeIndexById( attrId, character ) > -1 )
@@ -560,16 +581,15 @@ public class BattleMethods : MonoBehaviour
       }
     } );
 
-    BattleManager.setQueueStatus( "changeAttribute", false );
+    BattleManager.setQueueStatus( context,  "changeAttribute", false );
   }
 
-  private void forEachCharacterDo( bool selfOnly, Action<character> x )
+  private void forEachCharacterDo( BattleManager.BattleManagerContext context, bool selfOnly, Action<character> x )
   {
-
     if ( selfOnly )
     {
       //Active char id
-      var activeCharId = BattleManager.core.RunningContext.activeCharacterId;
+      var activeCharId = context.activeCharacterId;
 
       //Getting character
       character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( activeCharId )];
@@ -580,7 +600,7 @@ public class BattleMethods : MonoBehaviour
     {
 
       //For each action target
-      foreach ( int target in BattleManager.core.RunningContext.actionTargets )
+      foreach ( int target in context.actionTargets )
       {
         //Getting character
         character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( target )];
@@ -595,11 +615,11 @@ public class BattleMethods : MonoBehaviour
 	Quantity is the quantity of the item to remove.
 	Char id is the id of the character from which to remove the item. If Char id is set to -1, the currently active character will be targeted.
 	 */
-  void removeItem( int charId, int itemId, float quantity )
+  void removeItem( BattleManager.BattleManagerContext context, int charId, int itemId, float quantity )
   {
 
     //Character id
-    var characterId = charId > -1 ? charId : BattleManager.core.RunningContext.activeCharacterId;
+    var characterId = charId > -1 ? charId : context.activeCharacterId;
     //Getting character
     character c = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( characterId )];
     //Getting item
@@ -620,9 +640,9 @@ public class BattleMethods : MonoBehaviour
 
   }
 
-  void damageTargets( int damageAmount, int school )
+  void damageTargets( BattleManager.BattleManagerContext context, int damageAmount, int school )
   {
-    forEachCharacterDo( false, ( character ) =>
+    forEachCharacterDo( context, false, ( character ) =>
     {
       var index = FunctionDB.core.findAttributeIndexByName( "HP", character );
       int defense = 0;
@@ -671,7 +691,7 @@ public class BattleMethods : MonoBehaviour
       }
     } );
 
-    BattleManager.setQueueStatus( "damageTargets", false );
+    BattleManager.setQueueStatus( context,  "damageTargets", false );
   }
 
 /*
@@ -679,15 +699,15 @@ This function will play an animation of a selected character.
 Character id is the id of the character on whom to play the animtion. If the id is set to -1, the ative character will be selected.
 The condition name is the name of the Animator's parameter which will be set to active once the function is called.
  */
-  void playAnimation(int charId, string conditionName)
+  void playAnimation(BattleManager.BattleManagerContext context, int charId, string conditionName)
   {
 
     //getting active character if a character id was not provided
-    var charIdNew = charId > -1 ? charId : BattleManager.core.RunningContext.activeCharacterId;
+    var charIdNew = charId > -1 ? charId : context.activeCharacterId;
     //Playing the animation
     FunctionDB.core.setAnimation(charIdNew, conditionName);
 
-    BattleManager.setQueueStatus("playAnimation", false);
+    BattleManager.setQueueStatus( context, "playAnimation", false);
   }
 
 
@@ -696,13 +716,13 @@ The condition name is the name of the Animator's parameter which will be set to 
 	The audio source index is the index of the audio source attached to the BattleManager object.
 	Audio id is the id of the audioclip in the database.
 	 */
-  void playAudioOnce(int audioSourceIndex, int audioId)
+  void playAudioOnce(BattleManager.BattleManagerContext context, int audioSourceIndex, int audioId)
   {
 
     //Calling function to play audio once
     FunctionDB.core.playAudioOnce(audioSourceIndex, audioId);
 
-    BattleManager.setQueueStatus("playAudioOnce", false);
+    BattleManager.setQueueStatus( context, "playAudioOnce", false);
   }
 
 
@@ -711,21 +731,21 @@ The condition name is the name of the Animator's parameter which will be set to 
 	Char id is the id of the character to be rotated. If the id is set to -1, the active character will be selected.
 	The degree is the number of degrees to rotate the character. Use 180 each time you wish to flip the battler.
 	 */
-  void rotateCharacter(int charId, float degree)
+  void rotateCharacter(BattleManager.BattleManagerContext context, int charId, float degree)
   {
     ;
-    var charIdNew = charId > -1 ? charId : BattleManager.core.RunningContext.activeCharacterId;
+    var charIdNew = charId > -1 ? charId : context.activeCharacterId;
     var charObject = FunctionDB.core.findCharInstanceById(charIdNew);
     charObject.transform.Rotate(0, degree, 0);
 
-    BattleManager.setQueueStatus("rotateCharacter", false);
+    BattleManager.setQueueStatus( context, "rotateCharacter", false);
   }
 
   /*
 	This function toggles elements of the battle ui action window.
 	If state is set to true, the actions will be accessible. If false, the actions will not be interactible.
 	 */
-  public void toggleActions(bool state)
+  public void toggleActions(BattleManager.BattleManagerContext context, bool state)
   {
 
     //Getting actions parent object
@@ -740,7 +760,7 @@ The condition name is the name of the Animator's parameter which will be set to 
       b.interactable = state;
     }
 
-    BattleManager.setQueueStatus("toggleActions", false);
+    BattleManager.setQueueStatus( context, "toggleActions", false);
 
   }
 
@@ -752,7 +772,7 @@ The condition name is the name of the Animator's parameter which will be set to 
 	The adjustments are used to modify the position of the spawned prefab by a certain value on spawn/follow.
 	 */
 
-  public void displayFX(bool self, float timeToExist, string fxParameterName, float xAdjustment, float yAdjustment)
+  public void displayFX(BattleManager.BattleManagerContext context, bool self, float timeToExist, string fxParameterName, float xAdjustment, float yAdjustment)
   {
 
     //Getting prefab
@@ -765,7 +785,7 @@ The condition name is the name of the Animator's parameter which will be set to 
     {
 
       //Active char id
-      var activeCharId = BattleManager.core.RunningContext.activeCharacterId;
+      var activeCharId = context.activeCharacterId;
 
       //Getting character instace
       GameObject charInstance = FunctionDB.core.findCharInstanceById(activeCharId);
@@ -794,7 +814,7 @@ The condition name is the name of the Animator's parameter which will be set to 
     {
 
       //For each action target
-      foreach (int target in BattleManager.core.RunningContext.actionTargets)
+      foreach (int target in context.actionTargets)
       {
 
         //Getting character instace
@@ -821,7 +841,7 @@ The condition name is the name of the Animator's parameter which will be set to 
       }
     }
 
-    BattleManager.setQueueStatus("displayFX", false);
+    BattleManager.setQueueStatus( context, "displayFX", false);
   }
 
   void Awake() { if (core == null) core = this; }

@@ -30,12 +30,12 @@ public class FunctionDB : MonoBehaviour {
 		return c.characterAttributes.FindIndex(x => x.name == name);
 	}
 
-	public int findFunctionQueueIndexByCallInfo (callInfo ci) {
-		return BattleManager.core.RunningContext.functionQueue.FindIndex(x => x == ci);
+	public int findFunctionQueueIndexByCallInfo (BattleManager.BattleManagerContext ctx, callInfo ci) {
+		return ctx.functionQueue.FindIndex(x => x == ci);
 	}
 
-	public int findFunctionQueueIndexByName (string s) {
-		return BattleManager.core.RunningContext.functionQueue.FindIndex(x => x.functionName == s);
+	public int findFunctionQueueIndexByName (BattleManager.BattleManagerContext ctx, string s) {
+		return ctx.functionQueue.FindIndex(x => x.functionName == s);
 	}
 
 	//Getting battle manager characters list index by id

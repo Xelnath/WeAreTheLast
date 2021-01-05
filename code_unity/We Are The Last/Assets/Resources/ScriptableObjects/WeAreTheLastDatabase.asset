@@ -19,7 +19,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 27d615c5f545db846bc939904a978394, type: 3}
     animationController: {fileID: 9100000, guid: 241b9021678cb8e4cb2a79dc3041ebe9,
       type: 2}
-    skills: 0000000004000000
+    skills: 000000000400000005000000
     items:
     - id: 0
       quantity: 1
@@ -475,7 +475,7 @@ MonoBehaviour:
       parametersArray:
       - int:-1
       - string:walk
-      waitForPreviousFunction: 1
+      waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
     - functionName: moveToTarget
@@ -639,6 +639,104 @@ MonoBehaviour:
       - bool:false
       - string:DEFENDROUNDS
       - string:-1
+      - float:100
+      - bool:false
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+  - name: Counter All
+    id: 5
+    description: Counter all attacks this round
+    unlocked: 1
+    turnPointCost: 100
+    functionsToCall:
+    - functionName: autoSelectTargets
+      parametersArray:
+      - int:4
+      - bool:true
+      - bool:false
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: toggleActions
+      parametersArray:
+      - bool:false
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:false
+      - string:COUNTER
+      - string:=1
+      - float:100
+      - bool:false
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:false
+      - string:COUNTERSOURCE
+      - string:=0
+      - float:100
+      - bool:false
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFX
+      parametersArray:
+      - bool:false
+      - float:2
+      - string:heal
+      - float:-0.8
+      - float:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:0.4
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: toggleActions
+      parametersArray:
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: subtractTurnPoints
+      parametersArray:
+      - int:0
+      - int:1
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    endOfRound:
+    - functionName: autoSelectTargets
+      parametersArray:
+      - int:4
+      - bool:true
+      - bool:false
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:false
+      - string:COUNTER
+      - string:=0
+      - float:100
+      - bool:false
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:true
+      - string:COUNTER
+      - string:=1
       - float:100
       - bool:false
       waitForPreviousFunction: 0

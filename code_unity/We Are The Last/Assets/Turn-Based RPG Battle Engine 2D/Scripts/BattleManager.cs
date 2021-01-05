@@ -98,9 +98,7 @@ public class BattleManager : MonoBehaviour
   
   // Used for interruptions
   public BattleManagerContext ReactionContext;
-  
-  // The one running
-  public BattleManagerContext RunningContext;
+  public List<BattleManagerContext> ReactionQueue = new List<BattleManagerContext>();
 
   //Hidden variables
   [Tooltip("Currently active music id.")]
@@ -158,7 +156,6 @@ public class BattleManager : MonoBehaviour
 
     characters.Clear();
     CurrentContext = new BattleManagerContext();
-    RunningContext = CurrentContext;
 
     //Disabling outcome window
     GameObject outcomeScreen = ObjectDB.core.outcomeWidow;
@@ -297,8 +294,6 @@ public class BattleManager : MonoBehaviour
       }
 
       //Active char id
-      BattleManager.core.RunningContext = context;
-      
       yield return call ( context, ftc );
     }
 
@@ -306,37 +301,38 @@ public class BattleManager : MonoBehaviour
   }
   
     //This function allows invoking methods by names and applying parameters from a parameter array
-    public static IEnumerator reactionQueueCaller( BattleManagerContext context )
+    public static IEnumerator reactionQueueCaller( params BattleManagerContext[] contexts )
     {
-      //We need to create a copy of the current list to avoid errors in the senarios were the list is modified during runtime
-      var lastFunctionQueue = new List<callInfo>( context.functionQueue );
-
-      foreach ( callInfo ftc in lastFunctionQueue )
+      foreach ( var context in contexts )
       {
+        //We need to create a copy of the current list to avoid errors in the senarios were the list is modified during runtime
+        var lastFunctionQueue = new List<callInfo>( context.functionQueue );
 
-        if ( !context.functionQueue.Contains( ftc ) )
+        foreach ( callInfo ftc in lastFunctionQueue )
         {
-          break;
+
+          if ( !context.functionQueue.Contains( ftc ) )
+          {
+            break;
+          }
+
+          //Active char id
+          yield return call ( context, ftc );
         }
 
-        //Active char id
-        BattleManager.core.RunningContext = context;
-
-        yield return call ( context, ftc );
+        yield return new WaitForEndOfFrame();
       }
-
-      context.functionQueue.Clear();
-      BattleManager.core.RunningContext = BattleManager.core.CurrentContext;
+      BattleManager.core.ReactionContext = null;
     }
 
   private static IEnumerator call( BattleManagerContext context, callInfo ftc )
   {
     
       var method = ftc.functionName;
-      object[] parametersArray = ftc.parametersArray.Select(x => sudoParameterDecoder(x)).ToArray();
+      object[] parametersArray = ftc.parametersArray.Select(x => sudoParameterDecoder(x)).Prepend(context).ToArray();
 
       //Getting current element index
-      int queueIndex = FunctionDB.core.findFunctionQueueIndexByCallInfo(ftc);
+      int queueIndex = FunctionDB.core.findFunctionQueueIndexByCallInfo(context, ftc);
 
       //Is our function supposed to wait for previous functions to complete?
       while (context.functionQueue.Contains(ftc) && ftc.waitForPreviousFunction)
@@ -377,7 +373,7 @@ public class BattleManager : MonoBehaviour
         MethodInfo mi = type.GetMethod(method, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 
         //Setting current function as running in the queue
-        setQueueStatus(method, true);
+        setQueueStatus(context, method, true);
 
         //There are two different approaches when it comes to running ordinary methods and coroutines.
         if (!ftc.isCoroutine)
@@ -391,7 +387,7 @@ public class BattleManager : MonoBehaviour
           catch (Exception e)
           {
             Debug.Log(e);
-            var index = FunctionDB.core.findSkillIndexById( BattleManager.core.RunningContext.activeSkillId );
+            var index = FunctionDB.core.findSkillIndexById( context.activeSkillId );
             var skill = Database.dynamic.skills[index];
             Debug.Log($"Please check {method}. {ftc} - index: [{queueIndex}] of {skill}");
           }
@@ -443,18 +439,18 @@ public class BattleManager : MonoBehaviour
 
 
   //This function runs character AI functions
-  void runAI()
+  void runAI(BattleManager.BattleManagerContext context)
   {
     //Getting current character
-    var curChar = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(RunningContext.activeCharacterId)];
+    var curChar = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(context.activeCharacterId)];
 
     //Getting functions to call
     var functionsToCall = curChar.aiFunctions;
 
     //Storing the functions list to functionQueue
-    RunningContext.functionQueue = functionsToCall;
+    context.functionQueue = functionsToCall;
 
-    StartCoroutine(functionQueueCaller(RunningContext));
+    StartCoroutine(functionQueueCaller(context));
   }
 
   //This function manages keyboard navigation
@@ -522,15 +518,16 @@ public class BattleManager : MonoBehaviour
     GameObject actionTargetsObject = ObjectDB.core.actionTargetsObject;
     TextMeshProUGUI t = actionTargetsObject.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
 
+    var context = BattleManager.core.CurrentContext;
     
     while (true)
     {
-      if (RunningContext.targetLimit > 1 && RunningContext.actionTargets.Count > 0)
+      if (context.targetLimit > 1 && context.actionTargets.Count > 0)
       {
-        t.text = RunningContext.actionTargets.Count.ToString() + " Targets Selected";
+        t.text = context.actionTargets.Count.ToString() + " Targets Selected";
         actionTargetsObject.SetActive(true);
       }
-      else if (RunningContext.targetLimit == RunningContext.actionTargets.Count || RunningContext.actionTargets.Count == 0)
+      else if (context.targetLimit == context.actionTargets.Count || context.actionTargets.Count == 0)
       {
         actionTargetsObject.SetActive(false);
       }
@@ -709,15 +706,16 @@ public class BattleManager : MonoBehaviour
   //This function manages turns
   IEnumerator turnManager()
   {
-
+    
     while (true)
     {
 
+      var context = BattleManager.core.CurrentContext;
       if (turnPoints <= 0 || skipChar)
       {
 
         var tempRunAI = false;
-        BattleMethods.core.toggleActions(true);
+        BattleMethods.core.toggleActions(context, true);
 
         if (activeTeam != -1)
         {
@@ -739,7 +737,7 @@ public class BattleManager : MonoBehaviour
               yield return new WaitForSeconds(2);
               int victor = playerCount > enemyCount ? 0 : 1;
 
-              EndGame( victor );
+              EndGame( context, victor );
 
               //Please add any follow up actions here.
               break;
@@ -770,7 +768,7 @@ public class BattleManager : MonoBehaviour
                 //Likewise, if auto battle is on, activate A.I.
                 if (activeTeam == 1 || autoBattle)
                 {
-                  BattleMethods.core.toggleActions(false);
+                  BattleMethods.core.toggleActions(context, false);
                   tempRunAI = true;
                 }
                 break;
@@ -785,7 +783,7 @@ public class BattleManager : MonoBehaviour
             // The enemies finished going.
             if ( activeTeam == 0 )
             {
-              EndRound();
+              EndRound(BattleManager.core.CurrentContext);
             }
 
           }
@@ -798,7 +796,7 @@ public class BattleManager : MonoBehaviour
         //Reset skip char
         skipChar = false;
 
-        if (tempRunAI) runAI();
+        if (tempRunAI) runAI(BattleManager.core.CurrentContext);
 
       }
 
@@ -807,7 +805,7 @@ public class BattleManager : MonoBehaviour
 
   }
 
-  private void EndRound()
+  private void EndRound(BattleManager.BattleManagerContext context)
   {
     foreach ( var charId in activePlayerTeam )
     {
@@ -817,7 +815,7 @@ public class BattleManager : MonoBehaviour
         continue;
       }
 
-      StartCoroutine( character.endRound() );
+      StartCoroutine( character.endRound(context) );
     }
     
     foreach ( var charId in activeEnemyTeam )
@@ -828,13 +826,14 @@ public class BattleManager : MonoBehaviour
         continue;
       }
 
-      StartCoroutine( character.endRound() );
+      StartCoroutine( character.endRound(context) );
     }
   }
 
-  private void EndGame(int victor)
+  private void EndGame(BattleManagerContext context, int victor)
   {
       //Outcome
+      
 
       //Getting outcome screen
       GameObject outcomeScreen = ObjectDB.core.outcomeWidow;
@@ -847,7 +846,7 @@ public class BattleManager : MonoBehaviour
       outcomeScreen.SetActive(true);
 
       //toggling actions
-      BattleMethods.core.toggleActions(false);
+      BattleMethods.core.toggleActions(context, false);
   }
 
   //This method simply swaps the team
@@ -892,13 +891,14 @@ public class BattleManager : MonoBehaviour
   //This function manages auto battle
   IEnumerator autoBattleManager()
   {
+    BattleManagerContext context = BattleManager.core.CurrentContext;
     bool state = false;
     while (true)
     {
       if (autoBattle && !state)
       {
         state = true;
-        if (activeTeam != -1 && CurrentContext.activeCharacterId != -1) runAI();
+        if (activeTeam != -1 && context.activeCharacterId != -1) runAI(context);
 
       }
       else if (state && !autoBattle) state = false;
@@ -992,11 +992,11 @@ public class BattleManager : MonoBehaviour
 
 
   //This function is used to change a function's queue status.
-  public static void setQueueStatus(string functionName, bool status)
+  public static void setQueueStatus(BattleManagerContext context, string functionName, bool status)
   {
     //Finding index by name
-    int qIndex = FunctionDB.core.findFunctionQueueIndexByName(functionName);
-    if ((qIndex > -1) && qIndex < core.RunningContext.functionQueue.Count) core.RunningContext.functionQueue[qIndex].isRunning = status;
+    int qIndex = FunctionDB.core.findFunctionQueueIndexByName(context, functionName);
+    if ((qIndex > -1) && qIndex < context.functionQueue.Count) context.functionQueue[qIndex].isRunning = status;
 
   }
 
