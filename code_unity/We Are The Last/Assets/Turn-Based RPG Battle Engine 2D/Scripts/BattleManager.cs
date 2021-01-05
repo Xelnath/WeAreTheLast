@@ -391,9 +391,10 @@ public class BattleManager : MonoBehaviour
           catch (Exception e)
           {
             Debug.Log(e);
-            Debug.Log($"Please check {method}. {ftc} - index: [{queueIndex}] of {BattleManager.core.RunningContext.activeSkillId}");
+            var index = FunctionDB.core.findSkillIndexById( BattleManager.core.RunningContext.activeSkillId );
+            var skill = Database.dynamic.skills[index];
+            Debug.Log($"Please check {method}. {ftc} - index: [{queueIndex}] of {skill}");
           }
-
         }
         else
         {
@@ -529,7 +530,7 @@ public class BattleManager : MonoBehaviour
         t.text = RunningContext.actionTargets.Count.ToString() + " Targets Selected";
         actionTargetsObject.SetActive(true);
       }
-      else if (RunningContext.targetLimit == RunningContext.actionTargets.Count)
+      else if (RunningContext.targetLimit == RunningContext.actionTargets.Count || RunningContext.actionTargets.Count == 0)
       {
         actionTargetsObject.SetActive(false);
       }

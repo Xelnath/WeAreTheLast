@@ -444,7 +444,7 @@ public class BattleMethods : MonoBehaviour
 
     BattleManager.setQueueStatus( "checkAttribute", false );
   }
-
+  
   void addOrChangeAttribute( bool self, string attributeName, string value, float maxValue, bool showText )
   {
 
@@ -649,7 +649,7 @@ public class BattleMethods : MonoBehaviour
 
         float reduction = Mathf.Clamp( defense / 100f, 0f, 1f );
         float damagePostDefense = damageAmount - ( damageAmount * reduction );
-        hp.curValue = Mathf.Clamp( hp.curValue + damagePostDefense, 0f, hp.maxValue );
+        hp.curValue = Mathf.Clamp( hp.curValue - damagePostDefense, 0f, hp.maxValue );
 
         //Displaying change
         if ( damagePostDefense == 0f )

@@ -259,7 +259,7 @@ MonoBehaviour:
       isRunning: 0
     - functionName: damageTargets
       parametersArray:
-      - int:-10
+      - int:10
       - int:0
       waitForPreviousFunction: 1
       isCoroutine: 0
@@ -378,6 +378,7 @@ MonoBehaviour:
       - bool:false
       - int:0
       - string:+50
+      - bool:true
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -436,6 +437,7 @@ MonoBehaviour:
       - string:TAUNT
       - string:=1
       - float:5
+      - bool:false
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -497,11 +499,10 @@ MonoBehaviour:
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
-    - functionName: changeAttribute
+    - functionName: damageTargets
       parametersArray:
-      - bool:false
+      - int:10
       - int:0
-      - string:-10
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -587,6 +588,7 @@ MonoBehaviour:
       - string:DEFEND
       - string:=80
       - float:100
+      - bool:false
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -596,6 +598,7 @@ MonoBehaviour:
       - string:DEFENDROUNDS
       - string:=1
       - float:100
+      - bool:false
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -633,10 +636,11 @@ MonoBehaviour:
       isRunning: 0
     - functionName: addOrChangeAttribute
       parametersArray:
-      - bool:true
+      - bool:false
       - string:DEFENDROUNDS
-      - string:=-1
+      - string:-1
       - float:100
+      - bool:false
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
