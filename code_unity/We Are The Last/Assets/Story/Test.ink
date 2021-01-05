@@ -21,3 +21,7 @@ R,1,1;I can't hold back. I'm all 11.
 ==	Attack
 {CurrChar},1,1;{~Fuck you.|This is what you get.|Hurts right?|There is more whence this came.}
 ->DONE
+
+==	FinalScreenTiff
+I'm Tiffany and you're a pice of shit.
+->DONE
