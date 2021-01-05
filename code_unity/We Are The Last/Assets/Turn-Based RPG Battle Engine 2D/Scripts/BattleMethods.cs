@@ -764,6 +764,13 @@ The condition name is the name of the Animator's parameter which will be set to 
 
   }
 
+  public void Bark(BattleManager.BattleManagerContext context, string Knot)
+    {
+        var charIdNew = context.activeCharacterId;
+        var charObject = FunctionDB.core.findCharInstanceById(charIdNew);
+        BattleGen.story.Bark(Knot, charObject.name);
+    }
+
   /*
 	Display FX on self or target list
 	If self is true, the FX will be applied on the active character, otherwise it will be applied on all the targets.

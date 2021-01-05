@@ -7,9 +7,10 @@ using ClassDB;
 public class ObjectDB : MonoBehaviour {
 
 	public static ObjectDB core;
+    public StoryControl story;
 
-	//Options and actions
-	public GameObject battleUIOptionPrefab;
+    //Options and actions
+    public GameObject battleUIOptionPrefab;
 	public GameObject battleUIActionsWindow;
 	public GameObject battleUIActionDescriptionObject;
 	

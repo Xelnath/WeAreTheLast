@@ -17,7 +17,7 @@ public class BattleGen : MonoBehaviour
   GameObject actionsWindow;
   GameObject optionPrefab;
 
-  public StoryControl story;
+  public static StoryControl story;
 
   //The list of main options
   public List<actionInfo> mainActions = new List<actionInfo>();
@@ -29,6 +29,8 @@ public class BattleGen : MonoBehaviour
     //Getting UI
     actionsWindow = ObjectDB.core.battleUIActionsWindow;
     optionPrefab = ObjectDB.core.battleUIOptionPrefab;
+
+        story = ObjectDB.core.story;
 
     //Emptying actions window
     FunctionDB.core.emptyWindow(actionsWindow);

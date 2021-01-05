@@ -36,7 +36,14 @@ public class StoryControl : MonoBehaviour
         {
             Refresh();
         }
-        
+    }
+
+    public void Bark(string Knot, string Character)
+    {
+        Debug.Log(Knot);
+        _inkStory.variablesState["CurrChar"] = Character.Substring(0,1);
+        _inkStory.ChoosePathString(Knot);
+        Refresh();
     }
 
     public void CheckTags()
@@ -102,7 +109,10 @@ public class StoryControl : MonoBehaviour
         
         yield return new WaitForSeconds(float.Parse(stats[2]));
         Destroy(b.gameObject);
-        StartCoroutine("Refresher", 1f);
+        if (_inkStory.canContinue)
+        {
+            StartCoroutine("Refresher", 1f);
+        }
     }
 
     public void BubbleMaker(Bubble b, string text, string actor)
