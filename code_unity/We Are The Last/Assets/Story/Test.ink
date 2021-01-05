@@ -1,4 +1,5 @@
-VAR CurrChar = "None"
+LIST chars = Therapist, Model, Rockstar 
+VAR CurrChar = Therapist
 
 ->Start
 ==	Start
@@ -12,9 +13,9 @@ R,1,1;I can't hold back. I'm all 11.
 ->DONE
 
 ==	Heal
-{CurrChar == "T":Refreshing.}
-{CurrChar == "P":This wine is the shit.}
-{CurrChar == "R":Mmm beer.}
+{CurrChar == "T":T,1,1;Refreshing.}
+{CurrChar == "P":P,1,1;This wine is the shit.}
+{CurrChar == "R":R,1,1;Mmm beer.}
 ->DONE
 
 ==	Attack
