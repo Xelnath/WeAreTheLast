@@ -347,12 +347,6 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: Bark
-      parametersArray:
-      - string:Attack
-      waitForPreviousFunction: 0
-      isCoroutine: 0
-      isRunning: 0
     endOfRound: []
   - name: Heal
     id: 1
@@ -408,12 +402,6 @@ MonoBehaviour:
       parametersArray:
       - int:0
       - int:1
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: Bark
-      parametersArray:
-      - string:Heal
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -728,7 +716,7 @@ MonoBehaviour:
     - functionName: Bark
       parametersArray:
       - string:CounterAll
-      waitForPreviousFunction: 1
+      waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
     endOfRound:

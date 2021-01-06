@@ -42,8 +42,8 @@ public class VariableInitiator : MonoBehaviour {
 		//If battle manager exists on the scene, it means that we are on a battle scene.
 		//Thus, we should transfer our setup to the battle manager.
 		if (BattleManager.core != null) {
-			BattleManager.core.CurrentContext.attackerTeam = initialPlayerTeam;
-			BattleManager.core.CurrentContext.defenderTeam = initialEnemyTeam;
+			BattleManager.core.activePlayerTeam = initialPlayerTeam;
+			BattleManager.core.activeEnemyTeam = initialEnemyTeam;
 			BattleManager.core.startingCharacter = startingCharacter;
 			BattleManager.core.startingMusicId = startingMusicId;
 			BattleManager.core.musicSourceIndex = musicSourceIndex;

@@ -416,8 +416,16 @@ public class BattleManager : MonoBehaviour
   public static object sudoParameterDecoder(string sp)
   {
 
-    var type = sp.Substring(0, sp.IndexOf(":"));
-    var remainder = sp.Substring(sp.IndexOf(":") + 1);
+    var colonIndex = sp.IndexOf( ":" );
+    if ( colonIndex == -1 )
+    {
+      Debug.Log("It seems that you have not properly defined your parameters.");
+      Debug.Log("You parameters can be in any of the following forms: bool:true or false, string:yourString, float:yourFloat or int:anyInt");
+      return sp;
+    }
+
+    var type = sp.Substring(0, colonIndex );
+    var remainder = sp.Substring(colonIndex + 1);
 
     switch (type)
     {
@@ -837,10 +845,13 @@ public class BattleManager : MonoBehaviour
 
       //Getting outcome screen
       GameObject outcomeScreen = ObjectDB.core.outcomeWidow;
+      
+      ObjectDB.core.story._inkStory.ChoosePathString("FinalScreenTiff");
+      string tiffLine = ObjectDB.core.story._inkStory.Continue();
 
       //Getting text object
       Text txt = outcomeScreen.transform.GetChild(0).gameObject.GetComponent<Text>();
-      txt.text = "Team " + victor.ToString() + " wins!" + " Try again, enjoy multiple realities of shit outcomes. There are so many universes where you screwed up even more, such a joy to watch when I have my morning shit. ";
+      txt.text = tiffLine; // "Team " + victor.ToString() + " wins!" + " Try again, enjoy multiple realities of shit outcomes. There are so many universes where you screwed up even more, such a joy to watch when I have my morning shit. ";
 
       //Displaying outcome
       outcomeScreen.SetActive(true);
