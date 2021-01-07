@@ -91,6 +91,12 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "autoSelectTargets", false );
   }
 
+  void clearTargets( BattleManager.BattleManagerContext context )
+  {
+    context.actionTargets.Clear();
+    BattleManager.setQueueStatus( context,  "clearTargets", false );
+  }
+  
   enum mathOperation
   {
     equal,
@@ -878,9 +884,11 @@ The condition name is the name of the Animator's parameter which will be set to 
 
   public void Bark(BattleManager.BattleManagerContext context, string Knot)
     {
-        var charIdNew = context.activeCharacterId;
-        var charObject = FunctionDB.core.findCharInstanceById(charIdNew);
-        BattleGen.story.Bark(Knot, charObject.name);
+      var charIdNew = context.activeCharacterId;
+      var charObject = FunctionDB.core.findCharInstanceById(charIdNew);
+      BattleGen.story.Bark(Knot, charObject.name);
+        
+      BattleManager.setQueueStatus( context, "Bark", false);
     }
 
   /*

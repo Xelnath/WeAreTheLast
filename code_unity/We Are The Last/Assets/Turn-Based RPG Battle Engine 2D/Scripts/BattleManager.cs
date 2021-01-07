@@ -309,7 +309,7 @@ public class BattleManager : MonoBehaviour
       // }
 
       //Active char id
-      yield return call ( originalContext, ftc );
+      yield return core.call ( originalContext, ftc );
     }
 
     yield return new WaitForEndOfFrame();
@@ -332,7 +332,7 @@ public class BattleManager : MonoBehaviour
           }
 
           //Active char id
-          yield return call ( context, ftc );
+          yield return core.call ( context, ftc );
         }
 
         yield return new WaitForEndOfFrame();
@@ -340,7 +340,7 @@ public class BattleManager : MonoBehaviour
       BattleManager.core.ReactionContext = null;
     }
 
-  private static IEnumerator call( BattleManagerContext context, callInfo ftc )
+  private IEnumerator call( BattleManagerContext context, callInfo ftc )
   {
     
       var method = ftc.functionName;
