@@ -33,7 +33,7 @@ public class BattleMethods : MonoBehaviour
       //Storing the functions list to functionQueue
       context.activeSkillId = skillId;
       context.functionQueue = functionsToCall;
-      BattleManager.core.StartCoroutine( BattleManager.functionQueueCaller( context ) );
+      BattleManager.core.StartCoroutine( BattleManager.core.functionQueueCaller( context ) );
 
       break;
     }
@@ -54,17 +54,17 @@ public class BattleMethods : MonoBehaviour
       int tp = BattleManager.core.turnPoints;
       int requiredTp = 0;
 
-      if ( actionType == 0 )
+      switch (actionType)
       {
-        requiredTp = Database.dynamic.skills[context.activeSkillId].turnPointCost;
-      }
-      else if ( actionType == 1 )
-      {
-        requiredTp = Database.dynamic.items[FunctionDB.core.findItemIndexById( actionId )].turnPointCost;
-      }
-      else
-      {
-        Debug.Log( "Invalid action type. Set 0 for skill or 1 for item." );
+        case 0:
+          requiredTp = Database.dynamic.skills[context.activeSkillId].turnPointCost;
+          break;
+        case 1:
+          requiredTp = Database.dynamic.items[FunctionDB.core.findItemIndexById( actionId )].turnPointCost;
+          break;
+        default:
+          Debug.Log( "Invalid action type. Set 0 for skill or 1 for item." );
+          break;
       }
 
       //Do you have enought turn points?
@@ -89,6 +89,117 @@ public class BattleMethods : MonoBehaviour
     context.targetLimit = targetLimit;
     context.actionTargets = BattleGen.core.getValidTargets( context, allowFriendly, allowHostile, targetLimit );
     BattleManager.setQueueStatus( context,  "autoSelectTargets", false );
+  }
+
+  enum mathOperation
+  {
+    equal,
+    equalGreaterThan,
+    equalLessThan,
+    greaterThan,
+    lessThan,
+  }
+
+  void filterTargets( BattleManager.BattleManagerContext context, string attrName, string value )
+  {
+    
+    //This function converts a string to an expression and assings the derived value to the attribute
+    float v = 0f;
+
+    mathOperation op = mathOperation.equal;
+
+    switch (value.Substring( 0, 1 ))
+    {
+      case "=":
+        op = mathOperation.equal;
+        v = float.Parse( value.Substring( 1 ) );;
+        break;
+      case ">":
+        if ( value.Substring( 0, 2 ) == ">=" )
+        {
+          op = mathOperation.equalGreaterThan;
+          v = float.Parse( value.Substring( 2 ) );;
+        }
+        else
+        {
+          op = mathOperation.greaterThan;
+          v = float.Parse( value.Substring( 1 ) );
+        }
+
+        break;
+      case "<":
+        if ( value.Substring( 0, 2 ) == "<=" )
+        {
+          op = mathOperation.equalLessThan;
+          v = float.Parse( value.Substring( 2 ) );;
+        }
+        else
+        {
+          op = mathOperation.lessThan;
+          v = float.Parse( value.Substring( 1 ) );
+        }
+
+        break;
+      default:
+        break;
+    }
+
+    List<int> targets = new List<int>(context.actionTargets);
+
+    for ( int i = targets.Count - 1; i >= 0; --i )
+    {
+      int charId = targets[i];
+      character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( charId )];
+      
+      var index = FunctionDB.core.findAttributeIndexByName( attrName, character );
+      float attrValue = 0f;
+      //Getting attribute
+      if ( index >= 0 )
+      {
+        characterAttribute attribute = character.characterAttributes[index];
+        attrValue = attribute.curValue;
+      }
+
+      switch ( op )
+      {
+        case mathOperation.equal:
+          if ( !Mathf.Approximately( attrValue, v ) )
+          {
+            context.actionTargets.RemoveAt( i );
+          }
+
+          break;
+        case mathOperation.equalGreaterThan:
+          if ( attrValue < v )
+          {
+            context.actionTargets.RemoveAt( i );
+          }
+          break;
+        case mathOperation.equalLessThan:
+          if ( attrValue > v )
+          {
+            context.actionTargets.RemoveAt( i );
+          }
+          break;
+        case mathOperation.greaterThan:
+          if ( attrValue <= v )
+          {
+            context.actionTargets.RemoveAt( i );
+          }
+          break;
+        case mathOperation.lessThan:
+          if ( attrValue >= v )
+          {
+            context.actionTargets.RemoveAt( i );
+          }
+          break;
+        default:
+          throw new ArgumentOutOfRangeException();
+      }
+    }
+    
+    
+    BattleManager.setQueueStatus( context,  "filterTargets", false );
   }
 
   /*
@@ -283,12 +394,13 @@ public class BattleMethods : MonoBehaviour
     context = BattleManager.core.CurrentContext;
     BattleManager.setQueueStatus( context,  "provokeReaction", false );
 
-    if ( reactionSet.Count > 0 )
+    while( reactionSet.Count > 0 )
     {
       BattleManager.core.ReactionContext = reactionSet[0];
+      StartCoroutine( BattleManager.reactionQueueCaller( reactionSet.ToArray() ) );
+      reactionSet.RemoveAt( 0 );
+      yield return new WaitForEndOfFrame();
     }
-
-    StartCoroutine( BattleManager.reactionQueueCaller( reactionSet.ToArray() ) );
 
     //Waiting
     yield return new WaitForEndOfFrame();

@@ -93,16 +93,15 @@ public class StoryControl : MonoBehaviour
         
         string[] temp = _inkStory.Continue().Split(';');
         string[] stats = temp[0].Split(',');
-        foreach (string t in temp)
-        {
-            Debug.Log("temp" + t);
-        }
-        foreach (string s in stats)
-        {
-            Debug.Log("stat" + s);
-        }
+        // foreach (string t in temp)
+        // {
+        //     Debug.Log("temp" + t);
+        // }
+        // foreach (string s in stats)
+        // {
+        //     Debug.Log("stat" + s);
+        // }
 
-            
         yield return new WaitForSeconds(float.Parse(stats[1]));
         Bubble b = Instantiate(bubblePrefab);
         BubbleMaker(b, temp[1], stats[0]);
@@ -118,7 +117,6 @@ public class StoryControl : MonoBehaviour
     public void BubbleMaker(Bubble b, string text, string actor)
     {
         b.txt.text = text;
-        Debug.Log(actor);
         
         foreach (Character c in Actors)
         {
@@ -127,7 +125,7 @@ public class StoryControl : MonoBehaviour
                 CurrTalker = c;
                 CheckTags();
                 b.transform.position = c.transform.position;
-                Debug.Log(actor);
+                //Debug.Log(actor);
             }
         }
         

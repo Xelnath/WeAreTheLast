@@ -37,7 +37,7 @@ MonoBehaviour:
       maxValue: 5
       curValue: 0
     - name: COUNTER
-      id: 2
+      id: 3
       maxValue: 1
       curValue: 1
     aiFunctions:
@@ -54,7 +54,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 4129ca514a4b89b4f9b9830b06595789, type: 3}
     animationController: {fileID: 9100000, guid: ee6cc0d1396f5354780a8cb636e54025,
       type: 2}
-    skills: 0000000002000000
+    skills: 000000000200000006000000
     items: []
     characterAttributes:
     - name: HP
@@ -746,6 +746,97 @@ MonoBehaviour:
       - float:100
       - bool:false
       waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+  - name: Poison Mind
+    id: 6
+    description: 'Target takes damage '
+    unlocked: 1
+    turnPointCost: 100
+    functionsToCall:
+    - functionName: selectCharacter
+      parametersArray:
+      - bool:false
+      - int:1
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: waitForSelection
+      parametersArray:
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: toggleActions
+      parametersArray:
+      - bool:false
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:false
+      - string:POISON
+      - string:=10
+      - float:100
+      - bool:false
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFX
+      parametersArray:
+      - bool:false
+      - float:2
+      - string:heal
+      - float:-0.8
+      - float:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: toggleActions
+      parametersArray:
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: subtractTurnPoints
+      parametersArray:
+      - int:0
+      - int:2
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    endOfRound:
+    - functionName: autoSelectTargets
+      parametersArray:
+      - int:10
+      - bool:true
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: filterTargets
+      parametersArray:
+      - string:POISON
+      - string:>0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: damageTargets
+      parametersArray:
+      - int:80
+      - int:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:false
+      - string:POISON
+      - string:-1
+      - float:100
+      - bool:false
+      waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
   tab: 1

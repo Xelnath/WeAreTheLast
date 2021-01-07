@@ -249,13 +249,12 @@ public class BattleGen : MonoBehaviour
           {
             BattleManager.core.CurrentContext.functionQueue = new List<callInfo>(functionsToCall);
             BattleManager.core.CurrentContext.activeSkillId = skill.id;
-            BattleManager.core.StartCoroutine(BattleManager.functionQueueCaller(BattleManager.core.CurrentContext));
+            BattleManager.core.StartCoroutine(BattleManager.core.functionQueueCaller(BattleManager.core.CurrentContext));
           }
           else
           {
             BattleManager.core.startWarningRoutine("Insufficient turn points", 2f);
           }
-
         });
 
         //Adding element to current action list
@@ -340,7 +339,7 @@ public class BattleGen : MonoBehaviour
           if ((curTp - item.turnPointCost) >= 0)
           {
             BattleManager.core.CurrentContext.functionQueue = new List<callInfo>(functionsToCall);
-            BattleManager.core.StartCoroutine(BattleManager.functionQueueCaller(BattleManager.core.CurrentContext));
+            BattleManager.core.StartCoroutine(BattleManager.core.functionQueueCaller(BattleManager.core.CurrentContext));
           }
           else
           {

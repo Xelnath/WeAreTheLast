@@ -39,6 +39,9 @@ public class BattleManager : MonoBehaviour
 
   public class BattleManagerContext
   {
+    private static int NextID = 0;
+    public int ContextID = NextID++;
+    
     [Tooltip( "The id of the currently active skill." )]
     public int activeSkillId = -1;
     
@@ -76,6 +79,11 @@ public class BattleManager : MonoBehaviour
           defenderTeam = enemyTeam;
           attackerTeam = playerTeam;
         }
+    }
+
+    public override string ToString()
+    {
+      return $"Context ({ContextID} - Actor {activeCharacterId} - Targets {actionTargets.Count}";
     }
   }
 
@@ -279,22 +287,29 @@ public class BattleManager : MonoBehaviour
   }
 
   //This function allows invoking methods by names and applying parameters from a parameter array
-  public static IEnumerator functionQueueCaller(BattleManagerContext context)
+  public IEnumerator functionQueueCaller(BattleManagerContext context)
   {
       
     //We need to create a copy of the current list to avoid errors in the senarios were the list is modified during runtime
     var lastFunctionQueue = new List<callInfo>(context.functionQueue);
+    var originalContext = context;
 
     foreach ( callInfo ftc in lastFunctionQueue )
     {
 
-      if ( !context.functionQueue.Contains( ftc ) )
+      if ( originalContext != context )
       {
+        Debug.LogError( "Context mismatch... how??" );
         break;
       }
+      
+      // if ( !context.functionQueue.Contains( ftc ) )
+      // {
+      //   break;
+      // }
 
       //Active char id
-      yield return call ( context, ftc );
+      yield return call ( originalContext, ftc );
     }
 
     yield return new WaitForEndOfFrame();

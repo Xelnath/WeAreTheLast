@@ -138,7 +138,7 @@ namespace ClassDB {
 				    context.functionQueue = functionsToCall;
 				    context.activeSkillId = skillId;
 				    context.actionTargets.Clear();
-				    yield return BattleManager.functionQueueCaller( context );
+				    yield return BattleManager.core.functionQueueCaller( context );
 			    }
 			}
 
@@ -154,7 +154,7 @@ namespace ClassDB {
   		            BattleManager.core.CurrentContext.activeSkillId = skill.id;
 				    BattleManager.core.CurrentContext.actionTargets.Clear();
 
-				    yield return BattleManager.functionQueueCaller( BattleManager.core.CurrentContext );
+				    yield return BattleManager.core.functionQueueCaller( BattleManager.core.CurrentContext );
 			    }
 			}
 		}
