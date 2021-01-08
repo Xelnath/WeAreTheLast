@@ -3577,6 +3577,10 @@ MonoBehaviour:
     description: Items list
     functions:
     - itemGen
+  - name: Sacrifice
+    description: Sacrifice an ability to restore health and mana
+    functions:
+    - skillConsumeGen
   - name: End Turn
     description: End Turn
     functions:
@@ -3617,7 +3621,7 @@ MonoBehaviour:
   battleUIBody: {fileID: 1280922315}
   battleUIPopupPrefab: {fileID: 1674657953268240, guid: 160c197554ebc5f45a2de14cf1a1701f,
     type: 3}
-  battleUIValuePrefab: {fileID: 1674657953268240, guid: a1ebfe29ee9447e49b231f91ff505335,
+  battleUIValuePrefab: {fileID: 1674657953268240, guid: 160c197554ebc5f45a2de14cf1a1701f,
     type: 3}
   turnObject: {fileID: 1207217616}
   actionCostObject: {fileID: 2045345614}

@@ -577,6 +577,148 @@ public class BattleGen : MonoBehaviour
     }
 
   }
+  
+  
+  //This function populates a list of skills to be downgraded
+  public void skillConsumeGen()
+  {
+    BattleManager.BattleManagerContext context = BattleManager.core.CurrentContext;
+    //Emptying list
+    FunctionDB.core.emptyWindow(actionsWindow);
+   
+
+    //Used for setting focus
+    bool focusSet = false;
+
+    //Setting targetLimit
+    context.targetLimit = 1;
+
+    //Creating a list of ids to generate
+    List<int> toGen = new List<int>();
+ 
+    //Getting character id
+    var characterId = BattleManager.core.CurrentContext.activeCharacterId;
+
+    //Getting character
+    var charIndex = FunctionDB.core.findCharacterIndexById(characterId);
+    var character = Database.dynamic.characters[charIndex];
+    toGen.AddRange( character.skills );
+
+    //Excluding invalid characters
+    for (int i = 0; i < toGen.Count; i++)
+    {
+      //Getting character
+      var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(toGen[i])];
+
+      //If the character is not active, remove from list
+      if (!skill.unlocked)
+      {
+        toGen.RemoveAt(i);
+      }
+    }
+
+    //Cleaning action target List
+    context.actionTargets.Clear();
+
+    //Clearing current actions window
+    BattleManager.core.curActions.Clear();
+
+    foreach (int skillId in toGen)
+    {
+
+      //Getting character
+      var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(skillId)];
+
+      //Spawning option
+      GameObject t = Instantiate(optionPrefab, actionsWindow.transform);
+
+      //Setting char name
+      t.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = skill.name;
+
+      //Setting focus
+      if (!focusSet)
+      {
+        EventSystem.current.SetSelectedGameObject(t);
+        focusSet = true;
+      }
+
+      //Getting button component
+      Button b = t.GetComponent<Button>();
+      
+      b.onClick.AddListener(delegate
+      {
+
+        //Making sure that the character is not already in the target list
+        var selectMore = context.targetLimit > context.actionTargets.Count;
+        if (!context.actionTargets.Exists(x => x == skillId) && selectMore)
+        {
+          context.actionTargets.Add(skillId);
+          selectMore = context.targetLimit > context.actionTargets.Count;
+        }
+
+        if (!selectMore)
+        {
+          runSacrifice();
+        }
+
+      });
+
+      //Adding element to current action list
+      curActionInfo cai = new curActionInfo();
+      cai.actionObject = t;
+      cai.description = skill.description;
+      cai.turnPointCost = -1;
+
+      BattleManager.core.curActions.Add(cai);
+
+    }
+
+    instantiateBackButton( focusSet );
+
+  }
+
+  void runSacrifice()
+  {
+
+    BattleManager.BattleManagerContext context = BattleManager.core.CurrentContext;
+
+    //Getting character id
+    var characterId = BattleManager.core.CurrentContext.activeCharacterId;
+
+    //Getting character
+    var charIndex = FunctionDB.core.findCharacterIndexById( characterId );
+    var character = Database.dynamic.characters[charIndex];
+
+    List<callInfo> functionsToCall = new List<callInfo>();
+    foreach ( int skillId in context.actionTargets )
+    {
+      //Getting character
+      skill skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById( skillId )];
+      skill.unlocked = false;
+      context.activeSkillId = skill.id;
+
+      for ( int i = 0; i < character.skills.Count; ++i )
+      {
+        if ( character.skills[i] == skillId )
+        {
+          character.skills[i] = skill.sacrificeReplacementId;
+          functionsToCall.AddRange( skill.sacrificeActions );
+        }
+      }
+
+    }
+    character.skills.RemoveAll( x => x == -1 );
+
+    context.actionTargets.Clear();
+    context.actionTargets.Add( characterId );
+    
+    BattleManager.core.CurrentContext.functionQueue = new List<callInfo>( functionsToCall );
+    BattleManager.core.StartCoroutine(
+      BattleManager.core.functionQueueCaller( BattleManager.core.CurrentContext ) );
+
+    BattleManager.core.turnPoints = 0;
+  }
+
 
   //This function nullifies turn points, ending the turn
   void endTurn()

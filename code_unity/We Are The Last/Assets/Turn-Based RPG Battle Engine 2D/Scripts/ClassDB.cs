@@ -34,6 +34,8 @@ namespace ClassDB {
 		public int id;
 		public string description;
 
+		public int sacrificeReplacementId = -1;
+		
 		//Can the skill be used?
 		public bool unlocked;
 
@@ -46,6 +48,9 @@ namespace ClassDB {
 		//A list of functions to be called when the round ends
 		public List<callInfo> endOfRound = new List<callInfo>();
 
+		//A list of functions to be called when the skill is sacrificed
+		public List<callInfo> sacrificeActions = new List<callInfo>();
+		
 		public override string ToString()
 		{
 			return $"{name} ({id}) - {unlocked} - pts: {turnPointCost}";
