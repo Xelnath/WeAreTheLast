@@ -8,7 +8,6 @@ using UnityEngine;
 [Guid("3A635FB1-E3ED-4913-9C0B-6EDF250F84FA")]
 public class DatabaseScriptableObject : ScriptableObject
 {
-
 	private static DatabaseScriptableObject m_instance;
 	public static DatabaseScriptableObject core {
 		get {
@@ -21,6 +20,8 @@ public class DatabaseScriptableObject : ScriptableObject
 			return m_instance;
 		}
 	}
+
+	public List<SkillAsset> SkillAssets = new List<SkillAsset>();
 
 	//A list of all in-game characters
 	public List<character> characters = new List<character>();
@@ -49,5 +50,25 @@ public class DatabaseScriptableObject : ScriptableObject
 
 		items = toCopy.items.DeepClone();
 		skills = toCopy.skills.DeepClone();
+
+		foreach ( var asset in toCopy.SkillAssets )
+		{
+			LoadSkillAsset( asset );
+		}
+	}
+
+	private void LoadSkillAsset( SkillAsset asset )
+	{
+		for ( int i = 0; i < skills.Count; ++i )
+		{
+			if ( skills[i].id == asset.Skill.id )
+			{
+				Debug.LogWarning( $"Replaced skill {i} - {skills[i].name} with asset {asset.name}. IDs match." );
+				skills[i] = asset.Skill;
+				return;
+			}
+		}
+
+		skills.Add( asset.Skill );
 	}
 }

@@ -1,0 +1,186 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
+  m_Name: AttackSkill
+  m_EditorClassIdentifier: 
+  Skill:
+    name: Attack
+    id: 0
+    description: A basic attack
+    sacrificeReplacementId: -1
+    unlocked: 1
+    turnPointCost: 100
+    functionsToCall:
+    - functionName: selectCharacter
+      parametersArray:
+      - bool:false
+      - int:1
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: waitForSelection
+      parametersArray:
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: toggleActions
+      parametersArray:
+      - bool:false
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:walk
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: moveToTarget
+      parametersArray:
+      - float:2
+      - float:0.1
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:attack
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAudioOnce
+      parametersArray:
+      - int:1
+      - int:1
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: damageTargets
+      parametersArray:
+      - int:10
+      - int:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFX
+      parametersArray:
+      - bool:false
+      - float:2
+      - string:attack
+      - float:0
+      - float:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:0.4
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:idle
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: provokeReaction
+      parametersArray:
+      - int:0
+      - int:0
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: waitForReaction
+      parametersArray:
+      - int:0
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: rotateCharacter
+      parametersArray:
+      - int:-1
+      - float:180
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:walk
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: moveBack
+      parametersArray:
+      - float:0.2
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: rotateCharacter
+      parametersArray:
+      - int:-1
+      - float:180
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:idle
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: toggleActions
+      parametersArray:
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: subtractTurnPoints
+      parametersArray:
+      - int:0
+      - int:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    endOfRound: []
+    sacrificeActions:
+    - functionName: changeAttribute
+      parametersArray:
+      - bool:true
+      - int:0
+      - string:+50
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFX
+      parametersArray:
+      - bool:true
+      - float:2
+      - string:heal
+      - float:-0.8
+      - float:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:0.4
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
