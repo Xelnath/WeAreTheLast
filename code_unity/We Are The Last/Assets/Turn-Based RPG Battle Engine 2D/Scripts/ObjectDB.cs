@@ -22,8 +22,11 @@ public class ObjectDB : MonoBehaviour {
 	public GameObject battleUIBody;
 	
 	//Used to spawn attribute changes
+	public GameObject battleUIPopupPrefab;
+	
+	//Used to display health
 	public GameObject battleUIValuePrefab;
-
+	
 	//Used to display turn points
 	public GameObject turnObject;
 

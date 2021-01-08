@@ -720,7 +720,7 @@ public class BattleManager : MonoBehaviour
 
       //Updating text
       characterAttribute attr = character.characterAttributes[charAttrIndx];
-      t.GetComponent<TextMeshProUGUI>().text = attr.curValue.ToString() + "/" + attr.maxValue.ToString();
+      t.GetComponent<Text>().text = attr.curValue.ToString() + "/" + attr.maxValue.ToString();
       yield return new WaitForEndOfFrame();
     }
 

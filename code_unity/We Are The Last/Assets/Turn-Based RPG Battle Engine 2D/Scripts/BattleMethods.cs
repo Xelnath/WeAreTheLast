@@ -6,6 +6,7 @@ using System;
 using System.Reflection;
 using System.Linq;
 using ClassDB;
+using Random = UnityEngine.Random;
 
 //A class containing custom methods
 public class BattleMethods : MonoBehaviour
@@ -95,6 +96,23 @@ public class BattleMethods : MonoBehaviour
   {
     context.actionTargets.Clear();
     BattleManager.setQueueStatus( context,  "clearTargets", false );
+  }
+
+  void randomTargets(BattleManager.BattleManagerContext context, int targetLimit, bool allowFriendly, bool allowHostile)
+  {
+    context.targetLimit = targetLimit;
+    context.actionTargets = BattleGen.core.getValidTargets( context, allowFriendly, allowHostile, targetLimit );
+    List<int> tempTargets = new List<int>();
+    while (targetLimit >= 0 && tempTargets.Count < targetLimit)
+    {
+      int randomIndex = Random.Range(0, context.actionTargets.Count - 1);
+      tempTargets.Add(context.actionTargets[randomIndex]);
+      context.actionTargets.RemoveAt(randomIndex);
+    }
+
+    context.actionTargets = tempTargets;
+    
+    BattleManager.setQueueStatus( context,  "randomTargets", false );
   }
   
   enum mathOperation
@@ -480,6 +498,45 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "moveToTarget", false );
   }
 
+  IEnumerator stepForward( object[] parms )
+  {
+    BattleManager.BattleManagerContext context = parms[0] as BattleManager.BattleManagerContext; 
+
+    //The distance to move forward
+    float distance = (float) parms[1];
+
+    //Movements speed.
+    float speed = (float) parms[2];
+
+    //Active character
+    var sourceCharId = context.activeCharacterId;
+
+    //Getting source char gameObject
+    GameObject sourceCharObject = FunctionDB.core.findCharInstanceById( sourceCharId );
+
+    //Getting direction and modifying distance
+    var sourceX = sourceCharObject.transform.position.x;
+    Vector3 scale = sourceCharObject.transform.lossyScale;
+    //Make x adjustment relative to direction faced
+    float distanceMod = distance * -Mathf.Sign(scale.x);
+
+    //Moving character
+    var destPosNew = new Vector3( sourceX + distanceMod, sourceCharObject.transform.position.y, sourceCharObject.transform.position.z );
+
+    while ( true )
+    {
+
+      if ( sourceCharObject.transform.position == destPosNew ) break;
+      sourceCharObject.transform.position =
+        Vector3.MoveTowards( sourceCharObject.transform.position, destPosNew, speed );
+
+      yield return new WaitForEndOfFrame();
+
+    }
+
+    BattleManager.setQueueStatus( context,  "stepForward", false );
+  }
+  
   //Moving battler pack to spawn point
   IEnumerator moveBack( object[] parms )
   {
@@ -613,14 +670,6 @@ public class BattleMethods : MonoBehaviour
     forEachCharacterDo( context, self,
       (character) => {
 
-        if ( showText )
-        {
-          //Displaying change
-          FunctionDB.core.StartCoroutine( FunctionDB.core.displayValue(
-            FunctionDB.core.findCharInstanceById( character.id ), v,
-            0, 1.3f ) );
-        }
-
         var index = FunctionDB.core.findAttributeIndexByName( attributeName, character );
         if ( index == -1 )
         {
@@ -638,6 +687,14 @@ public class BattleMethods : MonoBehaviour
           //Applying change
           if ( !set ) attribute.curValue = ( attribute.curValue + v ) > 0 ? ( attribute.curValue + v ) : 0;
           else attribute.curValue = v > 0 ? v : 0;
+        }
+        
+        if ( showText )
+        {
+          //Displaying change	
+          FunctionDB.core.StartCoroutine( FunctionDB.core.displayAttributeValue(	
+            FunctionDB.core.findCharInstanceById( character.id ), v, index,	
+            0, 1.3f ) );
         }
       } );
 
@@ -685,8 +742,8 @@ public class BattleMethods : MonoBehaviour
       {
         if ( showValue )
         {
-          FunctionDB.core.StartCoroutine(
-            FunctionDB.core.displayValue( FunctionDB.core.findCharInstanceById( character.id ), v, 0, 1.3f ) );
+          FunctionDB.core.StartCoroutine(	
+            FunctionDB.core.displayAttributeValue( FunctionDB.core.findCharInstanceById( character.id ), v, attrId, 0, 1.3f ) );
         }
 
         //Getting attribute
@@ -795,18 +852,21 @@ public class BattleMethods : MonoBehaviour
           FunctionDB.core.StartCoroutine(
             FunctionDB.core.displayValue(
               FunctionDB.core.findCharInstanceById( character.id ),
-              "Blocked!",
-              0, 0.3f ) );
-        }
-        else
-        {
-          FunctionDB.core.StartCoroutine(
-            FunctionDB.core.displayValue(
-              FunctionDB.core.findCharInstanceById( character.id ),
-              damagePostDefense,
-              0, 0.3f ) );
-        }
-      }
+              "Blocked!",	
+              "A9A9A9",	
+              string.Empty,	
+              0.7f, 0.7f ) );	
+        }	
+        else	
+        {	
+          FunctionDB.core.StartCoroutine(	
+            FunctionDB.core.displayBattleValue(	
+              FunctionDB.core.findCharInstanceById( character.id ),	
+              damagePostDefense,	
+              school,	
+              0.7f, 0.7f ) );	
+        }	
+      }	
     } );
 
     BattleManager.setQueueStatus( context,  "damageTargets", false );

@@ -316,15 +316,25 @@ public class FunctionDB : MonoBehaviour {
 	}
 
 	//This function is used to display on-screen values such as damage
-	public IEnumerator displayValue ( GameObject target, float value, float xAdjustment, float yAdjustment )
+	public IEnumerator displayAttributeValue ( GameObject target, float value, int type, float xAdjustment, float yAdjustment )
 	{
-		yield return displayValue( target, value.ToString(), xAdjustment, yAdjustment );
+		yield return displayValue( target, value.ToString(), displayColor(0, type), displayIcon(0, type, displayColor(0, type)), xAdjustment, yAdjustment );
+	}
+	public IEnumerator displayBattleValue ( GameObject target, float value, int type, float xAdjustment, float yAdjustment )
+	{
+		yield return displayValue( target, value.ToString(), displayColor(1, type), displayIcon(1, type, displayColor(1, type)), xAdjustment, yAdjustment );
 	}
 
-	public IEnumerator displayValue (GameObject target, string value, float xAdjustment, float yAdjustment) {
+	public IEnumerator displayValue (GameObject target, string value, string color, string icon, float xAdjustment, float yAdjustment) {
 
 		//Getting coordinates
 		Vector3 coordinates = target.transform.position;
+		
+		//Getting directionality
+		Vector3 scale = target.transform.lossyScale;
+		
+		//Make x adjustment relative to direction faced
+		xAdjustment *= -Mathf.Sign(scale.x);
 
 		//Adjusted coordinates
 		Vector3 newCoordinates = new Vector3 (coordinates.x + xAdjustment, coordinates.y + yAdjustment, coordinates.z);
@@ -333,12 +343,18 @@ public class FunctionDB : MonoBehaviour {
 		GameObject body = ObjectDB.core.battleUIBody;
 
 		//Spawning Object
-		GameObject g = Instantiate (ObjectDB.core.battleUIValuePrefab, newCoordinates, Quaternion.identity, body.transform);
+		GameObject g = Instantiate (ObjectDB.core.battleUIPopupPrefab, newCoordinates, Quaternion.identity, body.transform);
 
-		uiCoordinateCheck( g, newCoordinates ); 
+		uiCoordinateCheck( g, newCoordinates );
 		
 		//Setting text
 		g.GetComponent<TextMeshProUGUI>().text = value.ToString();
+
+		//Adding value type
+		g.GetComponent<TextMeshProUGUI>().text += icon;
+		
+		//Setting color
+		g.GetComponent<TextMeshProUGUI>().text = $"<color=#{color}>{g.GetComponent<TextMeshProUGUI>().text}</color>";
 
 		//Making value follow target
 		StartCoroutine(follow (g, target, xAdjustment, yAdjustment));
@@ -347,6 +363,89 @@ public class FunctionDB : MonoBehaviour {
 
 		Destroy (g);
 
+	}
+
+	public string displayColor(int displayType, int typeIndex)
+	{
+		string textColorString = "FF0000";	//Temp default to red
+		switch (displayType)
+		{
+			case 0:		//Attributes
+				switch (typeIndex)
+				{
+					case 0:		//HP
+						textColorString = "00FF00";
+						break;
+					case 1:		//MP
+						textColorString = "0000FF";
+						break;
+					default:
+						textColorString = "FFFFFF";
+						break;
+				}
+				break;
+			case 1:		//Attacks
+				switch (typeIndex)
+				{
+					case 0:
+						break;
+					case 2:
+						textColorString = "64FFDE";
+						break;
+					case 3:
+						textColorString = "921DCD";
+						break;
+					case 4:
+						textColorString = "F9FF33";
+						break;
+					default:
+						break;
+				}
+				break;
+		}
+		return textColorString;
+	}
+
+	public string displayIcon(int displayType, int typeIndex, string color)
+	{
+		string valueType = "";
+		
+		switch (displayType)
+		{
+			case 0:		//Attributes
+				switch (typeIndex)
+				{
+					case 0:		//HP
+						valueType = $"<sprite name=\"healthIcon\" tint=1>";
+						break;
+					case 1:		//MP
+						break;
+					default:
+						break;
+				}
+				break;
+			case 1:		//Attacks
+				switch (typeIndex)
+				{
+					case 0:
+						valueType = $"<sprite name=\"attackIcon\" tint=1>";
+						break;
+					case 2:
+						valueType = $"<sprite name=\"timeIcon\" tint=1>";
+						break;
+					case 3:
+						valueType = $"<sprite name=\"gravityIcon\" tint=1>";
+						break;
+					case 4: 
+						valueType = $"<sprite name=\"lightIcon\" tint=1>";
+						break;
+					default:
+						break;
+				}
+				break;
+		}
+
+		return valueType;
 	}
 
 	public static void uiCoordinateCheck(GameObject sourceObject, Vector3 worldPosition )
