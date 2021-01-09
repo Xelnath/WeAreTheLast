@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: HealSkill
+  m_Name: 02_RedirectSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Heal
-    id: 1
-    description: Heal character
+    name: Redirect
+    id: 2
+    description: 'Cause enemies to '
     sacrificeReplacementId: -1
     unlocked: 1
-    turnPointCost: 20
+    turnPointCost: 100
     functionsToCall:
     - functionName: selectCharacter
       parametersArray:
@@ -39,12 +39,13 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: changeAttribute
+    - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false
-      - int:0
-      - string:+50
-      - bool:true
+      - string:TAUNT
+      - string:=1
+      - float:5
+      - bool:false
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -67,7 +68,7 @@ MonoBehaviour:
     - functionName: subtractTurnPoints
       parametersArray:
       - int:0
-      - int:1
+      - int:2
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

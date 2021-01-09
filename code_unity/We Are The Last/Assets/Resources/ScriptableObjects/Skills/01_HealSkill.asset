@@ -10,48 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: CounterSkill
+  m_Name: 01_HealSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Counter
-    id: 3
-    description: A simple counterattack
+    name: Heal
+    id: 1
+    description: Heal character
     sacrificeReplacementId: -1
-    unlocked: 1
-    turnPointCost: 0
+    activeSkill: 1
+    turnPointCost: 100
     functionsToCall:
-    - functionName: playAnimation
+    - functionName: selectCharacter
       parametersArray:
-      - int:-1
-      - string:walk
+      - bool:true
+      - int:1
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
-    - functionName: moveToTarget
+    - functionName: waitForSelection
       parametersArray:
-      - float:2
-      - float:0.1
+      - bool:true
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
-    - functionName: playAnimation
+    - functionName: toggleActions
       parametersArray:
-      - int:-1
-      - string:attack
+      - bool:false
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: playAudioOnce
+    - functionName: changeAttribute
       parametersArray:
-      - int:1
-      - int:1
-      waitForPreviousFunction: 0
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: damageTargets
-      parametersArray:
-      - int:10
+      - bool:false
       - int:0
+      - string:+50
+      - bool:true
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -59,49 +52,22 @@ MonoBehaviour:
       parametersArray:
       - bool:false
       - float:2
-      - string:attack
+      - string:heal
+      - float:-0.8
       - float:0
-      - float:0
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: wait
+    - functionName: toggleActions
       parametersArray:
-      - float:0.6
-      waitForPreviousFunction: 1
-      isCoroutine: 1
-      isRunning: 0
-    - functionName: rotateCharacter
-      parametersArray:
-      - int:-1
-      - float:180
+      - bool:true
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: playAnimation
+    - functionName: subtractTurnPoints
       parametersArray:
-      - int:-1
-      - string:walk
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: moveBack
-      parametersArray:
-      - float:0.2
-      waitForPreviousFunction: 1
-      isCoroutine: 1
-      isRunning: 0
-    - functionName: rotateCharacter
-      parametersArray:
-      - int:-1
-      - float:180
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: playAnimation
-      parametersArray:
-      - int:-1
-      - string:idle
+      - int:0
+      - int:1
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

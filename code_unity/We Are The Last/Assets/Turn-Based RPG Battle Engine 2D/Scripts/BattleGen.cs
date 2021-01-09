@@ -216,7 +216,7 @@ public class BattleGen : MonoBehaviour
       var skillIndex = FunctionDB.core.findSkillIndexById(s);
       var skill = Database.dynamic.skills[skillIndex];
 
-      if (skill.unlocked)
+      if (skill.activeSkill)
       {
         //Getting function data
         var functionsToCall = skill.functionsToCall;
@@ -610,8 +610,8 @@ public class BattleGen : MonoBehaviour
       //Getting character
       var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(toGen[i])];
 
-      //If the character is not active, remove from list
-      if (!skill.unlocked)
+      // Allow passive skills
+      //if (!skill.unlocked)
       {
         toGen.RemoveAt(i);
       }
@@ -694,7 +694,7 @@ public class BattleGen : MonoBehaviour
     {
       //Getting character
       skill skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById( skillId )];
-      skill.unlocked = false;
+      skill.activeSkill = false;
       context.activeSkillId = skill.id;
 
       for ( int i = 0; i < character.skills.Count; ++i )

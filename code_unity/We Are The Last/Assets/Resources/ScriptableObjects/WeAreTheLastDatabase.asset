@@ -14,15 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillAssets:
   - {fileID: 11400000, guid: 854913f9faf834d448bb12cb957d11d0, type: 2}
-  - {fileID: 11400000, guid: b8903d43714132c4883be4640eafd894, type: 2}
+  - {fileID: 11400000, guid: 2fafe52cdf736df4a82857f5efa9dd45, type: 2}
+  - {fileID: 11400000, guid: c686277737a77894a900e8e5fd1d835d, type: 2}
   - {fileID: 11400000, guid: 3eaf8cd402030a64c83f463275f65f4d, type: 2}
   - {fileID: 11400000, guid: d3aa90d447ab04b4a97859f31ea4509b, type: 2}
-  - {fileID: 11400000, guid: 1003d49c5cc86d2438b09ea2c05f5add, type: 2}
-  - {fileID: 11400000, guid: 3c26b6111f3c546419a3096e10789fbd, type: 2}
-  - {fileID: 11400000, guid: 2fafe52cdf736df4a82857f5efa9dd45, type: 2}
-  - {fileID: 11400000, guid: f0fedb4ae42707446bf8ce742aa0921c, type: 2}
+  - {fileID: 11400000, guid: b8903d43714132c4883be4640eafd894, type: 2}
   - {fileID: 11400000, guid: 608bda37185db3f4183b3b3f34b0dd1b, type: 2}
-  - {fileID: 11400000, guid: c686277737a77894a900e8e5fd1d835d, type: 2}
+  - {fileID: 11400000, guid: 3c26b6111f3c546419a3096e10789fbd, type: 2}
+  - {fileID: 11400000, guid: f0fedb4ae42707446bf8ce742aa0921c, type: 2}
+  - {fileID: 11400000, guid: 1003d49c5cc86d2438b09ea2c05f5add, type: 2}
+  - {fileID: 11400000, guid: 3aa706ef1b417a0459b0b6b5a5a9ab3d, type: 2}
   characters:
   - name: Therapist
     id: 0
@@ -30,7 +31,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 27d615c5f545db846bc939904a978394, type: 3}
     animationController: {fileID: 9100000, guid: 241b9021678cb8e4cb2a79dc3041ebe9,
       type: 2}
-    skills: 040000000500000009000000
+    skills: 03000000040000000500000009000000
     items:
     - id: 0
       quantity: 1
@@ -65,7 +66,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 4129ca514a4b89b4f9b9830b06595789, type: 3}
     animationController: {fileID: 9100000, guid: ee6cc0d1396f5354780a8cb636e54025,
       type: 2}
-    skills: 00000000020000000600000007000000
+    skills: 070000000200000006000000
     items: []
     characterAttributes:
     - name: HP
@@ -94,7 +95,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 0f97d0bf8cd7e8f4b83f74f1c98b929b, type: 3}
     animationController: {fileID: 9100000, guid: 20e1dc80ff904e14d8a9ff39b40f9b9b,
       type: 2}
-    skills: 000000000100000008000000
+    skills: 0a0000000800000001000000
     items: []
     characterAttributes:
     - name: HP

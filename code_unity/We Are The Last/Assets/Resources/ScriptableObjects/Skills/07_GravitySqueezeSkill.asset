@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: AttackSkill
+  m_Name: 07_GravitySqueezeSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Attack
-    id: 0
-    description: A basic attack
+    name: Gravity Squeeze
+    id: 7
+    description: Target takes Gravity damage
     sacrificeReplacementId: -1
     unlocked: 1
     turnPointCost: 100
@@ -46,7 +46,7 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: moveToTarget
+    - functionName: stepForward
       parametersArray:
       - float:2
       - float:0.1
@@ -67,13 +67,6 @@ MonoBehaviour:
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
-    - functionName: damageTargets
-      parametersArray:
-      - int:10
-      - int:0
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
     - functionName: displayFX
       parametersArray:
       - bool:false
@@ -81,6 +74,23 @@ MonoBehaviour:
       - string:attack
       - float:0
       - float:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFX
+      parametersArray:
+      - bool:false
+      - float:2
+      - string:heal
+      - float:-0.7
+      - float:1
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: damageTargets
+      parametersArray:
+      - int:80
+      - int:3
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

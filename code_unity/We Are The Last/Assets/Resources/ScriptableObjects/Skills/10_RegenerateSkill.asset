@@ -10,31 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: RedirectSkill
+  m_Name: 10_RegenerateSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Redirect
-    id: 2
-    description: 'Cause enemies to '
+    name: Regenerate
+    id: 10
+    description: Restore health to all allies
     sacrificeReplacementId: -1
-    unlocked: 1
+    activeSkill: 0
     turnPointCost: 100
-    functionsToCall:
-    - functionName: selectCharacter
+    functionsToCall: []
+    endOfRound:
+    - functionName: autoSelectTargets
       parametersArray:
+      - int:4
       - bool:true
-      - int:1
-      waitForPreviousFunction: 0
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: waitForSelection
-      parametersArray:
-      - bool:true
-      waitForPreviousFunction: 1
-      isCoroutine: 1
-      isRunning: 0
-    - functionName: toggleActions
-      parametersArray:
       - bool:false
       waitForPreviousFunction: 1
       isCoroutine: 0
@@ -42,10 +32,10 @@ MonoBehaviour:
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false
-      - string:TAUNT
-      - string:=1
-      - float:5
-      - bool:false
+      - string:HP
+      - string:+10
+      - int:100
+      - bool:true
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -59,20 +49,11 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: toggleActions
-      parametersArray:
-      - bool:true
+    - functionName: clearTargets
+      parametersArray: []
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: subtractTurnPoints
-      parametersArray:
-      - int:0
-      - int:2
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    endOfRound: []
     sacrificeActions:
     - functionName: changeAttribute
       parametersArray:

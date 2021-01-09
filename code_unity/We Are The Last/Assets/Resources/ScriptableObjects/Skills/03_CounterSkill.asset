@@ -10,52 +10,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: DefendSkill
+  m_Name: 03_CounterSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Defend
-    id: 4
-    description: Target takes less damage this around.
+    name: Counter
+    id: 3
+    description: A simple counterattack
     sacrificeReplacementId: -1
-    unlocked: 1
-    turnPointCost: 100
+    activeSkill: 0
+    turnPointCost: 0
     functionsToCall:
-    - functionName: selectCharacter
+    - functionName: playAnimation
       parametersArray:
-      - bool:true
+      - int:-1
+      - string:walk
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: moveToTarget
+      parametersArray:
+      - float:2
+      - float:0.1
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:attack
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAudioOnce
+      parametersArray:
+      - int:1
       - int:1
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
-    - functionName: waitForSelection
+    - functionName: damageTargets
       parametersArray:
-      - bool:true
-      waitForPreviousFunction: 1
-      isCoroutine: 1
-      isRunning: 0
-    - functionName: toggleActions
-      parametersArray:
-      - bool:false
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: addOrChangeAttribute
-      parametersArray:
-      - bool:false
-      - string:DEFEND
-      - string:=80
-      - float:100
-      - bool:false
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: addOrChangeAttribute
-      parametersArray:
-      - bool:false
-      - string:DEFENDROUNDS
-      - string:=1
-      - float:100
-      - bool:false
+      - int:10
+      - int:0
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -63,49 +59,53 @@ MonoBehaviour:
       parametersArray:
       - bool:false
       - float:2
-      - string:heal
-      - float:-0.8
+      - string:attack
+      - float:0
       - float:0
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: toggleActions
+    - functionName: wait
       parametersArray:
-      - bool:true
+      - float:0.6
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 1
+    - functionName: rotateCharacter
+      parametersArray:
+      - int:-1
+      - float:180
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: subtractTurnPoints
+    - functionName: playAnimation
       parametersArray:
-      - int:0
-      - int:2
+      - int:-1
+      - string:walk
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    endOfRound:
-    - functionName: autoSelectTargets
+    - functionName: moveBack
       parametersArray:
-      - int:4
-      - bool:true
-      - bool:false
-      waitForPreviousFunction: 0
-      isCoroutine: 0
+      - float:0.2
+      waitForPreviousFunction: 1
+      isCoroutine: 1
       isRunning: 0
-    - functionName: addOrChangeAttribute
+    - functionName: rotateCharacter
       parametersArray:
-      - bool:false
-      - string:DEFENDROUNDS
-      - string:-1
-      - float:100
-      - bool:false
-      waitForPreviousFunction: 0
+      - int:-1
+      - float:180
+      waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: clearTargets
-      parametersArray: []
-      waitForPreviousFunction: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:idle
+      waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    endOfRound: []
     sacrificeActions:
     - functionName: changeAttribute
       parametersArray:

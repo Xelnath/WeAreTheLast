@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 //A collection of custom classes used across the asset
 
@@ -37,7 +38,8 @@ namespace ClassDB {
 		public int sacrificeReplacementId = -1;
 		
 		//Can the skill be used?
-		public bool unlocked;
+		[FormerlySerializedAs( "unlocked" )] 
+		public bool activeSkill;
 
 		//The amount of turn points it costs to use the skill
 		public int turnPointCost;
@@ -53,7 +55,7 @@ namespace ClassDB {
 		
 		public override string ToString()
 		{
-			return $"{name} ({id}) - {unlocked} - pts: {turnPointCost}";
+			return $"{name} ({id}) - {activeSkill} - pts: {turnPointCost}";
 		}
 	}
 
@@ -105,12 +107,9 @@ namespace ClassDB {
 				var skillIndex = FunctionDB.core.findSkillIndexById( counterSkill );
 				var skill = Database.dynamic.skills[skillIndex];
 
-				if ( skill.unlocked )
-				{
-					//Getting function data
-					var functionsToCall = new List<callInfo>( skill.functionsToCall );
-					return functionsToCall;
-				}
+				//Getting function data
+				var functionsToCall = new List<callInfo>( skill.functionsToCall );
+				return functionsToCall;
 			}
 			return new List<callInfo>() { };
 		}
@@ -139,11 +138,12 @@ namespace ClassDB {
 			    var functionsToCall = skill.endOfRound;
 			    if ( functionsToCall.Count > 0 )
 			    {
-				    context.Init( id, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
-				    context.functionQueue = functionsToCall;
-				    context.activeSkillId = skillId;
-				    context.actionTargets.Clear();
-				    yield return BattleManager.core.functionQueueCaller( context );
+				    BattleManager.BattleManagerContext c = new BattleManager.BattleManagerContext();
+				    c.Init( id, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
+				    c.functionQueue = functionsToCall;
+				    c.activeSkillId = skillId;
+				    c.actionTargets.Clear();
+				    yield return BattleManager.core.functionQueueCaller( c );
 			    }
 			}
 

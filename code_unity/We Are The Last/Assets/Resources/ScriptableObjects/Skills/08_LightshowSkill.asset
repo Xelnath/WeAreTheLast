@@ -10,32 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: GravitySqueezeSkill
+  m_Name: 08_LightshowSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Gravity Squeeze
-    id: 7
-    description: Target takes Gravity damage
+    name: Light Show
+    id: 8
+    description: All targets take Light damage
     sacrificeReplacementId: -1
     unlocked: 1
     turnPointCost: 100
     functionsToCall:
-    - functionName: selectCharacter
+    - functionName: autoSelectTargets
       parametersArray:
+      - int:10
       - bool:false
-      - int:1
-      waitForPreviousFunction: 0
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: waitForSelection
-      parametersArray:
       - bool:true
-      waitForPreviousFunction: 1
-      isCoroutine: 1
-      isRunning: 0
-    - functionName: toggleActions
-      parametersArray:
-      - bool:false
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -89,8 +78,8 @@ MonoBehaviour:
       isRunning: 0
     - functionName: damageTargets
       parametersArray:
-      - int:80
-      - int:3
+      - int:20
+      - int:4
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
