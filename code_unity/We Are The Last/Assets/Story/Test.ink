@@ -1,5 +1,6 @@
 LIST chars = Therapist, Model, Rockstar 
 VAR CurrChar = Therapist
+VAR Deaths = 0
 
 ->Start
 ==	Start
@@ -23,5 +24,13 @@ R,1,1;I can't hold back. I'm all 11.
 ->DONE
 
 ==	FinalScreenTiff
-I'm Tiffany and you're a pice of shit.
+{	
+	-Deaths == 1:Oh no. One more reality is consumed. Don't worry there are infinite universes. All it takes is to succeed in one.
+	-Deaths == 2:Keep going. I don't need to remind you of my love. You're special and you can do this.
+	-Deaths == 3:Rise up, stand up, head over heart, heart over stomach. Now get in there and smash them.
+	-Deaths == 4:Just don't waver. Their plan is flawed. Just one victory is all we need and you have infinite tries.
+	-Deaths == 5:This is getting boring. Can you, like, fight better? Sure it's dire but it doesn't bear repeating.
+	-Deaths == 6:I'm officially bored. This is a neverending nightmare. How does that make you feel?
+	-else:I'm Tiff and whatever happened is deveveloper's fault. Ergo, it's a bug.
+}
 ->DONE
