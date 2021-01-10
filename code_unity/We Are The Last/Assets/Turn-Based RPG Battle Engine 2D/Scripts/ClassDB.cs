@@ -16,6 +16,7 @@ namespace ClassDB {
 
 		//The amount of turn points it costs to use the item.
 		public int turnPointCost;
+		public int manaCost;
 		
 		//A list of functions to be called when the item is used
 		public List<callInfo> functionsToCall = new List<callInfo>(); 
@@ -44,6 +45,8 @@ namespace ClassDB {
 		//The amount of turn points it costs to use the skill
 		public int turnPointCost;
 
+		public int manaCost;
+
 		//A list of functions to be called when the skill is used
 		public List<callInfo> functionsToCall = new List<callInfo>();
 		
@@ -55,7 +58,7 @@ namespace ClassDB {
 		
 		public override string ToString()
 		{
-			return $"{name} ({id}) - {activeSkill} - pts: {turnPointCost}";
+			return $"{name} ({id}) - {activeSkill} - pts: {turnPointCost} - mana: {manaCost}";
 		}
 	}
 
@@ -238,6 +241,7 @@ namespace ClassDB {
 		public GameObject actionObject;
 		public string description;
 		public int turnPointCost;
+		public int manaPointCost;
 	}
 
 	

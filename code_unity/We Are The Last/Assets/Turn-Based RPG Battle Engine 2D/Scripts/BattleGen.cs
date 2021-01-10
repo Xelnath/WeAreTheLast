@@ -244,16 +244,32 @@ public class BattleGen : MonoBehaviour
         //Setting listeners
         b.onClick.AddListener(delegate
         {
-
-          if ((curTp - skill.turnPointCost) >= 0)
+          var index = FunctionDB.core.findAttributeIndexByName( "MP", character );
+          float currentMana = 9999f;
+          //Getting attribute
+          if ( index >= 0 )
           {
-            BattleManager.core.CurrentContext.functionQueue = new List<callInfo>(functionsToCall);
-            BattleManager.core.CurrentContext.activeSkillId = skill.id;
-            BattleManager.core.StartCoroutine(BattleManager.core.functionQueueCaller(BattleManager.core.CurrentContext));
+            characterAttribute attribute = character.characterAttributes[index];
+            currentMana = attribute.curValue;
+          }
+
+          if ( currentMana < skill.manaCost )
+          { 
+            BattleManager.core.startWarningRoutine("Insufficient mana", 2f);
           }
           else
           {
-            BattleManager.core.startWarningRoutine("Insufficient turn points", 2f);
+            if ( ( curTp - skill.turnPointCost ) >= 0 )
+            {
+              BattleManager.core.CurrentContext.functionQueue = new List<callInfo>( functionsToCall );
+              BattleManager.core.CurrentContext.activeSkillId = skill.id;
+              BattleManager.core.StartCoroutine(
+                BattleManager.core.functionQueueCaller( BattleManager.core.CurrentContext ) );
+            }
+            else
+            {
+              BattleManager.core.startWarningRoutine( "Insufficient turn points", 2f );
+            }
           }
         });
 
@@ -262,6 +278,7 @@ public class BattleGen : MonoBehaviour
         cai.actionObject = t;
         cai.description = skill.description;
         cai.turnPointCost = skill.turnPointCost;
+        cai.manaPointCost = skill.manaCost;
 
         BattleManager.core.curActions.Add(cai);
       }

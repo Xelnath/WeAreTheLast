@@ -49,24 +49,48 @@ public class BattleMethods : MonoBehaviour
 	 */
   public void subtractTurnPoints( BattleManager.BattleManagerContext context, int actionType, int actionId )
   {
-
     if ( actionId != -1 && actionType != -1 )
     {
       int tp = BattleManager.core.turnPoints;
       int requiredTp = 0;
+      int requiredMana = 0;
 
+      //Getting character
+      var character =
+        Database.dynamic.characters[
+          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
+      
       switch (actionType)
       {
         case 0:
           requiredTp = Database.dynamic.skills[context.activeSkillId].turnPointCost;
+          requiredMana = Database.dynamic.skills[context.activeSkillId].manaCost;
           break;
         case 1:
           requiredTp = Database.dynamic.items[FunctionDB.core.findItemIndexById( actionId )].turnPointCost;
+          requiredMana = Database.dynamic.items[FunctionDB.core.findItemIndexById( actionId )].manaCost;
           break;
         default:
           Debug.Log( "Invalid action type. Set 0 for skill or 1 for item." );
           break;
       }
+      
+            
+      var index = FunctionDB.core.findAttributeIndexByName( "MP", character );
+      //Getting attribute
+      if ( index >= 0 )
+      {
+        characterAttribute attribute = character.characterAttributes[index];
+        if ( attribute.curValue > requiredMana )
+        {
+          attribute.curValue -= requiredMana;
+        }
+        else
+        {
+          attribute.curValue = 0;
+        }
+      }
+      
 
       //Do you have enought turn points?
       if ( ( tp - requiredTp ) > 0 )
@@ -84,6 +108,7 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "subtractTurnPoints", false );
 
   }
+
 
   void autoSelectTargets( BattleManager.BattleManagerContext context, int targetLimit, bool allowFriendly, bool allowHostile )
   {
@@ -784,6 +809,31 @@ public class BattleMethods : MonoBehaviour
     }
   }
 
+  void generateMana( BattleManager.BattleManagerContext context, int amountToGenerate )
+  {
+      //Getting character
+      var character =
+        Database.dynamic.characters[
+          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
+      
+      var index = FunctionDB.core.findAttributeIndexByName( "MP", character );
+      //Getting attribute
+      if ( index >= 0 )
+      {
+        characterAttribute attribute = character.characterAttributes[index];
+        attribute.curValue = Mathf.Min(attribute.curValue+amountToGenerate, attribute.maxValue);
+      }
+      
+      FunctionDB.core.StartCoroutine(	
+        FunctionDB.core.displayAttributeValue(	
+          FunctionDB.core.findCharInstanceById( character.id ),	
+          amountToGenerate,	
+          1,	
+          0.7f, 0.7f ) );	
+      
+    BattleManager.setQueueStatus( context,  "generateMana", false );
+}
+  
   /*
 	Removing a certain quantity of the item from a character.
 	Item id is the id of the item to remove.

@@ -17,8 +17,9 @@ MonoBehaviour:
     id: 7
     description: Target takes Gravity damage
     sacrificeReplacementId: -1
-    unlocked: 1
+    activeSkill: 1
     turnPointCost: 100
+    manaCost: 0
     functionsToCall:
     - functionName: selectCharacter
       parametersArray:
@@ -175,6 +176,12 @@ MonoBehaviour:
       - int:0
       - string:+50
       - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: generateMana
+      parametersArray:
+      - int:100
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

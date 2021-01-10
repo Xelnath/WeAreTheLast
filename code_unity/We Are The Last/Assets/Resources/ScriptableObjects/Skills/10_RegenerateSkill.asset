@@ -19,6 +19,7 @@ MonoBehaviour:
     sacrificeReplacementId: -1
     activeSkill: 0
     turnPointCost: 100
+    manaCost: 0
     functionsToCall: []
     endOfRound:
     - functionName: autoSelectTargets
@@ -61,6 +62,12 @@ MonoBehaviour:
       - int:0
       - string:+50
       - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: generateMana
+      parametersArray:
+      - int:100
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

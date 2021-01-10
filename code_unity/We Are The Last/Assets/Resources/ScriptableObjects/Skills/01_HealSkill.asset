@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: 01_HealSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Heal
+    name: Song & Prayer
     id: 1
-    description: Heal character
+    description: Heal a character
     sacrificeReplacementId: -1
     activeSkill: 1
     turnPointCost: 100
+    manaCost: 0
     functionsToCall:
     - functionName: selectCharacter
       parametersArray:
@@ -79,6 +80,12 @@ MonoBehaviour:
       - int:0
       - string:+50
       - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: generateMana
+      parametersArray:
+      - int:100
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

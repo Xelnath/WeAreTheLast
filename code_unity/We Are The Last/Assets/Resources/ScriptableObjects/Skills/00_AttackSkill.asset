@@ -17,8 +17,9 @@ MonoBehaviour:
     id: 0
     description: A basic attack
     sacrificeReplacementId: -1
-    unlocked: 1
+    activeSkill: 1
     turnPointCost: 100
+    manaCost: 0
     functionsToCall:
     - functionName: selectCharacter
       parametersArray:
@@ -155,6 +156,12 @@ MonoBehaviour:
       - int:0
       - int:0
       waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: generateMana
+      parametersArray:
+      - int:10
+      waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
     endOfRound: []
