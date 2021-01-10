@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 11_WardrumSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Wardrum
+    name: Inspirational Lyrics
     id: 11
     description: Empower all allies
     sacrificeReplacementId: -1

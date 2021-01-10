@@ -16,7 +16,7 @@ MonoBehaviour:
     name: Light Show
     id: 8
     description: All targets take Light damage
-    sacrificeReplacementId: -1
+    sacrificeReplacementId: 12
     activeSkill: 1
     turnPointCost: 100
     manaCost: 0

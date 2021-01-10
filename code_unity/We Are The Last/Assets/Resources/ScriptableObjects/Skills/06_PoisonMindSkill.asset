@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: 06_PoisonMindSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Poison Mind
+    name: Poisonous Insecurity
     id: 6
     description: 'Target takes damage '
-    sacrificeReplacementId: -1
+    sacrificeReplacementId: 14
     activeSkill: 1
     turnPointCost: 100
     manaCost: 0
