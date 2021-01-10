@@ -17,7 +17,7 @@ MonoBehaviour:
     id: 9
     description: Random enemy takes Time damage
     sacrificeReplacementId: -1
-    activeSkill: 0
+    activeSkill: 1
     turnPointCost: 100
     manaCost: 0
     functionsToCall:

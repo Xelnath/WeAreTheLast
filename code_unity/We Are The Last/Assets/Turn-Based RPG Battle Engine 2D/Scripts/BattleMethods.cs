@@ -833,6 +833,31 @@ public class BattleMethods : MonoBehaviour
       
     BattleManager.setQueueStatus( context,  "generateMana", false );
 }
+  void generateManaForEachTargetAlive( BattleManager.BattleManagerContext context, int amountPerTarget )
+  {
+      //Getting character
+      var character =
+        Database.dynamic.characters[
+          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
+
+      int amountToGenerate = amountPerTarget * context.actionTargets.Count; 
+      var index = FunctionDB.core.findAttributeIndexByName( "MP", character );
+      //Getting attribute
+      if ( index >= 0 )
+      {
+        characterAttribute attribute = character.characterAttributes[index];
+        attribute.curValue = Mathf.Min(attribute.curValue+amountToGenerate, attribute.maxValue);
+      }
+      
+      FunctionDB.core.StartCoroutine(	
+        FunctionDB.core.displayAttributeValue(	
+          FunctionDB.core.findCharInstanceById( character.id ),	
+          amountToGenerate,	
+          1,	
+          0.7f, 0.7f ) );	
+      
+    BattleManager.setQueueStatus( context,  "generateManaForEachTargetAlive", false );
+}
   
   /*
 	Removing a certain quantity of the item from a character.
@@ -902,21 +927,21 @@ public class BattleMethods : MonoBehaviour
           FunctionDB.core.StartCoroutine(
             FunctionDB.core.displayValue(
               FunctionDB.core.findCharInstanceById( character.id ),
-              "Blocked!",	
-              "A9A9A9",	
-              string.Empty,	
-              0.7f, 0.7f ) );	
-        }	
-        else	
-        {	
-          FunctionDB.core.StartCoroutine(	
-            FunctionDB.core.displayBattleValue(	
-              FunctionDB.core.findCharInstanceById( character.id ),	
-              damagePostDefense,	
-              school,	
-              0.7f, 0.7f ) );	
-        }	
-      }	
+              "Blocked!",
+              "A9A9A9",
+              string.Empty,
+              0.7f, 0.7f ) );
+        }
+        else
+        {
+          FunctionDB.core.StartCoroutine(
+            FunctionDB.core.displayBattleValue(
+              FunctionDB.core.findCharInstanceById( character.id ),
+              damagePostDefense,
+              school,
+              0.7f, 0.7f ) );
+        }
+      }
     } );
 
     BattleManager.setQueueStatus( context,  "damageTargets", false );

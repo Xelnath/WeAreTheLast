@@ -110,6 +110,12 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
+    - functionName: generateManaForEachTargetAlive
+      parametersArray:
+      - int:5
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: rotateCharacter
       parametersArray:
       - int:-1
