@@ -45,6 +45,10 @@ MonoBehaviour:
       id: 1
       maxValue: 100
       curValue: 100
+    - name: SP
+      id: 4
+      maxValue: 100
+      curValue: 0
     - name: TAUNT
       id: 2
       maxValue: 5
@@ -78,6 +82,10 @@ MonoBehaviour:
       id: 1
       maxValue: 100
       curValue: 100
+    - name: SP
+      id: 3
+      maxValue: 100
+      curValue: 0
     - name: TAUNT
       id: 2
       maxValue: 5
@@ -107,6 +115,10 @@ MonoBehaviour:
       id: 1
       maxValue: 100
       curValue: 100
+    - name: SP
+      id: 3
+      maxValue: 100
+      curValue: 0
     - name: TAUNT
       id: 2
       maxValue: 5
@@ -200,6 +212,7 @@ MonoBehaviour:
     description: Eating eat will heal the character for 10 HP.
     turnPointCost: 0
     manaCost: 0
+    superCost: 0
     functionsToCall:
     - functionName: changeAttribute
       parametersArray:

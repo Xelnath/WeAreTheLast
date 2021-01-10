@@ -19,7 +19,8 @@ MonoBehaviour:
     sacrificeReplacementId: -1
     activeSkill: 1
     turnPointCost: 100
-    manaCost: 100
+    manaCost: 0
+    superCost: 100
     functionsToCall:
     - functionName: autoSelectTargets
       parametersArray:

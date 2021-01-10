@@ -54,6 +54,7 @@ public class BattleMethods : MonoBehaviour
       int tp = BattleManager.core.turnPoints;
       int requiredTp = 0;
       int requiredMana = 0;
+      int requiredSuper = 0;
 
       //Getting character
       var character =
@@ -65,10 +66,12 @@ public class BattleMethods : MonoBehaviour
         case 0:
           requiredTp = Database.dynamic.skills[context.activeSkillId].turnPointCost;
           requiredMana = Database.dynamic.skills[context.activeSkillId].manaCost;
+          requiredSuper = Database.dynamic.skills[context.activeSkillId].superCost;
           break;
         case 1:
           requiredTp = Database.dynamic.items[FunctionDB.core.findItemIndexById( actionId )].turnPointCost;
           requiredMana = Database.dynamic.items[FunctionDB.core.findItemIndexById( actionId )].manaCost;
+          requiredSuper = Database.dynamic.items[FunctionDB.core.findItemIndexById( actionId )].superCost;
           break;
         default:
           Debug.Log( "Invalid action type. Set 0 for skill or 1 for item." );
@@ -90,7 +93,19 @@ public class BattleMethods : MonoBehaviour
           attribute.curValue = 0;
         }
       }
-      
+      var superIndex = FunctionDB.core.findAttributeIndexByName( "SP", character );
+      if ( superIndex >= 0 )
+      {
+        characterAttribute attribute = character.characterAttributes[superIndex];
+        if ( attribute.curValue > requiredSuper )
+        {
+          attribute.curValue -= requiredSuper;
+        }
+        else
+        {
+          attribute.curValue = 0;
+        }
+      }
 
       //Do you have enought turn points?
       if ( ( tp - requiredTp ) > 0 )
@@ -857,6 +872,56 @@ public class BattleMethods : MonoBehaviour
           0.7f, 0.7f ) );	
       
     BattleManager.setQueueStatus( context,  "generateManaForEachTargetAlive", false );
+}
+  
+  void generateSuper( BattleManager.BattleManagerContext context, int amountToGenerate )
+  {
+      //Getting character
+      var character =
+        Database.dynamic.characters[
+          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
+      
+      var index = FunctionDB.core.findAttributeIndexByName( "SP", character );
+      //Getting attribute
+      if ( index >= 0 )
+      {
+        characterAttribute attribute = character.characterAttributes[index];
+        attribute.curValue = Mathf.Min(attribute.curValue+amountToGenerate, attribute.maxValue);
+      }
+      
+      FunctionDB.core.StartCoroutine(	
+        FunctionDB.core.displayAttributeValue(	
+          FunctionDB.core.findCharInstanceById( character.id ),	
+          amountToGenerate,	
+          1,	
+          0.7f, 0.7f ) );	
+      
+    BattleManager.setQueueStatus( context,  "generateSuper", false );
+}
+  void generateSuperForEachTargetAlive( BattleManager.BattleManagerContext context, int amountPerTarget )
+  {
+      //Getting character
+      var character =
+        Database.dynamic.characters[
+          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
+
+      int amountToGenerate = amountPerTarget * context.actionTargets.Count; 
+      var index = FunctionDB.core.findAttributeIndexByName( "SP", character );
+      //Getting attribute
+      if ( index >= 0 )
+      {
+        characterAttribute attribute = character.characterAttributes[index];
+        attribute.curValue = Mathf.Min(attribute.curValue+amountToGenerate, attribute.maxValue);
+      }
+      
+      FunctionDB.core.StartCoroutine(	
+        FunctionDB.core.displayAttributeValue(	
+          FunctionDB.core.findCharInstanceById( character.id ),	
+          amountToGenerate,	
+          1,	
+          0.7f, 0.7f ) );	
+      
+    BattleManager.setQueueStatus( context,  "generateSuperForEachTargetAlive", false );
 }
   
   /*

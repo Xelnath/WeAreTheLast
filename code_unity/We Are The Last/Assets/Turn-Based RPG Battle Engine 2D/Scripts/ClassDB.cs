@@ -17,6 +17,7 @@ namespace ClassDB {
 		//The amount of turn points it costs to use the item.
 		public int turnPointCost;
 		public int manaCost;
+		public int superCost;
 		
 		//A list of functions to be called when the item is used
 		public List<callInfo> functionsToCall = new List<callInfo>(); 
@@ -46,6 +47,7 @@ namespace ClassDB {
 		public int turnPointCost;
 
 		public int manaCost;
+		public int superCost;
 
 		//A list of functions to be called when the skill is used
 		public List<callInfo> functionsToCall = new List<callInfo>();
@@ -242,6 +244,7 @@ namespace ClassDB {
 		public string description;
 		public int turnPointCost;
 		public int manaPointCost;
+		public int superCost;
 	}
 
 	

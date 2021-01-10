@@ -961,24 +961,26 @@ public class BattleManager : MonoBehaviour
           }
 
           //Getting status bar
-          GameObject statusBar = info.uiObject.transform.GetChild(4).gameObject;
+          GameObject statusBar = info.uiObject.transform.GetChild(5).gameObject;
 
           //Should the status bar be active ?
           if (info.characterId == CurrentContext.activeCharacterId && !statusBar.activeSelf) statusBar.SetActive(true);
           else if (info.characterId != CurrentContext.activeCharacterId && statusBar.activeSelf) statusBar.SetActive(false);
 
-          info.uiObject.transform.GetChild(5).gameObject.SetActive(!character.isActive);
+          info.uiObject.transform.GetChild(6).gameObject.SetActive(!character.isActive);
 
 
           //Getting attribute slots
           GameObject attributeSlot1 = info.uiObject.transform.GetChild(2).gameObject;
           GameObject attributeSlot2 = info.uiObject.transform.GetChild(3).gameObject;
+          GameObject attributeSlot3 = info.uiObject.transform.GetChild(4).gameObject;
 
           //Setting attributes
           if (attributes.Count >= 2)
           {
             attributeSlot1.GetComponent<TextMeshProUGUI>().text = attributes[0].name + " " + attributes[0].curValue.ToString() + " / " + attributes[0].maxValue.ToString();
             attributeSlot2.GetComponent<TextMeshProUGUI>().text = attributes[1].name + " " + attributes[1].curValue.ToString() + " / " + attributes[1].maxValue.ToString();
+            attributeSlot3.GetComponent<TextMeshProUGUI>().text = attributes[2].name + " " + attributes[2].curValue.ToString() + " / " + attributes[2].maxValue.ToString();
           }
           else
           {

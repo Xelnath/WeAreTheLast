@@ -20,6 +20,7 @@ MonoBehaviour:
     activeSkill: 1
     turnPointCost: 100
     manaCost: 0
+    superCost: 0
     functionsToCall:
     - functionName: randomTargets
       parametersArray:
@@ -79,8 +80,8 @@ MonoBehaviour:
       isRunning: 0
     - functionName: damageTargets
       parametersArray:
-      - int:80
-      - int:3
+      - int:10
+      - int:2
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
