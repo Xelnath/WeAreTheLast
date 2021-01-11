@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Skill:
     name: Selfish Stardom
-    id: 8
+    id: 12
     description: Everyone takes Light damage
     sacrificeReplacementId: -1
     activeSkill: 1
     turnPointCost: 100
     manaCost: 0
+    superCost: 0
     functionsToCall:
     - functionName: autoSelectTargets
       parametersArray:
@@ -110,7 +111,7 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
-    - functionName: generateManaForEachTargetAlive
+    - functionName: generateSuperForEachTargetAlive
       parametersArray:
       - int:5
       waitForPreviousFunction: 1

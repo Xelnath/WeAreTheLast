@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 14_SelfDoubtSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Self Doubt
+    name: Toxic Insecurity
     id: 14
     description: Target and self take damage over time
     sacrificeReplacementId: -1
     activeSkill: 1
     turnPointCost: 100
     manaCost: 0
+    superCost: 0
     functionsToCall:
     - functionName: selectCharacter
       parametersArray:
@@ -111,7 +112,7 @@ MonoBehaviour:
       isRunning: 0
     - functionName: damageTargets
       parametersArray:
-      - int:80
+      - int:20
       - int:0
       waitForPreviousFunction: 1
       isCoroutine: 0

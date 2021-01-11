@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 07_GravitySqueezeSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Gravity Squeeze
+    name: Gravitas
     id: 7
     description: Target takes Gravity damage
     sacrificeReplacementId: 13
     activeSkill: 1
     turnPointCost: 100
     manaCost: 0
+    superCost: 0
     functionsToCall:
     - functionName: selectCharacter
       parametersArray:
@@ -100,6 +101,12 @@ MonoBehaviour:
       - float:0.4
       waitForPreviousFunction: 1
       isCoroutine: 1
+      isRunning: 0
+    - functionName: generateSuper
+      parametersArray:
+      - int:10
+      waitForPreviousFunction: 1
+      isCoroutine: 0
       isRunning: 0
     - functionName: playAnimation
       parametersArray:

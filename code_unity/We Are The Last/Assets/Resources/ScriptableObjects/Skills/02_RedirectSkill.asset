@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 02_RedirectSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Redirect
+    name: Magnetism
     id: 2
-    description: 'Cause enemies to '
+    description: Cause the next enemy to attack an ally
     sacrificeReplacementId: -1
     activeSkill: 1
     turnPointCost: 100
-    manaCost: 0
+    manaCost: 10
+    superCost: 0
     functionsToCall:
     - functionName: selectCharacter
       parametersArray:
@@ -47,6 +48,11 @@ MonoBehaviour:
       - string:=1
       - float:5
       - bool:false
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: updateAITargeting
+      parametersArray: []
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

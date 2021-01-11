@@ -729,11 +729,20 @@ public class BattleManager : MonoBehaviour
   //This function manages turns
   IEnumerator turnManager()
   {
-    
+    bool plan = true;
     while (true)
     {
 
       var context = BattleManager.core.CurrentContext;
+
+      //Preplan AI action if not planned
+      if (plan)
+      {
+        clearThreatArrows();
+        preplanAI();
+        plan = false;
+      }
+      
       if (turnPoints <= 0 || skipChar)
       {
 
@@ -782,8 +791,9 @@ public class BattleManager : MonoBehaviour
               //Does the character exist
               if (aCharIndex != -1)
               {
-                //Set new character id
                 CurrentContext.activeCharacterId = team[aCharIndex];
+
+                //Set new character id
                 //Generate menu
                 BattleGen.core.mainGen();
 
@@ -806,7 +816,12 @@ public class BattleManager : MonoBehaviour
             // The enemies finished going.
             if ( activeTeam == 0 )
             {
+              foreach (var character in characters)
+              {
+                character.targetIds.Clear();
+              }
               EndRound(BattleManager.core.CurrentContext);
+              plan = true;
             }
 
           }
@@ -961,24 +976,26 @@ public class BattleManager : MonoBehaviour
           }
 
           //Getting status bar
-          GameObject statusBar = info.uiObject.transform.GetChild(4).gameObject;
+          GameObject statusBar = info.uiObject.transform.GetChild(5).gameObject;
 
           //Should the status bar be active ?
           if (info.characterId == CurrentContext.activeCharacterId && !statusBar.activeSelf) statusBar.SetActive(true);
           else if (info.characterId != CurrentContext.activeCharacterId && statusBar.activeSelf) statusBar.SetActive(false);
 
-          info.uiObject.transform.GetChild(5).gameObject.SetActive(!character.isActive);
+          info.uiObject.transform.GetChild(6).gameObject.SetActive(!character.isActive);
 
 
           //Getting attribute slots
           GameObject attributeSlot1 = info.uiObject.transform.GetChild(2).gameObject;
           GameObject attributeSlot2 = info.uiObject.transform.GetChild(3).gameObject;
+          GameObject attributeSlot3 = info.uiObject.transform.GetChild(4).gameObject;
 
           //Setting attributes
           if (attributes.Count >= 2)
           {
             attributeSlot1.GetComponent<TextMeshProUGUI>().text = attributes[0].name + " " + attributes[0].curValue.ToString() + " / " + attributes[0].maxValue.ToString();
             attributeSlot2.GetComponent<TextMeshProUGUI>().text = attributes[1].name + " " + attributes[1].curValue.ToString() + " / " + attributes[1].maxValue.ToString();
+            attributeSlot3.GetComponent<TextMeshProUGUI>().text = attributes[2].name + " " + attributes[2].curValue.ToString() + " / " + attributes[2].maxValue.ToString();
           }
           else
           {
@@ -1054,6 +1071,72 @@ public class BattleManager : MonoBehaviour
       autoText.text = "Auto On";
     }
 
+  }
+  
+  void preplanAI()
+  {
+    foreach (var characterId in activeEnemyTeam)
+    {
+      int characterIndex = 0;
+      for(int i = 0; i < characters.Count; i++)
+      {
+        if (characters[i].characterId == characterId)
+        {
+          characterIndex = i;
+        }
+      }
+      if (characters[characterIndex].targetIds.Count == 0)
+      {
+        BattleMethods.core.preplanAI(characterId);
+        setThreatArrows(characterId);
+      }
+    }
+  }
+  
+  public void replanAI()
+  {
+    clearThreatArrows();
+    foreach (var characterId in activeEnemyTeam)
+    {
+      int characterIndex = 0;
+      for(int i = 0; i < characters.Count; i++)
+      {
+        if (characters[i].characterId == characterId)
+        {
+          characterIndex = i;
+        }
+      }
+      BattleMethods.core.preplanAI(characterId);
+      setThreatArrows(characterId);
+    }
+  }
+
+  public void setThreatArrows(int characterId)
+  {
+    characterInfo charInfo = characters[FunctionDB.core.findCharacterIndexById(characterId)];
+
+    for (int i = 0; i < charInfo.targetIds.Count; i++)
+    {
+      var threatSpawn = FunctionDB.core.findCharSpawnById(charInfo.targetIds[i]);
+      var threatArrow = Instantiate(ObjectDB.core.ThreatArrowPrefab, charInfo.spawnPointObject.transform.position, Quaternion.identity);
+      threatArrow.transform.LookAt(threatSpawn.transform.position);
+      charInfo.threatArrows.Add(threatArrow);
+    }
+  }
+
+  public void clearThreatArrows()
+  {
+    foreach (var charInfo in characters)
+    {
+      if (charInfo.threatArrows.Count > 0)
+      {
+        foreach (var target in charInfo.threatArrows)
+        {
+          Destroy(target);
+        }
+        charInfo.threatArrows.Clear();
+      }
+    }
   }
 
   void Awake() { if (core == null) core = this; }

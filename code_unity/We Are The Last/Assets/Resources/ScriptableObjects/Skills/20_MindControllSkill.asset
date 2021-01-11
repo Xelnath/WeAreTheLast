@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: 06_PoisonMindSkill
+  m_Name: 20_MindControllSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Poison Glare
-    id: 6
-    description: 'Target takes damage '
-    sacrificeReplacementId: 14
+    name: Mind Control
+    id: 20
+    description: Target swaps teams
+    sacrificeReplacementId: -1
     activeSkill: 1
     turnPointCost: 100
-    manaCost: 10
+    manaCost: 0
     superCost: 0
     functionsToCall:
     - functionName: selectCharacter
@@ -41,13 +41,13 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: addOrChangeAttribute
-      parametersArray:
-      - bool:false
-      - string:POISON
-      - string:=10
-      - float:100
-      - bool:false
+    - functionName: swapTargetTeam
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: updateAITargeting
+      parametersArray: []
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -61,6 +61,17 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    - functionName: moveTargetHome
+      parametersArray:
+      - float:0.1
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: turnTarget
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: toggleActions
       parametersArray:
       - bool:true
@@ -70,48 +81,11 @@ MonoBehaviour:
     - functionName: subtractTurnPoints
       parametersArray:
       - int:0
-      - int:2
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    endOfRound:
-    - functionName: autoSelectTargets
-      parametersArray:
-      - int:10
-      - bool:true
-      - bool:true
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: filterTargets
-      parametersArray:
-      - string:POISON
-      - string:>0
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: damageTargets
-      parametersArray:
-      - int:20
       - int:0
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: addOrChangeAttribute
-      parametersArray:
-      - bool:false
-      - string:POISON
-      - string:-1
-      - float:100
-      - bool:false
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: clearTargets
-      parametersArray: []
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
+    endOfRound: []
     sacrificeActions:
     - functionName: changeAttribute
       parametersArray:
@@ -119,12 +93,6 @@ MonoBehaviour:
       - int:0
       - string:+50
       - bool:true
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: generateMana
-      parametersArray:
-      - int:100
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

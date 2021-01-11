@@ -134,6 +134,8 @@ public class BattleGen : MonoBehaviour
         info.characterId = charId;
         info.instanceObject = instance;
         info.spawnPointObject = teamSpawns[counter];
+        info.targetIds = new List<int>();
+        info.threatArrows = new List<GameObject>();
 
         BattleManager.core.characters.Add(info);
 
@@ -158,6 +160,7 @@ public class BattleGen : MonoBehaviour
           GameObject nameObject = gt.GetChild(1).gameObject;
           GameObject attributeSlot1 = gt.GetChild(2).gameObject;
           GameObject attributeSlot2 = gt.GetChild(3).gameObject;
+          GameObject attributeSlot3 = gt.GetChild(4).gameObject;
 
           //Icon
           iconObject.GetComponent<Image>().sprite = character.icon;
@@ -172,6 +175,7 @@ public class BattleGen : MonoBehaviour
           {
             attributeSlot1.GetComponent<TextMeshProUGUI>().text = attributes[0].name + " " + attributes[0].curValue.ToString() + " / " + attributes[0].maxValue.ToString();
             attributeSlot2.GetComponent<TextMeshProUGUI>().text = attributes[1].name + " " + attributes[1].curValue.ToString() + " / " + attributes[1].maxValue.ToString();
+            attributeSlot3.GetComponent<TextMeshProUGUI>().text = attributes[2].name + " " + attributes[2].curValue.ToString() + " / " + attributes[2].maxValue.ToString();
           }
           else
           {
@@ -252,24 +256,33 @@ public class BattleGen : MonoBehaviour
             characterAttribute attribute = character.characterAttributes[index];
             currentMana = attribute.curValue;
           }
+          var superIndex = FunctionDB.core.findAttributeIndexByName( "SP", character );
+          float superPower = 0f;
+          //Getting attribute
+          if ( superIndex >= 0 )
+          {
+            characterAttribute attribute = character.characterAttributes[superIndex];
+            superPower = attribute.curValue;
+          }
 
           if ( currentMana < skill.manaCost )
           { 
             BattleManager.core.startWarningRoutine("Insufficient mana", 2f);
           }
+          else if ( superPower < skill.superCost )
+          { 
+            BattleManager.core.startWarningRoutine("Super skill not charged", 2f);
+          }
+          else if ( ( curTp - skill.turnPointCost ) < 0 )
+          { 
+            BattleManager.core.startWarningRoutine( "Insufficient turn points", 2f );
+          }
           else
           {
-            if ( ( curTp - skill.turnPointCost ) >= 0 )
-            {
               BattleManager.core.CurrentContext.functionQueue = new List<callInfo>( functionsToCall );
               BattleManager.core.CurrentContext.activeSkillId = skill.id;
               BattleManager.core.StartCoroutine(
                 BattleManager.core.functionQueueCaller( BattleManager.core.CurrentContext ) );
-            }
-            else
-            {
-              BattleManager.core.startWarningRoutine( "Insufficient turn points", 2f );
-            }
           }
         });
 
@@ -279,6 +292,7 @@ public class BattleGen : MonoBehaviour
         cai.description = skill.description;
         cai.turnPointCost = skill.turnPointCost;
         cai.manaPointCost = skill.manaCost;
+        cai.superCost = skill.superCost;
 
         BattleManager.core.curActions.Add(cai);
       }
@@ -628,9 +642,9 @@ public class BattleGen : MonoBehaviour
       var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(toGen[i])];
 
       // Allow passive skills
-      //if (!skill.unlocked)
+      if (!skill.activeSkill)
       {
-        toGen.RemoveAt(i);
+         toGen.RemoveAt(i);
       }
     }
 

@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: 13_GravitationalFluxSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Gravity Flux
-    id: 9
+    name: Reckless Shade
+    id: 13
     description: Random enemy takes Gravity
     sacrificeReplacementId: -1
     activeSkill: 1
     turnPointCost: 100
     manaCost: 0
+    superCost: 0
     functionsToCall:
-    - functionName: randomTargets
+    - functionName: autoSelectTargets
       parametersArray:
       - int:1
       - bool:false
@@ -89,6 +90,12 @@ MonoBehaviour:
       - float:0.4
       waitForPreviousFunction: 1
       isCoroutine: 1
+      isRunning: 0
+    - functionName: generateSuper
+      parametersArray:
+      - int:10
+      waitForPreviousFunction: 1
+      isCoroutine: 0
       isRunning: 0
     - functionName: playAnimation
       parametersArray:

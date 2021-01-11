@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 08_LightshowSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Light Show
+    name: Showoff
     id: 8
     description: All targets take Light damage
     sacrificeReplacementId: 12
     activeSkill: 1
     turnPointCost: 100
     manaCost: 0
+    superCost: 0
     functionsToCall:
     - functionName: autoSelectTargets
       parametersArray:
@@ -110,7 +111,7 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
-    - functionName: generateManaForEachTargetAlive
+    - functionName: generateSuperForEachTargetAlive
       parametersArray:
       - int:5
       waitForPreviousFunction: 1

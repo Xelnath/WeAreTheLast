@@ -20,6 +20,7 @@ MonoBehaviour:
     activeSkill: 0
     turnPointCost: 0
     manaCost: 0
+    superCost: 0
     functionsToCall:
     - functionName: playAnimation
       parametersArray:
@@ -52,7 +53,7 @@ MonoBehaviour:
     - functionName: damageTargets
       parametersArray:
       - int:10
-      - int:0
+      - int:2
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -72,7 +73,7 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
-    - functionName: generateMana
+    - functionName: generateSuper
       parametersArray:
       - int:10
       waitForPreviousFunction: 1

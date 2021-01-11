@@ -40,6 +40,118 @@ public class BattleMethods : MonoBehaviour
     }
 
   }
+/*
+   This function is used to prepare the AI's targets at the top of the round and when called (ie Taunt,
+   which necessitates recalculation)
+   Currently it, like sampleAi, just generates it for whatever the first slot is
+   Currently allows enemies to target players that have already been killed that turn
+   */
+  public void preplanAI(int characterId)
+  {
+    //Getting character
+    var curChar =
+      Database.dynamic.characters[
+        FunctionDB.core.findCharacterIndexById(characterId)];
+    //Getting skills
+    var skillIds = curChar.skills;
+
+    //This still just preplans based on the first skill -- more advanced skill selection AI would go here
+    foreach (int skillId in skillIds)
+    {
+      var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(skillId)];
+      //Getting functions to call
+      var functionsToCall = skill.functionsToCall;
+
+      //Getting targets to store in charInfo
+      for (int j = 0; j < functionsToCall.Count; j++)
+      {
+        preplanAITargets(BattleManager.core.characters[FunctionDB.core.findCharacterIndexById(characterId)], functionsToCall[j]);
+      }
+
+      break;
+    }
+  }
+
+  //This function emulates the 2 targeting functions, but sets the charInfo targetIds instead of the context.actionTargets
+  //I plan on creating a function to reduce redundancy between this and the aforemtnioned targeting functions
+  void preplanAITargets(characterInfo curChar, callInfo functionInfo)
+  {
+    string targetFunctionName = functionInfo.functionName;
+    if (targetFunctionName.Equals("autoSelectTargets"))
+    {
+      curChar.targetIds.Clear();
+      int targetLimit = int.Parse(functionInfo.parametersArray[0].Substring(4));
+      bool allowFriendly = functionInfo.parametersArray[1].Equals("bool:true");
+      bool allowHostile = functionInfo.parametersArray[2].Equals("bool:true");
+
+      if (allowFriendly) { curChar.targetIds.AddRange(BattleManager.core.activeEnemyTeam); }
+      if (allowHostile) { curChar.targetIds.AddRange(BattleManager.core.activePlayerTeam); }
+      
+      List<int> selected = new List<int>();
+      while ( targetLimit > 0 && curChar.targetIds.Count > 0 )
+      {
+        int index = Random.Range( 0, curChar.targetIds.Count );
+        int charId = curChar.targetIds[index];
+        curChar.targetIds.RemoveAt( index );
+        if(selected.Count < targetLimit) {
+          selected.Add(charId);
+        }
+      }
+      curChar.targetIds = selected;
+    } else if (targetFunctionName.Equals("selectCharacter"))
+    {
+      curChar.targetIds.Clear();
+      
+      bool targetSameTeam = functionInfo.parametersArray[0].Equals("bool:true");
+      int targetLimit = int.Parse(functionInfo.parametersArray[1].Substring(4));
+
+      var playerTeam = new List<int>(BattleManager.core.activePlayerTeam);
+      var enemyTeam = new List<int>(BattleManager.core.activeEnemyTeam);
+      
+      if (targetSameTeam){
+        foreach (var enemy in enemyTeam)
+        {
+          curChar.targetIds.Add(enemy);
+        }
+      } else {  
+        foreach (var player in playerTeam)
+        {
+          curChar.targetIds.Add(player);
+        }      
+      }
+
+      List<int> selected = new List<int>();
+      while ( targetLimit > 0 && curChar.targetIds.Count > 0 )
+      {
+        int index = UnityEngine.Random.Range( 0, curChar.targetIds.Count );
+        int charId = curChar.targetIds[index];
+        curChar.targetIds.RemoveAt( index );
+        selected.Add(charId);
+      }
+      curChar.targetIds = selected;
+      
+      //Excluding invalid characters
+      for ( int i = 0; i < curChar.targetIds.Count; i++ )
+      {
+        //Id
+        var charId = curChar.targetIds[i];
+        //Getting character's health
+        character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( charId )];
+
+        //If health is 0, exclude character
+        if ( !character.isActive )
+        {
+          curChar.targetIds.RemoveAt( i );
+        }
+      }
+
+      //Getting random character
+      int randIndex = AIGetRandomTarget( curChar.targetIds );
+      curChar.targetIds.Clear();
+      //Adding character to targets
+      curChar.targetIds.Add( randIndex );
+    }
+  }
 
   /*
 	This function is used to subtract turn points.
@@ -54,6 +166,7 @@ public class BattleMethods : MonoBehaviour
       int tp = BattleManager.core.turnPoints;
       int requiredTp = 0;
       int requiredMana = 0;
+      int requiredSuper = 0;
 
       //Getting character
       var character =
@@ -65,10 +178,12 @@ public class BattleMethods : MonoBehaviour
         case 0:
           requiredTp = Database.dynamic.skills[context.activeSkillId].turnPointCost;
           requiredMana = Database.dynamic.skills[context.activeSkillId].manaCost;
+          requiredSuper = Database.dynamic.skills[context.activeSkillId].superCost;
           break;
         case 1:
           requiredTp = Database.dynamic.items[FunctionDB.core.findItemIndexById( actionId )].turnPointCost;
           requiredMana = Database.dynamic.items[FunctionDB.core.findItemIndexById( actionId )].manaCost;
+          requiredSuper = Database.dynamic.items[FunctionDB.core.findItemIndexById( actionId )].superCost;
           break;
         default:
           Debug.Log( "Invalid action type. Set 0 for skill or 1 for item." );
@@ -90,7 +205,19 @@ public class BattleMethods : MonoBehaviour
           attribute.curValue = 0;
         }
       }
-      
+      var superIndex = FunctionDB.core.findAttributeIndexByName( "SP", character );
+      if ( superIndex >= 0 )
+      {
+        characterAttribute attribute = character.characterAttributes[superIndex];
+        if ( attribute.curValue > requiredSuper )
+        {
+          attribute.curValue -= requiredSuper;
+        }
+        else
+        {
+          attribute.curValue = 0;
+        }
+      }
 
       //Do you have enought turn points?
       if ( ( tp - requiredTp ) > 0 )
@@ -112,8 +239,15 @@ public class BattleMethods : MonoBehaviour
 
   void autoSelectTargets( BattleManager.BattleManagerContext context, int targetLimit, bool allowFriendly, bool allowHostile )
   {
-    context.targetLimit = targetLimit;
-    context.actionTargets = BattleGen.core.getValidTargets( context, allowFriendly, allowHostile, targetLimit );
+    if (BattleManager.core.characters[FunctionDB.core.findCharacterIndexById(context.activeCharacterId)].targetIds.Count > 0)
+    {
+      context.actionTargets = BattleManager.core.characters[FunctionDB.core.findCharacterIndexById(context.activeCharacterId)].targetIds;
+    } 
+    else 
+    {
+      context.targetLimit = targetLimit;
+      context.actionTargets = BattleGen.core.getValidTargets( context, allowFriendly, allowHostile, targetLimit );
+    }
     BattleManager.setQueueStatus( context,  "autoSelectTargets", false );
   }
 
@@ -123,23 +257,6 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "clearTargets", false );
   }
 
-  void randomTargets(BattleManager.BattleManagerContext context, int targetLimit, bool allowFriendly, bool allowHostile)
-  {
-    context.targetLimit = targetLimit;
-    context.actionTargets = BattleGen.core.getValidTargets( context, allowFriendly, allowHostile, targetLimit );
-    List<int> tempTargets = new List<int>();
-    while (targetLimit >= 0 && tempTargets.Count < targetLimit)
-    {
-      int randomIndex = Random.Range(0, context.actionTargets.Count - 1);
-      tempTargets.Add(context.actionTargets[randomIndex]);
-      context.actionTargets.RemoveAt(randomIndex);
-    }
-
-    context.actionTargets = tempTargets;
-    
-    BattleManager.setQueueStatus( context,  "randomTargets", false );
-  }
-  
   enum mathOperation
   {
     equal,
@@ -298,13 +415,31 @@ public class BattleMethods : MonoBehaviour
 
       //Getting random character
       int randIndex = AIGetRandomTarget( targets );
+      
+      //Getting character info
+      int charIndex = FunctionDB.core.findCharacterIndexById(context.activeCharacterId);
 
-      //Adding character to targets
-      context.actionTargets.Add( randIndex );
+      //Adding character to targets if unit doesn't already have target
+      if (BattleManager.core.characters[charIndex].targetIds.Count == 0)
+      {
+        context.actionTargets.Add( randIndex );
+      }
+      else
+      {
+        context.actionTargets.Add(BattleManager.core.characters[charIndex].targetIds[0]);
+      }
     }
 
     BattleManager.setQueueStatus( context,  "selectCharacter", false );
 
+  }
+
+
+  void updateAITargeting(BattleManager.BattleManagerContext context)
+  {
+    BattleManager.core.replanAI();
+    
+    BattleManager.setQueueStatus( context,  "updateAITargeting", false );
   }
 
   private int AIGetRandomTarget( List<int> targets )
@@ -595,6 +730,109 @@ public class BattleMethods : MonoBehaviour
 
   }
 
+  IEnumerator moveTargetHome( object[] parms )
+  {
+    BattleManager.BattleManagerContext context = parms[0] as BattleManager.BattleManagerContext; 
+
+    //Movement speed
+    float speed = (float) parms[1];
+
+    //Getting active char id
+    foreach (var target in context.actionTargets)
+    {
+      //Getting character object
+      GameObject charObject = FunctionDB.core.findCharInstanceById( target );
+      //Getting spawn point object
+      GameObject spawnPointObject = FunctionDB.core.findCharSpawnById( target );
+
+
+      //Moving character back
+      var destPos = spawnPointObject.transform.position;
+
+      while ( true )
+      {
+        if ( charObject.transform.position == destPos ) break;
+        charObject.transform.position = Vector3.MoveTowards( charObject.transform.position, destPos, speed );
+
+        yield return new WaitForEndOfFrame();
+      }
+    }
+    
+    BattleManager.setQueueStatus( context,  "moveTargetHome", false );
+  }
+  
+  void turnTarget(BattleManager.BattleManagerContext context )
+  {
+    //Getting target char ids
+    foreach (var target in context.actionTargets)
+    {
+      //Getting character object
+      GameObject charObject = FunctionDB.core.findCharInstanceById( target );
+      charObject.transform.Rotate(0, 180, 0);
+    }
+    
+    BattleManager.setQueueStatus( context,  "turnTarget", false );
+  }
+  
+  void swapTargetTeam( BattleManager.BattleManagerContext context)
+  {
+    var sourceCharObject = FunctionDB.core.findCharInstanceById(context.activeCharacterId);
+    
+    forEachCharacterDo( context, false, ( character ) =>
+    {
+      List<int> teammateIds = new List<int>();
+      
+      //Determinig which team the character is on
+      if (BattleManager.core.activePlayerTeam.Contains(character.id))
+      {
+        teammateIds = BattleManager.core.activeEnemyTeam;
+        BattleManager.core.activePlayerTeam.Remove(character.id);
+        BattleManager.core.activeEnemyTeam.Add(character.id);
+      }
+      else
+      {
+        teammateIds = BattleManager.core.activePlayerTeam;
+        BattleManager.core.activeEnemyTeam.Remove(character.id);
+        BattleManager.core.activePlayerTeam.Add(character.id);
+      }
+      
+      //Set placement of new to-be spawnpoint
+      Vector3 mindControllerSpawn = FunctionDB.core.findCharSpawnById(teammateIds[teammateIds.Count-2]).transform.position;
+      mindControllerSpawn += new Vector3(Random.Range(-2, 2)/2f, -1, 0);
+
+      //Create new spawnpoint and set spawn
+      GameObject newSpawn = Instantiate(new GameObject($"MindControlled{character.id}SpawnPoint"), mindControllerSpawn,
+        Quaternion.identity, sourceCharObject.transform.parent.transform.parent);
+      FunctionDB.core.setSpawn(character.id, newSpawn);
+
+      //Displaying debuff
+        FunctionDB.core.StartCoroutine(
+          FunctionDB.core.displayValue(
+            FunctionDB.core.findCharInstanceById( character.id ),
+            "Dominated!",	
+            "A9A9A9",	
+            string.Empty,	
+            0f, 0.7f ) );
+    } );
+
+    BattleManager.setQueueStatus( context,  "swapTargetTeam", false );
+  }
+
+  void setOldSpawn(BattleManager.BattleManagerContext context)
+  {
+    
+    //Even though a character has swapped teams, its parent should still be its old spawn
+    GameObject character = FunctionDB.core.findCharInstanceById(context.activeCharacterId);
+    GameObject oldSpawn = FunctionDB.core.findCharSpawnById(context.activeCharacterId);
+    FunctionDB.core.setSpawn(context.activeCharacterId, character.gameObject.transform.parent.gameObject);
+    if (oldSpawn != character.gameObject.transform.parent.gameObject)
+    {
+      Destroy(oldSpawn);
+    }
+    
+    BattleManager.setQueueStatus( context,  "setOldSpawn", false );
+  }
+  
   /*
 	Checking active player attribute.
 	By default, if min value not met, stopping skill chain.
@@ -859,6 +1097,56 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "generateManaForEachTargetAlive", false );
 }
   
+  void generateSuper( BattleManager.BattleManagerContext context, int amountToGenerate )
+  {
+      //Getting character
+      var character =
+        Database.dynamic.characters[
+          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
+      
+      var index = FunctionDB.core.findAttributeIndexByName( "SP", character );
+      //Getting attribute
+      if ( index >= 0 )
+      {
+        characterAttribute attribute = character.characterAttributes[index];
+        attribute.curValue = Mathf.Min(attribute.curValue+amountToGenerate, attribute.maxValue);
+      }
+      
+      FunctionDB.core.StartCoroutine(	
+        FunctionDB.core.displayAttributeValue(	
+          FunctionDB.core.findCharInstanceById( character.id ),	
+          amountToGenerate,	
+          1,	
+          0.7f, 0.7f ) );	
+      
+    BattleManager.setQueueStatus( context,  "generateSuper", false );
+}
+  void generateSuperForEachTargetAlive( BattleManager.BattleManagerContext context, int amountPerTarget )
+  {
+      //Getting character
+      var character =
+        Database.dynamic.characters[
+          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
+
+      int amountToGenerate = amountPerTarget * context.actionTargets.Count; 
+      var index = FunctionDB.core.findAttributeIndexByName( "SP", character );
+      //Getting attribute
+      if ( index >= 0 )
+      {
+        characterAttribute attribute = character.characterAttributes[index];
+        attribute.curValue = Mathf.Min(attribute.curValue+amountToGenerate, attribute.maxValue);
+      }
+      
+      FunctionDB.core.StartCoroutine(	
+        FunctionDB.core.displayAttributeValue(	
+          FunctionDB.core.findCharInstanceById( character.id ),	
+          amountToGenerate,	
+          1,	
+          0.7f, 0.7f ) );	
+      
+    BattleManager.setQueueStatus( context,  "generateSuperForEachTargetAlive", false );
+}
+  
   /*
 	Removing a certain quantity of the item from a character.
 	Item id is the id of the item to remove.
@@ -1104,6 +1392,67 @@ The condition name is the name of the Animator's parameter which will be set to 
     }
 
     BattleManager.setQueueStatus( context, "displayFX", false);
+  }
+
+  void cleanseEffects( BattleManager.BattleManagerContext context, bool self, bool hostileEffects,
+    bool friendlyEffects, int superPerEffect )
+  {
+    List<string> friendly = new List<string> (){ "DEFENDROUNDS", "WARDRUM", "TAUNT" };
+    List<string> hostile = new List<string> (){ "POISON", "STUN" };
+
+    int purged = 0;
+    
+    forEachCharacterDo( context, self, ( character ) =>
+    {
+      if ( hostileEffects )
+      {
+        foreach ( var h in hostile )
+        {
+          var attr = FunctionDB.core.findAttributeByName(  character.id, h );
+          if ( attr != null )
+          {
+            if ( attr.curValue > 0 ) purged += Mathf.FloorToInt( attr.curValue );
+            attr.curValue = 0;
+          }
+        }
+      }
+      if ( friendlyEffects )
+      {
+        foreach ( var h in friendly )
+        {
+          var attr = FunctionDB.core.findAttributeByName(  character.id, h );
+          if ( attr != null )
+          {
+            if ( attr.curValue > 0 ) purged += Mathf.FloorToInt( attr.curValue );
+            attr.curValue = 0;
+          }
+        }
+      }
+    } );
+
+    
+      //Getting character
+      var character =
+        Database.dynamic.characters[
+          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
+
+      int amountToGenerate = superPerEffect * purged; 
+      var index = FunctionDB.core.findAttributeIndexByName( "SP", character );
+      //Getting attribute
+      if ( index >= 0 )
+      {
+        characterAttribute attribute = character.characterAttributes[index];
+        attribute.curValue = Mathf.Min(attribute.curValue+amountToGenerate, attribute.maxValue);
+      }
+      
+      FunctionDB.core.StartCoroutine(	
+        FunctionDB.core.displayAttributeValue(	
+          FunctionDB.core.findCharInstanceById( character.id ),	
+          amountToGenerate,	
+          1,	
+          0.7f, 0.7f ) );	
+    
+      BattleManager.setQueueStatus( context, "cleanseEffects", false);
   }
 
   void Awake() { if (core == null) core = this; }

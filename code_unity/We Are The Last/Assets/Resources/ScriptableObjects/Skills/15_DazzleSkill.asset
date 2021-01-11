@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: 06_PoisonMindSkill
+  m_Name: 15_DazzleSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Poison Glare
-    id: 6
-    description: 'Target takes damage '
-    sacrificeReplacementId: 14
+    name: Dazzle
+    id: 15
+    description: Stuns the target for a round
+    sacrificeReplacementId: -1
     activeSkill: 1
     turnPointCost: 100
     manaCost: 10
@@ -44,8 +44,8 @@ MonoBehaviour:
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false
-      - string:POISON
-      - string:=10
+      - string:STUN
+      - string:=1
       - float:100
       - bool:false
       waitForPreviousFunction: 1
@@ -85,22 +85,15 @@ MonoBehaviour:
       isRunning: 0
     - functionName: filterTargets
       parametersArray:
-      - string:POISON
+      - string:STUN
       - string:>0
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: damageTargets
-      parametersArray:
-      - int:20
-      - int:0
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false
-      - string:POISON
+      - string:STUN
       - string:-1
       - float:100
       - bool:false

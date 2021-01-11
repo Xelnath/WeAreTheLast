@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: 06_PoisonMindSkill
+  m_Name: 19_HealHurtSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Poison Glare
-    id: 6
-    description: 'Target takes damage '
-    sacrificeReplacementId: 14
+    name: Resent
+    id: 19
+    description: Heal a character but poisons them
+    sacrificeReplacementId: -1
     activeSkill: 1
     turnPointCost: 100
     manaCost: 10
@@ -24,7 +24,7 @@ MonoBehaviour:
     functionsToCall:
     - functionName: selectCharacter
       parametersArray:
-      - bool:false
+      - bool:true
       - int:1
       waitForPreviousFunction: 0
       isCoroutine: 0
@@ -41,11 +41,20 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    - functionName: changeAttribute
+      parametersArray:
+      - bool:false
+      - int:0
+      - string:+50
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false
       - string:POISON
-      - string:=10
+      - string:=5
       - float:100
       - bool:false
       waitForPreviousFunction: 1
@@ -70,48 +79,11 @@ MonoBehaviour:
     - functionName: subtractTurnPoints
       parametersArray:
       - int:0
-      - int:2
+      - int:1
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    endOfRound:
-    - functionName: autoSelectTargets
-      parametersArray:
-      - int:10
-      - bool:true
-      - bool:true
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: filterTargets
-      parametersArray:
-      - string:POISON
-      - string:>0
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: damageTargets
-      parametersArray:
-      - int:20
-      - int:0
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: addOrChangeAttribute
-      parametersArray:
-      - bool:false
-      - string:POISON
-      - string:-1
-      - float:100
-      - bool:false
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: clearTargets
-      parametersArray: []
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
+    endOfRound: []
     sacrificeActions:
     - functionName: changeAttribute
       parametersArray:
