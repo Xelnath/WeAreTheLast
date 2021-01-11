@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Skill:
     name: Gravity Flux
-    id: 9
+    id: 13
     description: Random enemy takes Gravity
     sacrificeReplacementId: -1
     activeSkill: 1

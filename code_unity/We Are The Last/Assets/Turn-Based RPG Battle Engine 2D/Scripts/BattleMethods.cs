@@ -1171,6 +1171,67 @@ The condition name is the name of the Animator's parameter which will be set to 
     BattleManager.setQueueStatus( context, "displayFX", false);
   }
 
+  void cleanseEffects( BattleManager.BattleManagerContext context, bool self, bool hostileEffects,
+    bool friendlyEffects, int superPerEffect )
+  {
+    List<string> friendly = new List<string> (){ "DEFEND", "WARDRUM" };
+    List<string> hostile = new List<string> (){ "POISON", "STUN" };
+
+    int purged = 0;
+    
+    forEachCharacterDo( context, self, ( character ) =>
+    {
+      if ( hostileEffects )
+      {
+        foreach ( var h in hostile )
+        {
+          var attr = FunctionDB.core.findAttributeByName(  character.id, h );
+          if ( attr != null )
+          {
+            if ( attr.curValue > 0 ) purged += Mathf.FloorToInt( attr.curValue );
+            attr.curValue = 0;
+          }
+        }
+      }
+      if ( friendlyEffects )
+      {
+        foreach ( var h in friendly )
+        {
+          var attr = FunctionDB.core.findAttributeByName(  character.id, h );
+          if ( attr != null )
+          {
+            if ( attr.curValue > 0 ) purged += Mathf.FloorToInt( attr.curValue );
+            attr.curValue = 0;
+          }
+        }
+      }
+    } );
+
+    
+      //Getting character
+      var character =
+        Database.dynamic.characters[
+          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
+
+      int amountToGenerate = superPerEffect * purged; 
+      var index = FunctionDB.core.findAttributeIndexByName( "SP", character );
+      //Getting attribute
+      if ( index >= 0 )
+      {
+        characterAttribute attribute = character.characterAttributes[index];
+        attribute.curValue = Mathf.Min(attribute.curValue+amountToGenerate, attribute.maxValue);
+      }
+      
+      FunctionDB.core.StartCoroutine(	
+        FunctionDB.core.displayAttributeValue(	
+          FunctionDB.core.findCharInstanceById( character.id ),	
+          amountToGenerate,	
+          1,	
+          0.7f, 0.7f ) );	
+    
+      BattleManager.setQueueStatus( context, "cleanseEffects", false);
+  }
+
   void Awake() { if (core == null) core = this; }
 }
 

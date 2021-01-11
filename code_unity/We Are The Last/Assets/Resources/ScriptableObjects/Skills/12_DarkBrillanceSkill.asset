@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Skill:
     name: Selfish Stardom
-    id: 8
+    id: 12
     description: Everyone takes Light damage
     sacrificeReplacementId: -1
     activeSkill: 1
