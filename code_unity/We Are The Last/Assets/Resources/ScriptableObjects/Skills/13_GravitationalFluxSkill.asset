@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 13_GravitationalFluxSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Gravity Flux
+    name: Reckless Shade
     id: 13
     description: Random enemy takes Gravity
     sacrificeReplacementId: -1

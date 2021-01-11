@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 07_GravitySqueezeSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Gravity Squeeze
+    name: Gravitas
     id: 7
     description: Target takes Gravity damage
     sacrificeReplacementId: 13

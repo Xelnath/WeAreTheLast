@@ -1174,7 +1174,7 @@ The condition name is the name of the Animator's parameter which will be set to 
   void cleanseEffects( BattleManager.BattleManagerContext context, bool self, bool hostileEffects,
     bool friendlyEffects, int superPerEffect )
   {
-    List<string> friendly = new List<string> (){ "DEFEND", "WARDRUM", "TAUNT" };
+    List<string> friendly = new List<string> (){ "DEFENDROUNDS", "WARDRUM", "TAUNT" };
     List<string> hostile = new List<string> (){ "POISON", "STUN" };
 
     int purged = 0;

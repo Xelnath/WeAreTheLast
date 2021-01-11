@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: 01_HealSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Song & Prayer
+    name: Trust
     id: 1
     description: Heal a character
-    sacrificeReplacementId: -1
+    sacrificeReplacementId: 19
     activeSkill: 1
     turnPointCost: 100
     manaCost: 10

@@ -31,6 +31,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b963ccc3e3b4c474aaddd7664cf53f72, type: 2}
   - {fileID: 11400000, guid: fb174cc006a0bd24780190a04c8be473, type: 2}
   - {fileID: 11400000, guid: da8199934ba099e41a8c065b1d4d7d1a, type: 2}
+  - {fileID: 11400000, guid: 2f2e690714bfe69418450a83d4fba083, type: 2}
+  - {fileID: 11400000, guid: 62e0c09168221a048b632b373bc365ad, type: 2}
   characters:
   - name: Therapist
     id: 0

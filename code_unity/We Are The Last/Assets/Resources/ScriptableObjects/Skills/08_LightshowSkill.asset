@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 08_LightshowSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Light Show
+    name: Showoff
     id: 8
     description: All targets take Light damage
     sacrificeReplacementId: 12

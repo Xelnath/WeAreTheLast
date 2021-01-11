@@ -640,10 +640,10 @@ public class BattleGen : MonoBehaviour
       var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(toGen[i])];
 
       // Allow passive skills
-      //if (!skill.unlocked)
-      {
-        toGen.RemoveAt(i);
-      }
+      // if (!skill.activeSkill)
+      // {
+      //   toGen.RemoveAt(i);
+      // }
     }
 
     //Cleaning action target List
