@@ -22,7 +22,7 @@ MonoBehaviour:
     manaCost: 0
     superCost: 0
     functionsToCall:
-    - functionName: randomTargets
+    - functionName: autoSelectTargets
       parametersArray:
       - int:1
       - bool:false

@@ -223,6 +223,8 @@ namespace ClassDB {
 		public GameObject instanceObject;
 		public GameObject uiObject;
 		public GameObject spawnPointObject;
+		public List<GameObject> threatArrows;
+		public List<int> targetIds;
 		public string currentAnimation;
 		public int characterId;
 	}

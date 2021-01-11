@@ -294,7 +294,17 @@ public class FunctionDB : MonoBehaviour {
 			Debug.Log ("Invalid source index " + audioSourceIndex.ToString());
 		}
 	}
+	
+	//This function sets character spawnpoint
+	public void setSpawn(int characterId, GameObject spawnPoint)
+	{
+		//Getting character
+		int characterIndex = findBattleManagerCharactersIndexById (characterId);
+		characterInfo character = BattleManager.core.characters[characterIndex];
 
+		//Setting animation
+		character.spawnPointObject = spawnPoint;
+	}
 	
 	//Destroying a gameObject after a specified amount of time
 	public IEnumerator destroyAfterTime (GameObject g, float time) {

@@ -134,6 +134,8 @@ public class BattleGen : MonoBehaviour
         info.characterId = charId;
         info.instanceObject = instance;
         info.spawnPointObject = teamSpawns[counter];
+        info.targetIds = new List<int>();
+        info.threatArrows = new List<GameObject>();
 
         BattleManager.core.characters.Add(info);
 
@@ -257,7 +259,7 @@ public class BattleGen : MonoBehaviour
           var superIndex = FunctionDB.core.findAttributeIndexByName( "SP", character );
           float superPower = 0f;
           //Getting attribute
-          if ( index >= 0 )
+          if ( superIndex >= 0 )
           {
             characterAttribute attribute = character.characterAttributes[superIndex];
             superPower = attribute.curValue;
