@@ -1180,6 +1180,9 @@ public class BattleMethods : MonoBehaviour
 
   void damageTargets( BattleManager.BattleManagerContext context, int damageAmount, int school )
   {
+    var wardrumValue = FunctionDB.core.findAttributeByName( context.activeCharacterId, "WARDRUM" )?.curValue ?? 0f;
+    var doomValue = FunctionDB.core.findAttributeByName( context.activeCharacterId, "DOOM" )?.curValue ?? 0f;
+        
     forEachCharacterDo( context, false, ( character ) =>
     {
       var index = FunctionDB.core.findAttributeIndexByName( "HP", character );
@@ -1207,6 +1210,11 @@ public class BattleMethods : MonoBehaviour
 
         float reduction = Mathf.Clamp( defense / 100f, 0f, 1f );
         float damagePostDefense = damageAmount - ( damageAmount * reduction );
+
+        // Apply major status effects
+        if ( wardrumValue > 0f ) damagePostDefense *= 2f;
+        if ( doomValue > 0f ) damagePostDefense *= 0.5f;
+        
         hp.curValue = Mathf.Clamp( hp.curValue - damagePostDefense, 0f, hp.maxValue );
 
         //Displaying change

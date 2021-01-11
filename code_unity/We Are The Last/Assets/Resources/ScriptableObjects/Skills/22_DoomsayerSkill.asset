@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: 11_WardrumSkill
+  m_Name: 22_DoomsayerSkill
   m_EditorClassIdentifier: 
   Skill:
     name: Inspirational Lyrics
-    id: 11
+    id: 22
     description: Empower all allies
-    sacrificeReplacementId: 22
+    sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 0
     turnPointCost: 100
@@ -27,7 +27,7 @@ MonoBehaviour:
       parametersArray:
       - int:4
       - bool:true
-      - bool:false
+      - bool:true
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false
-      - string:WARDRUM
+      - string:DOOM
       - string:=3
       - float:100
       - bool:false
@@ -93,7 +93,7 @@ MonoBehaviour:
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false
-      - string:WARDRUM
+      - string:DOOM
       - string:-1
       - float:100
       - bool:false
