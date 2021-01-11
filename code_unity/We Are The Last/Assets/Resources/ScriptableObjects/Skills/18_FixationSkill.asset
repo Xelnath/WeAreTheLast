@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: 02_RedirectSkill
+  m_Name: 18_FixationSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Magnetism
-    id: 2
-    description: Cause the next enemy to attack an ally
+    name: Fixation
+    id: 18
+    description: Cause all enemies to attack an ally
     sacrificeReplacementId: -1
     activeSkill: 1
     turnPointCost: 100
@@ -45,8 +45,8 @@ MonoBehaviour:
       parametersArray:
       - bool:false
       - string:TAUNT
-      - string:=1
-      - float:5
+      - string:=10
+      - float:10
       - bool:false
       waitForPreviousFunction: 1
       isCoroutine: 0
