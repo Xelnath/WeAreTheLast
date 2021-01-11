@@ -18,8 +18,10 @@ MonoBehaviour:
     description: A basic attack
     sacrificeReplacementId: -1
     activeSkill: 1
+    isAttack: 1
     turnPointCost: 100
     manaCost: 0
+    superCost: 0
     functionsToCall:
     - functionName: selectCharacter
       parametersArray:

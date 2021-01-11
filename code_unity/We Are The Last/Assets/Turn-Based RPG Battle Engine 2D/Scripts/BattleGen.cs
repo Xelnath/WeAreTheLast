@@ -220,7 +220,10 @@ public class BattleGen : MonoBehaviour
       var skillIndex = FunctionDB.core.findSkillIndexById(s);
       var skill = Database.dynamic.skills[skillIndex];
 
-      if (skill.activeSkill)
+      var paralyze = FunctionDB.core.findAttributeByName( characterId, "PARALYZE" );
+      bool attacksDisabled = paralyze != null && paralyze.curValue > 0f; 
+
+      if (skill.activeSkill && !(skill.isAttack && attacksDisabled) )
       {
         //Getting function data
         var functionsToCall = skill.functionsToCall;

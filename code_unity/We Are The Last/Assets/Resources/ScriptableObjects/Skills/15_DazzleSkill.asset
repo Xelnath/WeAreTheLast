@@ -18,6 +18,7 @@ MonoBehaviour:
     description: Stuns the target for a round
     sacrificeReplacementId: -1
     activeSkill: 1
+    isAttack: 1
     turnPointCost: 100
     manaCost: 10
     superCost: 0
@@ -34,7 +35,7 @@ MonoBehaviour:
       - bool:true
       waitForPreviousFunction: 1
       isCoroutine: 1
-      isRunning: 0
+      isRunning: 1
     - functionName: toggleActions
       parametersArray:
       - bool:false

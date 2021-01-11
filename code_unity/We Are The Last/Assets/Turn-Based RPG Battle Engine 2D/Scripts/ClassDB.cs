@@ -43,6 +43,8 @@ namespace ClassDB {
 		[FormerlySerializedAs( "unlocked" )] 
 		public bool activeSkill;
 
+		public bool isAttack = false;
+
 		//The amount of turn points it costs to use the skill
 		public int turnPointCost;
 

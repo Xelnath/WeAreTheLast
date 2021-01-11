@@ -34,6 +34,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2f2e690714bfe69418450a83d4fba083, type: 2}
   - {fileID: 11400000, guid: 62e0c09168221a048b632b373bc365ad, type: 2}
   - {fileID: 11400000, guid: af0d86ca909cfa048bfc680bee6947c9, type: 2}
+  - {fileID: 11400000, guid: 5eae618fe0ad5e94e9574fe30ec1b9d2, type: 2}
   characters:
   - name: Therapist
     id: 0
@@ -113,7 +114,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 0f97d0bf8cd7e8f4b83f74f1c98b929b, type: 3}
     animationController: {fileID: 9100000, guid: 20e1dc80ff904e14d8a9ff39b40f9b9b,
       type: 2}
-    skills: 0a00000008000000010000000b0000000f000000
+    skills: 0a00000008000000010000000f0000000b000000
     items: []
     characterAttributes:
     - name: HP
