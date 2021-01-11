@@ -41,7 +41,7 @@ MonoBehaviour:
       parametersArray:
       - bool:false
       - string:PARALYZE
-      - string:=1
+      - string:=2
       - float:100
       - bool:false
       waitForPreviousFunction: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
       parametersArray:
       - int:4
       - bool:true
-      - bool:false
+      - bool:true
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0

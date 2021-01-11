@@ -1398,7 +1398,7 @@ The condition name is the name of the Animator's parameter which will be set to 
     bool friendlyEffects, int superPerEffect )
   {
     List<string> friendly = new List<string> (){ "DEFENDROUNDS", "WARDRUM", "TAUNT" };
-    List<string> hostile = new List<string> (){ "POISON", "STUN" };
+    List<string> hostile = new List<string> (){ "POISON", "STUN", "PARALYZE" };
 
     int purged = 0;
     
