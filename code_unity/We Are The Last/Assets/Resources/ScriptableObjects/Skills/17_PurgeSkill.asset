@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 17_PurgeSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Cleanse
+    name: Purge
     id: 17
     description: Remove hostile and friendly effects from an ally
     sacrificeReplacementId: -1
