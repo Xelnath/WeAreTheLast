@@ -33,6 +33,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: da8199934ba099e41a8c065b1d4d7d1a, type: 2}
   - {fileID: 11400000, guid: 2f2e690714bfe69418450a83d4fba083, type: 2}
   - {fileID: 11400000, guid: 62e0c09168221a048b632b373bc365ad, type: 2}
+  - {fileID: 11400000, guid: af0d86ca909cfa048bfc680bee6947c9, type: 2}
   characters:
   - name: Therapist
     id: 0
@@ -40,7 +41,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 27d615c5f545db846bc939904a978394, type: 3}
     animationController: {fileID: 9100000, guid: 241b9021678cb8e4cb2a79dc3041ebe9,
       type: 2}
-    skills: 03000000040000001000000005000000
+    skills: 0300000004000000100000000500000014000000
     items:
     - id: 0
       quantity: 1

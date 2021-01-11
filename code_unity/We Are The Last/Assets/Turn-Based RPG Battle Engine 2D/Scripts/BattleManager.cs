@@ -729,11 +729,20 @@ public class BattleManager : MonoBehaviour
   //This function manages turns
   IEnumerator turnManager()
   {
-    
+    bool plan = true;
     while (true)
     {
 
       var context = BattleManager.core.CurrentContext;
+
+      //Preplan AI action if not planned
+      if (plan)
+      {
+        clearThreatArrows();
+        preplanAI();
+        plan = false;
+      }
+      
       if (turnPoints <= 0 || skipChar)
       {
 
@@ -807,7 +816,12 @@ public class BattleManager : MonoBehaviour
             // The enemies finished going.
             if ( activeTeam == 0 )
             {
+              foreach (var character in characters)
+              {
+                character.targetIds.Clear();
+              }
               EndRound(BattleManager.core.CurrentContext);
+              plan = true;
             }
 
           }
@@ -1057,6 +1071,72 @@ public class BattleManager : MonoBehaviour
       autoText.text = "Auto On";
     }
 
+  }
+  
+  void preplanAI()
+  {
+    foreach (var characterId in activeEnemyTeam)
+    {
+      int characterIndex = 0;
+      for(int i = 0; i < characters.Count; i++)
+      {
+        if (characters[i].characterId == characterId)
+        {
+          characterIndex = i;
+        }
+      }
+      if (characters[characterIndex].targetIds.Count == 0)
+      {
+        BattleMethods.core.preplanAI(characterId);
+        setThreatArrows(characterId);
+      }
+    }
+  }
+  
+  public void replanAI()
+  {
+    clearThreatArrows();
+    foreach (var characterId in activeEnemyTeam)
+    {
+      int characterIndex = 0;
+      for(int i = 0; i < characters.Count; i++)
+      {
+        if (characters[i].characterId == characterId)
+        {
+          characterIndex = i;
+        }
+      }
+      BattleMethods.core.preplanAI(characterId);
+      setThreatArrows(characterId);
+    }
+  }
+
+  public void setThreatArrows(int characterId)
+  {
+    characterInfo charInfo = characters[FunctionDB.core.findCharacterIndexById(characterId)];
+
+    for (int i = 0; i < charInfo.targetIds.Count; i++)
+    {
+      var threatSpawn = FunctionDB.core.findCharSpawnById(charInfo.targetIds[i]);
+      var threatArrow = Instantiate(ObjectDB.core.ThreatArrowPrefab, charInfo.spawnPointObject.transform.position, Quaternion.identity);
+      threatArrow.transform.LookAt(threatSpawn.transform.position);
+      charInfo.threatArrows.Add(threatArrow);
+    }
+  }
+
+  public void clearThreatArrows()
+  {
+    foreach (var charInfo in characters)
+    {
+      if (charInfo.threatArrows.Count > 0)
+      {
+        foreach (var target in charInfo.threatArrows)
+        {
+          Destroy(target);
+        }
+        charInfo.threatArrows.Clear();
+      }
+    }
   }
 
   void Awake() { if (core == null) core = this; }

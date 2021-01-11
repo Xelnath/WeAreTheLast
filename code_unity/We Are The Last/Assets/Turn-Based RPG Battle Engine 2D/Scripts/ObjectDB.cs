@@ -62,6 +62,9 @@ public class ObjectDB : MonoBehaviour {
 
 	//FX prefab
 	public GameObject FXPrefab;
+	
+	//Enemy Threat Arrow prefab
+	public GameObject ThreatArrowPrefab;
 
 	//A list of audioclips
 	public List<audioInfo> AudioClips = new List<audioInfo>();
