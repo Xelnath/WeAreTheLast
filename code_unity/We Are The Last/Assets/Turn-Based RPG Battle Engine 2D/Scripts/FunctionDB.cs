@@ -30,6 +30,15 @@ public class FunctionDB : MonoBehaviour {
 		return c.characterAttributes.FindIndex(x => x.name == name);
 	}
 
+	public characterAttribute findAttributeByName( int characterId, string attributeName )
+	{
+		var c = findCharacterIndexById(characterId);
+		var character = Database.dynamic.characters[c];
+		int index = findAttributeIndexByName( attributeName, character );
+		if ( index < 0 ) return null;
+		return character.characterAttributes[index];
+	}
+
 	public int findFunctionQueueIndexByCallInfo (BattleManager.BattleManagerContext ctx, callInfo ci) {
 		return ctx.functionQueue.FindIndex(x => x == ci);
 	}
@@ -139,8 +148,16 @@ public class FunctionDB : MonoBehaviour {
 	//This method is used to get the first active character in a characters list
 	public int activeCharacter (List<int> l, int startingIndex, int inc) {
 
-		for (int e = startingIndex + inc; e < l.Count; e++) {
-			if (Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(l[e])].isActive) {
+		for (int e = startingIndex + inc; e < l.Count; e++)
+		{
+			var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( l[e] )];
+            var stun = FunctionDB.core.findAttributeByName( character.id, "STUN" );
+            if ( stun != null && stun.curValue > 0 )
+            {
+	            continue;
+            }
+			
+			if (character.isActive) {
 				return e;
 			}
 		}

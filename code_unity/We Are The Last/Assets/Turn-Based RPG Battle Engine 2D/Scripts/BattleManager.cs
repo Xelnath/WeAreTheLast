@@ -782,8 +782,9 @@ public class BattleManager : MonoBehaviour
               //Does the character exist
               if (aCharIndex != -1)
               {
-                //Set new character id
                 CurrentContext.activeCharacterId = team[aCharIndex];
+
+                //Set new character id
                 //Generate menu
                 BattleGen.core.mainGen();
 
