@@ -10,27 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: 11_WardrumSkill
+  m_Name: 23_StunRageSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Hopesong
-    id: 11
-    description: Empower all allies
-    sacrificeReplacementId: 22
+    name: Stupifying Rage
+    id: 23
+    description: Stuns the target for a round, then increases its damage
+    sacrificeReplacementId: -1
     activeSkill: 1
-    isAttack: 0
+    isAttack: 1
     turnPointCost: 100
-    manaCost: 0
+    manaCost: 10
     superCost: 0
     functionsToCall:
-    - functionName: autoSelectTargets
+    - functionName: selectCharacter
       parametersArray:
-      - int:4
-      - bool:true
       - bool:false
+      - int:1
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
+    - functionName: waitForSelection
+      parametersArray:
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 1
     - functionName: toggleActions
       parametersArray:
       - bool:false
@@ -40,11 +45,21 @@ MonoBehaviour:
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false
-      - string:WARDRUM
-      - string:=3
+      - string:STUN
+      - string:=2
       - float:100
       - bool:false
-      waitForPreviousFunction: 0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:false
+      - string:WARDRUM
+      - string:=4
+      - float:100
+      - bool:false
+      waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     - functionName: displayFX
@@ -57,52 +72,48 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: wait
-      parametersArray:
-      - float:0.4
-      waitForPreviousFunction: 1
-      isCoroutine: 1
-      isRunning: 0
     - functionName: toggleActions
       parametersArray:
       - bool:true
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: clearTargets
-      parametersArray: []
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
     - functionName: subtractTurnPoints
       parametersArray:
       - int:0
-      - int:1
+      - int:2
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     endOfRound:
     - functionName: autoSelectTargets
       parametersArray:
-      - int:4
+      - int:10
       - bool:true
-      - bool:false
-      waitForPreviousFunction: 0
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: filterTargets
+      parametersArray:
+      - string:STUN
+      - string:>0
+      waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false
-      - string:WARDRUM
+      - string:STUN
       - string:-1
       - float:100
       - bool:false
-      waitForPreviousFunction: 0
+      waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     - functionName: clearTargets
       parametersArray: []
-      waitForPreviousFunction: 0
+      waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     sacrificeActions:

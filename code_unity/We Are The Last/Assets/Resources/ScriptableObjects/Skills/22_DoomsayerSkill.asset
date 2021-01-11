@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: 22_DoomsayerSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Inspirational Lyrics
+    name: Despair
     id: 22
-    description: Empower all allies
+    description: Reduces everyone's offensive power
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 0
     turnPointCost: 100
     manaCost: 0
-    superCost: 0
+    superCost: 100
     functionsToCall:
     - functionName: autoSelectTargets
       parametersArray:
