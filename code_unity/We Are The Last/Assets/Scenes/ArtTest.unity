@@ -3835,7 +3835,7 @@ MonoBehaviour:
   backgroundSpriteObject: {fileID: 2038759954}
   FXObject: {fileID: 1596585550}
   FXPrefab: {fileID: 1516634816073076, guid: 64b478c26c233154ca9a5715421eaee8, type: 3}
-  ThreatArrowPrefab: {fileID: 1061817696522811059, guid: 7d1655b7599aed0478a4f883d517c080,
+  ThreatArrowPrefab: {fileID: 1061817696522811059, guid: ec12d38d488d114428258af5724a3114,
     type: 3}
   AudioClips:
   - id: 0

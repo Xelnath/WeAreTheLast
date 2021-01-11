@@ -41,7 +41,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 27d615c5f545db846bc939904a978394, type: 3}
     animationController: {fileID: 9100000, guid: 241b9021678cb8e4cb2a79dc3041ebe9,
       type: 2}
-    skills: 0300000004000000100000000500000014000000
+    skills: 03000000040000001000000005000000
     items:
     - id: 0
       quantity: 1
@@ -80,7 +80,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 4129ca514a4b89b4f9b9830b06595789, type: 3}
     animationController: {fileID: 9100000, guid: ee6cc0d1396f5354780a8cb636e54025,
       type: 2}
-    skills: 070000000200000006000000
+    skills: 07000000020000000600000014000000
     items: []
     characterAttributes:
     - name: HP

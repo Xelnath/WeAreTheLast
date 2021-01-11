@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: 20_MindControllSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Mind Control
+    name: Charm
     id: 20
     description: Target swaps teams
     sacrificeReplacementId: -1
     activeSkill: 1
     turnPointCost: 100
     manaCost: 0
-    superCost: 0
+    superCost: 100
     functionsToCall:
     - functionName: selectCharacter
       parametersArray:
