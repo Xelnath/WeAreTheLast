@@ -10,22 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: 15_DazzleSkill
+  m_Name: 02_RedirectSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Dazzle
-    id: 15
-    description: Stuns the target for a round
-    sacrificeReplacementId: 23
+    name: Magnetism
+    id: 2
+    description: Cause the next enemy to attack an ally
+    sacrificeReplacementId: -1
     activeSkill: 1
-    isAttack: 1
     turnPointCost: 100
     manaCost: 10
     superCost: 0
     functionsToCall:
     - functionName: selectCharacter
       parametersArray:
-      - bool:false
+      - bool:true
       - int:1
       waitForPreviousFunction: 0
       isCoroutine: 0
@@ -45,10 +44,15 @@ MonoBehaviour:
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false
-      - string:STUN
+      - string:TAUNT
       - string:=1
-      - float:100
+      - float:5
       - bool:false
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: updateAITargeting
+      parametersArray: []
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -75,37 +79,7 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    endOfRound:
-    - functionName: autoSelectTargets
-      parametersArray:
-      - int:10
-      - bool:true
-      - bool:true
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: filterTargets
-      parametersArray:
-      - string:STUN
-      - string:>0
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: addOrChangeAttribute
-      parametersArray:
-      - bool:false
-      - string:STUN
-      - string:-1
-      - float:100
-      - bool:false
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: clearTargets
-      parametersArray: []
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
+    endOfRound: []
     sacrificeActions:
     - functionName: changeAttribute
       parametersArray:
