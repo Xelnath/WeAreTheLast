@@ -10,89 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: 02_RedirectSkill
+  m_Name: 24_Unstunnable
   m_EditorClassIdentifier: 
   Skill:
-    name: Magnetism
-    id: 2
-    description: Cause the next enemy to attack an ally
+    name: Unstunnable
+    id: 24
+    description: Stuns are ignored
     sacrificeReplacementId: -1
-    activeSkill: 1
+    activeSkill: 0
+    isAttack: 0
     turnPointCost: 100
-    manaCost: 10
+    manaCost: 0
     superCost: 0
-    functionsToCall:
-    - functionName: selectCharacter
-      parametersArray:
-      - bool:true
-      - int:1
-      waitForPreviousFunction: 0
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: waitForSelection
-      parametersArray:
-      - bool:true
-      waitForPreviousFunction: 1
-      isCoroutine: 1
-      isRunning: 0
-    - functionName: toggleActions
-      parametersArray:
-      - bool:false
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: addOrChangeAttribute
-      parametersArray:
-      - bool:false
-      - string:TAUNT
-      - string:=1
-      - float:5
-      - bool:false
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: updateAITargeting
-      parametersArray: []
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: displayFX
-      parametersArray:
-      - bool:false
-      - float:2
-      - string:heal
-      - float:-0.8
-      - float:0
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: toggleActions
-      parametersArray:
-      - bool:true
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: subtractTurnPoints
-      parametersArray:
-      - int:0
-      - int:2
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
+    functionsToCall: []
     endOfRound: []
     sacrificeActions:
-    - functionName: changeAttribute
+    - functionName: addOrChangeAttribute
       parametersArray:
       - bool:true
-      - int:0
-      - string:+50
-      - bool:true
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: generateMana
-      parametersArray:
-      - int:100
+      - string:STUN
+      - string:=0
+      - float:100
+      - bool:false
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
