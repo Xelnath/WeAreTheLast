@@ -478,7 +478,7 @@ public class BattleManager : MonoBehaviour
           //Invoking function.
           try
           {
-            Debug.Log( $"{method} - {queueIndex}" );
+            //Debug.Log( $"{method} - {queueIndex}" );
             mi.Invoke( BattleMethods.core, parametersArray );
           }
           catch ( Exception e )
@@ -495,7 +495,7 @@ public class BattleManager : MonoBehaviour
           //Start Coroutine
           try
           {
-            Debug.Log( $"CR: {method} - {queueIndex}" );
+            //Debug.Log( $"CR: {method} - {queueIndex}" );
             BattleMethods.core.StartCoroutine( method, parametersArray );
           }
           catch ( Exception e )
@@ -1168,7 +1168,7 @@ public class BattleManager : MonoBehaviour
       else
       {
         int qIndex = FunctionDB.core.findFunctionQueueIndexByName( context, functionName );
-        Debug.Log( $"{functionName} - Had to find by name {runningFunctionIndex} -> {qIndex}" );
+        //Debug.Log( $"{functionName} - Had to find by name {runningFunctionIndex} -> {qIndex}" );
         if ( qIndex >= 0 && qIndex < context.functionQueue.Count )
         {
           context.functionQueue[qIndex].isRunning = status;
