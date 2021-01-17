@@ -8545,7 +8545,7 @@ MonoBehaviour:
   backgroundSpriteId: 0
   autoBattle: 0
   maxTurnPoints: 100
-  initialPlayerTeam: 01000000
+  initialPlayerTeam: 00000000
   initialEnemyTeam: 64000000
   activeMusicId: -1
   activeTeam: -1
@@ -8631,7 +8631,7 @@ MonoBehaviour:
   battleUIBody: {fileID: 1280922315}
   battleUIPopupPrefab: {fileID: 1674657953268240, guid: 160c197554ebc5f45a2de14cf1a1701f,
     type: 3}
-  battleUIValuePrefab: {fileID: 1674657953268240, guid: 160c197554ebc5f45a2de14cf1a1701f,
+  battleUIValuePrefab: {fileID: 1674657953268240, guid: 5e18b4ed8bd2b5f48b266ba789d00ed7,
     type: 3}
   turnObject: {fileID: 1207217616}
   actionCostObject: {fileID: 2045345614}

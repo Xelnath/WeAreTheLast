@@ -292,8 +292,6 @@ public class BattleManager : MonoBehaviour
           //Starting coroutine to display health.
           StartCoroutine( battleAreahealthManager( i, 1.1f ) );
         }
-
-
       }
 
 
@@ -812,7 +810,7 @@ public class BattleManager : MonoBehaviour
 
       //Updating text
       characterAttribute attr = character.characterAttributes[charAttrIndx];
-      t.GetComponent<TextMeshProUGUI>().text = attr.curValue.ToString() + "/" + attr.maxValue.ToString();
+      t.GetComponentInChildren<TextMeshProUGUI>().text = attr.curValue.ToString() + "/" + attr.maxValue.ToString();
       yield return new WaitForEndOfFrame();
     }
 

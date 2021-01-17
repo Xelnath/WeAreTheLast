@@ -373,15 +373,16 @@ public class FunctionDB : MonoBehaviour {
 		GameObject g = Instantiate (ObjectDB.core.battleUIPopupPrefab, newCoordinates, Quaternion.identity, body.transform);
 
 		uiCoordinateCheck( g, newCoordinates );
+		var tmp = g.GetComponentInChildren<TextMeshProUGUI>();
 		
 		//Setting text
-		g.GetComponent<TextMeshProUGUI>().text = value.ToString();
+		tmp.text = value.ToString();
 
 		//Adding value type
-		g.GetComponent<TextMeshProUGUI>().text += icon;
+		tmp.text += icon;
 		
 		//Setting color
-		g.GetComponent<TextMeshProUGUI>().text = $"<color=#{color}>{g.GetComponent<TextMeshProUGUI>().text}</color>";
+		tmp.text = $"<color=#{color}>{tmp.text}</color>";
 
 		//Making value follow target
 		StartCoroutine(follow (g, target, xAdjustment, yAdjustment));
