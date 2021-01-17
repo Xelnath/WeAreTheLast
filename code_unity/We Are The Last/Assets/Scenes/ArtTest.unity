@@ -8545,15 +8545,13 @@ MonoBehaviour:
   backgroundSpriteId: 0
   autoBattle: 0
   maxTurnPoints: 100
-  activePlayerTeam: 
-  activeEnemyTeam: 
   initialPlayerTeam: 000000000200000001000000
-  initialEnemyTeam: 640000000400000005000000
+  initialEnemyTeam: 640000006400000004000000
   activeMusicId: -1
   activeTeam: -1
   turnPoints: 100
   curActions: []
-  characters: []
+  characterInstances: []
 --- !u!4 &1314067913
 Transform:
   m_ObjectHideFlags: 0

@@ -18,9 +18,9 @@ public class BattleMethods : MonoBehaviour
   {
 
     //Getting character
-    var character =
-      Database.dynamic.characters[
-        FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
+    var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
+    var character = characterInstance.characterCopy;
+    
     //Getting skills
     var skillIds = character.skills;
 
@@ -46,12 +46,11 @@ public class BattleMethods : MonoBehaviour
    Currently it, like sampleAi, just generates it for whatever the first slot is
    Currently allows enemies to target players that have already been killed that turn
    */
-  public void preplanAI(int characterId)
+  public void preplanAI(InstanceID instanceID)
   {
+    var characterInstance = BattleManager.core.findCharacterInstanceById( instanceID );
     //Getting character
-    var curChar =
-      Database.dynamic.characters[
-        FunctionDB.core.findCharacterIndexById(characterId)];
+    var curChar = characterInstance.characterCopy;
     //Getting skills
     var skillIds = curChar.skills;
 
@@ -72,7 +71,7 @@ public class BattleMethods : MonoBehaviour
       //Getting targets to store in charInfo
       for (int j = 0; j < functionsToCall.Count; j++)
       {
-        preplanAITargets(BattleManager.core.characters[FunctionDB.core.findCharacterIndexById(characterId)], functionsToCall[j]);
+        preplanAITargets(characterInstance, functionsToCall[j]);
       }
 
       break;
@@ -81,82 +80,82 @@ public class BattleMethods : MonoBehaviour
 
   //This function emulates the 2 targeting functions, but sets the charInfo targetIds instead of the context.actionTargets
   //I plan on creating a function to reduce redundancy between this and the aforemtnioned targeting functions
-  void preplanAITargets(characterInfo curChar, callInfo functionInfo)
+  void preplanAITargets(characterInfo characterInstance, callInfo functionInfo)
   {
     string targetFunctionName = functionInfo.functionName;
     if (targetFunctionName.Equals("autoSelectTargets"))
     {
-      curChar.targetIds.Clear();
+      characterInstance.targetIds.Clear();
       int targetLimit = int.Parse(functionInfo.parametersArray[0].Substring(4));
       bool allowFriendly = functionInfo.parametersArray[1].Equals("bool:true");
       bool allowHostile = functionInfo.parametersArray[2].Equals("bool:true");
 
-      if (allowFriendly) { curChar.targetIds.AddRange(BattleManager.core.activeEnemyTeam); }
-      if (allowHostile) { curChar.targetIds.AddRange(BattleManager.core.activePlayerTeam); }
+      if (allowFriendly) { characterInstance.targetIds.AddRange(BattleManager.core.activeEnemyTeam); }
+      if (allowHostile) { characterInstance.targetIds.AddRange(BattleManager.core.activePlayerTeam); }
       
-      List<int> selected = new List<int>();
-      while ( targetLimit > 0 && curChar.targetIds.Count > 0 )
+      List<InstanceID> selected = new List<InstanceID>();
+      while ( targetLimit > 0 && characterInstance.targetIds.Count > 0 )
       {
-        int index = Random.Range( 0, curChar.targetIds.Count );
-        int charId = curChar.targetIds[index];
-        curChar.targetIds.RemoveAt( index );
+        int index = Random.Range( 0, characterInstance.targetIds.Count );
+        var charId = characterInstance.targetIds[index];
+        characterInstance.targetIds.RemoveAt( index );
         if(selected.Count < targetLimit) {
           selected.Add(charId);
         }
       }
-      curChar.targetIds = selected;
+      characterInstance.targetIds = selected;
     } else if (targetFunctionName.Equals("selectCharacter"))
     {
-      curChar.targetIds.Clear();
+      characterInstance.targetIds.Clear();
       
       bool targetSameTeam = functionInfo.parametersArray[0].Equals("bool:true");
       int targetLimit = int.Parse(functionInfo.parametersArray[1].Substring(4));
 
-      var playerTeam = new List<int>(BattleManager.core.activePlayerTeam);
-      var enemyTeam = new List<int>(BattleManager.core.activeEnemyTeam);
+      var playerTeam = new List<InstanceID>(BattleManager.core.activePlayerTeam);
+      var enemyTeam = new List<InstanceID>(BattleManager.core.activeEnemyTeam);
       
       if (targetSameTeam){
         foreach (var enemy in enemyTeam)
         {
-          curChar.targetIds.Add(enemy);
+          characterInstance.targetIds.Add(enemy);
         }
       } else {  
         foreach (var player in playerTeam)
         {
-          curChar.targetIds.Add(player);
+          characterInstance.targetIds.Add(player);
         }      
       }
 
-      List<int> selected = new List<int>();
-      while ( targetLimit > 0 && curChar.targetIds.Count > 0 )
+      List<InstanceID> selected = new List<InstanceID>();
+      while ( targetLimit > 0 && characterInstance.targetIds.Count > 0 )
       {
-        int index = UnityEngine.Random.Range( 0, curChar.targetIds.Count );
-        int charId = curChar.targetIds[index];
-        curChar.targetIds.RemoveAt( index );
+        int index = UnityEngine.Random.Range( 0, characterInstance.targetIds.Count );
+        var charId = characterInstance.targetIds[index];
+        characterInstance.targetIds.RemoveAt( index );
         selected.Add(charId);
       }
-      curChar.targetIds = selected;
+      characterInstance.targetIds = selected;
       
       //Excluding invalid characters
-      for ( int i = 0; i < curChar.targetIds.Count; i++ )
+      for ( int i = 0; i < characterInstance.targetIds.Count; i++ )
       {
         //Id
-        var charId = curChar.targetIds[i];
+        var charId = characterInstance.targetIds[i];
         //Getting character's health
-        character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( charId )];
+        character character = characterInstance.characterCopy;
 
         //If health is 0, exclude character
         if ( !character.isActive )
         {
-          curChar.targetIds.RemoveAt( i );
+          characterInstance.targetIds.RemoveAt( i );
         }
       }
 
       //Getting random character
-      int randIndex = AIGetRandomTarget( curChar.targetIds );
-      curChar.targetIds.Clear();
+      InstanceID randIndex = AIGetRandomTarget( characterInstance.targetIds );
+      characterInstance.targetIds.Clear();
       //Adding character to targets
-      curChar.targetIds.Add( randIndex );
+      characterInstance.targetIds.Add( randIndex );
     }
   }
 
@@ -176,16 +175,16 @@ public class BattleMethods : MonoBehaviour
       int requiredSuper = 0;
 
       //Getting character
-      var character =
-        Database.dynamic.characters[
-          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
-      
+      var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
+      var character = characterInstance.characterCopy;
+
       switch (actionType)
       {
         case 0:
-          requiredTp = Database.dynamic.skills[context.activeSkillId].turnPointCost;
-          requiredMana = Database.dynamic.skills[context.activeSkillId].manaCost;
-          requiredSuper = Database.dynamic.skills[context.activeSkillId].superCost;
+          int skillIndex = FunctionDB.core.findSkillIndexById( context.activeSkillId );
+          requiredTp = Database.dynamic.skills[skillIndex].turnPointCost;
+          requiredMana = Database.dynamic.skills[skillIndex].manaCost;
+          requiredSuper = Database.dynamic.skills[skillIndex].superCost;
           break;
         case 1:
           requiredTp = Database.dynamic.items[FunctionDB.core.findItemIndexById( actionId )].turnPointCost;
@@ -246,9 +245,11 @@ public class BattleMethods : MonoBehaviour
 
   void autoSelectTargets( BattleManager.BattleManagerContext context, int targetLimit, bool allowFriendly, bool allowHostile )
   {
-    if (BattleManager.core.characters[FunctionDB.core.findCharacterIndexById(context.activeCharacterId)].targetIds.Count > 0)
+    //Getting character
+    var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
+    if (characterInstance.targetIds.Count > 0)
     {
-      context.actionTargets = BattleManager.core.characters[FunctionDB.core.findCharacterIndexById(context.activeCharacterId)].targetIds;
+      context.actionTargets = characterInstance.targetIds;
     } 
     else 
     {
@@ -317,12 +318,15 @@ public class BattleMethods : MonoBehaviour
         break;
     }
 
-    List<int> targets = new List<int>(context.actionTargets);
+    List<InstanceID> targets = new List<InstanceID>(context.actionTargets);
 
     for ( int i = targets.Count - 1; i >= 0; --i )
     {
-      int charId = targets[i];
-      character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( charId )];
+      InstanceID charId = targets[i];
+      
+      //Getting character
+      var characterInstance = BattleManager.core.findCharacterInstanceById( charId );
+      var character = characterInstance.characterCopy;
       
       var index = FunctionDB.core.findAttributeIndexByName( attrName, character );
       float attrValue = 0f;
@@ -401,7 +405,7 @@ public class BattleMethods : MonoBehaviour
 
       //Getting target list
       int targetInt = targetSameTeam ? 0 : 1;
-      List<int> targets = BattleManager.core.activeTeam == targetInt
+      List<InstanceID> targets = BattleManager.core.activeTeam == targetInt
         ? context.attackerTeam
         : context.defenderTeam;
 
@@ -410,30 +414,29 @@ public class BattleMethods : MonoBehaviour
       {
         //Id
         var charId = targets[i];
-        //Getting character's health
-        character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( charId )];
-
+        
         //If health is 0, exclude character
-        if ( !character.isActive )
+        var characterInstance = BattleManager.core.findCharacterInstanceById( charId );
+        if ( !characterInstance.isAlive )
         {
           targets.RemoveAt( i );
         }
       }
 
       //Getting random character
-      int randIndex = AIGetRandomTarget( targets );
+      InstanceID randIndex = AIGetRandomTarget( targets );
       
       //Getting character info
-      int charIndex = FunctionDB.core.findCharacterIndexById(context.activeCharacterId);
+      var instance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
 
       //Adding character to targets if unit doesn't already have target
-      if (BattleManager.core.characters[charIndex].targetIds.Count == 0)
+      if (instance.targetIds.Count == 0)
       {
         context.actionTargets.Add( randIndex );
       }
       else
       {
-        context.actionTargets.Add(BattleManager.core.characters[charIndex].targetIds[0]);
+        context.actionTargets.Add(instance.targetIds[0]);
       }
     }
 
@@ -449,15 +452,16 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "updateAITargeting", false );
   }
 
-  private int AIGetRandomTarget( List<int> targets )
+  private InstanceID AIGetRandomTarget( List<InstanceID> targets )
   {
-    List<int> tauntTargets = new List<int>();
+    List<InstanceID> tauntTargets = new List<InstanceID>();
     for ( int i = 0; i < targets.Count; ++i )
     {
       //Id
       var charId = targets[i];
-      //Getting character's health
-      character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( charId )];
+
+      var characterInstance = BattleManager.core.findCharacterInstanceById( charId );
+      var character = characterInstance.characterCopy;
       if ( character.isTaunting )
       {
         tauntTargets.Add( charId );
@@ -467,8 +471,10 @@ public class BattleMethods : MonoBehaviour
     // Prefer taunted
     if ( tauntTargets.Count > 0 )
     {
-      var charId = tauntTargets[UnityEngine.Random.Range( 0, tauntTargets.Count )];
-      character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( charId )];
+      var charIndex = UnityEngine.Random.Range( 0, tauntTargets.Count );
+      var charId = tauntTargets[charIndex];
+      var characterInstance = BattleManager.core.findCharacterInstanceById( charId );
+      var character = characterInstance.characterCopy;
       if ( character.isTaunting )
       {
         character.useTauntCharge();
@@ -543,12 +549,12 @@ public class BattleMethods : MonoBehaviour
     List<BattleManager.BattleManagerContext> reactionSet = new List<BattleManager.BattleManagerContext>();
     
     //For each action target
-    foreach ( int target in context.actionTargets )
+    foreach ( InstanceID target in context.actionTargets )
     {
 
       //Getting character
-      int victimId = FunctionDB.core.findCharacterIndexById( target );
-      character character = Database.dynamic.characters[victimId];
+      var characterInstance = BattleManager.core.findCharacterInstanceById(target);
+      var character = characterInstance.characterCopy;
 
       if ( !character.isActive ) continue;
 
@@ -561,19 +567,19 @@ public class BattleMethods : MonoBehaviour
       //Checking value
       if ( attribute.curValue > 0 )
       {
-        int counterActorID = victimId;
+        InstanceID counterActorID = target;
         character counteringCharacter = character;
         int counterSourceIndex = FunctionDB.core.findAttributeIndexByName( "COUNTERSOURCE", character );
         if ( counterSourceIndex >= 0 )
         {
           //Getting attribute
           characterAttribute counterSource = character.characterAttributes[counterSourceIndex];
-          counterActorID = Mathf.FloorToInt( counterSource.curValue );
-          counteringCharacter = Database.dynamic.characters[counterActorID];
+          counterActorID = new InstanceID( Mathf.FloorToInt( counterSource.curValue ) );
+          counteringCharacter = BattleManager.core.findCharacterInstanceById(counterActorID).characterCopy;
         }
         
         var c = new BattleManager.BattleManagerContext();
-        c.actionTargets = new List<int>() { context.activeCharacterId };
+        c.actionTargets = new List<InstanceID>() { context.activeCharacterId };
         c.Init( counterActorID, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
         c.targetLimit = 1;
         c.functionQueue = counteringCharacter.getCounter();
@@ -626,19 +632,19 @@ public class BattleMethods : MonoBehaviour
 
     //Active character id and destination character id
     var sourceCharId = context.activeCharacterId;
-    var destinationCharId = -1;
+    InstanceID destinationCharId = null;
 
     if ( context.actionTargets.Count > 0 )
       destinationCharId = context.actionTargets[0];
     else Debug.Log( "No targets selected" );
 
-    if ( destinationCharId != -1 )
+    if ( destinationCharId != null )
     {
 
       //Getting source char gameObject
-      GameObject sourceCharObject = FunctionDB.core.findCharInstanceById( sourceCharId );
+      GameObject sourceCharObject = FunctionDB.core.findCharInstanceGameObjectById( sourceCharId );
       //Getting dest char gameObject
-      GameObject destinationCharObject = FunctionDB.core.findCharInstanceById( destinationCharId );
+      GameObject destinationCharObject = FunctionDB.core.findCharInstanceGameObjectById( destinationCharId );
 
       //Getting direction and modifying distance
       var sourceX = sourceCharObject.transform.position.x;
@@ -679,7 +685,7 @@ public class BattleMethods : MonoBehaviour
     var sourceCharId = context.activeCharacterId;
 
     //Getting source char gameObject
-    GameObject sourceCharObject = FunctionDB.core.findCharInstanceById( sourceCharId );
+    GameObject sourceCharObject = FunctionDB.core.findCharInstanceGameObjectById( sourceCharId );
 
     //Getting direction and modifying distance
     var sourceX = sourceCharObject.transform.position.x;
@@ -713,10 +719,10 @@ public class BattleMethods : MonoBehaviour
     float speed = (float) parms[1];
 
     //Getting active char id
-    int charId = context.activeCharacterId;
+    InstanceID charId = context.activeCharacterId;
 
     //Getting character object
-    GameObject charObject = FunctionDB.core.findCharInstanceById( charId );
+    GameObject charObject = FunctionDB.core.findCharInstanceGameObjectById( charId );
     //Getting spawn point object
     GameObject spawnPointObject = FunctionDB.core.findCharSpawnById( charId );
 
@@ -748,7 +754,7 @@ public class BattleMethods : MonoBehaviour
     foreach (var target in context.actionTargets)
     {
       //Getting character object
-      GameObject charObject = FunctionDB.core.findCharInstanceById( target );
+      GameObject charObject = FunctionDB.core.findCharInstanceGameObjectById( target );
       //Getting spawn point object
       GameObject spawnPointObject = FunctionDB.core.findCharSpawnById( target );
 
@@ -774,7 +780,7 @@ public class BattleMethods : MonoBehaviour
     foreach (var target in context.actionTargets)
     {
       //Getting character object
-      GameObject charObject = FunctionDB.core.findCharInstanceById( target );
+      GameObject charObject = FunctionDB.core.findCharInstanceGameObjectById( target );
       charObject.transform.Rotate(0, 180, 0);
     }
     
@@ -783,24 +789,24 @@ public class BattleMethods : MonoBehaviour
   
   void swapTargetTeam( BattleManager.BattleManagerContext context)
   {
-    var sourceCharObject = FunctionDB.core.findCharInstanceById(context.activeCharacterId);
+    GameObject sourceCharObject = FunctionDB.core.findCharInstanceGameObjectById(context.activeCharacterId);
     
-    forEachCharacterDo( context, false, ( character ) =>
+    forEachCharacterDo( context, false, ( instanceID, character ) =>
     {
-      List<int> teammateIds = new List<int>();
+      List<InstanceID> teammateIds = new List<InstanceID>();
       
       //Determinig which team the character is on
-      if (BattleManager.core.activePlayerTeam.Contains(character.id))
+      if (BattleManager.core.activePlayerTeam.Contains(instanceID))
       {
         teammateIds = BattleManager.core.activeEnemyTeam;
-        BattleManager.core.activePlayerTeam.Remove(character.id);
-        BattleManager.core.activeEnemyTeam.Add(character.id);
+        BattleManager.core.activePlayerTeam.Remove(instanceID);
+        BattleManager.core.activeEnemyTeam.Add(instanceID);
       }
       else
       {
         teammateIds = BattleManager.core.activePlayerTeam;
-        BattleManager.core.activeEnemyTeam.Remove(character.id);
-        BattleManager.core.activePlayerTeam.Add(character.id);
+        BattleManager.core.activeEnemyTeam.Remove(instanceID);
+        BattleManager.core.activePlayerTeam.Add(instanceID);
       }
       
       //Set placement of new to-be spawnpoint
@@ -810,12 +816,12 @@ public class BattleMethods : MonoBehaviour
       //Create new spawnpoint and set spawn
       GameObject newSpawn = Instantiate(new GameObject($"MindControlled{character.id}SpawnPoint"), mindControllerSpawn,
         Quaternion.identity, sourceCharObject.transform.parent.transform.parent);
-      FunctionDB.core.setSpawn(character.id, newSpawn);
+      FunctionDB.core.setSpawn(instanceID, newSpawn);
 
       //Displaying debuff
         FunctionDB.core.StartCoroutine(
           FunctionDB.core.displayValue(
-            FunctionDB.core.findCharInstanceById( character.id ),
+            FunctionDB.core.findCharInstanceGameObjectById( instanceID ),
             "Dominated!",	
             "A9A9A9",	
             string.Empty,	
@@ -829,7 +835,7 @@ public class BattleMethods : MonoBehaviour
   {
     
     //Even though a character has swapped teams, its parent should still be its old spawn
-    GameObject character = FunctionDB.core.findCharInstanceById(context.activeCharacterId);
+    GameObject character = FunctionDB.core.findCharInstanceGameObjectById(context.activeCharacterId);
     GameObject oldSpawn = FunctionDB.core.findCharSpawnById(context.activeCharacterId);
     FunctionDB.core.setSpawn(context.activeCharacterId, character.gameObject.transform.parent.gameObject);
     if (oldSpawn != character.gameObject.transform.parent.gameObject)
@@ -849,12 +855,11 @@ public class BattleMethods : MonoBehaviour
 	 */
   void checkAttribute( BattleManager.BattleManagerContext context, bool self, int attrId, float minValue )
   {
-    forEachCharacterDo( context, self, ( character ) =>
+    forEachCharacterDo( context, self, ( instanceID, character ) =>
     {
 
       //Getting attribute
-      characterAttribute attribute =
-        character.characterAttributes[FunctionDB.core.findAttributeIndexById( attrId, character )];
+      characterAttribute attribute = character.characterAttributes[FunctionDB.core.findAttributeIndexById( attrId, character )];
 
       //Checking value
       if ( attribute.curValue < minValue )
@@ -879,7 +884,7 @@ public class BattleMethods : MonoBehaviour
   void checkAttributeByName( BattleManager.BattleManagerContext context, bool self, string attrName, float minValue, bool warn )
   {
 
-    forEachCharacterDo( context, self, ( character ) =>
+    forEachCharacterDo( context, self, ( instanceID, character ) =>
     {
       bool pass = true;
       var index = FunctionDB.core.findAttributeIndexByName( attrName, character );
@@ -938,7 +943,7 @@ public class BattleMethods : MonoBehaviour
     }
 
     forEachCharacterDo( context, self,
-      (character) => {
+      (instanceID, character) => {
 
         var index = FunctionDB.core.findAttributeIndexByName( attributeName, character );
         if ( index == -1 )
@@ -963,7 +968,7 @@ public class BattleMethods : MonoBehaviour
         {
           //Displaying change	
           FunctionDB.core.StartCoroutine( FunctionDB.core.displayAttributeValue(	
-            FunctionDB.core.findCharInstanceById( character.id ), v, index,	
+            FunctionDB.core.findCharInstanceGameObjectById( instanceID ), v, index,	
             0, 1.3f ) );
         }
       } );
@@ -1005,7 +1010,7 @@ public class BattleMethods : MonoBehaviour
         break;
     }
 
-    forEachCharacterDo( context, self, ( character ) =>
+    forEachCharacterDo( context, self, ( instanceId, character ) =>
     {
       //Displaying change
       if ( FunctionDB.core.findAttributeIndexById( attrId, character ) > -1 )
@@ -1013,7 +1018,7 @@ public class BattleMethods : MonoBehaviour
         if ( showValue )
         {
           FunctionDB.core.StartCoroutine(	
-            FunctionDB.core.displayAttributeValue( FunctionDB.core.findCharInstanceById( character.id ), v, attrId, 0, 1.3f ) );
+            FunctionDB.core.displayAttributeValue( FunctionDB.core.findCharInstanceGameObjectById( instanceId ), v, attrId, 0, 1.3f ) );
         }
 
         //Getting attribute
@@ -1029,27 +1034,25 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "changeAttribute", false );
   }
 
-  private void forEachCharacterDo( BattleManager.BattleManagerContext context, bool selfOnly, Action<character> x )
+  private void forEachCharacterDo( BattleManager.BattleManagerContext context, bool selfOnly, Action<InstanceID, character> x )
   {
     if ( selfOnly )
     {
       //Active char id
-      var activeCharId = context.activeCharacterId;
-
-      //Getting character
-      character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( activeCharId )];
-
-      x( character );
+      var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
+      var character = characterInstance.characterCopy;
+      
+      x( context.activeCharacterId, character );
     }
     else
     {
 
       //For each action target
-      foreach ( int target in context.actionTargets )
+      foreach ( InstanceID target in context.actionTargets )
       {
-        //Getting character
-        character character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( target )];
-        x( character );
+        var characterInstance = BattleManager.core.findCharacterInstanceById( target );
+        var character = characterInstance.characterCopy;
+        x( target, character );
       }
     }
   }
@@ -1057,10 +1060,9 @@ public class BattleMethods : MonoBehaviour
   void generateMana( BattleManager.BattleManagerContext context, int amountToGenerate )
   {
       //Getting character
-      var character =
-        Database.dynamic.characters[
-          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
-      
+      var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
+      var character = characterInstance.characterCopy;
+    
       var index = FunctionDB.core.findAttributeIndexByName( "MP", character );
       //Getting attribute
       if ( index >= 0 )
@@ -1071,7 +1073,7 @@ public class BattleMethods : MonoBehaviour
       
       FunctionDB.core.StartCoroutine(	
         FunctionDB.core.displayAttributeValue(	
-          FunctionDB.core.findCharInstanceById( character.id ),	
+          FunctionDB.core.findCharInstanceGameObjectById( context.activeCharacterId ),	
           amountToGenerate,	
           1,	
           0.7f, 0.7f ) );	
@@ -1081,9 +1083,8 @@ public class BattleMethods : MonoBehaviour
   void generateManaForEachTargetAlive( BattleManager.BattleManagerContext context, int amountPerTarget )
   {
       //Getting character
-      var character =
-        Database.dynamic.characters[
-          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
+      var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
+      var character = characterInstance.characterCopy;
 
       int amountToGenerate = amountPerTarget * context.actionTargets.Count; 
       var index = FunctionDB.core.findAttributeIndexByName( "MP", character );
@@ -1096,7 +1097,7 @@ public class BattleMethods : MonoBehaviour
       
       FunctionDB.core.StartCoroutine(	
         FunctionDB.core.displayAttributeValue(	
-          FunctionDB.core.findCharInstanceById( character.id ),	
+          FunctionDB.core.findCharInstanceGameObjectById( context.activeCharacterId ),	
           amountToGenerate,	
           1,	
           0.7f, 0.7f ) );	
@@ -1107,9 +1108,8 @@ public class BattleMethods : MonoBehaviour
   void generateSuper( BattleManager.BattleManagerContext context, int amountToGenerate )
   {
       //Getting character
-      var character =
-        Database.dynamic.characters[
-          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
+      var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
+      var character = characterInstance.characterCopy;
       
       var index = FunctionDB.core.findAttributeIndexByName( "SP", character );
       //Getting attribute
@@ -1121,7 +1121,7 @@ public class BattleMethods : MonoBehaviour
       
       FunctionDB.core.StartCoroutine(	
         FunctionDB.core.displayAttributeValue(	
-          FunctionDB.core.findCharInstanceById( character.id ),	
+          FunctionDB.core.findCharInstanceGameObjectById( context.activeCharacterId ),	
           amountToGenerate,	
           1,	
           0.7f, 0.7f ) );	
@@ -1131,10 +1131,9 @@ public class BattleMethods : MonoBehaviour
   void generateSuperForEachTargetAlive( BattleManager.BattleManagerContext context, int amountPerTarget )
   {
       //Getting character
-      var character =
-        Database.dynamic.characters[
-          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
-
+      var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
+      var character = characterInstance.characterCopy;
+      
       int amountToGenerate = amountPerTarget * context.actionTargets.Count; 
       var index = FunctionDB.core.findAttributeIndexByName( "SP", character );
       //Getting attribute
@@ -1146,7 +1145,7 @@ public class BattleMethods : MonoBehaviour
       
       FunctionDB.core.StartCoroutine(	
         FunctionDB.core.displayAttributeValue(	
-          FunctionDB.core.findCharInstanceById( character.id ),	
+          FunctionDB.core.findCharInstanceGameObjectById( context.activeCharacterId ),	
           amountToGenerate,	
           1,	
           0.7f, 0.7f ) );	
@@ -1162,27 +1161,25 @@ public class BattleMethods : MonoBehaviour
 	 */
   void removeItem( BattleManager.BattleManagerContext context, int charId, int itemId, float quantity )
   {
+      //Getting character
+      var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
+      var c = characterInstance.characterCopy;
+      
+      //Getting item
+      var itemIndex = FunctionDB.core.findItemIndexById( itemId );
 
-    //Character id
-    var characterId = charId > -1 ? charId : context.activeCharacterId;
-    //Getting character
-    character c = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( characterId )];
-    //Getting item
-    var itemIndex = FunctionDB.core.findItemIndexById( itemId );
+      if ( itemIndex != -1 )
+      {
+        characterItemInfo i = c.items[FunctionDB.core.findItemIndexById( itemId )];
+        i.quantity = i.quantity - quantity >= 0 ? i.quantity - quantity : 0;
+      }
+      else
+      {
+        Debug.Log( "Invalid item id" );
+      }
 
-    if ( itemIndex != -1 )
-    {
-      characterItemInfo i = c.items[FunctionDB.core.findItemIndexById( itemId )];
-      i.quantity = i.quantity - quantity >= 0 ? i.quantity - quantity : 0;
-    }
-    else
-    {
-      Debug.Log( "Invalid item id" );
-    }
-
-    //Regenarating items list
-    BattleGen.core.itemGen();
-
+      //Regenarating items list
+      BattleGen.core.itemGen();
   }
 
   void damageTargets( BattleManager.BattleManagerContext context, int damageAmount, int school )
@@ -1190,7 +1187,7 @@ public class BattleMethods : MonoBehaviour
     var wardrumValue = FunctionDB.core.findAttributeByName( context.activeCharacterId, "WARDRUM" )?.curValue ?? 0f;
     var doomValue = FunctionDB.core.findAttributeByName( context.activeCharacterId, "DOOM" )?.curValue ?? 0f;
         
-    forEachCharacterDo( context, false, ( character ) =>
+    forEachCharacterDo( context, false, ( instanceID, character ) =>
     {
       var index = FunctionDB.core.findAttributeIndexByName( "HP", character );
       int defense = 0;
@@ -1229,7 +1226,7 @@ public class BattleMethods : MonoBehaviour
         {
           FunctionDB.core.StartCoroutine(
             FunctionDB.core.displayValue(
-              FunctionDB.core.findCharInstanceById( character.id ),
+              FunctionDB.core.findCharInstanceGameObjectById( instanceID ),
               "Blocked!",
               "A9A9A9",
               string.Empty,
@@ -1239,7 +1236,7 @@ public class BattleMethods : MonoBehaviour
         {
           FunctionDB.core.StartCoroutine(
             FunctionDB.core.displayBattleValue(
-              FunctionDB.core.findCharInstanceById( character.id ),
+              FunctionDB.core.findCharInstanceGameObjectById( instanceID ),
               damagePostDefense,
               school,
               0.7f, 0.7f ) );
@@ -1257,9 +1254,9 @@ The condition name is the name of the Animator's parameter which will be set to 
  */
   void playAnimation(BattleManager.BattleManagerContext context, int charId, string conditionName)
   {
-
     //getting active character if a character id was not provided
-    var charIdNew = charId > -1 ? charId : context.activeCharacterId;
+    InstanceID charIdNew = charId > -1 ? BattleManager.core.findCharacterInstanceByCharacterDatabaseId(charId) : context.activeCharacterId;
+    
     //Playing the animation
     FunctionDB.core.setAnimation(charIdNew, conditionName);
 
@@ -1289,9 +1286,11 @@ The condition name is the name of the Animator's parameter which will be set to 
 	 */
   void rotateCharacter(BattleManager.BattleManagerContext context, int charId, float degree)
   {
-    ;
-    var charIdNew = charId > -1 ? charId : context.activeCharacterId;
-    var charObject = FunctionDB.core.findCharInstanceById(charIdNew);
+    
+    //getting active character if a character id was not provided
+    InstanceID charIdNew = charId > -1 ? BattleManager.core.findCharacterInstanceByCharacterDatabaseId(charId) : context.activeCharacterId;
+    
+    var charObject = FunctionDB.core.findCharInstanceGameObjectById(charIdNew);
     charObject.transform.Rotate(0, degree, 0);
 
     BattleManager.setQueueStatus( context, "rotateCharacter", false);
@@ -1323,7 +1322,7 @@ The condition name is the name of the Animator's parameter which will be set to 
   public void Bark(BattleManager.BattleManagerContext context, string Knot)
     {
       var charIdNew = context.activeCharacterId;
-      var charObject = FunctionDB.core.findCharInstanceById(charIdNew);
+      var charObject = FunctionDB.core.findCharInstanceGameObjectById(charIdNew);
       BattleGen.story.Bark(Knot, charObject.name);
         
       BattleManager.setQueueStatus( context, "Bark", false);
@@ -1353,7 +1352,7 @@ The condition name is the name of the Animator's parameter which will be set to 
       var activeCharId = context.activeCharacterId;
 
       //Getting character instace
-      GameObject charInstance = FunctionDB.core.findCharInstanceById(activeCharId);
+      GameObject charInstance = FunctionDB.core.findCharInstanceGameObjectById(activeCharId);
 
       //Getting coordinates
       Vector3 coordinates = charInstance.transform.position;
@@ -1379,11 +1378,11 @@ The condition name is the name of the Animator's parameter which will be set to 
     {
 
       //For each action target
-      foreach (int target in context.actionTargets)
+      foreach (InstanceID target in context.actionTargets)
       {
 
         //Getting character instace
-        GameObject charInstance = FunctionDB.core.findCharInstanceById(target);
+        GameObject charInstance = FunctionDB.core.findCharInstanceGameObjectById(target);
 
         //Getting coordinates
         Vector3 coordinates = charInstance.transform.position;
@@ -1417,13 +1416,13 @@ The condition name is the name of the Animator's parameter which will be set to 
 
     int purged = 0;
     
-    forEachCharacterDo( context, self, ( character ) =>
+    forEachCharacterDo( context, self, ( instanceID, character ) =>
     {
       if ( hostileEffects )
       {
         foreach ( var h in hostile )
         {
-          var attr = FunctionDB.core.findAttributeByName(  character.id, h );
+          var attr = FunctionDB.core.findAttributeByName(  instanceID, h );
           if ( attr != null )
           {
             if ( attr.curValue > 0 ) purged += Mathf.FloorToInt( attr.curValue );
@@ -1435,7 +1434,7 @@ The condition name is the name of the Animator's parameter which will be set to 
       {
         foreach ( var h in friendly )
         {
-          var attr = FunctionDB.core.findAttributeByName(  character.id, h );
+          var attr = FunctionDB.core.findAttributeByName(  instanceID, h );
           if ( attr != null )
           {
             if ( attr.curValue > 0 ) purged += Mathf.FloorToInt( attr.curValue );
@@ -1447,9 +1446,8 @@ The condition name is the name of the Animator's parameter which will be set to 
 
     
       //Getting character
-      var character =
-        Database.dynamic.characters[
-          FunctionDB.core.findCharacterIndexById( context.activeCharacterId )];
+      var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
+      var character = characterInstance.characterCopy;
 
       int amountToGenerate = superPerEffect * purged; 
       var index = FunctionDB.core.findAttributeIndexByName( "SP", character );
@@ -1462,7 +1460,7 @@ The condition name is the name of the Animator's parameter which will be set to 
       
       FunctionDB.core.StartCoroutine(	
         FunctionDB.core.displayAttributeValue(	
-          FunctionDB.core.findCharInstanceById( character.id ),	
+          FunctionDB.core.findCharInstanceGameObjectById( context.activeCharacterId ),	
           amountToGenerate,	
           1,	
           0.7f, 0.7f ) );	

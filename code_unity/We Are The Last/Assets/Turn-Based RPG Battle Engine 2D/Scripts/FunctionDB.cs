@@ -11,10 +11,9 @@ public class FunctionDB : MonoBehaviour {
 	public static FunctionDB core;
 
 	//The following functions are used to find certain element indexes in specified lists by given criteria
-	public int findCharacterIndexById (int seekId) {
+	public int findCharacterTemplateIndexByCharacterID (int seekId) {
 		return Database.dynamic.characters.FindIndex(x => x.id == seekId);
 	}
-
 	public int findSkillIndexById (int seekId) {
 		return Database.dynamic.skills.FindIndex(x => x.id == seekId);
 	}
@@ -30,13 +29,13 @@ public class FunctionDB : MonoBehaviour {
 		return c.characterAttributes.FindIndex(x => x.name == name);
 	}
 
-	public characterAttribute findAttributeByName( int characterId, string attributeName )
+	public characterAttribute findAttributeByName( InstanceID characterId, string attributeName )
 	{
-		var c = findCharacterIndexById(characterId);
-		var character = Database.dynamic.characters[c];
+		var characterInstance = BattleManager.core.findCharacterInstanceById(characterId);
+		var character = characterInstance.characterCopy;
 		int index = findAttributeIndexByName( attributeName, character );
 		if ( index < 0 ) return null;
-		return character.characterAttributes[index];
+		return characterInstance.characterCopy.characterAttributes[index];
 	}
 
 	public int findFunctionQueueIndexByCallInfo (BattleManager.BattleManagerContext ctx, callInfo ci) {
@@ -48,8 +47,8 @@ public class FunctionDB : MonoBehaviour {
 	}
 
 	//Getting battle manager characters list index by id
-	public int findBattleManagerCharactersIndexById (int id) {
-		return BattleManager.core.characters.FindIndex(x => x.characterId == id);
+	public int findBattleManagerCharactersIndexById (InstanceID id) {
+		return BattleManager.core.characterInstances.FindIndex(x => x.characterInstanceId == id);
 	}
 
 	//Getting audio clip by id
@@ -79,10 +78,10 @@ public class FunctionDB : MonoBehaviour {
 	}
 
 	//Getting character instance object by id
-	public GameObject findCharInstanceById (int id) {
+	public GameObject findCharInstanceGameObjectById (InstanceID id) {
 
-		foreach (characterInfo info in BattleManager.core.characters) {
-			if (info.characterId == id) {
+		foreach (characterInfo info in BattleManager.core.characterInstances) {
+			if (info.characterInstanceId == id) {
 				return info.instanceObject;
 			}
 		}
@@ -92,10 +91,10 @@ public class FunctionDB : MonoBehaviour {
 
 	
 	//Getting character spawn point by id
-	public GameObject findCharSpawnById (int id) {
+	public GameObject findCharSpawnById (InstanceID id) {
 
-		foreach (characterInfo info in BattleManager.core.characters) {
-			if (info.characterId == id) {
+		foreach (characterInfo info in BattleManager.core.characterInstances) {
+			if (info.characterInstanceId == id) {
 				return info.spawnPointObject;
 			}
 		}
@@ -113,22 +112,22 @@ public class FunctionDB : MonoBehaviour {
 	}
 
 	//This function sets character animations
-	public void setAnimation (int characterId, string animationName) {
+	public void setAnimation (InstanceID characterId, string animationName) {
 
 		//Getting character
 		int characterIndex = findBattleManagerCharactersIndexById (characterId);
-		characterInfo character = BattleManager.core.characters[characterIndex];
+		characterInfo character = BattleManager.core.characterInstances[characterIndex];
 
 		//Setting animation
 		character.currentAnimation = animationName;
 	}
 
 	//Checking animation status
-	public bool checkAnimation (int characterId, string animationName) {
+	public bool checkAnimation (InstanceID characterId, string animationName) {
 
 		//Getting character
 		int characterIndex = findBattleManagerCharactersIndexById (characterId);
-		var character = BattleManager.core.characters[characterIndex];
+		var character = BattleManager.core.characterInstances[characterIndex];
 		var instance = character.instanceObject;
 		Animator charAnimator = instance.GetComponent<Animator>();
 
@@ -146,18 +145,19 @@ public class FunctionDB : MonoBehaviour {
 
 	
 	//This method is used to get the first active character in a characters list
-	public int activeCharacter (List<int> l, int startingIndex, int inc) {
+	public int activeCharacter (List<InstanceID> l, int startingIndex, int inc) {
 
 		for (int e = startingIndex + inc; e < l.Count; e++)
 		{
-			var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById( l[e] )];
-            var stun = FunctionDB.core.findAttributeByName( character.id, "STUN" );
+			var instanceId = l[e];
+			var character = BattleManager.core.findCharacterInstanceById( instanceId );
+            var stun = FunctionDB.core.findAttributeByName( instanceId , "STUN" );
             if ( stun != null && stun.curValue > 0 )
             {
 	            continue;
             }
 			
-			if (character.isActive) {
+			if (character.isAlive) {
 				return e;
 			}
 		}
@@ -296,11 +296,11 @@ public class FunctionDB : MonoBehaviour {
 	}
 	
 	//This function sets character spawnpoint
-	public void setSpawn(int characterId, GameObject spawnPoint)
+	public void setSpawn(InstanceID characterId, GameObject spawnPoint)
 	{
 		//Getting character
 		int characterIndex = findBattleManagerCharactersIndexById (characterId);
-		characterInfo character = BattleManager.core.characters[characterIndex];
+		characterInfo character = BattleManager.core.characterInstances[characterIndex];
 
 		//Setting animation
 		character.spawnPointObject = spawnPoint;

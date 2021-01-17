@@ -135,7 +135,7 @@ namespace ClassDB {
 			characterAttributes.Add( newAttribute );
 		}
 
-		public IEnumerator endRound(BattleManager.BattleManagerContext context)
+		public IEnumerator endRound(InstanceID character, BattleManager.BattleManagerContext context)
 		{
 			for ( int i = 0; i < skills.Count; ++i )
 			{
@@ -146,7 +146,7 @@ namespace ClassDB {
 			    if ( functionsToCall.Count > 0 )
 			    {
 				    BattleManager.BattleManagerContext c = new BattleManager.BattleManagerContext();
-				    c.Init( id, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
+				    c.Init( character, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
 				    c.functionQueue = functionsToCall;
 				    c.activeSkillId = skillId;
 				    c.actionTargets.Clear();
@@ -161,7 +161,7 @@ namespace ClassDB {
 				var functionsToCall = skill.endOfRound;
 			    if ( functionsToCall.Count > 0 )
 			    {
-				    BattleManager.core.CurrentContext.Init( id, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
+				    BattleManager.core.CurrentContext.Init( character, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
 				    BattleManager.core.CurrentContext.functionQueue = functionsToCall;
   		            BattleManager.core.CurrentContext.activeSkillId = skill.id;
 				    BattleManager.core.CurrentContext.actionTargets.Clear();
@@ -222,13 +222,21 @@ namespace ClassDB {
 
 	[System.Serializable]
 	public class characterInfo {
+		public characterInfo( character toCopy )
+		{
+			characterCopy = new character();
+			characterCopy.Copy( toCopy );
+		}
+
 		public GameObject instanceObject;
 		public GameObject uiObject;
 		public GameObject spawnPointObject;
 		public List<GameObject> threatArrows;
-		public List<int> targetIds;
+		public List<InstanceID> targetIds;
 		public string currentAnimation;
-		public int characterId;
+		public InstanceID characterInstanceId;
+		public bool isAlive = true;
+		public character characterCopy;
 	}
 	
 	//Used by main action menu, not skills and items.

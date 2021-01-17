@@ -58,7 +58,7 @@ MonoBehaviour:
       isRunning: 0
     - functionName: -- Attack 1 --
       parametersArray: []
-      waitForPreviousFunction: 0
+      waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     - functionName: playAnimation
@@ -120,7 +120,7 @@ MonoBehaviour:
       isRunning: 0
     - functionName: -- Attack 2 --
       parametersArray: []
-      waitForPreviousFunction: 0
+      waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     - functionName: playAnimation
@@ -182,7 +182,7 @@ MonoBehaviour:
       isRunning: 0
     - functionName: -- Attack 3 --
       parametersArray: []
-      waitForPreviousFunction: 0
+      waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     - functionName: playAnimation
@@ -282,13 +282,20 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:idle
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: subtractTurnPoints
       parametersArray:
       - int:0
       - int:0
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 0
+      isRunning: 1
     endOfRound: []
     sacrificeActions:
     - functionName: changeAttribute

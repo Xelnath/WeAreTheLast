@@ -84,7 +84,7 @@ public class BattleGen : MonoBehaviour
 
 
   //Spawning characters
-  public void charGen(List<GameObject> teamSpawns, List<int> charTeam, int team)
+  public void charGen(List<GameObject> teamSpawns, List<InstanceID> charTeam, int team)
   {
 
     //Character info prefab and window
@@ -103,11 +103,10 @@ public class BattleGen : MonoBehaviour
     //A counter is kept in order to ensure that there are available spawn points
     var counter = 0;
 
-    foreach (int charId in charTeam)
+    foreach (InstanceID charId in charTeam)
     {
-
       //Getting character
-      int charIndex = FunctionDB.core.findCharacterIndexById( charId );
+      int charIndex = FunctionDB.core.findCharacterTemplateIndexByCharacterID( charId.CharacterID );
       if ( charIndex == -1 )
       {
         Debug.LogError( $"Missing character record for ID: {charId}." );
@@ -137,14 +136,14 @@ public class BattleGen : MonoBehaviour
         instance.transform.Rotate(0, spriteRotation, 0);
 
         //Adding element to instances
-        characterInfo info = new characterInfo();
-        info.characterId = charId;
+        characterInfo info = new characterInfo(character);
+        info.characterInstanceId = charId;
         info.instanceObject = instance;
         info.spawnPointObject = teamSpawns[counter];
-        info.targetIds = new List<int>();
+        info.targetIds = new List<InstanceID>();
         info.threatArrows = new List<GameObject>();
 
-        BattleManager.core.characters.Add(info);
+        BattleManager.core.characterInstances.Add(info);
 
         //Incrementing character
         counter++;
@@ -157,9 +156,8 @@ public class BattleGen : MonoBehaviour
           //Instatiating object
           GameObject g = Instantiate(charInfoPrefab, charInfoWindow.transform);
 
-          var charIndx = FunctionDB.core.findBattleManagerCharactersIndexById(charId);
-
-          BattleManager.core.characters[charIndx].uiObject = g;
+          var characterInstance = BattleManager.core.findCharacterInstanceById(charId);
+          characterInstance.uiObject = g;
 
           //Setting data
           Transform gt = g.transform;
@@ -207,11 +205,11 @@ public class BattleGen : MonoBehaviour
     FunctionDB.core.emptyWindow(actionsWindow);
 
     //Getting character id
-    var characterId = BattleManager.core.CurrentContext.activeCharacterId;
+    var instanceID = BattleManager.core.CurrentContext.activeCharacterId;
 
     //Getting skill list
-    var charIndex = FunctionDB.core.findCharacterIndexById(characterId);
-    var character = Database.dynamic.characters[charIndex];
+    var characterInstance = BattleManager.core.findCharacterInstanceById( instanceID );
+    var character = characterInstance.characterCopy;
     var skillList = character.skills;
 
     //Used to set focus on the first element instantiated
@@ -227,7 +225,7 @@ public class BattleGen : MonoBehaviour
       var skillIndex = FunctionDB.core.findSkillIndexById(s);
       var skill = Database.dynamic.skills[skillIndex];
 
-      var paralyze = FunctionDB.core.findAttributeByName( characterId, "PARALYZE" );
+      var paralyze = FunctionDB.core.findAttributeByName( instanceID, "PARALYZE" );
       bool attacksDisabled = paralyze != null && paralyze.curValue > 0f; 
 
       if (skill.activeSkill && !(skill.isAttack && attacksDisabled) )
@@ -322,11 +320,11 @@ public class BattleGen : MonoBehaviour
     FunctionDB.core.emptyWindow(actionsWindow);
 
     //Getting character id
-    var characterId = BattleManager.core.CurrentContext.activeCharacterId;
+    var instanceID = BattleManager.core.CurrentContext.activeCharacterId;
 
     //Getting character
-    var charIndex = FunctionDB.core.findCharacterIndexById(characterId);
-    var character = Database.dynamic.characters[charIndex];
+    var characterInstance = BattleManager.core.findCharacterInstanceById( instanceID );
+    var character = characterInstance.characterCopy;
 
     //Used for setting focus
     bool focusSet = false;
@@ -406,11 +404,11 @@ public class BattleGen : MonoBehaviour
 
   }
 
-  public List<int> getValidTargets(BattleManager.BattleManagerContext context, bool genPlayerTeam, bool genEnemyTeam, int targetLimit)
+  public List<InstanceID> getValidTargets(BattleManager.BattleManagerContext context, bool genPlayerTeam, bool genEnemyTeam, int targetLimit)
   {
     
     //Creating a list of ids to generate
-    List<int> toGen = new List<int>();
+    List<InstanceID> toGen = new List<InstanceID>();
 
     //Adding players team
     if (genPlayerTeam)
@@ -428,10 +426,10 @@ public class BattleGen : MonoBehaviour
     for (int i = 0; i < toGen.Count; i++)
     {
       //Getting character
-      var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(toGen[i])];
+      var characterInstanceById = BattleManager.core.findCharacterInstanceById( toGen[i] );
 
       //If the character is not active, remove from list
-      if (!character.isActive)
+      if (!characterInstanceById.isAlive)
       {
         toGen.RemoveAt(i);
       }
@@ -440,11 +438,11 @@ public class BattleGen : MonoBehaviour
     //Clearing current actions window
     BattleManager.core.curActions.Clear();
 
-    List<int> selected = new List<int>();
+    List<InstanceID> selected = new List<InstanceID>();
     while ( targetLimit > 0 && toGen.Count > 0 )
     {
       int index = UnityEngine.Random.Range( 0, toGen.Count );
-      int charId = toGen[index];
+      InstanceID charId = toGen[index];
       toGen.RemoveAt( index );
       selected.Add( charId );
     }
@@ -467,7 +465,7 @@ public class BattleGen : MonoBehaviour
     context.targetLimit = targetLimit;
 
     //Creating a list of ids to generate
-    List<int> toGen = new List<int>();
+    List<InstanceID> toGen = new List<InstanceID>();
 
     //Adding players team
     if (genPlayerTeam)
@@ -485,10 +483,9 @@ public class BattleGen : MonoBehaviour
     for (int i = 0; i < toGen.Count; i++)
     {
       //Getting character
-      var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(toGen[i])];
-
+      var instanceData = BattleManager.core.findCharacterInstanceById( toGen[i] );
       //If the character is not active, remove from list
-      if (!character.isActive)
+      if (!instanceData.isAlive)
       {
         toGen.RemoveAt(i);
       }
@@ -500,12 +497,13 @@ public class BattleGen : MonoBehaviour
     //Clearing current actions window
     BattleManager.core.curActions.Clear();
 
-    foreach (int charId in toGen)
+    foreach (InstanceID charId in toGen)
     {
-
       //Getting character
-      var charIndex = FunctionDB.core.findCharacterIndexById(charId);
-      var character = Database.dynamic.characters[charIndex];
+      var characterInstance = BattleManager.core.findCharacterInstanceById( charId );
+      var character = characterInstance.characterCopy;
+      
+      var instanceData = BattleManager.core.findCharacterInstanceById( charId );
 
       //Spawning option
       GameObject t = Instantiate(optionPrefab, actionsWindow.transform);
@@ -616,9 +614,7 @@ public class BattleGen : MonoBehaviour
       EventSystem.current.SetSelectedGameObject(backButtonObject);
       focusSet = true;
     }
-
   }
-  
   
   //This function populates a list of skills to be downgraded
   public void skillConsumeGen()
@@ -626,7 +622,6 @@ public class BattleGen : MonoBehaviour
     BattleManager.BattleManagerContext context = BattleManager.core.CurrentContext;
     //Emptying list
     FunctionDB.core.emptyWindow(actionsWindow);
-   
 
     //Used for setting focus
     bool focusSet = false;
@@ -641,9 +636,8 @@ public class BattleGen : MonoBehaviour
     var characterId = BattleManager.core.CurrentContext.activeCharacterId;
 
     //Getting character
-    var charIndex = FunctionDB.core.findCharacterIndexById(characterId);
-    var character = Database.dynamic.characters[charIndex];
-    toGen.AddRange( character.skills );
+    var characterInstance = BattleManager.core.findCharacterInstanceById( characterId );
+    var character = characterInstance.characterCopy;    toGen.AddRange( character.skills );
 
     //Excluding invalid characters
     for (int i = 0; i < toGen.Count; i++)
@@ -691,9 +685,9 @@ public class BattleGen : MonoBehaviour
 
         //Making sure that the character is not already in the target list
         var selectMore = context.targetLimit > context.actionTargets.Count;
-        if (!context.actionTargets.Exists(x => x == skillId) && selectMore)
+        if (!context.actionTargets.Exists(x => x.SkillID== skillId) && selectMore)
         {
-          context.actionTargets.Add(skillId);
+          context.actionTargets.Add(new InstanceID(-1) { SkillID = skillId });
           selectMore = context.targetLimit > context.actionTargets.Count;
         }
 
@@ -727,12 +721,13 @@ public class BattleGen : MonoBehaviour
     var characterId = BattleManager.core.CurrentContext.activeCharacterId;
 
     //Getting character
-    var charIndex = FunctionDB.core.findCharacterIndexById( characterId );
-    var character = Database.dynamic.characters[charIndex];
-
+    var characterInstance = BattleManager.core.findCharacterInstanceById( characterId );
+    var character = characterInstance.characterCopy;
+    
     List<callInfo> functionsToCall = new List<callInfo>();
-    foreach ( int skillId in context.actionTargets )
+    foreach ( var instanceID in context.actionTargets )
     {
+      int skillId = instanceID.SkillID;
       //Getting character
       skill skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById( skillId )];
       context.activeSkillId = skill.id;
