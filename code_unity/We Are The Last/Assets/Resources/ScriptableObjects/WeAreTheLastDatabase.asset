@@ -46,57 +46,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a5a67f94a53fba347b9966807406d802, type: 2}
   - {fileID: 11400000, guid: f9a88e903275df64b93258003cab8946, type: 2}
   - {fileID: 11400000, guid: 9fdf6039833a4af44975b5576f978620, type: 2}
-  characters:
-  - name: Character 4
-    id: 4
-    description: A guy named steve
-    icon: {fileID: 21300000, guid: 50dd5e57eea217a4fa0430e82c846c21, type: 3}
-    animationController: {fileID: 9100000, guid: d03168ddf7417cd428b34d36f4fd3894,
-      type: 2}
-    skills: 0000000001000000
-    items: []
-    characterAttributes:
-    - name: HP
-      id: 0
-      maxValue: 100
-      curValue: 100
-    - name: MP
-      id: 1
-      maxValue: 10
-      curValue: 1000
-    aiFunctions:
-    - functionName: sampleAi
-      parametersArray: []
-      waitForPreviousFunction: 0
-      isCoroutine: 0
-      isRunning: 1
-    counterSkill: -1
-    isActive: 1
-  - name: Character 4
-    id: 5
-    description: A guy named steve
-    icon: {fileID: 21300000, guid: 50dd5e57eea217a4fa0430e82c846c21, type: 3}
-    animationController: {fileID: 9100000, guid: d03168ddf7417cd428b34d36f4fd3894,
-      type: 2}
-    skills: 0000000001000000
-    items: []
-    characterAttributes:
-    - name: HP
-      id: 0
-      maxValue: 100
-      curValue: 100
-    - name: MP
-      id: 1
-      maxValue: 10
-      curValue: 1000
-    aiFunctions:
-    - functionName: sampleAi
-      parametersArray: []
-      waitForPreviousFunction: 0
-      isCoroutine: 0
-      isRunning: 1
-    counterSkill: -1
-    isActive: 0
+  characters: []
   items:
   - name: Apple
     id: 0
@@ -122,4 +72,4 @@ MonoBehaviour:
       isCoroutine: 0
       isRunning: 1
   skills: []
-  tab: 2
+  tab: 1

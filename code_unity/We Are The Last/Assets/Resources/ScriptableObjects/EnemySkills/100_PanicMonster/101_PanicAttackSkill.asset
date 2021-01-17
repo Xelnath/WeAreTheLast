@@ -118,6 +118,12 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:2
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
     - functionName: -- Attack 2 --
       parametersArray: []
       waitForPreviousFunction: 1
@@ -177,6 +183,12 @@ MonoBehaviour:
     - functionName: waitForReaction
       parametersArray:
       - int:0
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:2
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
@@ -242,6 +254,12 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:2
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
     - functionName: -- Return --
       parametersArray:
       - int:-1
@@ -295,7 +313,7 @@ MonoBehaviour:
       - int:0
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 1
+      isRunning: 0
     endOfRound: []
     sacrificeActions:
     - functionName: changeAttribute

@@ -44,6 +44,18 @@ MonoBehaviour:
       id: 3
       maxValue: 1
       curValue: 1
+    - name: DEFEND
+      id: 5
+      maxValue: 100
+      curValue: 80
+    - name: DEFENDROUNDS
+      id: 6
+      maxValue: 100
+      curValue: 0
+    - name: WARDRUM
+      id: 7
+      maxValue: 100
+      curValue: 0
     aiFunctions:
     - functionName: sampleAi
       parametersArray: []

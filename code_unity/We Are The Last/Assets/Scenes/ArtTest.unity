@@ -8539,14 +8539,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 389e55af5848de146bef2e56c886989b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingCharacter: 0
+  startingCharacter: -1
   startingMusicId: 0
   musicSourceIndex: 0
   backgroundSpriteId: 0
   autoBattle: 0
   maxTurnPoints: 100
-  initialPlayerTeam: 000000000200000001000000
-  initialEnemyTeam: 640000006400000004000000
+  initialPlayerTeam: 01000000
+  initialEnemyTeam: 64000000
   activeMusicId: -1
   activeTeam: -1
   turnPoints: 100

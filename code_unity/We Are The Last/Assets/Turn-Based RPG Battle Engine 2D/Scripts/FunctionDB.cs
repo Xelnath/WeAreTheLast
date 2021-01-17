@@ -43,7 +43,7 @@ public class FunctionDB : MonoBehaviour {
 	}
 
 	public int findFunctionQueueIndexByName (BattleManager.BattleManagerContext ctx, string s) {
-		return ctx.functionQueue.FindIndex(x => x.functionName == s);
+		return ctx.functionQueue.FindIndex(x => x.functionName == s && x.isRunning);
 	}
 
 	//Getting battle manager characters list index by id

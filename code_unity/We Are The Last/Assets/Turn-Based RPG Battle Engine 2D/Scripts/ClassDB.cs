@@ -214,6 +214,8 @@ namespace ClassDB {
 		public bool isCoroutine;
 		public bool isRunning;
 
+		public bool isComment => ( functionName.StartsWith( "-" ) || functionName.StartsWith( "/" ) );
+
 		public override string ToString()
 		{
 			return $"callInfo ({functionName}) - {isRunning}";

@@ -93,6 +93,8 @@ public class BattleManager : MonoBehaviour
     [Tooltip( "Current function chain." )] [HideInInspector]
     public List<callInfo> functionQueue = new List<callInfo>();
 
+    public int runningFunctionIndex = -1;
+
     public void Init( InstanceID activeCharacterID, List<InstanceID> playerTeam, List<InstanceID> enemyTeam )
     {
       this.activeCharacterId = activeCharacterID;
@@ -251,7 +253,7 @@ public class BattleManager : MonoBehaviour
       if ( activeTeam == -1 )
       {
 
-        Debug.Log( "Something went wrong. Please make sure you have at least 1 character in each team." );
+        Debug.Log( "Something went wrong. Please make sure you have at least 1 character in each team and starting character is set to a valid value." );
 
       }
       else
@@ -354,9 +356,10 @@ public class BattleManager : MonoBehaviour
     var lastFunctionQueue = new List<callInfo>( context.functionQueue );
     var originalContext = context;
 
-    foreach ( callInfo ftc in lastFunctionQueue )
+    for (int i = 0; i < lastFunctionQueue.Count; ++i )
     {
-
+      var ftc = lastFunctionQueue [i];
+      if ( ftc.isComment ) continue;
       if ( originalContext != context )
       {
         Debug.LogError( "Context mismatch... how??" );
@@ -367,6 +370,8 @@ public class BattleManager : MonoBehaviour
       // {
       //   break;
       // }
+
+      context.runningFunctionIndex = i;
 
       //Active char id
       yield return core.call ( originalContext, ftc );
@@ -383,13 +388,15 @@ public class BattleManager : MonoBehaviour
       //We need to create a copy of the current list to avoid errors in the senarios were the list is modified during runtime
       var lastFunctionQueue = new List<callInfo>( context.functionQueue );
 
-      foreach ( callInfo ftc in lastFunctionQueue )
-      {
-
+      for ( int i = 0; i < lastFunctionQueue.Count; ++i ) {
+        callInfo ftc = lastFunctionQueue[i];
+        if ( ftc.isComment ) continue;
         if ( !context.functionQueue.Contains( ftc ) )
         {
           break;
         }
+
+        context.runningFunctionIndex = i;
 
         //Active char id
         yield return core.call ( context, ftc );
@@ -404,13 +411,17 @@ public class BattleManager : MonoBehaviour
   private IEnumerator call( BattleManagerContext context, callInfo ftc )
   {
     var method = ftc.functionName;
-    bool comment =  ( method.StartsWith( "-" ) || method.StartsWith( "/" ) );
 
     object[] parametersArray =
       ftc.parametersArray.Select( x => sudoParameterDecoder( x ) ).Prepend( context ).ToArray();
 
     //Getting current element index
     int queueIndex = FunctionDB.core.findFunctionQueueIndexByCallInfo( context, ftc );
+
+    if ( queueIndex != context.runningFunctionIndex )
+    {
+      Debug.Log( $"WTF {queueIndex} vs {context.runningFunctionIndex}" );
+    }
 
     //Is our function supposed to wait for previous functions to complete?
     while ( context.functionQueue.Contains( ftc ) && ftc.waitForPreviousFunction )
@@ -421,6 +432,12 @@ public class BattleManager : MonoBehaviour
 
       //Is the previous function still running?
       int prevIndex = queueIndex - 1;
+      while ( prevIndex != -1 )
+      {
+        var prev = context.functionQueue[prevIndex];
+        if ( !prev.isComment ) break; 
+        prevIndex--;
+      }
 
       if ( prevIndex >= 0 )
       {
@@ -461,8 +478,8 @@ public class BattleManager : MonoBehaviour
           //Invoking function.
           try
           {
-            if (!comment) mi.Invoke( BattleMethods.core, parametersArray );
-            else setQueueStatus( context, method, false );
+            Debug.Log( $"{method} - {queueIndex}" );
+            mi.Invoke( BattleMethods.core, parametersArray );
           }
           catch ( Exception e )
           {
@@ -478,8 +495,8 @@ public class BattleManager : MonoBehaviour
           //Start Coroutine
           try
           {
-            if (!comment) BattleMethods.core.StartCoroutine( method, parametersArray );
-            else setQueueStatus( context, method, false );
+            Debug.Log( $"CR: {method} - {queueIndex}" );
+            BattleMethods.core.StartCoroutine( method, parametersArray );
           }
           catch ( Exception e )
           {
@@ -1141,9 +1158,23 @@ public class BattleManager : MonoBehaviour
   //This function is used to change a function's queue status.
   public static void setQueueStatus( BattleManagerContext context, string functionName, bool status )
   {
-    //Finding index by name
-    int qIndex = FunctionDB.core.findFunctionQueueIndexByName( context, functionName );
-    if ( ( qIndex > -1 ) && qIndex < context.functionQueue.Count ) context.functionQueue[qIndex].isRunning = status;
+    int runningFunctionIndex = context.runningFunctionIndex;
+    if ( ( runningFunctionIndex > -1 ) && runningFunctionIndex < context.functionQueue.Count )
+    {
+      if ( context.functionQueue[runningFunctionIndex].functionName == functionName )
+      {
+         context.functionQueue[runningFunctionIndex].isRunning = status;
+      }
+      else
+      {
+        int qIndex = FunctionDB.core.findFunctionQueueIndexByName( context, functionName );
+        Debug.Log( $"{functionName} - Had to find by name {runningFunctionIndex} -> {qIndex}" );
+        if ( qIndex >= 0 && qIndex < context.functionQueue.Count )
+        {
+          context.functionQueue[qIndex].isRunning = status;
+        }
+      }
+    }
 
   }
 
