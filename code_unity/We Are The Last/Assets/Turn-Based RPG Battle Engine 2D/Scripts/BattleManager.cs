@@ -371,7 +371,7 @@ public class BattleManager : MonoBehaviour
       //   break;
       // }
 
-      context.runningFunctionIndex = i;
+      originalContext.runningFunctionIndex = i;
 
       //Active char id
       yield return core.call ( originalContext, ftc );
@@ -388,7 +388,7 @@ public class BattleManager : MonoBehaviour
       //We need to create a copy of the current list to avoid errors in the senarios were the list is modified during runtime
       var lastFunctionQueue = new List<callInfo>( context.functionQueue );
 
-      for ( int i = 0; i < lastFunctionQueue.Count; ++i ) {
+      for ( int i = 0; i < lastFunctionQueue.Count; i++ ) {
         callInfo ftc = lastFunctionQueue[i];
         if ( ftc.isComment ) continue;
         if ( !context.functionQueue.Contains( ftc ) )
