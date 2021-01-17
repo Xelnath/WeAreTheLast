@@ -107,7 +107,14 @@ public class BattleGen : MonoBehaviour
     {
 
       //Getting character
-      var character = Database.dynamic.characters[FunctionDB.core.findCharacterIndexById(charId)];
+      int charIndex = FunctionDB.core.findCharacterIndexById( charId );
+      if ( charIndex == -1 )
+      {
+        Debug.LogError( $"Missing character record for ID: {charId}." );
+        continue;
+      }
+
+      var character = Database.dynamic.characters[charIndex];
 
       //Getting animation controller
       var controller = character.animationController;

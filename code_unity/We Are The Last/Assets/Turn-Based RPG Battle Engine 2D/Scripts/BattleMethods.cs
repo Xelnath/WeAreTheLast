@@ -58,7 +58,14 @@ public class BattleMethods : MonoBehaviour
     //This still just preplans based on the first skill -- more advanced skill selection AI would go here
     foreach (int skillId in skillIds)
     {
-      var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(skillId)];
+      int skillIndex = FunctionDB.core.findSkillIndexById( skillId );
+      if ( skillIndex == -1 )
+      {
+        Debug.LogError( $"Unable to find skill by id {skillId}." );
+        continue;
+      }
+
+      var skill = Database.dynamic.skills[skillIndex];
       //Getting functions to call
       var functionsToCall = skill.functionsToCall;
 

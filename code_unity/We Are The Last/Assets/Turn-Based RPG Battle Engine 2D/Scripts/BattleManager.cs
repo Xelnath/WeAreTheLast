@@ -344,6 +344,11 @@ public class BattleManager : MonoBehaviour
   {
     
       var method = ftc.functionName;
+      
+      if(method.StartsWith("-") || method.StartsWith("/") ) 
+        yield return new WaitForEndOfFrame();
+      
+      
       object[] parametersArray = ftc.parametersArray.Select(x => sudoParameterDecoder(x)).Prepend(context).ToArray();
 
       //Getting current element index

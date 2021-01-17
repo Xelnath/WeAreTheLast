@@ -20,8 +20,25 @@ public class DatabaseScriptableObject : ScriptableObject
 			return m_instance;
 		}
 	}
+	#if UNITY_EDITOR
+
+	[Sirenix.OdinInspector.ShowInInspector]
+	public void LoadAllAssets()
+	{
+		var allSkills = Resources.FindObjectsOfTypeAll<SkillAsset>();
+		var allCharacters = Resources.FindObjectsOfTypeAll<CharacterAsset>();
+
+		SkillAssets = new List<SkillAsset>( allSkills );
+		CharacterAssets = new List<CharacterAsset>( allCharacters );
+
+		SkillAssets.Sort( ( a, b ) => { return a.Skill.id.CompareTo( b.Skill.id ); } );
+		CharacterAssets.Sort( ( a, b ) => { return a.Character.id.CompareTo( b.Character.id ); } );
+}
+
+#endif
 
 	public List<SkillAsset> SkillAssets = new List<SkillAsset>();
+	public List<CharacterAsset> CharacterAssets = new List<CharacterAsset>();
 
 	//A list of all in-game characters
 	public List<character> characters = new List<character>();
@@ -35,8 +52,6 @@ public class DatabaseScriptableObject : ScriptableObject
 	//Used by "EditorDatabase.cs" to determine which tab is currently selected
 	[HideInInspector] public int tab;
 
-	public int CounterSkillID = -1;
-	
 	public void Copy( DatabaseScriptableObject toCopy )
 	{
 		characters.Clear();
@@ -55,6 +70,10 @@ public class DatabaseScriptableObject : ScriptableObject
 		{
 			LoadSkillAsset( asset );
 		}
+		foreach ( var asset in toCopy.CharacterAssets )
+		{
+			LoadCharacterAsset( asset );
+		}
 	}
 
 	private void LoadSkillAsset( SkillAsset asset )
@@ -70,5 +89,19 @@ public class DatabaseScriptableObject : ScriptableObject
 		}
 
 		skills.Add( asset.Skill );
+	}
+	private void LoadCharacterAsset( CharacterAsset asset )
+	{
+		for ( int i = 0; i < characters.Count; ++i )
+		{
+			if ( characters[i].id == asset.Character.id )
+			{
+				Debug.LogWarning( $"Replaced character {i} - {characters[i].name} with asset {asset.name}. IDs match." );
+				characters[i] = asset.Character;
+				return;
+			}
+		}
+
+		characters.Add( asset.Character );
 	}
 }

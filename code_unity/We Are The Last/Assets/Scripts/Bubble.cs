@@ -36,7 +36,12 @@ public class Bubble : MonoBehaviour
         {
             imgCount = 0;
         }
-        back.sprite = img[imgCount];
+
+        var sprite = img[imgCount];
+        if ( back != null && sprite != null )
+        {
+            back.sprite = sprite;
+        }
         LeanTween.delayedCall(Random.Range(0.2f, 0.3f), PicSwitch);
     }
 }
