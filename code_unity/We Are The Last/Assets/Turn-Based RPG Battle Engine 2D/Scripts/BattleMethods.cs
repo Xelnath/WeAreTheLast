@@ -1184,41 +1184,56 @@ public class BattleMethods : MonoBehaviour
 
   void damageTargets( BattleManager.BattleManagerContext context, int damageAmount, int school )
   {
-    var wardrumValue = FunctionDB.core.findAttributeByName( context.activeCharacterId, "WARDRUM" )?.curValue ?? 0f;
-    var doomValue = FunctionDB.core.findAttributeByName( context.activeCharacterId, "DOOM" )?.curValue ?? 0f;
-        
+
+
+    var sourceInstanceID = context.activeCharacterId;
+    
     forEachCharacterDo( context, false, ( instanceID, character ) =>
     {
-      var index = FunctionDB.core.findAttributeIndexByName( "HP", character );
+      FinalizeDealDamage( sourceInstanceID, instanceID, damageAmount, school );
+    } );
+
+    BattleManager.setQueueStatus( context,  "damageTargets", false );
+  }
+
+  private void FinalizeDealDamage(InstanceID sourceID, InstanceID victimID, float damageAmount, int school)
+  {
+      var victim = BattleManager.core.findCharacterInstanceById( victimID );
+      var source = BattleManager.core.findCharacterInstanceById( sourceID );
+      var wardrumValue = FunctionDB.core.findAttributeByName( sourceID, "WARDRUM" )?.curValue ?? 0f;
+      var doomValue = FunctionDB.core.findAttributeByName( sourceID, "DOOM" )?.curValue ?? 0f;
+
+      
       int defense = 0;
+
+      var victimCharacter = victim.characterCopy;
+      var defCountIndex = FunctionDB.core.findAttributeIndexByName( "DEFENDROUNDS", victimCharacter );
+      if ( defCountIndex > -1 )
+      {
+        characterAttribute defendRounds = victimCharacter.characterAttributes[defCountIndex];
+        if ( defendRounds.curValue > 0 )
+        {
+          characterAttribute defendAmount =
+            victimCharacter.characterAttributes[FunctionDB.core.findAttributeIndexByName( "DEFEND", victimCharacter )];
+          defense = Mathf.FloorToInt( defendAmount.curValue );
+        }
+      }
+
+      float reduction = Mathf.Clamp( defense / 100f, 0f, 1f );
+      float damagePostDefense = damageAmount - ( damageAmount * reduction );
+
+      // Apply major status effects
+      if ( wardrumValue > 0f ) damagePostDefense *= 2f;
+      if ( doomValue > 0f ) damagePostDefense *= 0.5f;
+      
+      var index = FunctionDB.core.findAttributeIndexByName( "HP", victim.characterCopy );
       if ( index == -1 )
       {
-        Debug.LogError( $"Unable to find HP for {character}" );
+        Debug.LogError( $"Unable to find HP for {victim}" );
       }
       else
       {
-        characterAttribute hp =
-          character.characterAttributes[FunctionDB.core.findAttributeIndexById( index, character )];
-
-        var defCountIndex = FunctionDB.core.findAttributeIndexByName( "DEFENDROUNDS", character );
-        if ( defCountIndex > -1 )
-        {
-          characterAttribute defendRounds = character.characterAttributes[defCountIndex];
-          if ( defendRounds.curValue > 0 )
-          {
-            characterAttribute defendAmount =
-              character.characterAttributes[FunctionDB.core.findAttributeIndexByName( "DEFEND", character )];
-            defense = Mathf.FloorToInt( defendAmount.curValue );
-          }
-        }
-
-        float reduction = Mathf.Clamp( defense / 100f, 0f, 1f );
-        float damagePostDefense = damageAmount - ( damageAmount * reduction );
-
-        // Apply major status effects
-        if ( wardrumValue > 0f ) damagePostDefense *= 2f;
-        if ( doomValue > 0f ) damagePostDefense *= 0.5f;
-        
+        characterAttribute hp = victim.characterCopy.characterAttributes[FunctionDB.core.findAttributeIndexById( index, victim.characterCopy )];
         hp.curValue = Mathf.Clamp( hp.curValue - damagePostDefense, 0f, hp.maxValue );
 
         //Displaying change
@@ -1226,7 +1241,7 @@ public class BattleMethods : MonoBehaviour
         {
           FunctionDB.core.StartCoroutine(
             FunctionDB.core.displayValue(
-              FunctionDB.core.findCharInstanceGameObjectById( instanceID ),
+              FunctionDB.core.findCharInstanceGameObjectById( victimID ),
               "Blocked!",
               "A9A9A9",
               string.Empty,
@@ -1236,16 +1251,55 @@ public class BattleMethods : MonoBehaviour
         {
           FunctionDB.core.StartCoroutine(
             FunctionDB.core.displayBattleValue(
-              FunctionDB.core.findCharInstanceGameObjectById( instanceID ),
+              FunctionDB.core.findCharInstanceGameObjectById( victimID ),
               damagePostDefense,
               school,
               0.7f, 0.7f ) );
         }
       }
+  }
+
+  void setHPorKill( BattleManager.BattleManagerContext context, bool self, int hpValue, int school )
+  {
+    var sourceInstanceID = context.activeCharacterId;
+    
+    forEachCharacterDo( context, self, ( instanceID, character ) =>
+    {
+      
+        characterAttribute hp = FunctionDB.core.findAttributeByName(instanceID, "HP");
+        var curValue = hp.curValue;
+        if ( hp.curValue > hpValue )
+        {
+          hp.curValue = hpValue;
+        }
+        else
+        {
+          hp.curValue = 0f;
+        }
+        if ( curValue <= hpValue )
+        {
+          FunctionDB.core.StartCoroutine(
+            FunctionDB.core.displayValue(
+              FunctionDB.core.findCharInstanceGameObjectById( instanceID ),
+              "Killed!",
+              "A9A9A9",
+              string.Empty,
+              0.7f, 0.7f ) );
+        }
+        else
+        {
+          FunctionDB.core.StartCoroutine(
+            FunctionDB.core.displayBattleValue(
+              FunctionDB.core.findCharInstanceGameObjectById( instanceID ),
+              curValue - hpValue,
+              school,
+              0.7f, 0.7f ) );
+        }
     } );
 
-    BattleManager.setQueueStatus( context,  "damageTargets", false );
+    BattleManager.setQueueStatus( context,  "setHPorKill", false );
   }
+
 
 /*
 This function will play an animation of a selected character.
