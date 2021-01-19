@@ -1299,6 +1299,27 @@ public class BattleMethods : MonoBehaviour
 
     BattleManager.setQueueStatus( context,  "setHPorKill", false );
   }
+  
+  void kill( BattleManager.BattleManagerContext context, bool self )
+  {
+    var sourceInstanceID = context.activeCharacterId;
+    
+    forEachCharacterDo( context, self, ( instanceID, character ) =>
+    {
+      
+        characterAttribute hp = FunctionDB.core.findAttributeByName(instanceID, "HP");
+          hp.curValue = 0f;
+          FunctionDB.core.StartCoroutine(
+            FunctionDB.core.displayValue(
+              FunctionDB.core.findCharInstanceGameObjectById( instanceID ),
+              "Killed!",
+              "A9A9A9",
+              string.Empty,
+              0.7f, 0.7f ) );
+    } );
+
+    BattleManager.setQueueStatus( context,  "kill", false );
+  }
 
 
 /*
