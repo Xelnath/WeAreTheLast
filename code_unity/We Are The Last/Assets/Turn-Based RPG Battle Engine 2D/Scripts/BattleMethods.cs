@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using System.Reflection;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using ClassDB;
 using Random = UnityEngine.Random;
 
@@ -13,6 +14,7 @@ public class BattleMethods : MonoBehaviour
 {
   public static BattleMethods core;
 
+  //---------------AI--------------------//
   //This is a sample AI function that simply runs the first skill available to the AI on a random target
   void sampleAi(BattleManager.BattleManagerContext context)
   {
@@ -40,6 +42,74 @@ public class BattleMethods : MonoBehaviour
     }
 
   }
+  
+  void betrayalAi(BattleManager.BattleManagerContext context)
+	  {
+	    var characterId = context.activeCharacterId;
+
+      var charInfo = BattleManager.core.findCharacterInstanceById(characterId);
+	    
+	    var attr = FunctionDB.core.findAttributeByName(  characterId, "BETRAYAL" );
+	    if ( attr != null )
+	    {
+	      //This is a special Betrayal attack that decrements the Betrayal status -- could be anything so long as it has the proper End of Round calls
+        //It might make more sense to manually add those functions to the end of round, if you want the betrayed AI to be more complex
+        int skillId = 200;
+        int skillIndex = FunctionDB.core.findSkillIndexById( skillId );	
+        if ( skillIndex == -1 )	
+        {	
+          Debug.LogError( $"Unable to find skill by id {skillId}." );	
+          return;	
+        }	
+		
+        var skill = Database.dynamic.skills[skillIndex];
+        
+	      //Getting functions to call
+	      var functionsToCall = skill.functionsToCall;
+	      
+	      context.activeSkillId = skill.id;  
+	      context.functionQueue = functionsToCall;
+	      
+	      BattleManager.core.StartCoroutine( BattleManager.core.functionQueueCaller( context ) );
+	    }
+	  }
+	
+	  void changeSelfAi(BattleManager.BattleManagerContext context, string aiName)
+    {
+      character self = BattleManager.core.findCharacterInstanceById(context.activeCharacterId).characterCopy;
+      
+	    self.aiFunctions.Clear();
+	    self.aiFunctions.Add(new callInfo()
+	    {
+	      functionName = aiName,
+	      isRunning = true 
+	    });
+	    
+	    BattleManager.setQueueStatus( context,  "changeSelfAi", false );
+	  }
+    //---------------AI--------------------//
+
+    void checkBetrayed(BattleManager.BattleManagerContext context)
+    {
+	    context.actionTargets.Clear();
+	    var attr = FunctionDB.core.findAttributeByName(  context.activeCharacterId, "BETRAYAL" );
+	    if (attr != null)
+      {
+	      if (attr.curValue == 3 || attr.curValue == 0)  //3 being the current max value of Betray
+	      {
+          context.actionTargets.Add(context.activeCharacterId);
+
+          if (attr.curValue == 0)
+          {
+            var character = BattleManager.core.findCharacterInstanceById(context.activeCharacterId).characterCopy;
+            int attrIndex = FunctionDB.core.findAttributeIndexById(attr.id, character);
+            character.characterAttributes.RemoveAt(attrIndex);
+          }
+        }
+	    }
+	    
+	    BattleManager.setQueueStatus( context,  "checkBetrayed", false );
+	  }
 /*
    This function is used to prepare the AI's targets at the top of the round and when called (ie Taunt,
    which necessitates recalculation)
@@ -443,7 +513,12 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "selectCharacter", false );
 
   }
-
+  
+  void targetSelf(BattleManager.BattleManagerContext context)
+  {
+    context.actionTargets.Add(context.activeCharacterId);
+    BattleManager.setQueueStatus( context,  "targetSelf", false );
+  }
 
   void updateAITargeting(BattleManager.BattleManagerContext context)
   {
@@ -790,9 +865,12 @@ public class BattleMethods : MonoBehaviour
   void swapTargetTeam( BattleManager.BattleManagerContext context)
   {
     GameObject sourceCharObject = FunctionDB.core.findCharInstanceGameObjectById(context.activeCharacterId);
-    
-    forEachCharacterDo( context, false, ( instanceID, character ) =>
+
+    foreach (var instanceID in context.actionTargets)
     {
+    
+      var character = BattleManager.core.findCharacterInstanceById(instanceID).characterCopy;
+      
       List<InstanceID> teammateIds = new List<InstanceID>();
       
       //Determinig which team the character is on
@@ -813,10 +891,20 @@ public class BattleMethods : MonoBehaviour
       Vector3 mindControllerSpawn = FunctionDB.core.findCharSpawnById(teammateIds[teammateIds.Count-2]).transform.position;
       mindControllerSpawn += new Vector3(Random.Range(-2, 2)/2f, -1, 0);
 
-      //Create new spawnpoint and set spawn
-      GameObject newSpawn = Instantiate(new GameObject($"MindControlled{character.id}SpawnPoint"), mindControllerSpawn,
-        Quaternion.identity, sourceCharObject.transform.parent.transform.parent);
-      FunctionDB.core.setSpawn(instanceID, newSpawn);
+      var oldSpawn = FunctionDB.core.findCharSpawnById(instanceID);
+	      
+      //Create new spawnpoint, otherwise set old spawn
+      if (BattleManager.core.findCharacterInstanceById(instanceID).spawnPointObject.gameObject.name.Contains("MindControlled")) 
+      {  //Current spawn is a MindControlled spawn
+        FunctionDB.core.setSpawn(instanceID, sourceCharObject.transform.parent.gameObject);
+        Destroy(oldSpawn);
+      }
+      else
+      {
+        GameObject newSpawn = Instantiate(new GameObject($"MindControlled{character.id}SpawnPoint"), mindControllerSpawn,
+          Quaternion.identity, sourceCharObject.transform.parent.transform.parent);
+        FunctionDB.core.setSpawn(instanceID, newSpawn);
+      }
 
       //Displaying debuff
         FunctionDB.core.StartCoroutine(
@@ -826,7 +914,7 @@ public class BattleMethods : MonoBehaviour
             "A9A9A9",	
             string.Empty,	
             0f, 0.7f ) );
-    } );
+    }
 
     BattleManager.setQueueStatus( context,  "swapTargetTeam", false );
   }
