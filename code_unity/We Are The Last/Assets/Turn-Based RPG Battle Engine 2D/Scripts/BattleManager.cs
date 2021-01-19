@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using ClassDB;
+using Sirenix.OdinInspector.Editor.Drawers;
 using TMPro;
 using UnityEngine.Serialization;
 
@@ -916,6 +917,13 @@ public class BattleManager : MonoBehaviour
               foreach ( var character in characterInstances )
               {
                 character.targetIds.Clear();
+                
+                //Decrementing Betrayal
+                var attr = FunctionDB.core.findAttributeByName(  character.characterInstanceId, "BETRAYAL" );
+                if (attr != null && attr.curValue > 0)
+                {
+                  attr.curValue--;
+                }
               }
 
               EndRound( BattleManager.core.CurrentContext );
@@ -945,7 +953,7 @@ public class BattleManager : MonoBehaviour
   {
     foreach ( InstanceID charId in activePlayerTeam )
     {
-      var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
+      var characterInstance = BattleManager.core.findCharacterInstanceById( charId );
       var character = characterInstance.characterCopy;
       if ( !characterInstance.isAlive  )
       {
@@ -958,7 +966,7 @@ public class BattleManager : MonoBehaviour
 
     foreach ( InstanceID charId in activeEnemyTeam )
     {
-      var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
+      var characterInstance = BattleManager.core.findCharacterInstanceById( charId );
       var character = characterInstance.characterCopy;
       if ( !characterInstance.isAlive  )
       {
@@ -1242,7 +1250,14 @@ public class BattleManager : MonoBehaviour
   public void setThreatArrows( InstanceID characterId )
   {
     characterInfo charInfo = findCharacterInstanceById( characterId );
-
+    
+    var attrBetrayal = FunctionDB.core.findAttributeByName(  characterId, "BETRAYAL" );
+    var attrHP = FunctionDB.core.findAttributeByName(  characterId, "HP" );
+    if (attrBetrayal != null && attrBetrayal.curValue > 0 || attrHP.curValue <= 0)
+    {
+      return; 
+    }
+    
     for ( int i = 0; i < charInfo.targetIds.Count; i++ )
     {
       var threatSpawn = FunctionDB.core.findCharSpawnById( charInfo.targetIds[i] );
