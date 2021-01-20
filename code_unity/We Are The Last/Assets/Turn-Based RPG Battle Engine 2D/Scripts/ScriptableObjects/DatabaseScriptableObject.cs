@@ -35,6 +35,36 @@ public class DatabaseScriptableObject : ScriptableObject
 		CharacterAssets.Sort( ( a, b ) => { return a.Character.id.CompareTo( b.Character.id ); } );
 }
 
+	[Sirenix.OdinInspector.ShowInInspector]
+	public void ImportAllSkillFunctions()
+	{
+		var allSkills = Resources.FindObjectsOfTypeAll<SkillAsset>();
+		foreach (SkillAsset skill in allSkills)
+		{
+			if (skill.Skill.functionCalls != null)
+			{
+				skill.Skill.functionsToCall = SkillTextParser.parseFunctionsToCall(skill.Skill.functionCalls);
+				skill.Skill.endOfRound = SkillTextParser.parseEndOfRound(skill.Skill.functionCalls);
+				skill.Skill.sacrificeActions = SkillTextParser.parseSacrifice(skill.Skill.functionCalls);
+				EditorUtility.SetDirty(skill);
+			}
+		}
+		AssetDatabase.SaveAssets();
+		AssetDatabase.Refresh();
+	}
+	
+	[Sirenix.OdinInspector.ShowInInspector]
+	public void ExportAllSkillFunctions()
+	{
+		var allSkills = Resources.FindObjectsOfTypeAll<SkillAsset>();
+		foreach (SkillAsset skill in allSkills)
+		{
+			skill.ExportSkillFunctions();
+		}
+		AssetDatabase.SaveAssets();
+		AssetDatabase.Refresh();
+	}
+
 #endif
 
 	public List<SkillAsset> SkillAssets = new List<SkillAsset>();

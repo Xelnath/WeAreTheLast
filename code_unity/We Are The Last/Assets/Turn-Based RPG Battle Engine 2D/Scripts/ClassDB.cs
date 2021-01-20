@@ -51,6 +51,8 @@ namespace ClassDB {
 		public int manaCost;
 		public int superCost;
 
+		public TextAsset functionCalls;
+
 		//A list of functions to be called when the skill is used
 		public List<callInfo> functionsToCall = new List<callInfo>();
 		
