@@ -743,7 +743,7 @@ public class BattleManager : MonoBehaviour
         var curValue = charAttribute.curValue;
 
         //If health is at 0, make character innactive
-        if ( curValue <= 0 )
+        if ( curValue <= 0 && info.isAlive )
         {
 
           info.isAlive = false;
@@ -771,7 +771,7 @@ public class BattleManager : MonoBehaviour
           }
 
         }
-        else
+        else if ( curValue > 0 ) 
         {
           info.isAlive = true;
           info.characterCopy.isActive = true;
