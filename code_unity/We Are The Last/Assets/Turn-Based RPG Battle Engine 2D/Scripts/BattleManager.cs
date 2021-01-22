@@ -1007,10 +1007,16 @@ public class BattleManager : MonoBehaviour
   {
     //Outcome
 
+    // Right now you can only lose. 
+    int deathCount = PlayerPrefs.GetInt( "FAILURES", 0 );
+    deathCount++;
+    PlayerPrefs.SetInt( "FAILURES", deathCount );
+    PlayerPrefs.Save();
 
     //Getting outcome screen
     GameObject outcomeScreen = ObjectDB.core.outcomeWidow;
-
+    ObjectDB.core.story._inkStory.variablesState["Deaths"] = deathCount;
+  
     ObjectDB.core.story._inkStory.ChoosePathString( "FinalScreenTiff" );
     string tiffLine = ObjectDB.core.story._inkStory.Continue();
 
