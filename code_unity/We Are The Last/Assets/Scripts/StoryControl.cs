@@ -38,10 +38,10 @@ public class StoryControl : MonoBehaviour
         }
     }
 
-    public void Bark(string Knot, string Character)
+    public void Bark(string Knot, string CharacterID)
     {
         Debug.Log(Knot);
-        _inkStory.variablesState["CurrChar"] = Character.Substring(0,1);
+        _inkStory.variablesState["CurrChar"] = CharacterID;
         _inkStory.ChoosePathString(Knot);
         Refresh();
     }

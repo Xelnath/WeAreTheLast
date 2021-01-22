@@ -1490,7 +1490,7 @@ The condition name is the name of the Animator's parameter which will be set to 
       var charIdNew = context.activeCharacterId;
       var charObject = FunctionDB.core.findCharInstanceGameObjectById(charIdNew);
       var character = BattleManager.core.findCharacterInstanceById( charIdNew ).characterCopy;
-      BattleGen.story.Bark(Knot, character.name);
+      BattleGen.story.Bark(Knot, charIdNew.CharacterID.ToString());
         
       BattleManager.setQueueStatus( context, "Bark", false);
   }
@@ -1502,7 +1502,7 @@ The condition name is the name of the Animator's parameter which will be set to 
       var charIdNew = context.actionTargets[0];
       var charObject = FunctionDB.core.findCharInstanceGameObjectById(charIdNew);
       var character = BattleManager.core.findCharacterInstanceById( charIdNew ).characterCopy;
-      BattleGen.story.Bark( Knot, character.name );
+      BattleGen.story.Bark( Knot, charIdNew.CharacterID.ToString() );
     }
 
     BattleManager.setQueueStatus( context, "BarkVictim", false);

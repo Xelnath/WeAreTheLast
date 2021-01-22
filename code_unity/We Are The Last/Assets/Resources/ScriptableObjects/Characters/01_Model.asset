@@ -19,6 +19,7 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 4129ca514a4b89b4f9b9830b06595789, type: 3}
     animationController: {fileID: 9100000, guid: ee6cc0d1396f5354780a8cb636e54025,
       type: 2}
+    prefab: {fileID: 1634988220540438, guid: 5def9b13e61471a4f92395cc050c2946, type: 3}
     skills: 1800000007000000020000000600000014000000
     items: []
     characterAttributes:

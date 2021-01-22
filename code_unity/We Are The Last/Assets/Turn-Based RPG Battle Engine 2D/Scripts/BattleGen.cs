@@ -116,15 +116,14 @@ public class BattleGen : MonoBehaviour
       var character = Database.dynamic.characters[charIndex];
 
       //Getting animation controller
-      var controller = character.animationController;
+      //var controller = character.animationController;
 
       //Instantiating character prefab if there is a slot available
       if (teamSpawns.Count > counter)
       {
-
-        GameObject instance = Instantiate(ObjectDB.core.battlerPrefab, teamSpawns[counter].transform);
+        GameObject instance = Instantiate(character.prefab, teamSpawns[counter].transform);
         //Setting animator
-        instance.GetComponent<Animator>().runtimeAnimatorController = controller;
+        //instance.GetComponent<Animator>().runtimeAnimatorController = controller;
         //Setting charId
         instance.GetComponent<Character>().id = character.id.ToString();
         //Setting GameObject's name

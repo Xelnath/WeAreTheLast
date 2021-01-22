@@ -75,7 +75,7 @@ namespace ClassDB {
 		public Sprite icon;
 
 		//Animator component
-		public RuntimeAnimatorController animationController;
+		public GameObject prefab;
 
 		//A list of all available skills
 		public List<int> skills = new List<int>();
@@ -184,7 +184,7 @@ namespace ClassDB {
 			id = toCopy.id;
 			description = toCopy.description;
 			icon = toCopy.icon;
-			animationController = toCopy.animationController;
+			prefab = toCopy.prefab;
 			aiFunctions = toCopy.aiFunctions;
 			isActive = toCopy.isActive;
 			counterSkill = toCopy.counterSkill;
