@@ -186,4 +186,4 @@ MonoBehaviour:
       isCoroutine: 0
       isRunning: 0
     sacrificeActions: []
-  functionCalls: {fileID: 4900000, guid: f89990b1c5ad99848892ba0cefbd6a45, type: 3}
+  SkillText: {fileID: 4900000, guid: f89990b1c5ad99848892ba0cefbd6a45, type: 3}

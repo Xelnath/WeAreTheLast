@@ -13,6 +13,7 @@ playAnimation,W,,,int:-1,string:walk
 moveBack,W,C,,float:0.2
 rotateCharacter,W,,,int:-1,float:180
 playAnimation,W,,,int:-1,string:idle
+Bark,W,,,string:Counter
 
 
 ENDOFROUND

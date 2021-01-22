@@ -1483,13 +1483,27 @@ The condition name is the name of the Animator's parameter which will be set to 
   }
 
   public void Bark(BattleManager.BattleManagerContext context, string Knot)
-    {
+  {
       var charIdNew = context.activeCharacterId;
       var charObject = FunctionDB.core.findCharInstanceGameObjectById(charIdNew);
-      BattleGen.story.Bark(Knot, charObject.name);
+      var character = BattleManager.core.findCharacterInstanceById( charIdNew ).characterCopy;
+      BattleGen.story.Bark(Knot, character.name);
         
       BattleManager.setQueueStatus( context, "Bark", false);
+  }
+  
+  public void BarkVictim(BattleManager.BattleManagerContext context, string Knot)
+  {
+    if ( context.actionTargets.Count > 0 )
+    {
+      var charIdNew = context.actionTargets[0];
+      var charObject = FunctionDB.core.findCharInstanceGameObjectById(charIdNew);
+      var character = BattleManager.core.findCharacterInstanceById( charIdNew ).characterCopy;
+      BattleGen.story.Bark( Knot, character.name );
     }
+
+    BattleManager.setQueueStatus( context, "BarkVictim", false);
+  }
 
   /*
 	Display FX on self or target list

@@ -72,6 +72,12 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    - functionName: Bark
+      parametersArray:
+      - string:Defend
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: toggleActions
       parametersArray:
       - bool:true
@@ -141,4 +147,10 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
-  functionCalls: {fileID: 4900000, guid: 4cc06f77ce0bb404a8e24c1fc143affb, type: 3}
+    - functionName: Bark
+      parametersArray:
+      - string:Sacrifice_Defend
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+  SkillText: {fileID: 4900000, guid: 4cc06f77ce0bb404a8e24c1fc143affb, type: 3}

@@ -194,4 +194,4 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
-  functionCalls: {fileID: 4900000, guid: 59e16f65616a3c242b00aaa609e09610, type: 3}
+  SkillText: {fileID: 4900000, guid: 59e16f65616a3c242b00aaa609e09610, type: 3}

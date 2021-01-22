@@ -39,10 +39,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4e3022dcf505267489fe3d456350cd43, type: 2}
   - {fileID: 11400000, guid: d9c2f5a3020ec3f4aac10f9e8c36df0c, type: 2}
   - {fileID: 11400000, guid: d7e1eeebd8230da43802cc480e21f2de, type: 2}
-  - {fileID: 11400000, guid: 2caff81372931e440bd37c28a0e79729, type: 2}
   - {fileID: 11400000, guid: 5925a41f8defc8c44bb003dd892475cb, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 2caff81372931e440bd37c28a0e79729, type: 2}
+  - {fileID: 11400000, guid: e9caf8f3f37ef594d89d5ca5b99385ce, type: 2}
   CharacterAssets:
   - {fileID: 11400000, guid: cc46ccba0904f5f41b69e1b7f745f57e, type: 2}
   - {fileID: 11400000, guid: 5a3ad06e9f2d4d9478713d566addf9e7, type: 2}
@@ -50,6 +49,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f9a88e903275df64b93258003cab8946, type: 2}
   - {fileID: 11400000, guid: 9fdf6039833a4af44975b5576f978620, type: 2}
   - {fileID: 11400000, guid: e6fbc0e325ee55e46b0383ff061423c2, type: 2}
+  - {fileID: 11400000, guid: b8018c5d25fa9d84081e5d80bb6bbd79, type: 2}
   characters: []
   items:
   - name: Apple

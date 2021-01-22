@@ -6,7 +6,7 @@ addOrChangeAttribute,,,,bool:false,string:PARALYZE,string:=2,float:100,bool:fals
 displayFX,W,,,bool:false,float:2,string:heal,float:-0.8,float:0
 wait,W,C,,float:0.4
 toggleActions,W,,,bool:true
-Bark,W,,,string:CounterAll
+Bark,W,,,string:ParalyzeAll
 clearTargets,W,,,
 subtractTurnPoints,W,,,int:0,int:1
 
@@ -24,3 +24,4 @@ changeAttribute,W,,,bool:true,int:0,string:+50,bool:true
 generateMana,W,,,int:100
 displayFX,W,,,bool:true,float:2,string:heal,float:-0.8,float:0
 wait,W,C,,float:0.4
+Bark,W,,,string:Sacrifice_ParalyzeAll

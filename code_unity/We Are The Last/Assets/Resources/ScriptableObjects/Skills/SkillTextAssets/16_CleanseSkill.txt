@@ -5,6 +5,7 @@ waitForSelection,W,C,,bool:true
 toggleActions,W,,,bool:false
 cleanseEffects,W,,,bool:false,bool:true,bool:false,int:10
 displayFX,W,,,bool:false,float:2,string:heal,float:-0.8,float:0
+Bark,W,,,string:Cleanse
 toggleActions,W,,,bool:true
 subtractTurnPoints,W,,,int:0,int:1
 
@@ -19,3 +20,4 @@ changeAttribute,W,,,bool:true,int:0,string:+50,bool:true
 generateMana,W,,,int:100
 displayFX,W,,,bool:true,float:2,string:heal,float:-0.8,float:0
 wait,W,C,,float:0.4
+Bark,W,,,string:Sacrifice_Cleanse

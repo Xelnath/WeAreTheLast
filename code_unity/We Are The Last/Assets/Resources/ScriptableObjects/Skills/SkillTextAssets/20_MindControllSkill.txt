@@ -8,6 +8,7 @@ updateAITargeting,W,,,
 displayFX,W,,,bool:false,float:2,string:heal,float:-0.8,float:0
 moveTargetHome,W,C,,float:0.1
 turnTarget,W,,,
+Bark,W,,,string:Domination
 toggleActions,W,,,bool:true
 subtractTurnPoints,W,,,int:0,int:0
 
@@ -21,3 +22,4 @@ SACRIFICE
 changeAttribute,W,,,bool:true,int:0,string:+50,bool:true
 displayFX,W,,,bool:true,float:2,string:heal,float:-0.8,float:0
 wait,W,C,,float:0.4
+Bark,W,,,string:Sacrifice_Domination

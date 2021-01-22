@@ -8,7 +8,7 @@ autoSelectTargets,W,,,int:4,bool:true,bool:false
 addOrChangeAttribute,W,,,bool:false,string:HP,string:+10,int:100,bool:true
 displayFX,W,,,bool:false,float:2,string:heal,float:-0.8,float:0
 clearTargets,W,,,
-
+Bark,W,,,string:Regenerate
 
 SACRIFICE
 

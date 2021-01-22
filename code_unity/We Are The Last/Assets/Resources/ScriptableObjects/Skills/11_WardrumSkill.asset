@@ -63,6 +63,12 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
+    - functionName: Bark
+      parametersArray:
+      - string:Wardrum
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: toggleActions
       parametersArray:
       - bool:true
@@ -137,4 +143,4 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
-  functionCalls: {fileID: 4900000, guid: cbe8e531e790c714d99e5fd76ce5b84b, type: 3}
+  SkillText: {fileID: 4900000, guid: cbe8e531e790c714d99e5fd76ce5b84b, type: 3}

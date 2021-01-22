@@ -67,6 +67,12 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    - functionName: Bark
+      parametersArray:
+      - string:Redirect
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: toggleActions
       parametersArray:
       - bool:true
@@ -113,4 +119,10 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
-  functionCalls: {fileID: 4900000, guid: a4eece7085af9494ebf7319b16ab4539, type: 3}
+    - functionName: Bark
+      parametersArray:
+      - string:Sacrifice_Redirect
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+  SkillText: {fileID: 4900000, guid: a4eece7085af9494ebf7319b16ab4539, type: 3}

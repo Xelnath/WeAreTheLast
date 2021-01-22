@@ -6,6 +6,7 @@ toggleActions,W,,,bool:false
 addOrChangeAttribute,W,,,bool:false,string:STUN,string:=2,float:100,bool:false
 addOrChangeAttribute,W,,,bool:false,string:WARDRUM,string:=4,float:100,bool:false
 displayFX,W,,,bool:false,float:2,string:heal,float:-0.8,float:0
+Bark,W,,,string:StunRage
 toggleActions,W,,,bool:true
 subtractTurnPoints,W,,,int:0,int:2
 
@@ -24,3 +25,4 @@ changeAttribute,W,,,bool:true,int:0,string:+50,bool:true
 generateMana,W,,,int:100
 displayFX,W,,,bool:true,float:2,string:heal,float:-0.8,float:0
 wait,W,C,,float:0.4
+Bark,W,,,string:Sacrifice_StunRage

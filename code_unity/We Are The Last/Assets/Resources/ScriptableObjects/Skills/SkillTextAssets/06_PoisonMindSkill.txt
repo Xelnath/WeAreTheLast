@@ -5,6 +5,8 @@ waitForSelection,W,C,,bool:true
 toggleActions,W,,,bool:false
 addOrChangeAttribute,W,,,bool:false,string:POISON,string:=10,float:100,bool:false
 displayFX,W,,,bool:false,float:2,string:heal,float:-0.8,float:0
+
+Bark,W,,,string:PoisonMind
 toggleActions,W,,,bool:true
 subtractTurnPoints,W,,,int:0,int:2
 

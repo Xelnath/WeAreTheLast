@@ -114,6 +114,12 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    - functionName: Bark
+      parametersArray:
+      - string:Counter
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     endOfRound: []
     sacrificeActions:
     - functionName: changeAttribute
@@ -147,4 +153,4 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
-  functionCalls: {fileID: 4900000, guid: 288453ef423b25c4ba56bbeae1623bbc, type: 3}
+  SkillText: {fileID: 4900000, guid: 288453ef423b25c4ba56bbeae1623bbc, type: 3}
