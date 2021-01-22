@@ -26,11 +26,16 @@ MonoBehaviour:
       id: 0
       maxValue: 100
       curValue: 100
+    - name: MELTDOWN
+      id: 1
+      maxValue: 10
+      curValue: 1
     aiFunctions:
     - functionName: sampleAi
       parametersArray: []
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 1
+    onDeath: []
     counterSkill: -1
     isActive: 1

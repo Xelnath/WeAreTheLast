@@ -89,6 +89,8 @@ namespace ClassDB {
 		//A list of A.I functions
 		public List<callInfo> aiFunctions = new List<callInfo>();
 
+		public List<callInfo> onDeath = new List<callInfo>();
+
 		public int counterSkill = -1;
 		
 		//Is the character active
@@ -119,6 +121,11 @@ namespace ClassDB {
 				return functionsToCall;
 			}
 			return new List<callInfo>() { };
+		}
+
+		public List<callInfo> getOnDeath()
+		{
+			return new List<callInfo>( onDeath );
 		}
 
 		public void addDontReplaceAttribute( characterAttribute newAttribute )

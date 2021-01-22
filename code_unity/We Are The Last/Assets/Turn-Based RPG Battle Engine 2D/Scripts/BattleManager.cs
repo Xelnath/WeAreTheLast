@@ -70,6 +70,23 @@ public class BattleManager : MonoBehaviour
 
   public class BattleManagerContext
   {
+    public BattleManagerContext()
+    {
+    }
+
+    public BattleManagerContext( BattleManagerContext original )
+    {
+      activeSkillId = original.activeSkillId;
+      activeCharacterId = original.activeCharacterId;
+      runningFunctionIndex = original.runningFunctionIndex;
+      actionTargets = new List<InstanceID>(original.actionTargets);
+      attackerTeam = new List<InstanceID>(original.attackerTeam);
+      defenderTeam = new List<InstanceID>(original.defenderTeam);
+      functionQueue = new List<callInfo>(original.functionQueue);
+      targetLimit = original.targetLimit;
+      activeSkillId = original.activeSkillId;
+    }
+
     private static int NextID = 0;
     public int ContextID = NextID++;
 
@@ -350,20 +367,14 @@ public class BattleManager : MonoBehaviour
   //This function allows invoking methods by names and applying parameters from a parameter array
   public IEnumerator functionQueueCaller( BattleManagerContext context )
   {
-
     //We need to create a copy of the current list to avoid errors in the senarios were the list is modified during runtime
     var lastFunctionQueue = new List<callInfo>( context.functionQueue );
-    var originalContext = context;
+    var originalContext = new BattleManagerContext( context );;
 
     for (int i = 0; i < lastFunctionQueue.Count; ++i )
     {
       var ftc = lastFunctionQueue [i];
       if ( ftc.isComment ) continue;
-      if ( originalContext != context )
-      {
-        Debug.LogError( "Context mismatch... how??" );
-        break;
-      }
 
       // if ( !context.functionQueue.Contains( ftc ) )
       // {
@@ -737,7 +748,21 @@ public class BattleManager : MonoBehaviour
 
           info.isAlive = false;
           activeCharacter.isActive = false;
-          FunctionDB.core.setAnimation( charId, "death" );
+
+          var onDeath = activeCharacter.getOnDeath();
+          if ( onDeath.Count == 0 )
+          {
+            FunctionDB.core.setAnimation( charId, "death" );
+          }
+          else
+          {
+            var c = new BattleManager.BattleManagerContext();
+            c.actionTargets = new List<InstanceID>() { };
+            c.Init( charId, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
+            c.targetLimit = 1;
+            c.functionQueue = onDeath;
+            StartCoroutine( BattleManager.reactionQueueCaller( c  ) );
+          }
 
           //If the character in question is the active character, skip to the next character
           if ( charId == this.CurrentContext.activeCharacterId )

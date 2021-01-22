@@ -663,7 +663,6 @@ public class BattleMethods : MonoBehaviour
     }
 
     //Marking function as not running.
-    context = BattleManager.core.CurrentContext;
     BattleManager.setQueueStatus( context,  "provokeReaction", false );
 
     while( reactionSet.Count > 0 )
@@ -989,6 +988,10 @@ public class BattleMethods : MonoBehaviour
           pass = false;
         }
       }
+      else
+      {
+        pass = false;
+      }
 
       if ( !pass )
       {
@@ -1002,7 +1005,7 @@ public class BattleMethods : MonoBehaviour
 
     } );
 
-    BattleManager.setQueueStatus( context,  "checkAttribute", false );
+    BattleManager.setQueueStatus( context,  "checkAttributeByName", false );
   }
   
   void addOrChangeAttribute( BattleManager.BattleManagerContext context, bool self, string attributeName, string value, float maxValue, bool showText )

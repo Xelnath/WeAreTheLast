@@ -56,5 +56,24 @@ MonoBehaviour:
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 1
+    onDeath:
+    - functionName: Bark
+      parametersArray:
+      - string:Death_Model
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:1.0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - string:death
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     counterSkill: -1
     isActive: 1

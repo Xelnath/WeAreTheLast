@@ -16,8 +16,24 @@ VAR Meltdown = "120"
 {Ro},1,1;I can't hold back. I'm all 11.
 ->DONE
 
+== Death_Therapist
+{Th},1,1;No... my clients.... 
+->DONE
+
+== Death_Model
+{Mo},1,1;Never... did meet... Paris... 
+->DONE
+
+== Death_Rockstar
+{Ro},1,1;I... want to be... the very... best... 
+->DONE
+
 ==	CounterAll
 {CurrChar},1,1;{~Just you try.|We are stronger than this.|I have just a response for everything they've got.|Double dare you.}
+->DONE
+
+==	Counter
+{CurrChar},1,1;{~Pathetic.|No, YOU get hurt.}
 ->DONE
 
 ==	Heal

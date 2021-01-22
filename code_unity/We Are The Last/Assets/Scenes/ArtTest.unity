@@ -8546,7 +8546,7 @@ MonoBehaviour:
   autoBattle: 0
   maxTurnPoints: 100
   initialPlayerTeam: 000000000200000001000000
-  initialEnemyTeam: 6e00000078000000
+  initialEnemyTeam: 6e0000006e000000
   activeMusicId: -1
   activeTeam: -1
   turnPoints: 100
