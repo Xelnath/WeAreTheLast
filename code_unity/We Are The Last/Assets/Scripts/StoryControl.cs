@@ -89,28 +89,32 @@ public class StoryControl : MonoBehaviour
 
     IEnumerator Refresher(float Delay)
     {
-
-        
         string[] temp = _inkStory.Continue().Split(';');
-        string[] stats = temp[0].Split(',');
-        // foreach (string t in temp)
-        // {
-        //     Debug.Log("temp" + t);
-        // }
-        // foreach (string s in stats)
-        // {
-        //     Debug.Log("stat" + s);
-        // }
-
-        yield return new WaitForSeconds(float.Parse(stats[1]));
-        Bubble b = Instantiate(bubblePrefab);
-        BubbleMaker(b, temp[1], stats[0]);
-        
-        yield return new WaitForSeconds(float.Parse(stats[2]));
-        Destroy(b.gameObject);
-        if (_inkStory.canContinue)
+        if ( temp.Length > 0 )
         {
-            StartCoroutine("Refresher", 1f);
+            string[] stats = temp[0].Split( ',' );
+            // foreach (string t in temp)
+            // {
+            //     Debug.Log("temp" + t);
+            // }
+            // foreach (string s in stats)
+            // {
+            //     Debug.Log("stat" + s);
+            // }
+
+            if ( stats.Length > 2 )
+            {
+                yield return new WaitForSeconds( float.Parse( stats[1] ) );
+                Bubble b = Instantiate( bubblePrefab );
+                BubbleMaker( b, temp[1], stats[0] );
+
+                yield return new WaitForSeconds( float.Parse( stats[2] ) );
+                Destroy( b.gameObject );
+                if ( _inkStory.canContinue )
+                {
+                    StartCoroutine( "Refresher", 1f );
+                }
+            }
         }
     }
 
