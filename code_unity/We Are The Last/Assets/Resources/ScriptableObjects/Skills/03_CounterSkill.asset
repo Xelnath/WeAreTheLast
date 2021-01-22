@@ -18,6 +18,7 @@ MonoBehaviour:
     description: A simple counterattack
     sacrificeReplacementId: -1
     activeSkill: 0
+    isAttack: 0
     turnPointCost: 0
     manaCost: 0
     superCost: 0
@@ -146,3 +147,4 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
+  functionCalls: {fileID: 4900000, guid: 288453ef423b25c4ba56bbeae1623bbc, type: 3}

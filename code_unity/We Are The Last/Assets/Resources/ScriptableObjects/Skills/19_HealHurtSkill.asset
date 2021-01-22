@@ -18,6 +18,7 @@ MonoBehaviour:
     description: Heal a character but poisons them
     sacrificeReplacementId: -1
     activeSkill: 1
+    isAttack: 0
     turnPointCost: 100
     manaCost: 10
     superCost: 0
@@ -116,3 +117,4 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
+  functionCalls: {fileID: 4900000, guid: 05e6c0ea2be14514182fd1309af93ce6, type: 3}

@@ -41,11 +41,11 @@ public class DatabaseScriptableObject : ScriptableObject
 		var allSkills = Resources.FindObjectsOfTypeAll<SkillAsset>();
 		foreach (SkillAsset skill in allSkills)
 		{
-			if (skill.Skill.functionCalls != null)
+			if (skill.SkillText != null)
 			{
-				skill.Skill.functionsToCall = SkillTextParser.parseFunctionsToCall(skill.Skill.functionCalls);
-				skill.Skill.endOfRound = SkillTextParser.parseEndOfRound(skill.Skill.functionCalls);
-				skill.Skill.sacrificeActions = SkillTextParser.parseSacrifice(skill.Skill.functionCalls);
+				skill.Skill.functionsToCall = SkillTextParser.parseFunctionsToCall(skill.SkillText);
+				skill.Skill.endOfRound = SkillTextParser.parseEndOfRound(skill.SkillText);
+				skill.Skill.sacrificeActions = SkillTextParser.parseSacrifice(skill.SkillText);
 				EditorUtility.SetDirty(skill);
 			}
 		}

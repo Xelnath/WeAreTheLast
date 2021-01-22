@@ -4,20 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using ClassDB;
 using UnityEditor;
+using UnityEngine.Serialization;
 
 //This script stores object references for easier access
 public class SkillAsset : ScriptableObject
 {
 	public skill Skill;
-	
+
+	[FormerlySerializedAs( "functionCalls" )] public TextAsset SkillText;
+
 	[Sirenix.OdinInspector.ShowInInspector]
 	public void ImportSkillFunctions()
 	{
-		if (Skill.functionCalls != null)
+		if (SkillText != null)
 		{
-			Skill.functionsToCall = SkillTextParser.parseFunctionsToCall(Skill.functionCalls);
-			Skill.endOfRound = SkillTextParser.parseEndOfRound(Skill.functionCalls);
-			Skill.sacrificeActions = SkillTextParser.parseSacrifice(Skill.functionCalls);
+			Skill.functionsToCall = SkillTextParser.parseFunctionsToCall(SkillText);
+			Skill.endOfRound = SkillTextParser.parseEndOfRound(SkillText);
+			Skill.sacrificeActions = SkillTextParser.parseSacrifice(SkillText);
 			EditorUtility.SetDirty(this);
 		}
 		AssetDatabase.SaveAssets();
@@ -27,8 +30,8 @@ public class SkillAsset : ScriptableObject
 	[Sirenix.OdinInspector.ShowInInspector]
 	public void ExportSkillFunctions()
 	{
-		Skill.functionCalls = SkillTextExporter.Export(this);
-		if (Skill.functionCalls == null)
+		SkillText = SkillTextExporter.Export(this);
+		if (SkillText == null)
 		{
 			Debug.Log("Whoopsies");
 		}

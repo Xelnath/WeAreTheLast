@@ -192,3 +192,4 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
+  functionCalls: {fileID: 4900000, guid: a505829f16702f64c91b4194f49e7c1b, type: 3}

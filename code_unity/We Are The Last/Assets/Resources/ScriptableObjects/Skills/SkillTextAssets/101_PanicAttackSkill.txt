@@ -1,0 +1,56 @@
+FUNCTIONS
+
+selectCharacter,,,,bool:false,int:1
+waitForSelection,W,C,,bool:true
+toggleActions,W,,,bool:false
+playAnimation,W,,,int:-1,string:walk
+moveToTarget,W,C,,float:2,float:0.1
+-- Attack 1 --,W,,,
+playAnimation,W,,,int:-1,string:attack
+playAudioOnce,,,,int:1,int:1
+damageTargets,W,,,int:10,int:0
+displayFX,W,,,bool:false,float:2,string:attack,float:0,float:0
+wait,W,C,,float:0.4
+playAnimation,W,,,int:-1,string:idle
+provokeReaction,W,C,,int:0,int:0
+waitForReaction,W,C,,int:0
+wait,W,C,,float:0.4
+-- Attack 2 --,W,,,
+playAnimation,W,,,int:-1,string:attack
+playAudioOnce,,,,int:1,int:1
+damageTargets,W,,,int:10,int:0
+displayFX,W,,,bool:false,float:2,string:attack,float:0,float:0
+wait,W,C,,float:0.4
+playAnimation,W,,,int:-1,string:idle
+provokeReaction,W,C,,int:0,int:0
+waitForReaction,W,C,,int:0
+wait,W,C,,float:0.4
+-- Attack 3 --,W,,,
+playAnimation,W,,,int:-1,string:attack
+playAudioOnce,,,,int:1,int:1
+damageTargets,W,,,int:10,int:0
+displayFX,W,,,bool:false,float:2,string:attack,float:0,float:0
+wait,W,C,,float:0.4
+playAnimation,W,,,int:-1,string:idle
+provokeReaction,W,C,,int:0,int:0
+waitForReaction,W,C,,int:0
+wait,W,C,,float:0.4
+-- Return --,W,,,int:-1,string:idle
+toggleActions,W,,,bool:true
+rotateCharacter,W,,,int:-1,float:180
+playAnimation,W,,,int:-1,string:walk
+moveBack,W,C,,float:0.2
+rotateCharacter,W,,,int:-1,float:180
+playAnimation,W,,,int:-1,string:idle
+subtractTurnPoints,W,,,int:0,int:0
+
+
+ENDOFROUND
+
+
+
+SACRIFICE
+
+changeAttribute,W,,,bool:true,int:0,string:+50,bool:true
+displayFX,W,,,bool:true,float:2,string:heal,float:-0.8,float:0
+wait,W,C,,float:0.4

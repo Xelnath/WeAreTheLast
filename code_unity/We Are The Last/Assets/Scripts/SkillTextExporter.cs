@@ -17,6 +17,11 @@ public class SkillTextExporter : MonoBehaviour
         string path = $"Assets/Resources/ScriptableObjects/Skills/SkillTextAssets/{skillName}.txt";
         
         //Create File or clear it
+        if  ( !File.Exists( path ) )
+        {
+            using ( File.Create( path ) ) ;
+        }
+
         File.WriteAllText(path, String.Empty);
         
         //Content of the file
