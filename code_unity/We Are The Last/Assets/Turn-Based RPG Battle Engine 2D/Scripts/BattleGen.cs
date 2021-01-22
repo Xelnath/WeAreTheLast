@@ -126,8 +126,7 @@ public class BattleGen : MonoBehaviour
         //Setting animator
         instance.GetComponent<Animator>().runtimeAnimatorController = controller;
         //Setting charId
-        instance.GetComponent<Character>().id = character.name.Substring(0,1);
-        story.Actors.Add(instance.GetComponent<Character>());
+        instance.GetComponent<Character>().id = character.id.ToString();
         //Setting GameObject's name
         instance.name = character.name;
 
@@ -135,6 +134,8 @@ public class BattleGen : MonoBehaviour
         var spriteRotation = team == 1 ? 180 : 0;
         instance.transform.Rotate(0, spriteRotation, 0);
 
+        story.Actors.Add(instance.GetComponent<Character>());
+        
         //Adding element to instances
         characterInfo info = new characterInfo(character);
         info.characterInstanceId = charId;

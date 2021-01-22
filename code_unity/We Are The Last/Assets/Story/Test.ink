@@ -2,11 +2,18 @@ LIST chars = Therapist, Model, Rockstar
 VAR CurrChar = Therapist
 VAR Deaths = 0
 
+VAR Th = "0" // Therapist
+VAR Mo = "1" // Model
+VAR Ro = "2" // Rockstar
+VAR Panic = "100"
+VAR Trauma = "110"
+VAR Meltdown = "120"
+
 ->Start
 ==	Start
-T,1,1;Let them take the first shot.
-M,1,1;Can't spend energy on this trash.
-R,1,1;I can't hold back. I'm all 11.
+{Th},1,1;Let them take the first shot.
+{Mo},1,1;Can't spend energy on this trash.
+{Ro},1,1;I can't hold back. I'm all 11.
 ->DONE
 
 ==	CounterAll
@@ -14,9 +21,9 @@ R,1,1;I can't hold back. I'm all 11.
 ->DONE
 
 ==	Heal
-{CurrChar == "T":T,1,1;Refreshing.}
-{CurrChar == "P":P,1,1;This wine is the shit.}
-{CurrChar == "R":R,1,1;Mmm beer.}
+{CurrChar == Th:{Th},1,1;Refreshing.}
+{CurrChar == Mo:{Mo},1,1;This wine is the shit.}
+{CurrChar == Ro:{Ro},1,1;Mmm beer.}
 ->DONE
 
 ==	Attack
@@ -88,9 +95,9 @@ R,1,1;I can't hold back. I'm all 11.
 ->DONE
 
 ==	Sacrifice_Heal
-{CurrChar == "T":T,1,1;Refreshing.}
-{CurrChar == "P":P,1,1;This wine is the shit.}
-{CurrChar == "R":R,1,1;Mmm beer.}
+{CurrChar == Th:T,1,1;Refreshing.}
+{CurrChar == Mo:P,1,1;This wine is the shit.}
+{CurrChar == Ro:R,1,1;Mmm beer.}
 ->DONE
 
 == Sacrifice_Redirect
