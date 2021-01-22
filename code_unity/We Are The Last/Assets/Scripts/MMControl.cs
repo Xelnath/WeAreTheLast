@@ -9,6 +9,7 @@ public class MMControl : MonoBehaviour
 {
     public TextMeshProUGUI AttemptsLabel;
     public string LevelScene;
+    public string MenuScene;
 
     [Serializable]
     public class FailureLabel
@@ -43,6 +44,10 @@ public class MMControl : MonoBehaviour
     {
         PlayerPrefs.SetInt( "FAILURES", 0 );
         PlayerPrefs.Save();
+    }
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(MenuScene);
     }
 
     public void Quit()
