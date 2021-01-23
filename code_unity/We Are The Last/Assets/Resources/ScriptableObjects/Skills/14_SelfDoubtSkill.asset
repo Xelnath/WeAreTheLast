@@ -66,8 +66,8 @@ MonoBehaviour:
       parametersArray:
       - bool:false
       - float:2
-      - string:heal
-      - float:-0.8
+      - string:poison
+      - float:0
       - float:0
       waitForPreviousFunction: 1
       isCoroutine: 0
@@ -76,11 +76,17 @@ MonoBehaviour:
       parametersArray:
       - bool:true
       - float:2
-      - string:heal
-      - float:-0.8
+      - string:poison
+      - float:0
       - float:0
       waitForPreviousFunction: 1
       isCoroutine: 0
+      isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:0.6
+      waitForPreviousFunction: 1
+      isCoroutine: 1
       isRunning: 0
     - functionName: Bark
       parametersArray:

@@ -62,7 +62,7 @@ MonoBehaviour:
       parametersArray:
       - bool:false
       - float:2
-      - string:attack
+      - string:deflect
       - float:0
       - float:0
       waitForPreviousFunction: 1
