@@ -27,7 +27,7 @@ MonoBehaviour:
       parametersArray:
       - bool:true
       - string:MELTDOWN
-      - float:4
+      - float:3
       - bool:false
       - int:14
       waitForPreviousFunction: 1
@@ -121,10 +121,10 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
-    - functionName: rotateCharacter
+    - functionName: playAnimation
       parametersArray:
       - int:-1
-      - float:180
+      - string:death
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

@@ -27,7 +27,7 @@ public class MMControl : MonoBehaviour
 
         for ( int i = Failures.Length - 1; i >= 0; i-- )
         {
-            if ( Failures[i].MinFailures < deathCount )
+            if ( Failures[i].MinFailures <= deathCount )
             {
                 AttemptsLabel.text = string.Format( Failures[i].Label, deathCount );
                 break;

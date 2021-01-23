@@ -13,7 +13,7 @@ wait,W,C,,float:0.6
 kill,W,,,bool:true
 provokeReaction,W,C,,int:0,int:0
 waitForReaction,W,C,,int:0
-rotateCharacter,W,,,int:-1,float:180
+playAnimation,W,,,int:-1,string:death
 toggleActions,W,,,bool:true
 subtractTurnPoints,W,,,int:0,int:0
 
