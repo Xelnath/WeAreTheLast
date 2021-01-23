@@ -5,8 +5,7 @@ playAnimation,W,,,int:-1,string:walk
 stepForward,W,C,,float:2,float:0.1
 playAnimation,W,,,int:-1,string:attack
 playAudioOnce,,,,int:1,int:1
-displayFX,W,,,bool:false,float:2,string:attack,float:0,float:0
-displayFX,W,,,bool:false,float:2,string:heal,float:-0.7,float:1
+displayFX,W,,,bool:true,float:2,string:aoe,float:10,float:0
 damageTargets,W,,,int:20,int:4
 wait,W,C,,float:0.4
 playAnimation,W,,,int:-1,string:idle

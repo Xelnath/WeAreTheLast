@@ -61,21 +61,11 @@ MonoBehaviour:
       isRunning: 0
     - functionName: displayFX
       parametersArray:
-      - bool:false
+      - bool:true
       - float:2
-      - string:attack
+      - string:aoe
+      - float:10
       - float:0
-      - float:0
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: displayFX
-      parametersArray:
-      - bool:false
-      - float:2
-      - string:heal
-      - float:-0.7
-      - float:1
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
