@@ -49,10 +49,10 @@ MonoBehaviour:
       isRunning: 0
     - functionName: displayFX
       parametersArray:
-      - bool:false
+      - bool:true
       - float:2
-      - string:heal
-      - float:-0.8
+      - string:power
+      - float:0
       - float:0
       waitForPreviousFunction: 1
       isCoroutine: 0
