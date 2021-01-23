@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: 121_Meltdown
+  m_Name: 131_Overwhelm
   m_EditorClassIdentifier: 
   Skill:
-    name: Meltdown
-    id: 121
-    description: All enemies take massive damage if you aren't slain first
+    name: Overwhelm
+    id: 131
+    description: One enemy takes massive damage after a delay.
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1
@@ -26,10 +26,10 @@ MonoBehaviour:
     - functionName: checkAttributeByName
       parametersArray:
       - bool:true
-      - string:MELTDOWN
+      - string:OVERWHELM
       - float:3
       - bool:false
-      - string:end
+      - int:14
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 1
@@ -147,10 +147,20 @@ MonoBehaviour:
       isCoroutine: 0
       isRunning: 0
     endOfRound:
+    - functionName: checkAttributeByName
+      parametersArray:
+      - bool:true
+      - string:OVERWHELM
+      - float:1
+      - bool:false
+      - string:end
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 1
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:true
-      - string:MELTDOWN
+      - string:OVERWHELM
       - string:+1
       - float:10
       - bool:false
@@ -160,9 +170,14 @@ MonoBehaviour:
     - functionName: displayAttributeText
       parametersArray:
       - bool:true
-      - string:MELTDOWN
+      - string:OVERWHELM
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: :end
+      parametersArray: []
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     sacrificeActions: []
-  SkillText: {fileID: 4900000, guid: f89990b1c5ad99848892ba0cefbd6a45, type: 3}
+  SkillText: {fileID: 4900000, guid: a3b7afa9893243028606734bd014366d, type: 3}

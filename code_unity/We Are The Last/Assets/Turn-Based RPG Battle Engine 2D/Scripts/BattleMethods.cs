@@ -933,96 +933,6 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "setOldSpawn", false );
   }
   
-  /*
-	Checking active player attribute.
-	By default, if min value not met, stopping skill chain.
-	If self is true, the attribute of the currently active character will be checked. Otherwise the attributes of all selected characters will be checked.
-	Attribute id is the id of the attribute to check (of the latter character).
-	Min Value is the minimum value that the attribute can have. If the value of the attribute is below the minimum value, the skill chain will be stopped.
-	 */
-  void checkAttribute( BattleManager.BattleManagerContext context, bool self, int attrId, float minValue, int numToSkip )
-  {
-    forEachCharacterDo( context, self, ( instanceID, character ) =>
-    {
-
-      //Getting attribute
-      characterAttribute attribute = character.characterAttributes[FunctionDB.core.findAttributeIndexById( attrId, character )];
-
-      //Checking value
-      if ( attribute.curValue < minValue )
-      {
-        //Stopping skill chain and displaying warning
-        if ( numToSkip == -1 )
-        {
-          context.runningFunctionIndex = context.functionQueue.Count;
-        }
-        else
-        {
-          context.runningFunctionIndex += numToSkip;
-        }
-        BattleManager.core.startWarningRoutine( "Not enough " + attribute.name, 2f );
-      }
-
-    } );
-
-    BattleManager.setQueueStatus( context,  "checkAttribute", false );
-  }
-
-  /*
-	Checking active player attribute.
-	By default, if min value not met, stopping skill chain.
-	If self is true, the attribute of the currently active character will be checked. Otherwise the attributes of all selected characters will be checked.
-	Attribute id is the id of the attribute to check (of the latter character).
-	Min Value is the minimum value that the attribute can have. If the value of the attribute is below the minimum value, the skill chain will be stopped.
-	 */
-  void checkAttributeByName( BattleManager.BattleManagerContext context, bool self, string attrName, float minValue, bool warn, int numToSkip )
-  {
-
-    forEachCharacterDo( context, self, ( instanceID, character ) =>
-    {
-      bool pass = true;
-      var index = FunctionDB.core.findAttributeIndexByName( attrName, character );
-      
-      //Getting attribute
-      if ( index >= 0 )
-      {
-        characterAttribute attribute =
-          character.characterAttributes[index];
-
-        //Checking value
-        if ( attribute.curValue < minValue )
-        {
-          pass = false;
-        }
-      }
-      else
-      {
-        pass = false;
-      }
-
-      if ( !pass )
-      {
-        //Stopping skill chain and displaying warning
-        if ( numToSkip == -1 )
-        {
-          context.runningFunctionIndex = context.functionQueue.Count;
-        }
-        else
-        {
-          context.runningFunctionIndex += numToSkip;
-        }
-
-        if ( warn )
-        {
-          BattleManager.core.startWarningRoutine( "Not enough " + attrName, 2f );
-        }
-      }
-
-    } );
-
-    BattleManager.setQueueStatus( context,  "checkAttributeByName", false );
-  }
-  
   void addOrChangeAttribute( BattleManager.BattleManagerContext context, bool self, string attributeName, string value, float maxValue, bool showText )
   {
 
@@ -1647,6 +1557,99 @@ The condition name is the name of the Animator's parameter which will be set to 
       BattleManager.setQueueStatus( context, "cleanseEffects", false);
   }
 
+  /*
+	Checking active player attribute.
+	By default, if min value not met, stopping skill chain.
+	If self is true, the attribute of the currently active character will be checked. Otherwise the attributes of all selected characters will be checked.
+	Attribute id is the id of the attribute to check (of the latter character).
+	Min Value is the minimum value that the attribute can have. If the value of the attribute is below the minimum value, the skill chain will be stopped.
+	 */
+  void checkAttribute( BattleManager.BattleManagerContext context, bool self, int attrId, float minValue, string jumpTo )
+  {
+    forEachCharacterDo( context, self, ( instanceID, character ) =>
+    {
+
+      //Getting attribute
+      characterAttribute attribute = character.characterAttributes[FunctionDB.core.findAttributeIndexById( attrId, character )];
+
+      //Checking value
+      if ( attribute.curValue < minValue )
+      {
+        //Stopping skill chain and displaying warning
+        int jumpIndex = FunctionDB.core.findFunctionQueueJumpIndexByName( context, jumpTo );
+        if ( jumpIndex == -1 )
+        {
+          Debug.LogWarning( $"Unable to find jump index {jumpTo} in skill {context.activeSkillId}" );
+        }
+        else
+        {
+          context.runningFunctionIndex = jumpIndex;
+        }
+        BattleManager.core.startWarningRoutine( "Not enough " + attribute.name, 2f );
+      }
+
+    } );
+
+    BattleManager.setQueueStatus( context,  "checkAttribute", false );
+  }
+
+  /*
+	Checking active player attribute.
+	By default, if min value not met, stopping skill chain.
+	If self is true, the attribute of the currently active character will be checked. Otherwise the attributes of all selected characters will be checked.
+	Attribute id is the id of the attribute to check (of the latter character).
+	Min Value is the minimum value that the attribute can have. If the value of the attribute is below the minimum value, the skill chain will be stopped.
+	 */
+  void checkAttributeByName( BattleManager.BattleManagerContext context, bool self, string attrName, float minValue, bool warn, string jumpTo )
+  {
+
+    forEachCharacterDo( context, self, ( instanceID, character ) =>
+    {
+      bool pass = true;
+      var index = FunctionDB.core.findAttributeIndexByName( attrName, character );
+      
+      //Getting attribute
+      if ( index >= 0 )
+      {
+        characterAttribute attribute =
+          character.characterAttributes[index];
+
+        //Checking value
+        if ( attribute.curValue < minValue )
+        {
+          pass = false;
+        }
+      }
+      else
+      {
+        pass = false;
+      }
+
+      if ( !pass )
+      {
+        //Stopping skill chain and displaying warning
+        int jumpIndex = FunctionDB.core.findFunctionQueueJumpIndexByName( context, jumpTo );
+        if ( jumpIndex == -1 )
+        {
+          Debug.LogWarning( $"Unable to find jump index {jumpTo} in skill {context.activeSkillId}" );
+        }
+        else
+        {
+          context.runningFunctionIndex = jumpIndex;
+        }
+
+        if ( warn )
+        {
+          BattleManager.core.startWarningRoutine( "Not enough " + attrName, 2f );
+        }
+      }
+
+    } );
+
+    BattleManager.setQueueStatus( context,  "checkAttributeByName", false );
+  }
+  
+  
   void Awake() { if (core == null) core = this; }
 }
 

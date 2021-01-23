@@ -1,7 +1,7 @@
 FUNCTIONS
 
-checkAttributeByName,W,,R,bool:true,string:MELTDOWN,float:3,bool:false,string:end
-autoSelectTargets,W,,,int:10,bool:false,bool:true
+checkAttributeByName,W,,R,bool:true,string:OVERWHELM,float:3,bool:false,int:14
+autoSelectTargets,W,,,int:1,bool:false,bool:true
 playAnimation,W,,,int:-1,string:walk
 stepForward,W,C,,float:2,float:0.1
 playAnimation,W,,,int:-1,string:attack
@@ -21,8 +21,10 @@ subtractTurnPoints,W,,,int:0,int:0
 
 ENDOFROUND
 
-addOrChangeAttribute,W,,,bool:true,string:MELTDOWN,string:+1,float:10,bool:false
-displayAttributeText,W,,,bool:true,string:MELTDOWN
+checkAttributeByName,W,,R,bool:true,string:OVERWHELM,float:1,bool:false,string:end
+addOrChangeAttribute,W,,,bool:true,string:OVERWHELM,string:+1,float:10,bool:false
+displayAttributeText,W,,,bool:true,string:OVERWHELM
+:end,W,,,
 
 SACRIFICE
 
