@@ -66,8 +66,8 @@ MonoBehaviour:
       parametersArray:
       - bool:false
       - float:2
-      - string:heal
-      - float:-0.8
+      - string:defender
+      - float:-0.5
       - float:0
       waitForPreviousFunction: 1
       isCoroutine: 0
