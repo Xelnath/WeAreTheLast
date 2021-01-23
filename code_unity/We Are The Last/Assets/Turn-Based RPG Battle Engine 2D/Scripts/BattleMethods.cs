@@ -1516,73 +1516,38 @@ The condition name is the name of the Animator's parameter which will be set to 
 	The adjustments are used to modify the position of the spawned prefab by a certain value on spawn/follow.
 	 */
 
-  public void displayFX(BattleManager.BattleManagerContext context, bool self, float timeToExist, string fxParameterName, float xAdjustment, float yAdjustment)
+  public void displayFX(BattleManager.BattleManagerContext context, bool self, float timeToExist, string fxName, float xAdjustment, float yAdjustment)
   {
-
-    //Getting prefab
-    GameObject FXPrefab = ObjectDB.core.FXPrefab;
-
     //Getting FXObject
     GameObject FXObject = ObjectDB.core.FXObject;
+    GameObject FXPrefab = Database.staticDB.FindFXByName( fxName );
 
-    if (self)
+    if ( FXPrefab != null )
     {
-
-      //Active char id
-      var activeCharId = context.activeCharacterId;
-
-      //Getting character instace
-      GameObject charInstance = FunctionDB.core.findCharInstanceGameObjectById(activeCharId);
-
-      //Getting coordinates
-      Vector3 coordinates = charInstance.transform.position;
-
-      //Modifying coordinates
-      Vector3 newCoordinates = new Vector3(coordinates.x + xAdjustment, coordinates.y + yAdjustment, coordinates.z);
-
-      //Spawning FX
-      GameObject g = Instantiate(FXPrefab, newCoordinates, Quaternion.identity, FXObject.transform);
-
-      //Playing animation
-      g.GetComponent<Animator>().SetBool(fxParameterName, true);
-
-      //Making FX follow target
-      FunctionDB.core.StartCoroutine(FunctionDB.core.follow(g, charInstance, xAdjustment, yAdjustment));
-
-      //Destrying object after specified amount of time
-      FunctionDB.core.StartCoroutine(FunctionDB.core.destroyAfterTime(g, timeToExist));
-
-
-    }
-    else
-    {
-
-      //For each action target
-      foreach (InstanceID target in context.actionTargets)
-      {
-
+      forEachCharacterDo( context, self, ( instanceID, character ) => {
+        
         //Getting character instace
-        GameObject charInstance = FunctionDB.core.findCharInstanceGameObjectById(target);
+        GameObject charInstance = FunctionDB.core.findCharInstanceGameObjectById( instanceID );
 
         //Getting coordinates
         Vector3 coordinates = charInstance.transform.position;
 
         //Modifying coordinates
-        Vector3 newCoordinates = new Vector3(coordinates.x + xAdjustment, coordinates.y + yAdjustment, coordinates.z);
+        Vector3 newCoordinates = new Vector3( coordinates.x + xAdjustment, coordinates.y + yAdjustment, coordinates.z );
 
         //Spawning FX
-        GameObject g = Instantiate(FXPrefab, newCoordinates, Quaternion.identity, FXObject.transform);
+        GameObject g = Instantiate( FXPrefab, newCoordinates, Quaternion.identity, FXObject.transform );
 
         //Playing animation
-        g.GetComponent<Animator>().SetBool(fxParameterName, true);
+        //g.GetComponent<Animator>().SetBool(fxName, true);
 
         //Making FX follow target
-        FunctionDB.core.StartCoroutine(FunctionDB.core.follow(g, charInstance, xAdjustment, yAdjustment));
+        FunctionDB.core.StartCoroutine( FunctionDB.core.follow( g, charInstance, xAdjustment, yAdjustment ) );
 
         //Destrying object after specified amount of time
-        FunctionDB.core.StartCoroutine(FunctionDB.core.destroyAfterTime(g, timeToExist));
+        FunctionDB.core.StartCoroutine( FunctionDB.core.destroyAfterTime( g, timeToExist ) );
 
-      }
+      } );
     }
 
     BattleManager.setQueueStatus( context, "displayFX", false);

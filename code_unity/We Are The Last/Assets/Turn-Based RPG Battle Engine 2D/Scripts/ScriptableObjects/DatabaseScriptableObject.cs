@@ -1,5 +1,7 @@
 ﻿
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using ClassDB;
 using UnityEditor;
@@ -33,7 +35,19 @@ public class DatabaseScriptableObject : ScriptableObject
 
 		SkillAssets.Sort( ( a, b ) => { return a.Skill.id.CompareTo( b.Skill.id ); } );
 		CharacterAssets.Sort( ( a, b ) => { return a.Character.id.CompareTo( b.Character.id ); } );
-}
+		
+		var vfx = AssetDatabase.FindAssets("t:prefab", new string[] {"Assets/Prefabs/FX"});
+		FXPrefabs = new List<GameObject>( );
+		for ( int i = 0; i < vfx.Length; ++i )
+		{
+			var path = AssetDatabase.GUIDToAssetPath( vfx[i] );
+			var objs = AssetDatabase.LoadAllAssetsAtPath( path );
+			FXPrefabs.AddRange( objs.Select(x=>x as GameObject).Where(x=> x != null) );
+		}
+
+		EditorUtility.SetDirty( this );
+	}
+	
 
 	[Sirenix.OdinInspector.ShowInInspector]
 	public void ImportAllSkillFunctions()
@@ -69,6 +83,7 @@ public class DatabaseScriptableObject : ScriptableObject
 
 	public List<SkillAsset> SkillAssets = new List<SkillAsset>();
 	public List<CharacterAsset> CharacterAssets = new List<CharacterAsset>();
+	public List<GameObject> FXPrefabs = new List<GameObject>();
 
 	//A list of all in-game characters
 	public List<character> characters = new List<character>();
@@ -81,6 +96,17 @@ public class DatabaseScriptableObject : ScriptableObject
 
 	//Used by "EditorDatabase.cs" to determine which tab is currently selected
 	[HideInInspector] public int tab;
+
+	public GameObject FindFXByName( string name )
+	{
+		foreach ( var vfx in FXPrefabs )
+		{
+			if ( vfx.name.ToLower() == name.ToLower() ) return vfx;
+		}
+
+		Debug.LogError( $"Can't find vfx {name}. Check if you added it to the database prefab." );
+		return null;
+	}
 
 	public void Copy( DatabaseScriptableObject toCopy )
 	{
