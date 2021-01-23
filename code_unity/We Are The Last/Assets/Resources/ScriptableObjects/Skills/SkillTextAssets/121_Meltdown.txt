@@ -20,8 +20,8 @@ subtractTurnPoints,W,,,int:0,int:0
 
 ENDOFROUND
 
-addOrChangeAttribute,W,,,bool:true,string:MELTDOWN,string:+1,float:10,bool:true
-
+addOrChangeAttribute,W,,,bool:true,string:MELTDOWN,string:+1,float:10,bool:false
+displayAttributeText,W,,,bool:true,string:MELTDOWN
 
 SACRIFICE
 

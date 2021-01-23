@@ -148,7 +148,14 @@ MonoBehaviour:
       - string:MELTDOWN
       - string:+1
       - float:10
+      - bool:false
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayAttributeText
+      parametersArray:
       - bool:true
+      - string:MELTDOWN
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

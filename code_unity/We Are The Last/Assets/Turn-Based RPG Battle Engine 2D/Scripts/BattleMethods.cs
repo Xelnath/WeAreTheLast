@@ -1082,6 +1082,25 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "addOrChangeAttribute", false );
   }
 
+  void displayAttributeText( BattleManager.BattleManagerContext context, bool self, string attributeName )
+  {
+    forEachCharacterDo( context, self,
+      (instanceID, character) => {
+
+        var index = FunctionDB.core.findAttributeIndexByName( attributeName, character );
+        if ( index > -1 )
+        {
+          characterAttribute attribute = character.characterAttributes[index];
+          //Displaying change	
+          FunctionDB.core.StartCoroutine( FunctionDB.core.displayAttributeValue(	
+            FunctionDB.core.findCharInstanceGameObjectById( instanceID ), attribute.curValue, index,	
+            0, 1.3f ) );
+        }
+      } );
+
+    BattleManager.setQueueStatus( context,  "displayAttributeText", false );
+  }
+
   /*
 	This function allows to change any of the active player or target attributes.
 	Attribute id is the id of the attribute to change.
