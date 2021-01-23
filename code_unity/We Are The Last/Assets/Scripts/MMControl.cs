@@ -44,6 +44,7 @@ public class MMControl : MonoBehaviour
     {
         PlayerPrefs.SetInt( "FAILURES", 0 );
         PlayerPrefs.Save();
+        Start();
     }
     public void BackToMenu()
     {

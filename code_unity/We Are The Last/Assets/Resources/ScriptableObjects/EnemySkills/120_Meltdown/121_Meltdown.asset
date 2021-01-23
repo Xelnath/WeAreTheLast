@@ -29,6 +29,7 @@ MonoBehaviour:
       - string:MELTDOWN
       - float:4
       - bool:false
+      - int:14
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 1
@@ -82,7 +83,7 @@ MonoBehaviour:
       parametersArray:
       - bool:false
       - float:2
-      - string:heal
+      - string:attack
       - float:-0.7
       - float:1
       waitForPreviousFunction: 1
@@ -97,20 +98,13 @@ MonoBehaviour:
       isRunning: 0
     - functionName: wait
       parametersArray:
-      - float:0.4
+      - float:0.6
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
     - functionName: kill
       parametersArray:
-      - bool:self
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: playAnimation
-      parametersArray:
-      - int:-1
-      - string:idle
+      - bool:true
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -131,33 +125,6 @@ MonoBehaviour:
       parametersArray:
       - int:-1
       - float:180
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: playAnimation
-      parametersArray:
-      - int:-1
-      - string:walk
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: moveBack
-      parametersArray:
-      - float:0.2
-      waitForPreviousFunction: 1
-      isCoroutine: 1
-      isRunning: 0
-    - functionName: rotateCharacter
-      parametersArray:
-      - int:-1
-      - float:180
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: playAnimation
-      parametersArray:
-      - int:-1
-      - string:idle
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

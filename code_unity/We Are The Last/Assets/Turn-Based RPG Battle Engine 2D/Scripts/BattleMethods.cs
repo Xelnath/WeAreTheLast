@@ -940,7 +940,7 @@ public class BattleMethods : MonoBehaviour
 	Attribute id is the id of the attribute to check (of the latter character).
 	Min Value is the minimum value that the attribute can have. If the value of the attribute is below the minimum value, the skill chain will be stopped.
 	 */
-  void checkAttribute( BattleManager.BattleManagerContext context, bool self, int attrId, float minValue )
+  void checkAttribute( BattleManager.BattleManagerContext context, bool self, int attrId, float minValue, int numToSkip )
   {
     forEachCharacterDo( context, self, ( instanceID, character ) =>
     {
@@ -952,7 +952,14 @@ public class BattleMethods : MonoBehaviour
       if ( attribute.curValue < minValue )
       {
         //Stopping skill chain and displaying warning
-        context.functionQueue.Clear();
+        if ( numToSkip == -1 )
+        {
+          context.runningFunctionIndex = context.functionQueue.Count;
+        }
+        else
+        {
+          context.runningFunctionIndex += numToSkip;
+        }
         BattleManager.core.startWarningRoutine( "Not enough " + attribute.name, 2f );
       }
 
@@ -968,7 +975,7 @@ public class BattleMethods : MonoBehaviour
 	Attribute id is the id of the attribute to check (of the latter character).
 	Min Value is the minimum value that the attribute can have. If the value of the attribute is below the minimum value, the skill chain will be stopped.
 	 */
-  void checkAttributeByName( BattleManager.BattleManagerContext context, bool self, string attrName, float minValue, bool warn )
+  void checkAttributeByName( BattleManager.BattleManagerContext context, bool self, string attrName, float minValue, bool warn, int numToSkip )
   {
 
     forEachCharacterDo( context, self, ( instanceID, character ) =>
@@ -996,7 +1003,15 @@ public class BattleMethods : MonoBehaviour
       if ( !pass )
       {
         //Stopping skill chain and displaying warning
-        context.functionQueue.Clear();
+        if ( numToSkip == -1 )
+        {
+          context.runningFunctionIndex = context.functionQueue.Count;
+        }
+        else
+        {
+          context.runningFunctionIndex += numToSkip;
+        }
+
         if ( warn )
         {
           BattleManager.core.startWarningRoutine( "Not enough " + attrName, 2f );

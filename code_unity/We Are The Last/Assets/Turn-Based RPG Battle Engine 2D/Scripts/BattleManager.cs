@@ -82,7 +82,7 @@ public class BattleManager : MonoBehaviour
       actionTargets = new List<InstanceID>(original.actionTargets);
       attackerTeam = new List<InstanceID>(original.attackerTeam);
       defenderTeam = new List<InstanceID>(original.defenderTeam);
-      functionQueue = new List<callInfo>(original.functionQueue);
+      functionQueue = new List<callInfo>(original.functionQueue.ToArray());
       targetLimit = original.targetLimit;
       activeSkillId = original.activeSkillId;
     }
@@ -371,22 +371,22 @@ public class BattleManager : MonoBehaviour
     var lastFunctionQueue = new List<callInfo>( context.functionQueue );
     var originalContext = new BattleManagerContext( context );;
 
-    for (int i = 0; i < lastFunctionQueue.Count; ++i )
+    for (originalContext.runningFunctionIndex = 0; originalContext.runningFunctionIndex < lastFunctionQueue.Count; ++originalContext.runningFunctionIndex )
     {
-      var ftc = lastFunctionQueue [i];
+      var ftc = lastFunctionQueue [originalContext.runningFunctionIndex];
       if ( ftc.isComment ) continue;
 
+      Debug.Log( $"{originalContext.runningFunctionIndex} - {ftc}" );
       // if ( !context.functionQueue.Contains( ftc ) )
       // {
       //   break;
       // }
 
-      originalContext.runningFunctionIndex = i;
-
       //Active char id
       yield return core.call ( originalContext, ftc );
     }
 
+    Debug.Log( $"Escaped {context.ContextID}" );
     yield return new WaitForEndOfFrame();
   }
 
@@ -398,20 +398,21 @@ public class BattleManager : MonoBehaviour
       //We need to create a copy of the current list to avoid errors in the senarios were the list is modified during runtime
       var lastFunctionQueue = new List<callInfo>( context.functionQueue );
 
-      for ( int i = 0; i < lastFunctionQueue.Count; i++ ) {
-        callInfo ftc = lastFunctionQueue[i];
+      for ( context.runningFunctionIndex = 0; context.runningFunctionIndex < lastFunctionQueue.Count; context.runningFunctionIndex++ ) {
+        callInfo ftc = lastFunctionQueue[context.runningFunctionIndex];
+        
+        Debug.Log( $"Reaction: {context.runningFunctionIndex} - {ftc}" );
         if ( ftc.isComment ) continue;
         if ( !context.functionQueue.Contains( ftc ) )
         {
           break;
         }
 
-        context.runningFunctionIndex = i;
-
         //Active char id
         yield return core.call ( context, ftc );
       }
-
+      
+      Debug.Log( $"Reaction Escaped {context.ContextID}" );
       yield return new WaitForEndOfFrame();
     }
 
@@ -434,7 +435,7 @@ public class BattleManager : MonoBehaviour
     }
 
     //Is our function supposed to wait for previous functions to complete?
-    while ( context.functionQueue.Contains( ftc ) && ftc.waitForPreviousFunction )
+    while ( context.runningFunctionIndex <= queueIndex && ftc.waitForPreviousFunction )
     {
 
       //Set is running to false
