@@ -152,6 +152,12 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    - functionName: Bark
+      parametersArray:
+      - string:GravitationalFlux
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: toggleActions
       parametersArray:
       - bool:true
@@ -197,5 +203,11 @@ MonoBehaviour:
       - float:0.4
       waitForPreviousFunction: 1
       isCoroutine: 1
+      isRunning: 0
+    - functionName: Bark
+      parametersArray:
+      - string:Sacrifice_GravitationalFlux
+      waitForPreviousFunction: 1
+      isCoroutine: 0
       isRunning: 0
   SkillText: {fileID: 4900000, guid: dd88a2d684a8f2a48952b771cf3ed9ef, type: 3}

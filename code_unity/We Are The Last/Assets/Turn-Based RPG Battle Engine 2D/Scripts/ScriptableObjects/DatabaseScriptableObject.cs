@@ -42,7 +42,7 @@ public class DatabaseScriptableObject : ScriptableObject
 		{
 			var path = AssetDatabase.GUIDToAssetPath( vfx[i] );
 			var objs = AssetDatabase.LoadAllAssetsAtPath( path );
-			FXPrefabs.AddRange( objs.Select(x=>x as GameObject).Where(x=> x != null) );
+			FXPrefabs.AddRange( objs.OfType<GameObject>().Where(x=> x.transform.parent == null) );
 		}
 
 		EditorUtility.SetDirty( this );
