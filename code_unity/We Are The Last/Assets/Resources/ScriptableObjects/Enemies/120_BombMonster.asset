@@ -17,8 +17,6 @@ MonoBehaviour:
     id: 120
     description: Unstable, explosive monster
     icon: {fileID: -2753483536666533341, guid: eab4af3f873585e4583339e5dc5ce8ff, type: 3}
-    animationController: {fileID: 9100000, guid: d03168ddf7417cd428b34d36f4fd3894,
-      type: 2}
     prefab: {fileID: 1634988220540438, guid: 56bcd61c175510b4ba85cc76555f9b08, type: 3}
     skills: 79000000
     items: []
@@ -30,7 +28,7 @@ MonoBehaviour:
     - name: MELTDOWN
       id: 1
       maxValue: 10
-      curValue: 1
+      curValue: 0
     aiFunctions:
     - functionName: sampleAi
       parametersArray: []

@@ -1,6 +1,6 @@
 FUNCTIONS
 
-checkAttributeByName,W,,R,bool:true,string:MELTDOWN,float:4,bool:false,int:14
+checkAttributeByName,W,,R,bool:true,string:MELTDOWN,float:3,bool:false,int:14
 autoSelectTargets,W,,,int:10,bool:false,bool:true
 playAnimation,W,,,int:-1,string:walk
 stepForward,W,C,,float:2,float:0.1
