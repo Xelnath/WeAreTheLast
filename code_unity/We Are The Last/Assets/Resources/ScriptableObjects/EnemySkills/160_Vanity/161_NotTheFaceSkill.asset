@@ -16,7 +16,7 @@ MonoBehaviour:
     name: Defensive
     id: 161
     description: Target takes less damage this around.
-    DEBUG: 1
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 0
