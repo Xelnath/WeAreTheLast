@@ -11,8 +11,6 @@ displayFX,W,,,bool:false,float:2,string:attack,float:-0.7,float:1
 damageTargets,W,,,int:40,int:4
 wait,W,C,,float:0.6
 kill,W,,,bool:true
-provokeReaction,W,C,,int:0,int:0
-waitForReaction,W,C,,int:0
 playAnimation,W,,,int:-1,string:death
 :end,W,,,
 toggleActions,W,,,bool:true

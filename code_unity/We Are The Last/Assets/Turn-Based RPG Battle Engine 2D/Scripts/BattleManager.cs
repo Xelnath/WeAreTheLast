@@ -400,7 +400,7 @@ public class BattleManager : MonoBehaviour
       for ( context.runningFunctionIndex = 0; context.runningFunctionIndex < lastFunctionQueue.Count; context.runningFunctionIndex++ ) {
         callInfo ftc = lastFunctionQueue[context.runningFunctionIndex];
         
-        Debug.Log( $"Reaction: {context.runningFunctionIndex} - {ftc}" );
+        if (context.DEBUG) Debug.Log( $"Reaction: {context.runningFunctionIndex} - {ftc}" );
         if ( ftc.isComment ) continue;
         if ( !context.functionQueue.Contains( ftc ) )
         {
@@ -411,7 +411,7 @@ public class BattleManager : MonoBehaviour
         yield return core.call ( context, ftc );
       }
       
-      Debug.Log( $"Reaction Escaped {context.ContextID}" );
+      if (context.DEBUG) Debug.Log( $"Reaction Escaped {context.ContextID}" );
       yield return new WaitForEndOfFrame();
     }
 
