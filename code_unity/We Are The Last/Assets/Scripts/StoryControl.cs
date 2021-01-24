@@ -97,9 +97,12 @@ public class StoryControl : MonoBehaviour
             // {
             //     Debug.Log("stat" + s);
             // }
+            if (temp.Length > 1)
+            { 
             temp[1] = temp[1].Replace("\r\n", "");
             temp[1] = temp[1].Trim();
             Debug.Log(temp[1]);
+            }
             if ( stats.Length > 2 && !string.IsNullOrEmpty(temp[1]))
             {
                 yield return new WaitForSeconds( float.Parse( stats[1] ) );
