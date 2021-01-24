@@ -33,6 +33,12 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:1.4
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
     - functionName: healTargets
       parametersArray:
       - bool:false
@@ -62,6 +68,12 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:1.4
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
     sacrificeActions:
     - functionName: changeAttribute
       parametersArray:
@@ -90,7 +102,7 @@ MonoBehaviour:
       isRunning: 0
     - functionName: wait
       parametersArray:
-      - float:0.4
+      - float:1.4
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
