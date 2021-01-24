@@ -16,7 +16,7 @@ MonoBehaviour:
     name: Meltdown
     id: 121
     description: All enemies take massive damage if you aren't slain first
-    DEBUG: 1
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1
@@ -33,7 +33,7 @@ MonoBehaviour:
       - string:boom
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 1
+      isRunning: 0
     - functionName: testAttributeJump
       parametersArray:
       - bool:true
@@ -43,7 +43,7 @@ MonoBehaviour:
       - string:end
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 1
+      isRunning: 0
     - functionName: testAttributeJump
       parametersArray:
       - bool:true
@@ -53,7 +53,7 @@ MonoBehaviour:
       - string:end
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 1
+      isRunning: 0
     - functionName: testAttributeJump
       parametersArray:
       - bool:true
@@ -63,7 +63,7 @@ MonoBehaviour:
       - string:end
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 1
+      isRunning: 0
     - functionName: :boom
       parametersArray: []
       waitForPreviousFunction: 1
@@ -189,7 +189,7 @@ MonoBehaviour:
       - string:3
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 1
+      isRunning: 0
     - functionName: testAttributeJump
       parametersArray:
       - bool:true
@@ -199,7 +199,7 @@ MonoBehaviour:
       - string:2
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 1
+      isRunning: 0
     - functionName: testAttributeJump
       parametersArray:
       - bool:true
@@ -209,7 +209,7 @@ MonoBehaviour:
       - string:1
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 1
+      isRunning: 0
     - functionName: :3
       parametersArray: []
       waitForPreviousFunction: 1
