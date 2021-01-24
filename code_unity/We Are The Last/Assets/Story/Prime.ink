@@ -269,6 +269,10 @@ VAR Meltdown = "120"
 ->DONE
 
 
+== Wave_Test
+{CurrChar},1,1;They persist... 
+->DONE
+
 ==	FinalScreenTiff
 {	Deaths:
 	-1:Oh no. One more reality is consumed. Don't worry there are infinite universes. All it takes is to succeed in one.

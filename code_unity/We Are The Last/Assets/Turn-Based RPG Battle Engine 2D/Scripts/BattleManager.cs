@@ -360,7 +360,7 @@ public class BattleManager : MonoBehaviour
   public void SpawnEnemyTeamWave()
   {
     activeEnemyTeam.Clear();
-    var nextWave = Database.dynamic.waves[WaveIndex];
+    Wave nextWave = Database.dynamic.waves[WaveIndex];
     for ( int i = 0; i  < nextWave.Creatures.Count; ++i )
     {
       int charID = nextWave.Creatures[i];
@@ -369,6 +369,28 @@ public class BattleManager : MonoBehaviour
     }
 
     charGenNextWave();
+
+    StartCoroutine( newRound( nextWave ) );
+  }
+
+  public IEnumerator newRound( Wave nextWave  )
+  {
+    
+    for ( int i = 0; i < activeEnemyTeam.Count && i < nextWave.onSpawn.Count; ++i )
+    {
+      var instanceId = activeEnemyTeam[i];
+      var onSpawnList = new List<callInfo>( nextWave.onSpawn[i].actions );
+
+      if ( onSpawnList.Count > 0 )
+      {
+				    BattleManager.BattleManagerContext c = new BattleManager.BattleManagerContext();
+				    c.Init( instanceId, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
+				    c.functionQueue = onSpawnList;
+				    c.activeSkillId = -1;
+				    c.actionTargets.Clear();
+				    yield return BattleManager.core.functionQueueCaller( c );
+      }
+    }
   }
 
   //Character battler generation
