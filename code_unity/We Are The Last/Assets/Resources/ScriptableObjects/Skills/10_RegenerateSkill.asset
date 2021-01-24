@@ -70,7 +70,7 @@ MonoBehaviour:
       isRunning: 0
     - functionName: wait
       parametersArray:
-      - float:1.4
+      - float:1
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0

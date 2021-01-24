@@ -27,6 +27,26 @@ MonoBehaviour:
     - functionName: testAttributeJump
       parametersArray:
       - bool:true
+      - string:STUN
+      - float:1
+      - bool:false
+      - string:reset
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: testAttributeJump
+      parametersArray:
+      - bool:true
+      - string:PARALYSIS
+      - float:1
+      - bool:false
+      - string:reset
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: testAttributeJump
+      parametersArray:
+      - bool:true
       - string:OVERWHELM
       - float:2
       - bool:false
@@ -89,6 +109,28 @@ MonoBehaviour:
       - float:1
       - bool:true
       - string:EBB134
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: jump
+      parametersArray:
+      - string:end
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: :reset
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFloatText
+      parametersArray:
+      - bool:true
+      - string:Reset!
+      - float:0
+      - float:1
+      - bool:true
+      - string:45ad11
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -249,6 +291,26 @@ MonoBehaviour:
       isCoroutine: 0
       isRunning: 0
     endOfRound:
+    - functionName: testAttributeJump
+      parametersArray:
+      - bool:true
+      - string:STUN
+      - float:1
+      - bool:false
+      - string:reset
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: testAttributeJump
+      parametersArray:
+      - bool:true
+      - string:PARALYSIS
+      - float:1
+      - bool:false
+      - string:reset
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:true
@@ -272,6 +334,22 @@ MonoBehaviour:
     - functionName: jump
       parametersArray:
       - string:end
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: :resetText
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFloatText
+      parametersArray:
+      - bool:true
+      - string:Reset!
+      - float:0
+      - float:1
+      - bool:true
+      - string:45ad11
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

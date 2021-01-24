@@ -106,7 +106,8 @@ MonoBehaviour:
     - functionName: damageTargets
       parametersArray:
       - int:20
-      - int:0
+      - int:1
+      - bool:true
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

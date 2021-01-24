@@ -5,6 +5,7 @@ waitForSelection,W,C,,bool:true
 toggleActions,W,,,bool:false
 addOrChangeAttribute,W,,,bool:false,string:DEFEND,string:=80,float:100,bool:false
 addOrChangeAttribute,W,,,bool:false,string:DEFENDROUNDS,string:=1,float:100,bool:false
+setAttributeToActiveCharacter,W,,,bool:false,string:DEFENDSOURCE
 displayFX,W,,,bool:false,float:2,string:defender,float:-0.5,float:0
 Bark,W,,,string:Defend
 toggleActions,W,,,bool:true
@@ -15,6 +16,7 @@ ENDOFROUND
 
 selectTeam,W,,,bool:true,bool:true
 filterTargets,W,,,string:DEFENDROUNDS,string:>0
+filterTargetsIfAttributeIsNotCurrentActorId,W,,,string:DEFENDSOURCE
 addOrChangeAttribute,,,,bool:false,string:DEFENDROUNDS,string:-1,float:100,bool:false
 clearTargets,,,,
 

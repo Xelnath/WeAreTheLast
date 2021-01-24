@@ -1321,61 +1321,64 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "damageTargets", false );
   }
 
-  void damageTargets( BattleManager.BattleManagerContext context, int damageAmount, int school )
+  void damageTargets( BattleManager.BattleManagerContext context, int damageAmount, int school, bool ignoreDefense = false )
   {
     var sourceInstanceID = context.activeCharacterId;
     
     forEachCharacterDo( context, false, ( instanceID, character ) =>
     {
-      FinalizeDealDamage( sourceInstanceID, instanceID, damageAmount, school );
+      FinalizeDealDamage( sourceInstanceID, instanceID, damageAmount, school, ignoreDefense );
     } );
 
     BattleManager.setQueueStatus( context,  "damageTargets", false );
   }
 
-  void damageTargetsTimesPower( BattleManager.BattleManagerContext context, int damageAmount, int school, string multiAttribute )
+  void damageTargetsTimesPower( BattleManager.BattleManagerContext context, int damageAmount, int school, string multiAttribute, bool ignoreDefense = false )
   {
     var sourceInstanceID = context.activeCharacterId;
     var statValue = FunctionDB.core.findAttributeByName( sourceInstanceID, multiAttribute )?.curValue ?? 1f;
     forEachCharacterDo( context, false, ( instanceID, character ) =>
     {
-      FinalizeDealDamage( sourceInstanceID, instanceID, damageAmount*statValue, school );
+      FinalizeDealDamage( sourceInstanceID, instanceID, damageAmount*statValue, school, ignoreDefense );
     } );
 
     BattleManager.setQueueStatus( context,  "damageTargetsTimesPower", false );
   }
-  void damageTargetsTimesTargetPower( BattleManager.BattleManagerContext context, int damageAmount, int school, string multiAttribute )
+  void damageTargetsTimesTargetPower( BattleManager.BattleManagerContext context, int damageAmount, int school, string multiAttribute, bool ignoreDefense = false )
   {
     var sourceInstanceID = context.activeCharacterId;
     forEachCharacterDo( context, false, ( instanceID, character ) =>
     {
       var statValue = FunctionDB.core.findAttributeByName( instanceID, multiAttribute )?.curValue ?? 1f;
-      FinalizeDealDamage( sourceInstanceID, instanceID, damageAmount*statValue, school );
+      FinalizeDealDamage( sourceInstanceID, instanceID, damageAmount*statValue, school, ignoreDefense );
     } );
 
     BattleManager.setQueueStatus( context,  "damageTargetsTimesPower", false );
   }
 
-  private void FinalizeDealDamage(InstanceID sourceID, InstanceID victimID, float damageAmount, int school)
+  private void FinalizeDealDamage(InstanceID sourceID, InstanceID victimID, float damageAmount, int school, bool ignoreDefense)
   {
       var victim = BattleManager.core.findCharacterInstanceById( victimID );
       var source = BattleManager.core.findCharacterInstanceById( sourceID );
       var wardrumValue = FunctionDB.core.findAttributeByName( sourceID, "WARDRUM" )?.curValue ?? 0f;
       var doomValue = FunctionDB.core.findAttributeByName( sourceID, "DOOM" )?.curValue ?? 0f;
 
-      
       int defense = 0;
 
       var victimCharacter = victim.characterCopy;
-      var defCountIndex = FunctionDB.core.findAttributeIndexByName( "DEFENDROUNDS", victimCharacter );
-      if ( defCountIndex > -1 )
+      if ( !ignoreDefense )
       {
-        characterAttribute defendRounds = victimCharacter.characterAttributes[defCountIndex];
-        if ( defendRounds.curValue > 0 )
+        var defCountIndex = FunctionDB.core.findAttributeIndexByName( "DEFENDROUNDS", victimCharacter );
+        if ( defCountIndex > -1 )
         {
-          characterAttribute defendAmount =
-            victimCharacter.characterAttributes[FunctionDB.core.findAttributeIndexByName( "DEFEND", victimCharacter )];
-          defense = Mathf.FloorToInt( defendAmount.curValue );
+          characterAttribute defendRounds = victimCharacter.characterAttributes[defCountIndex];
+          if ( defendRounds.curValue > 0 )
+          {
+            characterAttribute defendAmount =
+              victimCharacter.characterAttributes[
+                FunctionDB.core.findAttributeIndexByName( "DEFEND", victimCharacter )];
+            defense = Mathf.FloorToInt( defendAmount.curValue );
+          }
         }
       }
 
@@ -1646,7 +1649,7 @@ The condition name is the name of the Animator's parameter which will be set to 
     bool friendlyEffects, int superPerEffect )
   {
     List<string> friendly = new List<string> (){ "DEFENDROUNDS", "WARDRUM", "TAUNT" };
-    List<string> hostile = new List<string> (){ "POISON", "STUN", "PARALYZE" };
+    List<string> hostile = new List<string> (){ "POISON", "STUN", "PARALYZE", "DOOM", "DOOMSOURCE" };
 
     int purged = 0;
     

@@ -15,7 +15,7 @@ ENDOFROUND
 
 selectTeam,W,,,bool:true,bool:true
 filterTargets,W,,,string:POISON,string:>0
-damageTargets,W,,,int:20,int:0
+damageTargets,W,,,int:20,int:1,bool:true
 addOrChangeAttribute,W,,,bool:false,string:POISON,string:-1,float:100,bool:false
 clearTargets,W,,,
 

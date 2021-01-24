@@ -2,6 +2,8 @@
 
 FUNCTIONS
 
+testAttributeJump,W,,,bool:true,string:STUN,float:1,bool:false,string:reset
+testAttributeJump,W,,,bool:true,string:PARALYSIS,float:1,bool:false,string:reset
 testAttributeJump,W,,,bool:true,string:OVERWHELM,float:2,bool:false,string:fire
 testAttributeJump,W,,,bool:true,string:OVERWHELM,float:1,bool:false,string:aim
 testAttributeJump,W,,,bool:true,string:OVERWHELM,float:0,bool:false,string:ready
@@ -10,6 +12,9 @@ displayFloatText,W,,,bool:true,string:Ready...,float:0,float:1,bool:true,string:
 jump,W,,,string:end
 :aim,W,,,
 displayFloatText,W,,,bool:true,string:Aim...,float:0,float:1,bool:true,string:EBB134
+jump,W,,,string:end
+:reset,W,,,
+displayFloatText,W,,,bool:true,string:Reset!,float:0,float:1,bool:true,string:45ad11
 jump,W,,,string:end
 :fire,W,,,
 displayFloatText,W,,,bool:true,string:Fire!,float:0,float:1,bool:true,string:45ad11
@@ -36,9 +41,13 @@ subtractTurnPoints,W,,,int:0,int:0
 
 ENDOFROUND
 
+testAttributeJump,W,,,bool:true,string:STUN,float:1,bool:false,string:reset
+testAttributeJump,W,,,bool:true,string:PARALYSIS,float:1,bool:false,string:reset
 addOrChangeAttribute,W,,,bool:true,string:OVERWHELM,string:+1,float:10,bool:false
 testAttributeJump,W,,,bool:true,string:OVERWHELM,float:4,bool:false,string:reset
 jump,W,,,string:end
+:resetText,W,,,
+displayFloatText,W,,,bool:true,string:Reset!,float:0,float:1,bool:true,string:45ad11
 :reset,W,,,
 addOrChangeAttribute,W,,,bool:true,string:OVERWHELM,string:=0,float:10,bool:false
 :end,W,,,

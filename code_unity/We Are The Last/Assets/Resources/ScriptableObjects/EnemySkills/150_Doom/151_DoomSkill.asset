@@ -16,7 +16,7 @@ MonoBehaviour:
     name: Doom
     id: 151
     description: Target dies in 3 rounds
-    DEBUG: 1
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1
