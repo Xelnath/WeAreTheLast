@@ -8600,7 +8600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009589784f39b764a95758457bab4f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkAsset: {fileID: 4900000, guid: c5799bcd01324b84eb98dd14c9d77d2f, type: 3}
+  inkAsset: {fileID: 4900000, guid: cf7779800f760cf4499d19a595952a8b, type: 3}
   bubblePrefab: {fileID: 7388078602535090907, guid: 1fe5830d9f9728242b522febdf266932,
     type: 3}
   buttons: []
