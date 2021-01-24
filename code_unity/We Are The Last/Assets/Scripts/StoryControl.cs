@@ -93,16 +93,14 @@ public class StoryControl : MonoBehaviour
         if ( temp.Length > 0 )
         {
             string[] stats = temp[0].Split( ',' );
-            // foreach (string t in temp)
-            // {
-            //     Debug.Log("temp" + t);
-            // }
             // foreach (string s in stats)
             // {
             //     Debug.Log("stat" + s);
             // }
-
-            if ( stats.Length > 2 )
+            temp[1] = temp[1].Replace("\r\n", "");
+            temp[1] = temp[1].Trim();
+            Debug.Log(temp[1]);
+            if ( stats.Length > 2 && !string.IsNullOrEmpty(temp[1]))
             {
                 yield return new WaitForSeconds( float.Parse( stats[1] ) );
                 Bubble b = Instantiate( bubblePrefab );

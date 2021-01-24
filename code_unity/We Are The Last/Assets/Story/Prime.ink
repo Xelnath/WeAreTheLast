@@ -11,9 +11,55 @@ VAR Meltdown = "120"
 
 ->Start
 ==	Start
+{	Deaths:
+-0:->First
+-1:->DONE
+-2:->DONE
+-3:->CluelessFirst
+-4:->Clueless
+-5:->Clueless
+-6:->DespairFirst
+-7:->Clueless
+-8:->Clueless
+-9:->Despair
+-10:->Despair
+-11:->Despair
+-else:->Despair
+}
+
+=	First
 {Th},1,1;Let them take the first shot.
 {Mo},1,1;Can't spend energy on this trash.
 {Ro},1,1;I can't hold back. I'm all 11.
+->DONE
+
+=	CluelessFirst
+{Mo},1,1;Do we need to do this?
+{Th},1,1;We have commitments.
+{Ro},1,1;There is no stopping me.
+->DONE
+
+=	Clueless
+{stopping:
+	-{Mo},1,1;I need a spa.
+	-{Ro},1,1;Let's rev it up a notch!
+	-{Th},1,1;It was a lie. Must have been.
+	-{Th},1,1;Reverse psychology or some shit. Gotta be.
+}
+->DONE
+
+=	DespairFirst
+{Ro},1,1;The hell she said?
+{Mo},1,1;I don't know how to take it.
+{Th},1,1;It must have been some clue. We should listen.
+->DONE
+
+=	Despair
+{stopping:
+	-{Th},1,1;The bitch didn't lie.
+	-{Ro},1,1;If this is a fucking private concert, I swear.
+	-{Th},1,1;This has to stop. We can't go on like this.
+}
 ->DONE
 
 == Death_Therapist
@@ -44,37 +90,37 @@ VAR Meltdown = "120"
 //SkillBarks
 //Therapist
 ==	CounterAll
-{Th},1,1;{~Just you try.|We are stronger than this.|I have just a response for everything they've got.|Double dare you.}
+{Th},1,1;{~Just you try.|We are stronger than this.|I have just a response for everything they've got.|Double dare you.||}
 ->DONE
 
 ==	Counter
-{Th},1,1;{~Pathetic.|No, YOU get hurt.}
+{Th},1,1;{~This is your best effort?|How does your own medicine taste?||}
 ->DONE
 
 == Defend
-{Th},1,1;DEFEND BARK
+{Th},1,1;{~You got this.|We talked about it, I got you.||}
 ->DONE
 
 == Cleanse
-{Th},1,1;Cleanse BARK
+{Th},1,1;{~Do your affirmations, you'll be fine.|Think again.||}
 ->DONE
 
 //Model
 
 == Redirect
-{Mo},1,1;REDIRECT BARK
+{Mo},1,1;{~You ain't hitting that.|Think again.||}
 ->DONE
 
 == PoisonMind
-{Mo},1,1;PoisonMind BARK
+{Mo},1,1;{~Are you sure this works for you?|This is bullshit. Why are you among them?||}
 ->DONE
 
 == MindControl
-{Mo},1,1;MindControl BARK
+{Mo},1,1;{~Just follow this face.|You can't turn away anyway, can you?||}
 ->DONE
 
 == GravitySqueeze
-{Mo},1,1;GravitySqueeze BARK
+{Mo},1,1;{~This look makes everybody weak in the knees.|Did you feel the gravity of going against me?||}
 ->DONE
 
 == StunRage
@@ -84,19 +130,19 @@ VAR Meltdown = "120"
 //Rockstar
 
 == Lightshow
-{Ro},1,1;Lightshow BARK
+{Ro},1,1;{~Too much for ya huh?|Yes, it is me. Too overwhelming?||}
 ->DONE
 
 == Dazzle
-{Ro},1,1;Dazzle BARK
+{Ro},1,1;{~Look at me, lose sight.|Many people ahve went blind from my pyro.||}
 ->DONE
 
 == Regenerate
-{Ro},1,1;Regenerate BARK
+{Ro},1,1;{~Nobody is quitting till the song is over.|Power through, the afterparty is always worth it.||}
 ->DONE
 
 == Wardrum
-{Ro},1,1;Wardrum BARK
+{Ro},1,1;{~I call this one "War Drums".|YES YOU FUCKERS LET'S GOOOO||}
 ->DONE
 
 //Unsorted
@@ -223,19 +269,20 @@ VAR Meltdown = "120"
 
 ->DONE
 
-== Wave_Test
-{CurrChar},1,1;They persist...
-{Ro},1,1:How many more of these fuckers are there?
-->DONE
 
 ==	FinalScreenTiff
-{	
-	-Deaths == 1:Oh no. One more reality is consumed. Don't worry there are infinite universes. All it takes is to succeed in one.
-	-Deaths == 2:Keep going. I don't need to remind you of my love. You're special and you can do this.
-	-Deaths == 3:Rise up, stand up, head over heart, heart over stomach. Now get in there and smash them.
-	-Deaths == 4:Just don't waver. Their plan is flawed. Just one victory is all we need and you have infinite tries.
-	-Deaths == 5:This is getting boring. Can you, like, fight better? Sure it's dire but it doesn't bear repeating.
-	-Deaths == 6:I'm officially bored. This is a neverending nightmare. How does that make you feel?
+{	Deaths:
+	-1:Oh no. One more reality is consumed. Don't worry there are infinite universes. All it takes is to succeed in one.
+	-2:Keep going. I don't need to remind you of my love. You're special and you can do this.
+	-3:Rise up, stand up, head over heart, heart over stomach. Now get in there and smash them.
+	-4:Just don't waver. Their plan is flawed. Just one victory is all we need and you have infinite tries.
+	-5:This is getting boring. Can you, like, fight better? Sure it's dire but it doesn't bear repeating.
+	-6:I'm officially bored. This is a neverending nightmare. How does that make you feel?
+	-7:Oh my god, omigod, you guys. You died again like maggots in a vacuum pump.
+	-8:What's up, last three people still with their brains in a solid state?
+	-9:Let's try again. I'm a nice and kind boring bitch again. You'll do fine.
+	-10:Is this really how you tried to kill me the first time? Phenomenal arrogance.
+	-11:If you don't entertain me, I think I'll just reset your memories.
 	-else:I'm Tiff and whatever happened is deveveloper's fault. Ergo, it's a bug.
 }
 ->DONE
