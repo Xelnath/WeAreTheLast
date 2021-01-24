@@ -17,24 +17,18 @@ VAR Meltdown = "120"
 ->DONE
 
 == Death_Therapist
-{Th},1,1;No... my clients.... 
+{Th},1,1;{~Not like this.|Not again.|I've done everything right.|Why have I even bothered.} 
 ->DONE
 
 == Death_Model
-{Mo},1,1;Never... did meet... Paris... 
+{Mo},1,1;{~How could you?|My face.|I felt something.|You'll regret this.} 
 ->DONE
 
 == Death_Rockstar
-{Ro},1,1;I... want to be... the very... best... 
+{Ro},1,1;{~Can't kill legends.|You've made world bland.|I knew this was coming.|Good lord is taking me away.} 
 ->DONE
 
-==	CounterAll
-{CurrChar},1,1;{~Just you try.|We are stronger than this.|I have just a response for everything they've got.|Double dare you.}
-->DONE
 
-==	Counter
-{CurrChar},1,1;{~Pathetic.|No, YOU get hurt.}
-->DONE
 
 ==	Heal
 {CurrChar == Th:{Th},1,1;Refreshing.}
@@ -46,28 +40,68 @@ VAR Meltdown = "120"
 {CurrChar},1,1;{~Fuck you.|This is what you get.|Hurts right?|There is more whence this came.}
 ->DONE
 
-== Redirect
+
+//SkillBarks
+//Therapist
+==	CounterAll
+{Th},1,1;{~Just you try.|We are stronger than this.|I have just a response for everything they've got.|Double dare you.}
+->DONE
+
+==	Counter
+{Th},1,1;{~Pathetic.|No, YOU get hurt.}
 ->DONE
 
 == Defend
+{Th},1,1;DEFEND BARK
+->DONE
+
+== Cleanse
+{Th},1,1;Cleanse BARK
+->DONE
+
+//Model
+
+== Redirect
+{Mo},1,1;REDIRECT BARK
 ->DONE
 
 == PoisonMind
+{Mo},1,1;PoisonMind BARK
+->DONE
+
+== MindControl
+{Mo},1,1;MindControl BARK
 ->DONE
 
 == GravitySqueeze
+{Mo},1,1;GravitySqueeze BARK
 ->DONE
+
+== StunRage
+{Mo},1,1;StunRage BARK
+->DONE
+
+//Rockstar
 
 == Lightshow
+{Ro},1,1;Lightshow BARK
 ->DONE
 
-== Entropy
+== Dazzle
+{Ro},1,1;Dazzle BARK
 ->DONE
 
 == Regenerate
+{Ro},1,1;Regenerate BARK
 ->DONE
 
 == Wardrum
+{Ro},1,1;Wardrum BARK
+->DONE
+
+//Unsorted
+
+== Entropy
 ->DONE
 
 == DarkBrilliance
@@ -77,12 +111,6 @@ VAR Meltdown = "120"
 ->DONE
 
 == SelfDoubt
-->DONE
-
-== Dazzle
-->DONE
-
-== Cleanse
 ->DONE
 
 == Purge
@@ -103,12 +131,55 @@ VAR Meltdown = "120"
 == Doomsayer
 ->DONE
 
-== StunRage
-->DONE
+//Sacrifice SKill Reaction
+//Therapist
 
 ==	Sacrifice_CounterAll
-{CurrChar},1,1;{~Just you try.|We are stronger than this.|I have just a response for everything they've got.|Double dare you.}
+{Th},1,1;Sacrifice_CounterAll BARK
 ->DONE
+
+== Sacrifice_Defend
+{Th},1,1;Sacrifice_Defend BARK
+->DONE
+
+== Sacrifice_Cleanse
+{Th},1,1;Sacrifice_Cleanse BARK
+->DONE
+
+//Model
+
+== Sacrifice_Redirect
+{Mo},1,1;Sacrifice_Redirect BARK
+->DONE
+
+== Sacrifice_PoisonMind
+{Mo},1,1;Sacrifice_PoisonMind BARK
+->DONE
+
+== Sacrifice_GravitySqueeze
+{Mo},1,1;Sacrifice_GravitySqueeze BARK
+->DONE
+
+//Rockstar
+
+== Sacrifice_Lightshow
+{Ro},1,1;Sacrifice_Lightshow BARK
+->DONE
+
+== Sacrifice_Regenerate
+{Ro},1,1;Sacrifice_Regenerate BARK
+->DONE
+
+== Sacrifice_Wardrum
+{Ro},1,1;Sacrifice_Wardrum BARK
+->DONE
+
+== Sacrifice_Dazzle
+{Ro},1,1;Sacrifice_Dazzle BARK
+->DONE
+
+//Unsorted
+
 
 ==	Sacrifice_Heal
 {CurrChar == Th:T,1,1;Refreshing.}
@@ -116,28 +187,7 @@ VAR Meltdown = "120"
 {CurrChar == Ro:R,1,1;Mmm beer.}
 ->DONE
 
-== Sacrifice_Redirect
-->DONE
-
-== Sacrifice_Defend
-->DONE
-
-== Sacrifice_PoisonMind
-->DONE
-
-== Sacrifice_GravitySqueeze
-->DONE
-
-== Sacrifice_Lightshow
-->DONE
-
 == Sacrifice_Entropy
-->DONE
-
-== Sacrifice_Regenerate
-->DONE
-
-== Sacrifice_Wardrum
 ->DONE
 
 == Sacrifice_DarkBrilliance
@@ -149,11 +199,7 @@ VAR Meltdown = "120"
 == Sacrifice_SelfDoubt
 ->DONE
 
-== Sacrifice_Dazzle
-->DONE
 
-== Sacrifice_Cleanse
-->DONE
 
 == Sacrifice_Purge
 ->DONE
@@ -174,6 +220,7 @@ VAR Meltdown = "120"
 ->DONE
 
 == Sacrifice_StunRage
+
 ->DONE
 
 
