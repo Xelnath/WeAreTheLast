@@ -1,6 +1,7 @@
 FUNCTIONS
 
 autoSelectTargets,W,,,int:10,bool:false,bool:true
+toggleActions,W,,,bool:false
 playAnimation,W,,,int:-1,string:walk
 stepForward,W,C,,float:2,float:0.1
 playAnimation,W,,,int:-1,string:attack
