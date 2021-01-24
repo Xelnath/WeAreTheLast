@@ -31,11 +31,13 @@ namespace ClassDB {
 	}
 
 	[System.Serializable]
-	public class skill {
+	public class skill
+	{
 
 		public string name;
 		public int id;
 		public string description;
+		public bool DEBUG = false;
 
 		public int sacrificeReplacementId = -1;
 		
@@ -147,7 +149,7 @@ namespace ClassDB {
 			for ( int i = 0; i < skills.Count; ++i )
 			{
 				var skillId = skills[i];
-			    var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(skillId)];
+			    skill skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById(skillId)];
 
 			    var functionsToCall = skill.endOfRound;
 			    if ( functionsToCall.Count > 0 )
@@ -157,6 +159,7 @@ namespace ClassDB {
 				    c.functionQueue = functionsToCall;
 				    c.activeSkillId = skillId;
 				    c.actionTargets.Clear();
+				    c.DEBUG = skill.DEBUG;
 				    yield return BattleManager.core.functionQueueCaller( c );
 			    }
 			}

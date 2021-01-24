@@ -727,7 +727,9 @@ public class BattleGen : MonoBehaviour
       int skillId = instanceID.SkillID;
       //Getting character
       skill skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById( skillId )];
-      context.activeSkillId = skill.id;
+      context.activeSkillId = skill.id; 
+      context.DEBUG = skill.DEBUG;
+
 
       for ( int i = 0; i < character.skills.Count; ++i )
       {

@@ -35,6 +35,8 @@ public class BattleMethods : MonoBehaviour
 
       //Storing the functions list to functionQueue
       context.activeSkillId = skillId;
+      context.DEBUG = skill.DEBUG;
+
       context.functionQueue = functionsToCall;
       BattleManager.core.StartCoroutine( BattleManager.core.functionQueueCaller( context ) );
 
@@ -69,7 +71,8 @@ public class BattleMethods : MonoBehaviour
 	      
 	      context.activeSkillId = skill.id;  
 	      context.functionQueue = functionsToCall;
-	      
+	      context.DEBUG = skill.DEBUG;
+
 	      BattleManager.core.StartCoroutine( BattleManager.core.functionQueueCaller( context ) );
 	    }
 	  }
@@ -1626,6 +1629,7 @@ The condition name is the name of the Animator's parameter which will be set to 
         }
         else
         {
+          if ( context.DEBUG ) Debug.Log( $"Jumping to {jumpIndex} {jumpTo}." );
           context.runningFunctionIndex = jumpIndex;
         }
         BattleManager.core.startWarningRoutine( "Not enough " + attribute.name, 2f );
@@ -1678,7 +1682,7 @@ The condition name is the name of the Animator's parameter which will be set to 
         }
         else
         {
-          Debug.Log( $"TestJump to {jumpTo}({jumpIndex}) in skill {context.activeSkillId}." );
+          if(context.DEBUG) Debug.Log( $"TestJump to {jumpTo}({jumpIndex}) in skill {context.activeSkillId}." );
           context.runningFunctionIndex = jumpIndex;
         }
 
@@ -1707,7 +1711,7 @@ The condition name is the name of the Animator's parameter which will be set to 
     }
     else
     {
-      Debug.Log( $"Jump to {jumpTo} ({jumpIndex}) in skill {context.activeSkillId}." );
+      if(context.DEBUG)Debug.Log( $"Jump to {jumpTo} ({jumpIndex}) in skill {context.activeSkillId}." );
       context.runningFunctionIndex = jumpIndex;
     }
     

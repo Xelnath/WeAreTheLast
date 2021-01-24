@@ -85,11 +85,14 @@ public class BattleManager : MonoBehaviour
       functionQueue = new List<callInfo>(original.functionQueue.ToArray());
       targetLimit = original.targetLimit;
       activeSkillId = original.activeSkillId;
+      DEBUG = original.DEBUG;
     }
 
     private static int NextID = 0;
     public int ContextID = NextID++;
 
+    public bool DEBUG = false;
+    
     [Tooltip( "The id of the currently active skill." )]
     public int activeSkillId = -1;
 
@@ -376,13 +379,13 @@ public class BattleManager : MonoBehaviour
       var ftc = lastFunctionQueue [originalContext.runningFunctionIndex];
       if ( ftc.isComment ) continue;
 
-      Debug.Log( $"{originalContext.runningFunctionIndex} - {ftc}" );
+      if (originalContext.DEBUG) Debug.Log( $"{originalContext.runningFunctionIndex} - {ftc}" );
       
       //Active char id
       yield return core.call ( originalContext, ftc );
     }
 
-    Debug.Log( $"Escaped {context.ContextID}" );
+    //Debug.Log( $"Escaped {context.ContextID}" );
     yield return new WaitForEndOfFrame();
   }
 
