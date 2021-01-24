@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Showoff
     id: 8
     description: All targets take Light damage
+    DEBUG: 0
     sacrificeReplacementId: 12
     activeSkill: 1
     isAttack: 1

@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Crisis
     id: 21
     description: Prevent everyone from attack
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 0

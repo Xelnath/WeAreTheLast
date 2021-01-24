@@ -13,7 +13,7 @@ subtractTurnPoints,W,,,int:0,int:2
 
 ENDOFROUND
 
-autoSelectTargets,W,,,int:10,bool:true,bool:true
+selectTeam,W,,,bool:true,bool:true
 filterTargets,W,,,string:POISON,string:>0
 damageTargets,W,,,int:20,int:0
 addOrChangeAttribute,W,,,bool:false,string:POISON,string:-1,float:100,bool:false

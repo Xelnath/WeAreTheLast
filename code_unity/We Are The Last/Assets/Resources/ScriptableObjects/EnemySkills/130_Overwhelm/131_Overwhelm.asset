@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Overwhelm
     id: 131
     description: One enemy takes massive damage after a delay.
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1

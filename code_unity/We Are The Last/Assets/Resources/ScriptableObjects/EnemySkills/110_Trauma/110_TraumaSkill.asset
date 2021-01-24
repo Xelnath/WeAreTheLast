@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Trauma
     id: 110
     description: Set the target's health to one
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1

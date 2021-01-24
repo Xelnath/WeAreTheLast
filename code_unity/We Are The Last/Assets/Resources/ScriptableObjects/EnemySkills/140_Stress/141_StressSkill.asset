@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Stress
     id: 141
     description: Target takes increasing damage over time
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1
@@ -160,36 +161,5 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    sacrificeActions:
-    - functionName: changeAttribute
-      parametersArray:
-      - bool:true
-      - int:0
-      - string:+50
-      - bool:true
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: generateMana
-      parametersArray:
-      - int:100
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: displayFX
-      parametersArray:
-      - bool:true
-      - float:2
-      - string:heal
-      - float:-0.8
-      - float:0
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: wait
-      parametersArray:
-      - float:0.4
-      waitForPreviousFunction: 1
-      isCoroutine: 1
-      isRunning: 0
+    sacrificeActions: []
   SkillText: {fileID: 4900000, guid: 7133ddbe8cb72154593618386c42cf59, type: 3}

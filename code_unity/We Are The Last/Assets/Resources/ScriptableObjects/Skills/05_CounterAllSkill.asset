@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Counter All
     id: 5
     description: Counter all attacks this round
+    DEBUG: 0
     sacrificeReplacementId: 21
     activeSkill: 1
     isAttack: 0

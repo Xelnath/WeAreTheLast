@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Reckless Shade
     id: 13
     description: Random enemy takes Gravity
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1

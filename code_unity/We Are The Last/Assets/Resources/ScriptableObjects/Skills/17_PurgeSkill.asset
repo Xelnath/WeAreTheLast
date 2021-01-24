@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Purge
     id: 17
     description: Remove hostile and friendly effects from an ally
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 0

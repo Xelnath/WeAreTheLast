@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Panic Attack
     id: 101
     description: A basic triple attack
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1

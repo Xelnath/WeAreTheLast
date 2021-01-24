@@ -322,7 +322,7 @@ public class BattleMethods : MonoBehaviour
     var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
     if (characterInstance.targetIds.Count > 0)
     {
-      context.actionTargets = characterInstance.targetIds;
+      context.actionTargets = new List<InstanceID>( characterInstance.targetIds );
     } 
     else 
     {
@@ -330,6 +330,14 @@ public class BattleMethods : MonoBehaviour
       context.actionTargets = BattleGen.core.getValidTargets( context, allowFriendly, allowHostile, targetLimit );
     }
     BattleManager.setQueueStatus( context,  "autoSelectTargets", false );
+  }
+  
+  void selectTeam( BattleManager.BattleManagerContext context, bool allowFriendly, bool allowHostile )
+  {
+    //Getting character
+    context.targetLimit = 99;
+    context.actionTargets = BattleGen.core.getValidTargets( context, allowFriendly, allowHostile, 99 );
+    BattleManager.setQueueStatus( context,  "selectTeam", false );
   }
 
   void clearTargets( BattleManager.BattleManagerContext context )
@@ -410,46 +418,93 @@ public class BattleMethods : MonoBehaviour
         attrValue = attribute.curValue;
       }
 
+      bool remove = false;
       switch ( op )
       {
         case mathOperation.equal:
           if ( !Mathf.Approximately( attrValue, v ) )
           {
-            context.actionTargets.RemoveAt( i );
+            remove = true;
           }
 
           break;
         case mathOperation.equalGreaterThan:
           if ( attrValue < v )
           {
-            context.actionTargets.RemoveAt( i );
+            remove = true;
           }
           break;
         case mathOperation.equalLessThan:
           if ( attrValue > v )
           {
-            context.actionTargets.RemoveAt( i );
+            remove = true;
           }
           break;
         case mathOperation.greaterThan:
           if ( attrValue <= v )
           {
-            context.actionTargets.RemoveAt( i );
+            remove = true;
           }
           break;
         case mathOperation.lessThan:
           if ( attrValue >= v )
           {
-            context.actionTargets.RemoveAt( i );
+            remove = true;
           }
           break;
         default:
           throw new ArgumentOutOfRangeException();
       }
+
+      if ( remove )
+      {
+         if ( context.DEBUG ) Debug.Log( $"Removing {character} from actionTargets for skill {context.activeSkillId}. Test: {attrName} {value}" );
+          context.actionTargets.RemoveAt( i );
+      }
+      else
+      {
+         if ( context.DEBUG ) Debug.Log( $"Keeping {character} from actionTargets for skill {context.activeSkillId}. Test: {attrName} {value}" );
+      }
     }
     
     
     BattleManager.setQueueStatus( context,  "filterTargets", false );
+  }
+  
+  void filterTargetsIfAttributeIsNotCurrentActorId( BattleManager.BattleManagerContext context, string attrName )
+  {
+    
+    List<InstanceID> targets = new List<InstanceID>(context.actionTargets);
+
+    for ( int i = targets.Count - 1; i >= 0; --i )
+    {
+      InstanceID charId = targets[i];
+      
+      //Getting character
+      var characterInstance = BattleManager.core.findCharacterInstanceById( charId );
+      var character = characterInstance.characterCopy;
+      
+      var index = FunctionDB.core.findAttributeIndexByName( attrName, character );
+      float attrValue = 0f;
+      //Getting attribute
+      if ( index >= 0 )
+      {
+        characterAttribute attribute = character.characterAttributes[index];
+        attrValue = attribute.curValue;
+      }
+
+      if ( Mathf.RoundToInt(attrValue) != context.activeCharacterId.ID )
+      {
+        if ( context.DEBUG ) Debug.Log( $"Removing {character} from actionTargets for skill {context.activeSkillId}" );
+        context.actionTargets.RemoveAt( i );
+      }
+      else
+      {
+        if ( context.DEBUG ) Debug.Log( $"Keeping {character} from actionTargets for skill {context.activeSkillId}. {attrName} matched" );
+      }
+    }
+    
+    BattleManager.setQueueStatus( context,  "filterTargetsIfAttributeIsNotCurrentActorId", false );
   }
 
   /*
@@ -993,6 +1048,31 @@ public class BattleMethods : MonoBehaviour
       } );
 
     BattleManager.setQueueStatus( context,  "addOrChangeAttribute", false );
+  }
+
+  void setAttributeToActiveCharacter( BattleManager.BattleManagerContext context, bool self, string attributeName )
+  {
+    forEachCharacterDo( context, self,
+      (instanceID, character) => {
+
+        var index = FunctionDB.core.findAttributeIndexByName( attributeName, character );
+        if ( index == -1 )
+        {
+          character.addDontReplaceAttribute( new characterAttribute
+          {
+            name = attributeName,
+            curValue = context.activeCharacterId.ID,
+            maxValue = 1000
+          } );
+        }
+        else
+        {
+          characterAttribute attribute = character.characterAttributes[index];
+          attribute.curValue = context.activeCharacterId.ID;
+        }
+      } );
+
+    BattleManager.setQueueStatus( context,  "setAttributeToActiveCharacter", false );
   }
 
   void displayAttributeText( BattleManager.BattleManagerContext context, bool self, string attributeName )

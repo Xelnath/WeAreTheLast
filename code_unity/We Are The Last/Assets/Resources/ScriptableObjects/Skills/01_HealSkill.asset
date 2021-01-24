@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Trust
     id: 1
     description: Heal a character
+    DEBUG: 0
     sacrificeReplacementId: 19
     activeSkill: 1
     isAttack: 0

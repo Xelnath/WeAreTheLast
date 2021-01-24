@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Stupifying Rage
     id: 23
     description: Stuns the target for a round, then increases its damage
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1

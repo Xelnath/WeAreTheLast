@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Dazzle
     id: 15
     description: Stuns the target for a round
+    DEBUG: 0
     sacrificeReplacementId: 23
     activeSkill: 1
     isAttack: 1

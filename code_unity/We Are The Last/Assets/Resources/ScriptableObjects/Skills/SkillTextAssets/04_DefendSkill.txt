@@ -13,7 +13,8 @@ subtractTurnPoints,W,,,int:0,int:2
 
 ENDOFROUND
 
-autoSelectTargets,,,,int:4,bool:true,bool:false
+selectTeam,W,,,bool:true,bool:true
+filterTargets,W,,,string:DEFENDROUNDS,string:>0
 addOrChangeAttribute,,,,bool:false,string:DEFENDROUNDS,string:-1,float:100,bool:false
 clearTargets,,,,
 

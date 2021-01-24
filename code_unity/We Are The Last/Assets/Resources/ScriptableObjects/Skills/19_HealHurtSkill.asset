@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Resent
     id: 19
     description: Heal a character but poisons them
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 0

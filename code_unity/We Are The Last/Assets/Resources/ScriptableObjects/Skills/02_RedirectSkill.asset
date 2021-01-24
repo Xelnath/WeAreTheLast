@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Magnetism
     id: 2
     description: Cause the next enemy to attack an ally
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 0

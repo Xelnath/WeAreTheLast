@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Regenerate
     id: 10
     description: Restore health to all allies
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 0
     isAttack: 0

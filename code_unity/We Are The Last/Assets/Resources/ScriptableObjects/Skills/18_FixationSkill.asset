@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Fixation
     id: 18
     description: Cause all enemies to attack an ally
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 0

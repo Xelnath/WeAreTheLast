@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Unstunnable
     id: 24
     description: Stuns are ignored
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 0
     isAttack: 0

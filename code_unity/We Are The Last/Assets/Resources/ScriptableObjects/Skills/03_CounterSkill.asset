@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Counter
     id: 3
     description: A simple counterattack
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 0
     isAttack: 0

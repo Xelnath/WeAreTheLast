@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Charm
     id: 20
     description: Target swaps teams
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1

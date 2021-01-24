@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Toxic Insecurity
     id: 14
     description: Target and self take damage over time
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1

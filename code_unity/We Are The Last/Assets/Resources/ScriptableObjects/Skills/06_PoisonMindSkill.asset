@@ -16,6 +16,7 @@ MonoBehaviour:
     name: Poison Glare
     id: 6
     description: 'Target takes damage '
+    DEBUG: 0
     sacrificeReplacementId: 14
     activeSkill: 1
     isAttack: 1
@@ -88,9 +89,8 @@ MonoBehaviour:
       isCoroutine: 0
       isRunning: 0
     endOfRound:
-    - functionName: autoSelectTargets
+    - functionName: selectTeam
       parametersArray:
-      - int:10
       - bool:true
       - bool:true
       waitForPreviousFunction: 1
