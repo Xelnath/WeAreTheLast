@@ -1,13 +1,17 @@
 FUNCTIONS
 
-testAttributeJump,W,,R,bool:true,string:MELTDOWN,float:3,bool:false,string:end
+testAttributeJump,W,,R,bool:true,string:MELTDOWN,float:3,bool:false,string:boom
+testAttributeJump,W,,R,bool:true,string:MELTDOWN,float:2,bool:false,string:end
+testAttributeJump,W,,R,bool:true,string:MELTDOWN,float:1,bool:false,string:end
+testAttributeJump,W,,R,bool:true,string:MELTDOWN,float:0,bool:false,string:end
+:boom,W,,,
 autoSelectTargets,W,,,int:10,bool:false,bool:true
 playAnimation,W,,,int:-1,string:walk
 stepForward,W,C,,float:2,float:0.1
 playAnimation,W,,,int:-1,string:attack
 playAudioOnce,,,,int:1,int:1
-displayFX,W,,,bool:false,float:2,string:attack,float:0,float:0
-displayFX,W,,,bool:false,float:2,string:attack,float:-0.7,float:1
+displayFX,W,,,bool:true,float:2,string:hurricane,float:0,float:-2
+displayFX,W,,,bool:false,float:2,string:hurricane,float:-0,float:-2
 damageTargets,W,,,int:40,int:4
 wait,W,C,,float:0.6
 kill,W,,,bool:true
@@ -20,7 +24,19 @@ subtractTurnPoints,W,,,int:0,int:0
 ENDOFROUND
 
 addOrChangeAttribute,W,,,bool:true,string:MELTDOWN,string:+1,float:10,bool:false
-displayAttributeText,W,,,bool:true,string:MELTDOWN
+testAttributeJump,W,,R,bool:true,string:MELTDOWN,float:3,bool:false,string:3
+testAttributeJump,W,,R,bool:true,string:MELTDOWN,float:2,bool:false,string:2
+testAttributeJump,W,,R,bool:true,string:MELTDOWN,float:1,bool:false,string:1
+:3,W,,,
+displayFloatText,W,,,bool:true,string:3!,float:0,float:1,bool:true,string:EB3734
+jump,W,,,string:end
+:2,W,,,
+displayFloatText,W,,,bool:true,string:2...,float:0,float:1,bool:true,string:EB3734
+jump,W,,,string:end
+:1,W,,,
+displayFloatText,W,,,bool:true,string:1...,float:0,float:1,bool:true,string:EB3734
+jump,W,,,string:end
+:end,W,,,
 
 SACRIFICE
 

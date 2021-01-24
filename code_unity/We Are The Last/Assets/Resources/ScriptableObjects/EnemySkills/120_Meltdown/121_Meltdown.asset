@@ -16,7 +16,7 @@ MonoBehaviour:
     name: Meltdown
     id: 121
     description: All enemies take massive damage if you aren't slain first
-    DEBUG: 0
+    DEBUG: 1
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1
@@ -30,10 +30,45 @@ MonoBehaviour:
       - string:MELTDOWN
       - float:3
       - bool:false
+      - string:boom
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 1
+    - functionName: testAttributeJump
+      parametersArray:
+      - bool:true
+      - string:MELTDOWN
+      - float:2
+      - bool:false
       - string:end
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 1
+    - functionName: testAttributeJump
+      parametersArray:
+      - bool:true
+      - string:MELTDOWN
+      - float:1
+      - bool:false
+      - string:end
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 1
+    - functionName: testAttributeJump
+      parametersArray:
+      - bool:true
+      - string:MELTDOWN
+      - float:0
+      - bool:false
+      - string:end
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 1
+    - functionName: :boom
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: autoSelectTargets
       parametersArray:
       - int:10
@@ -72,11 +107,11 @@ MonoBehaviour:
       isRunning: 0
     - functionName: displayFX
       parametersArray:
-      - bool:false
+      - bool:true
       - float:2
-      - string:attack
+      - string:hurricane
       - float:0
-      - float:0
+      - float:-2
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -84,9 +119,9 @@ MonoBehaviour:
       parametersArray:
       - bool:false
       - float:2
-      - string:attack
-      - float:-0.7
-      - float:1
+      - string:hurricane
+      - float:-0
+      - float:-2
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -145,10 +180,104 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: displayAttributeText
+    - functionName: testAttributeJump
       parametersArray:
       - bool:true
       - string:MELTDOWN
+      - float:3
+      - bool:false
+      - string:3
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 1
+    - functionName: testAttributeJump
+      parametersArray:
+      - bool:true
+      - string:MELTDOWN
+      - float:2
+      - bool:false
+      - string:2
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 1
+    - functionName: testAttributeJump
+      parametersArray:
+      - bool:true
+      - string:MELTDOWN
+      - float:1
+      - bool:false
+      - string:1
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 1
+    - functionName: :3
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFloatText
+      parametersArray:
+      - bool:true
+      - string:3!
+      - float:0
+      - float:1
+      - bool:true
+      - string:EB3734
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: jump
+      parametersArray:
+      - string:end
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: :2
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFloatText
+      parametersArray:
+      - bool:true
+      - string:2...
+      - float:0
+      - float:1
+      - bool:true
+      - string:EB3734
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: jump
+      parametersArray:
+      - string:end
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: :1
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFloatText
+      parametersArray:
+      - bool:true
+      - string:1...
+      - float:0
+      - float:1
+      - bool:true
+      - string:EB3734
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: jump
+      parametersArray:
+      - string:end
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: :end
+      parametersArray: []
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
