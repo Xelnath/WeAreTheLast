@@ -1311,7 +1311,7 @@ public class BattleMethods : MonoBehaviour
       health.curValue = Mathf.Min( health.curValue + healAmount, health.maxValue );
       float heal = health.curValue - before;
       
-      if ( showValue )
+      if ( showValue && heal > 0f )
       {
           FunctionDB.core.StartCoroutine(	
             FunctionDB.core.displayAttributeValue( FunctionDB.core.findCharInstanceGameObjectById( instanceID ), heal, health.id, 0, 1.3f ) );
