@@ -9,7 +9,6 @@ VAR Panic = "100"
 VAR Trauma = "110"
 VAR Meltdown = "120"
 
-->Start
 ==	Start
 {	Deaths:
 -0:->First
