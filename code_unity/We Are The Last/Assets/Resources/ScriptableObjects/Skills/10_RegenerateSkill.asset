@@ -33,12 +33,10 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: addOrChangeAttribute
+    - functionName: healTargets
       parametersArray:
       - bool:false
-      - string:HP
-      - string:+10
-      - int:100
+      - int:10
       - bool:true
       waitForPreviousFunction: 1
       isCoroutine: 0

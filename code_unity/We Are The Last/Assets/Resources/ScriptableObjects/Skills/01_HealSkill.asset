@@ -43,11 +43,10 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: changeAttribute
+    - functionName: healTargets
       parametersArray:
       - bool:false
-      - int:0
-      - string:+50
+      - int:50
       - bool:true
       waitForPreviousFunction: 1
       isCoroutine: 0

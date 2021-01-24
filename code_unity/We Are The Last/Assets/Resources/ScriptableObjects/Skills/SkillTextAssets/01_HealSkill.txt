@@ -3,7 +3,7 @@ FUNCTIONS
 selectCharacter,,,,bool:true,int:1
 waitForSelection,W,C,,bool:true
 toggleActions,W,,,bool:false
-changeAttribute,W,,,bool:false,int:0,string:+50,bool:true
+healTargets,W,,,bool:false,int:50,bool:true
 displayFX,W,,,bool:false,float:2,string:heal,float:-0.6,float:1
 Bark,W,,,string:Heal
 toggleActions,W,,,bool:true

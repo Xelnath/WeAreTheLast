@@ -1299,11 +1299,30 @@ public class BattleMethods : MonoBehaviour
       //Regenarating items list
       BattleGen.core.itemGen();
   }
+  
+  void healTargets( BattleManager.BattleManagerContext context, bool self, int healAmount, bool showValue )
+  {
+    var sourceInstanceID = context.activeCharacterId;
+    
+    forEachCharacterDo( context, false, ( instanceID, character ) =>
+    {
+      var health = FunctionDB.core.findAttributeByName( instanceID, "HP" );
+      float before = health.curValue;
+      health.curValue = Mathf.Min( health.curValue + healAmount, health.maxValue );
+      float heal = health.curValue - before;
+      
+      if ( showValue )
+      {
+          FunctionDB.core.StartCoroutine(	
+            FunctionDB.core.displayAttributeValue( FunctionDB.core.findCharInstanceGameObjectById( instanceID ), heal, health.id, 0, 1.3f ) );
+      }
+    } );
+
+    BattleManager.setQueueStatus( context,  "damageTargets", false );
+  }
 
   void damageTargets( BattleManager.BattleManagerContext context, int damageAmount, int school )
   {
-
-
     var sourceInstanceID = context.activeCharacterId;
     
     forEachCharacterDo( context, false, ( instanceID, character ) =>
