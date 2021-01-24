@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
+  m_Name: 141_StressSkill
+  m_EditorClassIdentifier: 
+  Skill:
+    name: Stress
+    id: 141
+    description: Target takes increasing damage over time
+    sacrificeReplacementId: -1
+    activeSkill: 1
+    isAttack: 1
+    turnPointCost: 100
+    manaCost: 10
+    superCost: 0
+    functionsToCall:
+    - functionName: selectCharacter
+      parametersArray:
+      - bool:false
+      - int:1
+      waitForPreviousFunction: 0
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: waitForSelection
+      parametersArray:
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: toggleActions
+      parametersArray:
+      - bool:false
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:false
+      - string:POISON
+      - string:=10
+      - float:100
+      - bool:false
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFX
+      parametersArray:
+      - bool:false
+      - float:2
+      - string:poison
+      - float:0
+      - float:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:0.6
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: Bark
+      parametersArray:
+      - string:PoisonMind
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: toggleActions
+      parametersArray:
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: subtractTurnPoints
+      parametersArray:
+      - int:0
+      - int:2
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    endOfRound:
+    - functionName: autoSelectTargets
+      parametersArray:
+      - int:10
+      - bool:true
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: filterTargets
+      parametersArray:
+      - string:POISON
+      - string:>0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: damageTargets
+      parametersArray:
+      - int:20
+      - int:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:false
+      - string:POISON
+      - string:-1
+      - float:100
+      - bool:false
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: clearTargets
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    sacrificeActions:
+    - functionName: changeAttribute
+      parametersArray:
+      - bool:true
+      - int:0
+      - string:+50
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: generateMana
+      parametersArray:
+      - int:100
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFX
+      parametersArray:
+      - bool:true
+      - float:2
+      - string:heal
+      - float:-0.8
+      - float:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:0.4
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+  SkillText: {fileID: 4900000, guid: 7133ddbe8cb72154593618386c42cf59, type: 3}
