@@ -45,8 +45,18 @@ MonoBehaviour:
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false
-      - string:POISON
+      - string:STRESS
       - string:=10
+      - float:100
+      - bool:false
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:false
+      - string:STRESSPOWER
+      - string:+1
       - float:100
       - bool:false
       waitForPreviousFunction: 1
@@ -67,12 +77,6 @@ MonoBehaviour:
       - float:0.6
       waitForPreviousFunction: 1
       isCoroutine: 1
-      isRunning: 0
-    - functionName: Bark
-      parametersArray:
-      - string:PoisonMind
-      waitForPreviousFunction: 1
-      isCoroutine: 0
       isRunning: 0
     - functionName: toggleActions
       parametersArray:
@@ -98,23 +102,54 @@ MonoBehaviour:
       isRunning: 0
     - functionName: filterTargets
       parametersArray:
-      - string:POISON
+      - string:STRESS
       - string:>0
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: damageTargets
+    - functionName: damageTargetsTimesTargetPower
       parametersArray:
-      - int:20
+      - int:10
       - int:0
+      - string:STRESSPOWER
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false
-      - string:POISON
+      - string:STRESS
       - string:-1
+      - float:100
+      - bool:false
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: clearTargets
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: autoSelectTargets
+      parametersArray:
+      - int:10
+      - bool:true
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: filterTargets
+      parametersArray:
+      - string:STRESS
+      - string:<1
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:false
+      - string:STRESSPOWER
+      - string:=0
       - float:100
       - bool:false
       waitForPreviousFunction: 1

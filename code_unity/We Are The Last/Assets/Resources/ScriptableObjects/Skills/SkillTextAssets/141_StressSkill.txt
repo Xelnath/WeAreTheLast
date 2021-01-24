@@ -3,10 +3,10 @@ FUNCTIONS
 selectCharacter,,,,bool:false,int:1
 waitForSelection,W,C,,bool:true
 toggleActions,W,,,bool:false
-addOrChangeAttribute,W,,,bool:false,string:POISON,string:=10,float:100,bool:false
+addOrChangeAttribute,W,,,bool:false,string:STRESS,string:=10,float:100,bool:false
+addOrChangeAttribute,W,,,bool:false,string:STRESSPOWER,string:+1,float:100,bool:false
 displayFX,W,,,bool:false,float:2,string:poison,float:0,float:0
 wait,W,C,,float:0.6
-Bark,W,,,string:PoisonMind
 toggleActions,W,,,bool:true
 subtractTurnPoints,W,,,int:0,int:2
 
@@ -14,9 +14,13 @@ subtractTurnPoints,W,,,int:0,int:2
 ENDOFROUND
 
 autoSelectTargets,W,,,int:10,bool:true,bool:true
-filterTargets,W,,,string:POISON,string:>0
-damageTargets,W,,,int:20,int:0
-addOrChangeAttribute,W,,,bool:false,string:POISON,string:-1,float:100,bool:false
+filterTargets,W,,,string:STRESS,string:>0
+damageTargetsTimesTargetPower,W,,,int:10,int:0,string:STRESSPOWER
+addOrChangeAttribute,W,,,bool:false,string:STRESS,string:-1,float:100,bool:false
+clearTargets,W,,,
+autoSelectTargets,W,,,int:10,bool:true,bool:true
+filterTargets,W,,,string:STRESS,string:<1
+addOrChangeAttribute,W,,,bool:false,string:STRESSPOWER,string:=0,float:100,bool:false
 clearTargets,W,,,
 
 

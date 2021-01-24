@@ -1231,6 +1231,29 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "damageTargets", false );
   }
 
+  void damageTargetsTimesPower( BattleManager.BattleManagerContext context, int damageAmount, int school, string multiAttribute )
+  {
+    var sourceInstanceID = context.activeCharacterId;
+    var statValue = FunctionDB.core.findAttributeByName( sourceInstanceID, multiAttribute )?.curValue ?? 1f;
+    forEachCharacterDo( context, false, ( instanceID, character ) =>
+    {
+      FinalizeDealDamage( sourceInstanceID, instanceID, damageAmount*statValue, school );
+    } );
+
+    BattleManager.setQueueStatus( context,  "damageTargetsTimesPower", false );
+  }
+  void damageTargetsTimesTargetPower( BattleManager.BattleManagerContext context, int damageAmount, int school, string multiAttribute )
+  {
+    var sourceInstanceID = context.activeCharacterId;
+    forEachCharacterDo( context, false, ( instanceID, character ) =>
+    {
+      var statValue = FunctionDB.core.findAttributeByName( instanceID, multiAttribute )?.curValue ?? 1f;
+      FinalizeDealDamage( sourceInstanceID, instanceID, damageAmount*statValue, school );
+    } );
+
+    BattleManager.setQueueStatus( context,  "damageTargetsTimesPower", false );
+  }
+
   private void FinalizeDealDamage(InstanceID sourceID, InstanceID victimID, float damageAmount, int school)
   {
       var victim = BattleManager.core.findCharacterInstanceById( victimID );

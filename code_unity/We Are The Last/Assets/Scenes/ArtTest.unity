@@ -8633,7 +8633,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1314067913}
-  - component: {fileID: 1314067911}
   - component: {fileID: 1314067912}
   - component: {fileID: 1314067916}
   - component: {fileID: 1314067915}
@@ -8641,6 +8640,7 @@ GameObject:
   - component: {fileID: 1314067914}
   - component: {fileID: 1314067918}
   - component: {fileID: 1314067919}
+  - component: {fileID: 1314067911}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -8680,7 +8680,7 @@ MonoBehaviour:
   autoBattle: 0
   maxTurnPoints: 100
   initialPlayerTeam: 000000000200000001000000
-  initialEnemyTeam: 78000000820000008c000000
+  initialEnemyTeam: 8c0000008c0000008c000000
   activeMusicId: -1
   activeTeam: -1
   turnPoints: 100
