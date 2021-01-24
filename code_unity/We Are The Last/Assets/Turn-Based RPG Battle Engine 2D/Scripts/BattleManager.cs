@@ -144,9 +144,12 @@ public class BattleManager : MonoBehaviour
   [Tooltip( "Current enemy team." )] public List<InstanceID> activeEnemyTeam = new List<InstanceID>();
 
   //Public variables
-  [Tooltip( "Current player's team." )] public List<int> initialPlayerTeam = new List<int>();
+  [Tooltip( "Initial player's team." )] public List<int> initialPlayerTeam = new List<int>();
+  
+  [Tooltip( "Initial enemy team." )]
+  public WaveAsset InitialWave;
 
-  [Tooltip( "Current enemy team." )] public List<int> initialEnemyTeam = new List<int>();
+  public int WaveIndex = -1;
 
   // The previous context
   public BattleManagerContext CurrentContext;
@@ -198,13 +201,8 @@ public class BattleManager : MonoBehaviour
 
   void Start()
   {
-    //Initiate battle on start only if variable initiator is absent from the scene.
-    //Otherwise, we essentially let variable initiator to initiate all the variables and only then initiate battle.
-    if ( VariableInitiator.core == null )
-    {
-      initiateBattle();
-    }
-
+    UpdateInkVariables();
+    initiateBattle();
   }
 
   //This function is responsible for initiating combat
@@ -332,9 +330,21 @@ public class BattleManager : MonoBehaviour
       activePlayerTeam.Add( instanceID );
     }
 
-    for ( int i = 0; i  < initialEnemyTeam.Count; ++i )
+    if ( InitialWave != null )
     {
-      int charID = initialEnemyTeam[i];
+      WaveIndex = Database.dynamic.waves.IndexOf( InitialWave.wave );
+
+      SpawnEnemyTeamWave();
+    }
+  }
+
+  public void SpawnEnemyTeamWave()
+  {
+    activeEnemyTeam.Clear();
+    var nextWave = Database.dynamic.waves[WaveIndex];
+    for ( int i = 0; i  < nextWave.Creatures.Count; ++i )
+    {
+      int charID = nextWave.Creatures[i];
       var instanceID = new InstanceID( charID );
       activeEnemyTeam.Add( instanceID );
     }
@@ -1015,6 +1025,12 @@ public class BattleManager : MonoBehaviour
     }
   }
 
+  private void UpdateInkVariables()
+  {
+    int deathCount = PlayerPrefs.GetInt( "FAILURES", 0 );
+    ObjectDB.core.story._inkStory.variablesState["Deaths"] = deathCount;
+  }
+
   private void EndGame( BattleManagerContext context, int victor )
   {
     //Outcome
@@ -1027,7 +1043,7 @@ public class BattleManager : MonoBehaviour
 
     //Getting outcome screen
     GameObject outcomeScreen = ObjectDB.core.outcomeWidow;
-    ObjectDB.core.story._inkStory.variablesState["Deaths"] = deathCount;
+    UpdateInkVariables();
   
     ObjectDB.core.story._inkStory.ChoosePathString( "FinalScreenTiff" );
     string tiffLine = ObjectDB.core.story._inkStory.Continue();

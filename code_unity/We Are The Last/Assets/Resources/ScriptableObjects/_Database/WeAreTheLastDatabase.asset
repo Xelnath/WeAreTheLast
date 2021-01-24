@@ -69,6 +69,9 @@ MonoBehaviour:
   - {fileID: 5061747578813868003, guid: 8932cef9aa3d0e0458437d7bf3ab7466, type: 3}
   - {fileID: 7021074095179360523, guid: 727af786a7cd28c4bb96c58c27ed16fd, type: 3}
   - {fileID: 1972767477340683624, guid: cee817b8bc74c2a48933d2310a4673b8, type: 3}
+  WaveAssets:
+  - {fileID: 11400000, guid: 53e8b228ef309584d85b1a437fb2ddcd, type: 2}
+  - {fileID: 11400000, guid: 83ca9b356810a2a4687f8808d71f4e48, type: 2}
   characters: []
   items:
   - name: Apple
@@ -95,4 +98,5 @@ MonoBehaviour:
       isCoroutine: 0
       isRunning: 1
   skills: []
+  waves: []
   tab: 2

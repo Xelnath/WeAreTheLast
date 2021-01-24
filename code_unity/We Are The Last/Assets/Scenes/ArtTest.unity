@@ -1222,7 +1222,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: -0, y: -0.034899585, z: -0, w: 0.99939084}
+  m_LocalRotation: {x: -0, y: 0.03489949, z: -0, w: 0.99939084}
   m_LocalPosition: {x: -0.5799999, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -7051,7 +7051,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1179084118}
   m_HandleRect: {fileID: 1179084117}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -8281,7 +8281,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 94162817}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8680,7 +8680,8 @@ MonoBehaviour:
   autoBattle: 0
   maxTurnPoints: 100
   initialPlayerTeam: 000000000200000001000000
-  initialEnemyTeam: a000000078000000
+  InitialWave: {fileID: 11400000, guid: 53e8b228ef309584d85b1a437fb2ddcd, type: 2}
+  WaveIndex: -1
   activeMusicId: -1
   activeTeam: -1
   turnPoints: 100
@@ -9108,7 +9109,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1832384021}
   m_HandleRect: {fileID: 1832384020}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,19 +23,116 @@ public class DatabaseScriptableObject : ScriptableObject
 			return m_instance;
 		}
 	}
-	#if UNITY_EDITOR
+
+	public List<SkillAsset> SkillAssets = new List<SkillAsset>();
+	public List<CharacterAsset> CharacterAssets = new List<CharacterAsset>();
+	public List<GameObject> FXPrefabs = new List<GameObject>();
+	public List<WaveAsset> WaveAssets = new List<WaveAsset>();
+
+	//A list of all in-game characters
+	public List<character> characters = new List<character>();
+
+	//A list of all in-game items
+	public List<item> items = new List<item>();
+
+	//A list of all in-game skills
+	public List<skill> skills = new List<skill>();
+	
+	//A list of all waves 
+	public List<Wave> waves = new List<Wave>(); 
+
+	//Used by "EditorDatabase.cs" to determine which tab is currently selected
+	[HideInInspector] public int tab;
+
+	public GameObject FindFXByName( string name )
+	{
+		foreach ( var vfx in FXPrefabs )
+		{
+			if ( String.Equals( vfx.name, name, StringComparison.CurrentCultureIgnoreCase ) ) return vfx;
+		}
+
+		Debug.LogError( $"Can't find vfx {name}. Check if you added it to the database prefab." );
+		return null;
+	}
+
+	public void Copy( DatabaseScriptableObject toCopy )
+	{
+		characters.Clear();
+
+		for ( int i = 0; i < toCopy.characters.Count; ++i )
+		{
+			var n = new character();
+			n.Copy( toCopy.characters[i] );
+			characters.Add( n );
+		}
+
+		items = toCopy.items.DeepClone();
+		skills = toCopy.skills.DeepClone();
+
+		foreach ( var asset in toCopy.SkillAssets )
+		{
+			LoadSkillAsset( asset );
+		}
+		foreach ( var asset in toCopy.CharacterAssets )
+		{
+			LoadCharacterAsset( asset );
+		}
+
+		waves.Clear();
+		waves.AddRange(
+	toCopy.WaveAssets
+				.Where( x => x.Disabled == false )
+				.OrderBy( x => x.OrderID )
+				.Select( x => x.wave )
+				.ToArray());
+	}
+
+	private void LoadSkillAsset( SkillAsset asset )
+	{
+		for ( int i = 0; i < skills.Count; ++i )
+		{
+			if ( skills[i].id == asset.Skill.id )
+			{
+				Debug.LogWarning( $"Replaced skill {i} - {skills[i].name} with asset {asset.name}. IDs match." );
+				skills[i] = asset.Skill;
+				return;
+			}
+		}
+
+		skills.Add( asset.Skill );
+	}
+	private void LoadCharacterAsset( CharacterAsset asset )
+	{
+		for ( int i = 0; i < characters.Count; ++i )
+		{
+			if ( characters[i].id == asset.Character.id )
+			{
+				Debug.LogWarning( $"Replaced character {i} - {characters[i].name} with asset {asset.name}. IDs match." );
+				characters[i] = asset.Character;
+				return;
+			}
+		}
+
+		characters.Add( asset.Character );
+	}
+	
+	
+#if UNITY_EDITOR
 
 	[Sirenix.OdinInspector.ShowInInspector]
 	public void LoadAllAssets()
 	{
 		var allSkills = Resources.FindObjectsOfTypeAll<SkillAsset>();
 		var allCharacters = Resources.FindObjectsOfTypeAll<CharacterAsset>();
+		var allWaves = Resources.FindObjectsOfTypeAll<WaveAsset>();
 
 		SkillAssets = new List<SkillAsset>( allSkills );
 		CharacterAssets = new List<CharacterAsset>( allCharacters );
+		WaveAssets = new List<WaveAsset>( allWaves );
 
-		SkillAssets.Sort( ( a, b ) => { return a.Skill.id.CompareTo( b.Skill.id ); } );
-		CharacterAssets.Sort( ( a, b ) => { return a.Character.id.CompareTo( b.Character.id ); } );
+		SkillAssets.Sort( ( a, b ) => a.Skill.id.CompareTo( b.Skill.id ) );
+		CharacterAssets.Sort( ( a, b ) => a.Character.id.CompareTo( b.Character.id ) );
+		WaveAssets.Sort( ( a, b ) => a.OrderID.CompareTo(b.OrderID) );
 		
 		var vfx = AssetDatabase.FindAssets("t:prefab", new string[] {"Assets/Prefabs/FX"});
 		FXPrefabs = new List<GameObject>( );
@@ -80,84 +178,4 @@ public class DatabaseScriptableObject : ScriptableObject
 	}
 
 #endif
-
-	public List<SkillAsset> SkillAssets = new List<SkillAsset>();
-	public List<CharacterAsset> CharacterAssets = new List<CharacterAsset>();
-	public List<GameObject> FXPrefabs = new List<GameObject>();
-
-	//A list of all in-game characters
-	public List<character> characters = new List<character>();
-
-	//A list of all in-game items
-	public List<item> items = new List<item>();
-
-	//A list of all in-game skills
-	public List<skill> skills = new List<skill>();
-
-	//Used by "EditorDatabase.cs" to determine which tab is currently selected
-	[HideInInspector] public int tab;
-
-	public GameObject FindFXByName( string name )
-	{
-		foreach ( var vfx in FXPrefabs )
-		{
-			if ( vfx.name.ToLower() == name.ToLower() ) return vfx;
-		}
-
-		Debug.LogError( $"Can't find vfx {name}. Check if you added it to the database prefab." );
-		return null;
-	}
-
-	public void Copy( DatabaseScriptableObject toCopy )
-	{
-		characters.Clear();
-
-		for ( int i = 0; i < toCopy.characters.Count; ++i )
-		{
-			var n = new character();
-			n.Copy( toCopy.characters[i] );
-			characters.Add( n );
-		}
-
-		items = toCopy.items.DeepClone();
-		skills = toCopy.skills.DeepClone();
-
-		foreach ( var asset in toCopy.SkillAssets )
-		{
-			LoadSkillAsset( asset );
-		}
-		foreach ( var asset in toCopy.CharacterAssets )
-		{
-			LoadCharacterAsset( asset );
-		}
-	}
-
-	private void LoadSkillAsset( SkillAsset asset )
-	{
-		for ( int i = 0; i < skills.Count; ++i )
-		{
-			if ( skills[i].id == asset.Skill.id )
-			{
-				Debug.LogWarning( $"Replaced skill {i} - {skills[i].name} with asset {asset.name}. IDs match." );
-				skills[i] = asset.Skill;
-				return;
-			}
-		}
-
-		skills.Add( asset.Skill );
-	}
-	private void LoadCharacterAsset( CharacterAsset asset )
-	{
-		for ( int i = 0; i < characters.Count; ++i )
-		{
-			if ( characters[i].id == asset.Character.id )
-			{
-				Debug.LogWarning( $"Replaced character {i} - {characters[i].name} with asset {asset.name}. IDs match." );
-				characters[i] = asset.Character;
-				return;
-			}
-		}
-
-		characters.Add( asset.Character );
-	}
 }

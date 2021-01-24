@@ -223,6 +223,10 @@ VAR Meltdown = "120"
 
 ->DONE
 
+== Wave_Test
+{CurrChar},1,1;They persist...
+{Ro},1,1:How many more of these fuckers are there?
+->DONE
 
 ==	FinalScreenTiff
 {	
