@@ -348,7 +348,7 @@ public class BattleManager : MonoBehaviour
 
   public bool WavesDone()
   {
-    return WaveIndex == Database.dynamic.waves.Count;
+    return WaveIndex >= Database.dynamic.waves.Count-1;
   }
 
   public void NextWave()
@@ -956,7 +956,6 @@ public class BattleManager : MonoBehaviour
               yield return new WaitForSeconds( 2 );
               int victor = playerCount > enemyCount ? 0 : 1;
 
-              WaveIndex++;
               if ( WavesDone() )
               {
                 EndGame( context, victor );
@@ -964,7 +963,7 @@ public class BattleManager : MonoBehaviour
               }
               else
               {
-                SpawnEnemyTeamWave();
+                NextWave();
                 CurrentContext.activeCharacterId = InstanceID.InvalidID;
               }
             }
@@ -1093,7 +1092,8 @@ public class BattleManager : MonoBehaviour
   private void EndGame( BattleManagerContext context, int victor )
   {
     //Outcome
-
+    ObjectDB.core.story._inkStory.variablesState["Victory"] = (victor == 0);
+  
     // Right now you can only lose. 
     int deathCount = PlayerPrefs.GetInt( "FAILURES", 0 );
     deathCount++;
