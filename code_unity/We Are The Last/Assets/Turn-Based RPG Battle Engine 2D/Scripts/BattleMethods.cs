@@ -1355,6 +1355,26 @@ public class BattleMethods : MonoBehaviour
 
     BattleManager.setQueueStatus( context,  "kill", false );
   }
+  
+  
+  void displayFloatText( BattleManager.BattleManagerContext context, bool self, string text, float xAdjust, float yAdjust, bool follow = false,  string color = "A9A9A9", string icon = "" )
+  {
+    var sourceInstanceID = context.activeCharacterId;
+    
+    forEachCharacterDo( context, self, ( instanceID, character ) =>
+    {
+          FunctionDB.core.StartCoroutine(
+            FunctionDB.core.displayValue(
+              FunctionDB.core.findCharInstanceGameObjectById( instanceID ),
+              text,
+              color,
+              icon,
+              xAdjust, yAdjust, follow ) );
+    } );
+
+    BattleManager.setQueueStatus( context,  "displayFloatText", false );
+  }
+
 
 
 /*
@@ -1562,7 +1582,7 @@ The condition name is the name of the Animator's parameter which will be set to 
 	By default, if min value not met, stopping skill chain.
 	If self is true, the attribute of the currently active character will be checked. Otherwise the attributes of all selected characters will be checked.
 	Attribute id is the id of the attribute to check (of the latter character).
-	Min Value is the minimum value that the attribute can have. If the value of the attribute is below the minimum value, the skill chain will be stopped.
+	Min Value is the minimum value that the attribute can have. If the value of the attribute is below the minimum value, the skill chain will be jump.
 	 */
   void checkAttribute( BattleManager.BattleManagerContext context, bool self, int attrId, float minValue, string jumpTo )
   {
@@ -1598,9 +1618,9 @@ The condition name is the name of the Animator's parameter which will be set to 
 	By default, if min value not met, stopping skill chain.
 	If self is true, the attribute of the currently active character will be checked. Otherwise the attributes of all selected characters will be checked.
 	Attribute id is the id of the attribute to check (of the latter character).
-	Min Value is the minimum value that the attribute can have. If the value of the attribute is below the minimum value, the skill chain will be stopped.
+	Min Value is the minimum value that the attribute can have. If the value of the attribute is below the minimum value, the skill chain will jump.
 	 */
-  void checkAttributeByName( BattleManager.BattleManagerContext context, bool self, string attrName, float minValue, bool warn, string jumpTo )
+  void testAttributeJump( BattleManager.BattleManagerContext context, bool self, string attrName, float minValue, bool warn, string jumpTo )
   {
 
     forEachCharacterDo( context, self, ( instanceID, character ) =>
@@ -1625,7 +1645,7 @@ The condition name is the name of the Animator's parameter which will be set to 
         pass = false;
       }
 
-      if ( !pass )
+      if ( pass )
       {
         //Stopping skill chain and displaying warning
         int jumpIndex = FunctionDB.core.findFunctionQueueJumpIndexByName( context, jumpTo );
@@ -1635,6 +1655,7 @@ The condition name is the name of the Animator's parameter which will be set to 
         }
         else
         {
+          Debug.Log( $"TestJump to {jumpTo}({jumpIndex}) in skill {context.activeSkillId}." );
           context.runningFunctionIndex = jumpIndex;
         }
 
@@ -1646,7 +1667,28 @@ The condition name is the name of the Animator's parameter which will be set to 
 
     } );
 
-    BattleManager.setQueueStatus( context,  "checkAttributeByName", false );
+    BattleManager.setQueueStatus( context,  "testAttributeJump", false );
+  }
+  
+  /*
+   * Jump to the command labelled
+   * :jumpTo
+	 */
+  void jump( BattleManager.BattleManagerContext context,  string jumpTo )
+  {
+    //Stopping skill chain and displaying warning
+    int jumpIndex = FunctionDB.core.findFunctionQueueJumpIndexByName( context, jumpTo );
+    if ( jumpIndex == -1 )
+    {
+      Debug.LogWarning( $"Unable to find jump index {jumpTo} in skill {context.activeSkillId}" );
+    }
+    else
+    {
+      Debug.Log( $"Jump to {jumpTo} ({jumpIndex}) in skill {context.activeSkillId}." );
+      context.runningFunctionIndex = jumpIndex;
+    }
+    
+    BattleManager.setQueueStatus( context,  "jump", false );
   }
   
   

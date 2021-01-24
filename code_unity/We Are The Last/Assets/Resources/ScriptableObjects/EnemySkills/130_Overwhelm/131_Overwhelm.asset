@@ -23,19 +23,99 @@ MonoBehaviour:
     manaCost: 0
     superCost: 0
     functionsToCall:
-    - functionName: checkAttributeByName
+    - functionName: testAttributeJump
       parametersArray:
       - bool:true
       - string:OVERWHELM
-      - float:3
+      - float:2
       - bool:false
-      - int:14
+      - string:fire
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 1
+      isRunning: 0
+    - functionName: testAttributeJump
+      parametersArray:
+      - bool:true
+      - string:OVERWHELM
+      - float:1
+      - bool:false
+      - string:aim
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: testAttributeJump
+      parametersArray:
+      - bool:true
+      - string:OVERWHELM
+      - float:0
+      - bool:false
+      - string:ready
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: :ready
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFloatText
+      parametersArray:
+      - bool:true
+      - string:Ready...
+      - float:0
+      - float:1
+      - bool:true
+      - string:EB3734
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: jump
+      parametersArray:
+      - string:end
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: :aim
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFloatText
+      parametersArray:
+      - bool:true
+      - string:Aim...
+      - float:0
+      - float:1
+      - bool:true
+      - string:EBB134
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: jump
+      parametersArray:
+      - string:end
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: :fire
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: displayFloatText
+      parametersArray:
+      - bool:true
+      - string:Fire!
+      - float:0
+      - float:1
+      - bool:true
+      - string:45ad11
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: autoSelectTargets
       parametersArray:
-      - int:10
+      - int:1
       - bool:false
       - bool:true
       waitForPreviousFunction: 1
@@ -48,9 +128,9 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: stepForward
+    - functionName: moveToTarget
       parametersArray:
-      - float:2
+      - float:10
       - float:0.1
       waitForPreviousFunction: 1
       isCoroutine: 1
@@ -102,12 +182,6 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
-    - functionName: kill
-      parametersArray:
-      - bool:true
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
     - functionName: provokeReaction
       parametersArray:
       - int:0
@@ -121,10 +195,37 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
+    - functionName: rotateCharacter
+      parametersArray:
+      - int:-1
+      - float:180
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: playAnimation
       parametersArray:
       - int:-1
-      - string:death
+      - string:walk
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: moveBack
+      parametersArray:
+      - float:0.2
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: rotateCharacter
+      parametersArray:
+      - int:-1
+      - float:180
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:idle
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -147,16 +248,6 @@ MonoBehaviour:
       isCoroutine: 0
       isRunning: 0
     endOfRound:
-    - functionName: checkAttributeByName
-      parametersArray:
-      - bool:true
-      - string:OVERWHELM
-      - float:1
-      - bool:false
-      - string:end
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 1
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:true
@@ -167,10 +258,34 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: displayAttributeText
+    - functionName: testAttributeJump
       parametersArray:
       - bool:true
       - string:OVERWHELM
+      - float:4
+      - bool:false
+      - string:reset
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: jump
+      parametersArray:
+      - string:end
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: :reset
+      parametersArray: []
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: addOrChangeAttribute
+      parametersArray:
+      - bool:true
+      - string:OVERWHELM
+      - string:=0
+      - float:10
+      - bool:false
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

@@ -1,19 +1,34 @@
+// bool self, string text, float xAdjust, float yAdjust, bool follow = false,  string color = "A9A9A9", string icon = "" )
+
 FUNCTIONS
 
-checkAttributeByName,W,,R,bool:true,string:OVERWHELM,float:3,bool:false,int:14
+testAttributeJump,W,,,bool:true,string:OVERWHELM,float:2,bool:false,string:fire
+testAttributeJump,W,,,bool:true,string:OVERWHELM,float:1,bool:false,string:aim
+testAttributeJump,W,,,bool:true,string:OVERWHELM,float:0,bool:false,string:ready
+:ready,W,,,
+displayFloatText,W,,,bool:true,string:Ready...,float:0,float:1,bool:true,string:EB3734
+jump,W,,,string:end
+:aim,W,,,
+displayFloatText,W,,,bool:true,string:Aim...,float:0,float:1,bool:true,string:EBB134
+jump,W,,,string:end
+:fire,W,,,
+displayFloatText,W,,,bool:true,string:Fire!,float:0,float:1,bool:true,string:45ad11
 autoSelectTargets,W,,,int:1,bool:false,bool:true
 playAnimation,W,,,int:-1,string:walk
-stepForward,W,C,,float:2,float:0.1
+moveToTarget,W,C,,float:10,float:0.1
 playAnimation,W,,,int:-1,string:attack
 playAudioOnce,,,,int:1,int:1
 displayFX,W,,,bool:false,float:2,string:attack,float:0,float:0
 displayFX,W,,,bool:false,float:2,string:attack,float:-0.7,float:1
 damageTargets,W,,,int:40,int:4
 wait,W,C,,float:0.6
-kill,W,,,bool:true
 provokeReaction,W,C,,int:0,int:0
 waitForReaction,W,C,,int:0
-playAnimation,W,,,int:-1,string:death
+rotateCharacter,W,,,int:-1,float:180
+playAnimation,W,,,int:-1,string:walk
+moveBack,W,C,,float:0.2
+rotateCharacter,W,,,int:-1,float:180
+playAnimation,W,,,int:-1,string:idle
 :end,W,,,
 toggleActions,W,,,bool:true
 subtractTurnPoints,W,,,int:0,int:0
@@ -21,9 +36,11 @@ subtractTurnPoints,W,,,int:0,int:0
 
 ENDOFROUND
 
-checkAttributeByName,W,,R,bool:true,string:OVERWHELM,float:1,bool:false,string:end
 addOrChangeAttribute,W,,,bool:true,string:OVERWHELM,string:+1,float:10,bool:false
-displayAttributeText,W,,,bool:true,string:OVERWHELM
+testAttributeJump,W,,,bool:true,string:OVERWHELM,float:4,bool:false,string:reset
+jump,W,,,string:end
+:reset,W,,,
+addOrChangeAttribute,W,,,bool:true,string:OVERWHELM,string:=0,float:10,bool:false
 :end,W,,,
 
 SACRIFICE

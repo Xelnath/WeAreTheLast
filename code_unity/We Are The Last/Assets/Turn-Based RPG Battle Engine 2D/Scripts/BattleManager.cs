@@ -377,11 +377,7 @@ public class BattleManager : MonoBehaviour
       if ( ftc.isComment ) continue;
 
       Debug.Log( $"{originalContext.runningFunctionIndex} - {ftc}" );
-      // if ( !context.functionQueue.Contains( ftc ) )
-      // {
-      //   break;
-      // }
-
+      
       //Active char id
       yield return core.call ( originalContext, ftc );
     }
@@ -470,14 +466,26 @@ public class BattleManager : MonoBehaviour
 
       yield return new WaitForEndOfFrame();
     }
-
-    if ( context.functionQueue.Contains( ftc ) )
+    
+    if ( queueIndex != context.runningFunctionIndex )
+    {
+      Debug.Log( $"Jump happened: {queueIndex} vs {context.runningFunctionIndex}" );
+    }
+    
+    if ( context.functionQueue.Contains( ftc ) && context.runningFunctionIndex == queueIndex )
     {
 
         //We need to get the method info in order to properly invoke the method
         System.Type type = BattleMethods.core.GetType();
         MethodInfo mi = type.GetMethod( method,
           BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance );
+
+        // Default parameters support 
+        var parametersFinal = mi.GetParameters().Select(param => param.HasDefaultValue ? param.DefaultValue : null).ToArray();
+        for ( int i = 0; i < parametersArray.Length && i < parametersFinal.Length; ++i )
+        {
+          parametersFinal[i] = parametersArray[i];
+        }
 
         //Setting current function as running in the queue
         setQueueStatus( context, method, true );
@@ -490,7 +498,7 @@ public class BattleManager : MonoBehaviour
           try
           {
             //Debug.Log( $"{method} - {queueIndex}" );
-            mi.Invoke( BattleMethods.core, parametersArray );
+            mi.Invoke( BattleMethods.core, parametersFinal );
           }
           catch ( Exception e )
           {

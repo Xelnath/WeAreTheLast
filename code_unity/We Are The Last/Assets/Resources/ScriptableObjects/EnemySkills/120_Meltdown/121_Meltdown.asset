@@ -23,7 +23,7 @@ MonoBehaviour:
     manaCost: 0
     superCost: 0
     functionsToCall:
-    - functionName: checkAttributeByName
+    - functionName: testAttributeJump
       parametersArray:
       - bool:true
       - string:MELTDOWN

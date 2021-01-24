@@ -47,7 +47,7 @@ public class FunctionDB : MonoBehaviour {
 	}
 	
 	public int findFunctionQueueJumpIndexByName (BattleManager.BattleManagerContext ctx, string s) {
-		return ctx.functionQueue.FindIndex(x => x.functionName[0] == ':' && x.functionName.Substring(0) == s  );
+		return ctx.functionQueue.FindIndex(x => x.functionName[0] == ':' && x.functionName.Substring(1) == s  );
 	}
 
 	//Getting battle manager characters list index by id
@@ -356,7 +356,7 @@ public class FunctionDB : MonoBehaviour {
 		yield return displayValue( target, value.ToString(), displayColor(1, type), displayIcon(1, type, displayColor(1, type)), xAdjustment, yAdjustment );
 	}
 
-	public IEnumerator displayValue (GameObject target, string value, string color, string icon, float xAdjustment, float yAdjustment) {
+	public IEnumerator displayValue (GameObject target, string value, string color, string icon, float xAdjustment, float yAdjustment, bool followTarget = true) {
 
 		//Getting coordinates
 		Vector3 coordinates = target.transform.position;
@@ -389,7 +389,7 @@ public class FunctionDB : MonoBehaviour {
 		tmp.text = $"<color=#{color}>{tmp.text}</color>";
 
 		//Making value follow target
-		StartCoroutine(follow (g, target, xAdjustment, yAdjustment));
+		if ( followTarget) StartCoroutine(follow (g, target, xAdjustment, yAdjustment));
 
 		yield return new WaitForSeconds (1);
 
