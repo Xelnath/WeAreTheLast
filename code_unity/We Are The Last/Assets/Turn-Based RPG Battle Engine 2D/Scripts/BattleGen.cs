@@ -87,10 +87,6 @@ public class BattleGen : MonoBehaviour
   public void charGen(List<GameObject> teamSpawns, List<InstanceID> charTeam, int team)
   {
 
-    //Character info prefab and window
-    var charInfoPrefab = ObjectDB.core.battleUICharacterInfoPrefab;
-    var charInfoWindow = ObjectDB.core.battleUICharacterInfoWindow;
-
     //Removing children before respawning
     foreach (GameObject spawn in teamSpawns)
     {
@@ -147,49 +143,65 @@ public class BattleGen : MonoBehaviour
 
         //Spawning UI
         //We only need to spawn UI for the player team
-        if (team == 0)
+        if ( team == 0 )
         {
-
-          //Instatiating object
-          GameObject g = Instantiate(charInfoPrefab, charInfoWindow.transform);
-
-          var characterInstance = BattleManager.core.findCharacterInstanceById(charId);
-          characterInstance.uiObject = g;
-
-          //Setting data
-          Transform gt = g.transform;
-          GameObject iconObject = gt.GetChild(0).gameObject;
-          GameObject nameObject = gt.GetChild(1).gameObject;
-          GameObject attributeSlot1 = gt.GetChild(2).gameObject;
-          GameObject attributeSlot2 = gt.GetChild(3).gameObject;
-          GameObject attributeSlot3 = gt.GetChild(4).gameObject;
-
-          //Icon
-          iconObject.GetComponent<Image>().sprite = character.icon;
-
-          //Name
-          nameObject.GetComponent<TextMeshProUGUI>().text = character.name;
-
-          //Attribute1
-          var attributes = character.characterAttributes;
-
-          if (attributes.Count >= 2)
-          {
-            attributeSlot1.GetComponent<TextMeshProUGUI>().text = attributes[0].name + " " + attributes[0].curValue.ToString() + " / " + attributes[0].maxValue.ToString();
-            attributeSlot2.GetComponent<TextMeshProUGUI>().text = attributes[1].name + " " + attributes[1].curValue.ToString() + " / " + attributes[1].maxValue.ToString();
-            attributeSlot3.GetComponent<TextMeshProUGUI>().text = attributes[2].name + " " + attributes[2].curValue.ToString() + " / " + attributes[2].maxValue.ToString();
-          }
-          else
-          {
-            Debug.Log("The default configuration requires at least 2 attributes per character. Please add more attributes or change the configuration.");
-          }
-
+          setupUI( charId, character );
         }
-
       }
       else
       {
         Debug.Log("Character with id" + charId.ToString() + " was not spawned due to the lack of spawn points.");
+      }
+    }
+  }
+
+  private void setupUI(InstanceID charId, character character )
+  {
+    
+    //Character info prefab and window
+    var charInfoPrefab = ObjectDB.core.battleUICharacterInfoPrefab;
+    var charInfoWindow = ObjectDB.core.battleUICharacterInfoWindow;
+    {
+
+      //Instatiating object
+      GameObject g = Instantiate( charInfoPrefab, charInfoWindow.transform );
+
+      var characterInstance = BattleManager.core.findCharacterInstanceById( charId );
+      characterInstance.uiObject = g;
+
+      //Setting data
+      Transform gt = g.transform;
+      GameObject iconObject = gt.GetChild( 0 ).gameObject;
+      GameObject nameObject = gt.GetChild( 1 ).gameObject;
+      GameObject attributeSlot1 = gt.GetChild( 2 ).gameObject;
+      GameObject attributeSlot2 = gt.GetChild( 3 ).gameObject;
+      GameObject attributeSlot3 = gt.GetChild( 4 ).gameObject;
+
+      //Icon
+      iconObject.GetComponent<Image>().sprite = character.icon;
+
+      //Name
+      nameObject.GetComponent<TextMeshProUGUI>().text = character.name;
+
+      //Attribute1
+      var attributes = character.characterAttributes;
+
+      if ( attributes.Count >= 2 )
+      {
+        attributeSlot1.GetComponent<TextMeshProUGUI>().text = attributes[0].name + " " +
+                                                              attributes[0].curValue.ToString() + " / " +
+                                                              attributes[0].maxValue.ToString();
+        attributeSlot2.GetComponent<TextMeshProUGUI>().text = attributes[1].name + " " +
+                                                              attributes[1].curValue.ToString() + " / " +
+                                                              attributes[1].maxValue.ToString();
+        attributeSlot3.GetComponent<TextMeshProUGUI>().text = attributes[2].name + " " +
+                                                              attributes[2].curValue.ToString() + " / " +
+                                                              attributes[2].maxValue.ToString();
+      }
+      else
+      {
+        Debug.Log(
+          "The default configuration requires at least 2 attributes per character. Please add more attributes or change the configuration." );
       }
     }
   }

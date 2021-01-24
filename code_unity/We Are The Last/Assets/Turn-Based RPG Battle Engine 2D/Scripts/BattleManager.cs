@@ -335,8 +335,26 @@ public class BattleManager : MonoBehaviour
     {
       WaveIndex = Database.dynamic.waves.IndexOf( InitialWave.wave );
 
-      SpawnEnemyTeamWave();
+      var nextWave = Database.dynamic.waves[WaveIndex];
+      for ( int i = 0; i  < nextWave.Creatures.Count; ++i )
+      {
+        int charID = nextWave.Creatures[i];
+        var instanceID = new InstanceID( charID );
+        activeEnemyTeam.Add( instanceID );
+      }
+
     }
+  }
+
+  public bool WavesDone()
+  {
+    return WaveIndex == Database.dynamic.waves.Count;
+  }
+
+  public void NextWave()
+  {
+    WaveIndex++;
+    SpawnEnemyTeamWave();
   }
 
   public void SpawnEnemyTeamWave()
@@ -349,6 +367,8 @@ public class BattleManager : MonoBehaviour
       var instanceID = new InstanceID( charID );
       activeEnemyTeam.Add( instanceID );
     }
+
+    charGenNextWave();
   }
 
   //Character battler generation
@@ -376,6 +396,32 @@ public class BattleManager : MonoBehaviour
     BattleGen.core.charGen( playerTeamSpawns, activePlayerTeam, 0 );
     BattleGen.core.charGen( enemyTeamSpawns, activeEnemyTeam, 1 );
 
+  }
+
+  public void charGenNextWave()
+  {
+    var enemySpawns = ObjectDB.core.enemyTeamSpawns;
+    var enemyTeamSpawns = FunctionDB.core.childObjects( enemySpawns.transform );
+    
+    //Getting info window
+    //var charInfoWindow = ObjectDB.core.battleUICharacterInfoWindow;
+
+    //Clearing window
+    //FunctionDB.core.emptyWindow( charInfoWindow );
+
+    //Emptying battle manager's info objects list
+    for ( int i = BattleManager.core.characterInstances.Count-1; i >=0; --i)
+    {
+      var instance = BattleManager.core.characterInstances[i];
+      // Cheap and dirty
+      if ( instance.characterInstanceId.CharacterID > 10 && instance.isAlive == false )
+      {
+        Debug.Log( $"Removing {instance.characterCopy.name}." );
+        BattleManager.core.characterInstances.RemoveAt( i );
+      }
+    }
+
+    BattleGen.core.charGen( enemyTeamSpawns, activeEnemyTeam, 1 );
   }
 
   //This function allows invoking methods by names and applying parameters from a parameter array
@@ -910,10 +956,17 @@ public class BattleManager : MonoBehaviour
               yield return new WaitForSeconds( 2 );
               int victor = playerCount > enemyCount ? 0 : 1;
 
-              EndGame( context, victor );
-
-              //Please add any follow up actions here.
-              break;
+              WaveIndex++;
+              if ( WavesDone() )
+              {
+                EndGame( context, victor );
+                break;
+              }
+              else
+              {
+                SpawnEnemyTeamWave();
+                CurrentContext.activeCharacterId = InstanceID.InvalidID;
+              }
             }
 
             //Getting active team.
