@@ -203,6 +203,7 @@ public class BattleManager : MonoBehaviour
   {
     UpdateInkVariables();
     initiateBattle();
+    StartStory();
   }
 
   //This function is responsible for initiating combat
@@ -1029,6 +1030,11 @@ public class BattleManager : MonoBehaviour
   {
     int deathCount = PlayerPrefs.GetInt( "FAILURES", 0 );
     ObjectDB.core.story._inkStory.variablesState["Deaths"] = deathCount;
+  }
+
+  private void StartStory()
+  {
+    ObjectDB.core.story.Bark( "Start", "0" );
   }
 
   private void EndGame( BattleManagerContext context, int victor )
