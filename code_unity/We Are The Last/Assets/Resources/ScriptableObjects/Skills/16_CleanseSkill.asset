@@ -16,7 +16,7 @@ MonoBehaviour:
     name: Cleanse
     id: 16
     description: Remove hostile effects from an ally
-    DEBUG: 0
+    DEBUG: 1
     sacrificeReplacementId: 17
     activeSkill: 1
     isAttack: 0
@@ -70,8 +70,8 @@ MonoBehaviour:
       - bool:false
       - float:2
       - string:heal
-      - float:-0.8
-      - float:0
+      - float:-1
+      - float:1
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

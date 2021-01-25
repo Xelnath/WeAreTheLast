@@ -1404,7 +1404,7 @@ public class BattleMethods : MonoBehaviour
       }
     } );
 
-    BattleManager.setQueueStatus( context,  "damageTargets", false );
+    BattleManager.setQueueStatus( context,  "healTargets", false );
   }
 
   void damageTargets( BattleManager.BattleManagerContext context, int damageAmount, int school, bool ignoreDefense = false )

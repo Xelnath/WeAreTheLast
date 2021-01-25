@@ -76,6 +76,8 @@ MonoBehaviour:
   WaveAssets:
   - {fileID: 11400000, guid: 53e8b228ef309584d85b1a437fb2ddcd, type: 2}
   - {fileID: 11400000, guid: 83ca9b356810a2a4687f8808d71f4e48, type: 2}
+  - {fileID: 11400000, guid: 62e7ab019b3c8cb43ae7b1ff5f0f23f3, type: 2}
+  - {fileID: 11400000, guid: b375f1942fb22ec47bfcae844687c53a, type: 2}
   characters: []
   items:
   - name: Apple
