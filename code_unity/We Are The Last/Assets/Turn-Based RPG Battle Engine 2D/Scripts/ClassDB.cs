@@ -249,6 +249,7 @@ namespace ClassDB {
 		public InstanceID characterInstanceId;
 		public bool isAlive = true;
 		public character characterCopy;
+		public int lastSkillUsed;
 	}
 	
 	//Used by main action menu, not skills and items.

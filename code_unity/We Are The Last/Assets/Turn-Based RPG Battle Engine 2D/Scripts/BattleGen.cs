@@ -135,6 +135,7 @@ public class BattleGen : MonoBehaviour
         info.spawnPointObject = teamSpawns[counter];
         info.targetIds = new List<InstanceID>();
         info.threatArrows = new List<GameObject>();
+        info.lastSkillUsed = -1;
 
         BattleManager.core.characterInstances.Add(info);
 

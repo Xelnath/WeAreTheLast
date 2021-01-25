@@ -14,34 +14,30 @@ public class BattleMethods : MonoBehaviour
 {
   public static BattleMethods core;
 
-  //---------------AI--------------------//
+//---------------AI--------------------//
   //This is a sample AI function that simply runs the first skill available to the AI on a random target
   void sampleAi(BattleManager.BattleManagerContext context)
   {
 
     //Getting character
     var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
-    var character = characterInstance.characterCopy;
     
-    //Getting skills
-    var skillIds = character.skills;
-
-    foreach ( int skillId in skillIds )
+    var skill = selectAISkill(characterInstance);
+    
+    characterInstance.lastSkillUsed += 1;
+    if (characterInstance.lastSkillUsed >= characterInstance.characterCopy.skills.Count)
     {
-
-      var skill = Database.dynamic.skills[FunctionDB.core.findSkillIndexById( skillId )];
-      //Getting functions to call
-      var functionsToCall = skill.functionsToCall;
-
-      //Storing the functions list to functionQueue
-      context.activeSkillId = skillId;
-      context.DEBUG = skill.DEBUG;
-
-      context.functionQueue = functionsToCall;
-      BattleManager.core.StartCoroutine( BattleManager.core.functionQueueCaller( context ) );
-
-      break;
+      characterInstance.lastSkillUsed = 0;
     }
+    
+    //Getting functions to call
+    var functionsToCall = skill.functionsToCall;
+
+    //Storing the functions list to functionQueue
+    context.activeSkillId = skill.id;
+    context.functionQueue = functionsToCall;
+    BattleManager.core.StartCoroutine( BattleManager.core.functionQueueCaller( context ) );
+
 
   }
   
@@ -71,8 +67,7 @@ public class BattleMethods : MonoBehaviour
 	      
 	      context.activeSkillId = skill.id;  
 	      context.functionQueue = functionsToCall;
-	      context.DEBUG = skill.DEBUG;
-
+	      
 	      BattleManager.core.StartCoroutine( BattleManager.core.functionQueueCaller( context ) );
 	    }
 	  }
@@ -122,32 +117,16 @@ public class BattleMethods : MonoBehaviour
   public void preplanAI(InstanceID instanceID)
   {
     var characterInstance = BattleManager.core.findCharacterInstanceById( instanceID );
-    //Getting character
-    var curChar = characterInstance.characterCopy;
-    //Getting skills
-    var skillIds = curChar.skills;
 
-    //This still just preplans based on the first skill -- more advanced skill selection AI would go here
-    foreach (int skillId in skillIds)
+    var skill = selectAISkill(characterInstance);
+
+    //Getting functions to call
+    var functionsToCall = skill.functionsToCall;
+
+    //Getting targets to store in charInfo
+    for (int j = 0; j < functionsToCall.Count; j++)
     {
-      int skillIndex = FunctionDB.core.findSkillIndexById( skillId );
-      if ( skillIndex == -1 )
-      {
-        Debug.LogError( $"Unable to find skill by id {skillId}." );
-        continue;
-      }
-
-      var skill = Database.dynamic.skills[skillIndex];
-      //Getting functions to call
-      var functionsToCall = skill.functionsToCall;
-
-      //Getting targets to store in charInfo
-      for (int j = 0; j < functionsToCall.Count; j++)
-      {
-        preplanAITargets(characterInstance, functionsToCall[j]);
-      }
-
-      break;
+      preplanAITargets(characterInstance, functionsToCall[j]);
     }
   }
 
@@ -165,6 +144,21 @@ public class BattleMethods : MonoBehaviour
 
       if (allowFriendly) { characterInstance.targetIds.AddRange(BattleManager.core.activeEnemyTeam); }
       if (allowHostile) { characterInstance.targetIds.AddRange(BattleManager.core.activePlayerTeam); }
+      
+      //Excluding invalid characters
+      List<InstanceID> deadCharacters = new List<InstanceID>();
+      for (int i = 0; i < characterInstance.targetIds.Count; i++)
+      {
+        var characterId = characterInstance.targetIds[i];
+        if (!BattleManager.core.findCharacterInstanceById(characterId).isAlive)
+        {
+          deadCharacters.Add(characterId);
+        }
+      }
+      foreach (var index in deadCharacters)
+      {
+        characterInstance.targetIds.Remove(index);
+      }
       
       List<InstanceID> selected = new List<InstanceID>();
       while ( targetLimit > 0 && characterInstance.targetIds.Count > 0 )
@@ -210,18 +204,18 @@ public class BattleMethods : MonoBehaviour
       characterInstance.targetIds = selected;
       
       //Excluding invalid characters
-      for ( int i = 0; i < characterInstance.targetIds.Count; i++ )
+      List<InstanceID> deadCharacters = new List<InstanceID>();
+      for (int i = 0; i < characterInstance.targetIds.Count; i++)
       {
-        //Id
-        var charId = characterInstance.targetIds[i];
-        //Getting character's health
-        character character = characterInstance.characterCopy;
-
-        //If health is 0, exclude character
-        if ( !character.isActive )
+        var characterId = characterInstance.targetIds[i];
+        if (!BattleManager.core.findCharacterInstanceById(characterId).isAlive)
         {
-          characterInstance.targetIds.RemoveAt( i );
+          deadCharacters.Add(characterId);
         }
+      }
+      foreach (var index in deadCharacters)
+      {
+        characterInstance.targetIds.Remove(index);
       }
 
       //Getting random character
@@ -232,6 +226,34 @@ public class BattleMethods : MonoBehaviour
     }
   }
 
+  public skill selectAISkill(characterInfo characterInstance)
+  {
+    var curChar = characterInstance.characterCopy;
+    //Getting skills
+    var skillIds = curChar.skills;
+
+    int nextSkill = 0;
+    if (characterInstance.lastSkillUsed != -1)
+    {
+      nextSkill = characterInstance.lastSkillUsed + 1;
+      if (nextSkill >= curChar.skills.Count)
+      {
+        nextSkill = 0;
+      }
+    }
+    
+    int skillIndex = FunctionDB.core.findSkillIndexById( skillIds[nextSkill] );
+    if ( skillIndex == -1 )
+    {
+      Debug.LogError( $"Unable to find skill by id {skillIds[nextSkill]}." );
+      return null;
+    }
+
+    var skill = Database.dynamic.skills[skillIndex];
+
+    return skill;
+  }
+  
   /*
 	This function is used to subtract turn points.
 	Action Type should be 0 if the action is a skill, or 1 if it is an item.
