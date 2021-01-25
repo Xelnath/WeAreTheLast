@@ -25,7 +25,7 @@ MonoBehaviour:
     superCost: 0
     targetProviders:
     - preserved: 0
-      arrowType: 0
+      arrowType: 1
       targetCalls:
       - functionName: selectTargets
         parametersArray:

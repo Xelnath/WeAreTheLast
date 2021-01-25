@@ -151,6 +151,8 @@ public class BattleMethods : MonoBehaviour
       for ( c.runningFunctionIndex = 0; c.runningFunctionIndex < c.functionQueue.Count; c.runningFunctionIndex++ )
       {
         var ftc = c.functionQueue[c.runningFunctionIndex];
+        if ( ftc.isComment ) continue;
+        
         BattleManager.core.callFtc( c, ftc, c.runningFunctionIndex );
       }
 

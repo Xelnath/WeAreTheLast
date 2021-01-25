@@ -9000,7 +9000,7 @@ MonoBehaviour:
   autoBattle: 0
   maxTurnPoints: 100
   initialPlayerTeam: 000000000200000001000000
-  InitialWave: {fileID: 11400000, guid: 83ca9b356810a2a4687f8808d71f4e48, type: 2}
+  InitialWave: {fileID: 11400000, guid: 53e8b228ef309584d85b1a437fb2ddcd, type: 2}
   WaveIndex: -1
   activeMusicId: -1
   activeTeam: -1

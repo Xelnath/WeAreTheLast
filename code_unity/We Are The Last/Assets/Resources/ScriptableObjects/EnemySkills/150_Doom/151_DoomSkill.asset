@@ -25,11 +25,10 @@ MonoBehaviour:
     superCost: 0
     targetProviders:
     - preserved: 0
-      arrowType: 0
+      arrowType: 1
       targetCalls:
       - functionName: selectTeam
         parametersArray:
-        - int:99
         - bool:false
         - bool:true
         waitForPreviousFunction: 1

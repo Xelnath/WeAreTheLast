@@ -1,5 +1,5 @@
 TARGET0
-selectTeam,W,,,int:1,bool:true,bool:false
+selectTeam,W,,,bool:true,bool:false
 
 
 FUNCTIONS

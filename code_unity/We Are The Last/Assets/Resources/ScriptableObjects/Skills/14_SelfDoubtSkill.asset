@@ -29,7 +29,6 @@ MonoBehaviour:
       targetCalls:
       - functionName: selectTeam
         parametersArray:
-        - int:99
         - bool:false
         - bool:true
         waitForPreviousFunction: 1
@@ -149,9 +148,8 @@ MonoBehaviour:
       isCoroutine: 0
       isRunning: 0
     endOfRound:
-    - functionName: autoSelectTargets
+    - functionName: selectTeam
       parametersArray:
-      - int:10
       - bool:true
       - bool:true
       waitForPreviousFunction: 1

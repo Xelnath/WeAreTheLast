@@ -16,7 +16,7 @@ MonoBehaviour:
     name: Attack
     id: 100
     description: A basic attack
-    DEBUG: 0
+    DEBUG: 1
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1

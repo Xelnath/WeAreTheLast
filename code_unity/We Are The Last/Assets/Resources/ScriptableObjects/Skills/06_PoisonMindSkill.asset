@@ -29,7 +29,6 @@ MonoBehaviour:
       targetCalls:
       - functionName: selectTeam
         parametersArray:
-        - int:99
         - bool:false
         - bool:true
         waitForPreviousFunction: 1

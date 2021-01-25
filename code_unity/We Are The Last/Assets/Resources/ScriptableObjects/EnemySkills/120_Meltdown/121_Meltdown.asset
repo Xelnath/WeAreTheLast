@@ -25,13 +25,52 @@ MonoBehaviour:
     superCost: 0
     targetProviders:
     - preserved: 0
-      arrowType: 0
+      arrowType: 1
       targetCalls:
+      - functionName: testAttributeJump
+        parametersArray:
+        - bool:true
+        - string:MELTDOWN
+        - float:2
+        - bool:false
+        - string:target
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: testAttributeJump
+        parametersArray:
+        - bool:true
+        - string:MELTDOWN
+        - float:1
+        - bool:false
+        - string:end
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: testAttributeJump
+        parametersArray:
+        - bool:true
+        - string:MELTDOWN
+        - float:0
+        - bool:false
+        - string:end
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: :target
+        parametersArray: []
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
       - functionName: selectTeam
         parametersArray:
-        - int:10
         - bool:false
         - bool:true
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: :end
+        parametersArray: []
         waitForPreviousFunction: 1
         isCoroutine: 0
         isRunning: 0
@@ -83,7 +122,6 @@ MonoBehaviour:
       isRunning: 0
     - functionName: selectTeam
       parametersArray:
-      - int:10
       - bool:false
       - bool:true
       waitForPreviousFunction: 1
