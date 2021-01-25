@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ClassDB;
+using UnityEngine.Serialization;
 
 //This script stores object references for easier access
 public class ObjectDB : MonoBehaviour {
@@ -67,7 +68,10 @@ public class ObjectDB : MonoBehaviour {
 	public GameObject threatArrowSpawn;
 	
 	//Enemy Threat Arrow prefab
-	public GameObject ThreatArrowPrefab;
+	[FormerlySerializedAs( "ThreatArrowPrefab" )] public GameObject NormalThreatArrowPrefab;
+	[FormerlySerializedAs( "SpecialArrowPrefab" )] public GameObject SpecialThreatArrowPrefab;
+	[FormerlySerializedAs( "HelpArrowPrefab" )] public GameObject FriendlyArrowPrefab;
+	[FormerlySerializedAs( "SpecialHelpArrowPrefab" )] public GameObject SpecialFriendlyArrowPrefab;
 
 	//A list of audioclips
 	public List<audioInfo> AudioClips = new List<audioInfo>();

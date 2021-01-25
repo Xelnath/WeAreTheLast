@@ -16,15 +16,36 @@ public class SkillAsset : ScriptableObject
 	[Sirenix.OdinInspector.ShowInInspector]
 	public void ImportSkillFunctions()
 	{
+		ImportSkillFunctions( true );
+	}
+
+	public void ImportSkillFunctions(bool refresh)
+	{
 		if (SkillText != null)
 		{
 			Skill.functionsToCall = SkillTextParser.parseFunctionsToCall(SkillText);
 			Skill.endOfRound = SkillTextParser.parseEndOfRound(SkillText);
 			Skill.sacrificeActions = SkillTextParser.parseSacrifice(SkillText);
+
+			int targetProviders = SkillTextParser.parseTargetCount( SkillText );
+			while ( targetProviders > Skill.targetProviders.Count )
+			{
+				Skill.targetProviders.Add( new targetProvider() );
+			}
+
+			for ( int i = 0; i < Skill.targetProviders.Count; ++i )
+			{
+				Skill.targetProviders[i].targetCalls = SkillTextParser.parseTarget( SkillText, i );
+			}
+
 			EditorUtility.SetDirty(this);
 		}
-		AssetDatabase.SaveAssets();
-		AssetDatabase.Refresh();
+
+		if ( refresh )
+		{
+			AssetDatabase.SaveAssets();
+			AssetDatabase.Refresh();
+		}
 	}
 	
 	[Sirenix.OdinInspector.ShowInInspector]

@@ -4,7 +4,7 @@ FUNCTIONS
 
 ENDOFROUND
 
-autoSelectTargets,W,,,int:4,bool:true,bool:false
+selectTeam,W,,,bool:true,bool:false
 wait,W,C,,float:1.4
 healTargets,W,,,bool:false,int:10,bool:true
 displayFX,W,,,bool:false,float:2,string:heal,float:-0.6,float:1

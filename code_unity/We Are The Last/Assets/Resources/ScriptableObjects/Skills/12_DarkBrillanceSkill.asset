@@ -23,10 +23,20 @@ MonoBehaviour:
     turnPointCost: 100
     manaCost: 0
     superCost: 0
+    targetProviders:
+    - preserved: 0
+      arrowType: 0
+      targetCalls:
+      - functionName: selectTeam
+        parametersArray:
+        - bool:true
+        - bool:true
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
     functionsToCall:
-    - functionName: autoSelectTargets
+    - functionName: selectTeam
       parametersArray:
-      - int:10
       - bool:true
       - bool:true
       waitForPreviousFunction: 1

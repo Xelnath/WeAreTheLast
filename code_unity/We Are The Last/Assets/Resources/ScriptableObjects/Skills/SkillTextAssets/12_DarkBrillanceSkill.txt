@@ -1,6 +1,9 @@
+TARGET0
+selectTeam,W,,,bool:true,bool:true
+
 FUNCTIONS
 
-autoSelectTargets,W,,,int:10,bool:true,bool:true
+selectTeam,W,,,bool:true,bool:true
 playAnimation,W,,,int:-1,string:walk
 stepForward,W,C,,float:2,float:0.1
 playAnimation,W,,,int:-1,string:attack

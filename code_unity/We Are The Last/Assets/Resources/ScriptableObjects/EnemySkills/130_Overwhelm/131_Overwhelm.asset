@@ -23,6 +23,56 @@ MonoBehaviour:
     turnPointCost: 100
     manaCost: 0
     superCost: 0
+    targetProviders:
+    - preserved: 0
+      arrowType: 0
+      targetCalls:
+      - functionName: testAttributeJump
+        parametersArray:
+        - bool:true
+        - string:OVERWHELM
+        - float:0
+        - bool:false
+        - string:clear
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: jumpIfTargetCountTest
+        parametersArray:
+        - string:>0
+        - string:end
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: selectTargets
+        parametersArray:
+        - int:1
+        - bool:false
+        - bool:true
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: jump
+        parametersArray:
+        - string:end
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: :clear
+        parametersArray: []
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: clearTargets
+        parametersArray: []
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: :end
+        parametersArray: []
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
     functionsToCall:
     - functionName: testAttributeJump
       parametersArray:

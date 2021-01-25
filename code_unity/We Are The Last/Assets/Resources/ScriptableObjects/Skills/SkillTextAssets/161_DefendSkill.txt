@@ -1,3 +1,5 @@
+targetSelf,W,,,
+
 FUNCTIONS
 
 toggleActions,W,,,bool:false

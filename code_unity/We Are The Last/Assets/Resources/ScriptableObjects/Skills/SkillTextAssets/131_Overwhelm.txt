@@ -1,5 +1,14 @@
 // bool self, string text, float xAdjust, float yAdjust, bool follow = false,  string color = "A9A9A9", string icon = "" )
 
+TARGET0
+testAttributeJump,W,,,bool:true,string:OVERWHELM,float:0,bool:false,string:clear
+jumpIfTargetCountTest,W,,,string:>0,string:end
+selectTargets,W,,,int:1,bool:false,bool:true
+jump,W,,,string:end
+:clear,W,,,
+clearTargets,W,,,
+:end,W,,,
+
 FUNCTIONS
 
 testAttributeJump,W,,,bool:true,string:STUN,float:1,bool:false,string:reset

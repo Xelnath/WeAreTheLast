@@ -23,6 +23,18 @@ MonoBehaviour:
     turnPointCost: 100
     manaCost: 0
     superCost: 0
+    targetProviders:
+    - preserved: 0
+      arrowType: 0
+      targetCalls:
+      - functionName: selectTeam
+        parametersArray:
+        - int:10
+        - bool:false
+        - bool:true
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
     functionsToCall:
     - functionName: testAttributeJump
       parametersArray:
@@ -33,7 +45,7 @@ MonoBehaviour:
       - string:boom
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 0
+      isRunning: 1
     - functionName: testAttributeJump
       parametersArray:
       - bool:true
@@ -43,7 +55,7 @@ MonoBehaviour:
       - string:end
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 0
+      isRunning: 1
     - functionName: testAttributeJump
       parametersArray:
       - bool:true
@@ -53,7 +65,7 @@ MonoBehaviour:
       - string:end
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 0
+      isRunning: 1
     - functionName: testAttributeJump
       parametersArray:
       - bool:true
@@ -63,13 +75,13 @@ MonoBehaviour:
       - string:end
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 0
+      isRunning: 1
     - functionName: :boom
       parametersArray: []
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: autoSelectTargets
+    - functionName: selectTeam
       parametersArray:
       - int:10
       - bool:false
@@ -189,7 +201,7 @@ MonoBehaviour:
       - string:3
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 0
+      isRunning: 1
     - functionName: testAttributeJump
       parametersArray:
       - bool:true
@@ -199,7 +211,7 @@ MonoBehaviour:
       - string:2
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 0
+      isRunning: 1
     - functionName: testAttributeJump
       parametersArray:
       - bool:true
@@ -209,7 +221,7 @@ MonoBehaviour:
       - string:1
       waitForPreviousFunction: 1
       isCoroutine: 0
-      isRunning: 0
+      isRunning: 1
     - functionName: :3
       parametersArray: []
       waitForPreviousFunction: 1

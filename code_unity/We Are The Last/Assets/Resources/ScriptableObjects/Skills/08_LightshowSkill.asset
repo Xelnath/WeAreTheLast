@@ -23,12 +23,41 @@ MonoBehaviour:
     turnPointCost: 100
     manaCost: 0
     superCost: 0
+    targetProviders:
+    - preserved: 0
+      arrowType: 0
+      targetCalls:
+      - functionName: selectTeam
+        parametersArray:
+        - int:1
+        - bool:false
+        - bool:true
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
     functionsToCall:
-    - functionName: autoSelectTargets
+    - functionName: preselectedTargets
       parametersArray:
-      - int:10
+      - int:0
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: jumpIfTargetCountTest
+      parametersArray:
+      - string:>0
+      - string:found
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: selectTeam
+      parametersArray:
       - bool:false
       - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: :found
+      parametersArray: []
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

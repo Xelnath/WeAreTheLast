@@ -23,11 +23,51 @@ MonoBehaviour:
     turnPointCost: 100
     manaCost: 0
     superCost: 0
+    targetProviders:
+    - preserved: 0
+      arrowType: 0
+      targetCalls:
+      - functionName: selectTeam
+        parametersArray:
+        - int:99
+        - bool:false
+        - bool:true
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: filterTargets
+        parametersArray:
+        - string:POISON
+        - string:<1
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: jumpIfTargetCountTest
+        parametersArray:
+        - string:>0
+        - string:end
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: selectTargets
+        parametersArray:
+        - int:1
+        - bool:false
+        - bool:true
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: :end
+        parametersArray: []
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
     functionsToCall:
     - functionName: selectCharacter
       parametersArray:
       - bool:false
       - int:1
+      - int:0
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0

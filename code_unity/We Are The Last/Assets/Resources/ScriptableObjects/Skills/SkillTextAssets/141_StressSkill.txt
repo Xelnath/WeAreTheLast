@@ -1,6 +1,9 @@
+TARGET0
+selectTargets,W,,,int:1,bool:false,bool:true
+
 FUNCTIONS
 
-selectCharacter,,,,bool:false,int:1
+selectCharacter,,,,bool:false,int:1,int:0
 waitForSelection,W,C,,bool:true
 toggleActions,W,,,bool:false
 addOrChangeAttribute,W,,,bool:false,string:STRESS,string:=10,float:100,bool:false

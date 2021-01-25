@@ -7311,7 +7311,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1179084118}
   m_HandleRect: {fileID: 1179084117}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -8601,7 +8601,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 94162817}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9102,7 +9102,13 @@ MonoBehaviour:
   FXObject: {fileID: 1596585550}
   FXPrefab: {fileID: 1516634816073076, guid: 64b478c26c233154ca9a5715421eaee8, type: 3}
   threatArrowSpawn: {fileID: 1199560376}
-  ThreatArrowPrefab: {fileID: 1061817696522811059, guid: ec12d38d488d114428258af5724a3114,
+  NormalThreatArrowPrefab: {fileID: 1061817696522811059, guid: ec12d38d488d114428258af5724a3114,
+    type: 3}
+  SpecialThreatArrowPrefab: {fileID: 1061817696522811059, guid: 923867dc2a9bab345934b145fc2a9474,
+    type: 3}
+  FriendlyArrowPrefab: {fileID: 1061817696522811059, guid: 63420f9c69feed24e81353257ae48792,
+    type: 3}
+  SpecialFriendlyArrowPrefab: {fileID: 1061817696522811059, guid: ed70eb44cb6180e46971a3ad8dc0ee16,
     type: 3}
   AudioClips:
   - id: 0
@@ -9432,7 +9438,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1832384021}
   m_HandleRect: {fileID: 1832384020}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

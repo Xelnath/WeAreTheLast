@@ -1,6 +1,12 @@
+TARGET0
+selectTeam,W,,,int:1,bool:false,bool:true
+
 FUNCTIONS
 
-autoSelectTargets,W,,,int:10,bool:false,bool:true
+preselectedTargets,W,,,int:0
+jumpIfTargetCountTest,W,,,string:>0,string:found
+selectTeam,W,,,bool:false,bool:true
+:found,W,,,
 toggleActions,W,,,bool:false
 playAnimation,W,,,int:-1,string:walk
 stepForward,W,C,,float:2,float:0.1

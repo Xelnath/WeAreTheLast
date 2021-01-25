@@ -23,6 +23,7 @@ MonoBehaviour:
     turnPointCost: 0
     manaCost: 0
     superCost: 0
+    targetProviders: []
     functionsToCall:
     - functionName: playAnimation
       parametersArray:

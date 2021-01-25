@@ -31,6 +31,22 @@ namespace ClassDB {
 	}
 
 	[System.Serializable]
+	public class targetProvider
+	{
+		public enum ArrowType
+		{
+			NormalHostile,
+			SpecialHostile,
+			NormalFriendly,
+			SpecialFriendly,
+		}
+
+		public bool preserved = false;
+		public ArrowType arrowType = ArrowType.NormalHostile;
+		public List<callInfo> targetCalls = new List<callInfo>();
+	}
+
+	[System.Serializable]
 	public class skill
 	{
 
@@ -52,6 +68,9 @@ namespace ClassDB {
 
 		public int manaCost;
 		public int superCost;
+
+		// a list of target providing functions to run
+		public List<targetProvider> targetProviders = new List<targetProvider>(); 
 		
 		//A list of functions to be called when the skill is used
 		public List<callInfo> functionsToCall = new List<callInfo>();
@@ -240,11 +259,18 @@ namespace ClassDB {
 			characterCopy.Copy( toCopy );
 		}
 
+		[System.Serializable]
+		public class targetInfo
+		{
+			public targetProvider.ArrowType type = targetProvider.ArrowType.NormalHostile;
+			public List<InstanceID> targetIds = new List<InstanceID>();
+		}
+
+		public List<targetInfo> preplannedTargets = new List<targetInfo>();
 		public GameObject instanceObject;
 		public GameObject uiObject;
 		public GameObject spawnPointObject;
 		public List<GameObject> threatArrows;
-		public List<InstanceID> targetIds;
 		public string currentAnimation;
 		public InstanceID characterInstanceId;
 		public bool isAlive = true;

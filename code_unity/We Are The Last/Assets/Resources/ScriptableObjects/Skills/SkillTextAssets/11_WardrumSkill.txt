@@ -1,6 +1,9 @@
+TARGET0
+selectTeam,,,,bool:true,bool:false
+
 FUNCTIONS
 
-autoSelectTargets,,,,int:4,bool:true,bool:false
+selectTeam,,,,bool:true,bool:false
 toggleActions,W,,,bool:false
 addOrChangeAttribute,,,,bool:false,string:WARDRUM,string:=3,float:100,bool:false
 displayFX,W,,,bool:true,float:2,string:power,float:0,float:0

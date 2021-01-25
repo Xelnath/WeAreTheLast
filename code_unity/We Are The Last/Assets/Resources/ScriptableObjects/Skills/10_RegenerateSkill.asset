@@ -23,11 +23,11 @@ MonoBehaviour:
     turnPointCost: 100
     manaCost: 0
     superCost: 0
+    targetProviders: []
     functionsToCall: []
     endOfRound:
-    - functionName: autoSelectTargets
+    - functionName: selectTeam
       parametersArray:
-      - int:4
       - bool:true
       - bool:false
       waitForPreviousFunction: 1

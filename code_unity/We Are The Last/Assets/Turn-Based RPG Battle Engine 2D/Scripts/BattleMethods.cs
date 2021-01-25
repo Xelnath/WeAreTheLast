@@ -14,14 +14,13 @@ public class BattleMethods : MonoBehaviour
 {
   public static BattleMethods core;
 
-//---------------AI--------------------//
+  //---------------AI--------------------//
   //This is a sample AI function that simply runs the first skill available to the AI on a random target
   void sampleAi(BattleManager.BattleManagerContext context)
   {
 
     //Getting character
     var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
-    
     var skill = selectAISkill(characterInstance);
     
     characterInstance.lastSkillUsed += 1;
@@ -37,8 +36,6 @@ public class BattleMethods : MonoBehaviour
     context.activeSkillId = skill.id;
     context.functionQueue = functionsToCall;
     BattleManager.core.StartCoroutine( BattleManager.core.functionQueueCaller( context ) );
-
-
   }
   
   void betrayalAi(BattleManager.BattleManagerContext context)
@@ -108,7 +105,7 @@ public class BattleMethods : MonoBehaviour
 	    
 	    BattleManager.setQueueStatus( context,  "checkBetrayed", false );
 	  }
-/*
+  /*
    This function is used to prepare the AI's targets at the top of the round and when called (ie Taunt,
    which necessitates recalculation)
    Currently it, like sampleAi, just generates it for whatever the first slot is
@@ -121,110 +118,142 @@ public class BattleMethods : MonoBehaviour
     var skill = selectAISkill(characterInstance);
 
     //Getting functions to call
-    var functionsToCall = skill.functionsToCall;
-
-    //Getting targets to store in charInfo
-    for (int j = 0; j < functionsToCall.Count; j++)
+    while ( characterInstance.preplannedTargets.Count < skill.targetProviders.Count )
     {
-      preplanAITargets(characterInstance, functionsToCall[j]);
+       characterInfo.targetInfo newTarget = new characterInfo.targetInfo();
+       characterInstance.preplannedTargets.Add( newTarget );
+    }
+
+    for ( int i = 0; i < skill.targetProviders.Count; ++i )
+    {
+      characterInfo.targetInfo preplannedTargetInfos = characterInstance.preplannedTargets[i];
+      targetProvider staticTP = skill.targetProviders[i];
+      preplannedTargetInfos.type = staticTP.arrowType;
+      
+      // Skip calls if none are needed
+      if ( staticTP.targetCalls.Count == 0 )
+      {
+        continue;
+      }
+
+      // Execute a command stack otherwise
+      BattleManager.BattleManagerContext c = new BattleManager.BattleManagerContext( BattleManager.core.CurrentContext ){};
+      c.Init( instanceID, BattleManager.core.activePlayerTeam, BattleManager.core.activeEnemyTeam );
+			c.functionQueue = staticTP.targetCalls;
+			c.activeSkillId = skill.id;
+      if ( staticTP.preserved )
+      {
+        c.actionTargets.AddRange( preplannedTargetInfos.targetIds );
+      }
+
+      c.DEBUG = skill.DEBUG;
+
+      for ( c.runningFunctionIndex = 0; c.runningFunctionIndex < c.functionQueue.Count; c.runningFunctionIndex++ )
+      {
+        var ftc = c.functionQueue[c.runningFunctionIndex];
+        BattleManager.core.callFtc( c, ftc, c.runningFunctionIndex );
+      }
+
+      preplannedTargetInfos.targetIds.Clear();
+      preplannedTargetInfos.targetIds.AddRange( c.actionTargets );
     }
   }
 
   //This function emulates the 2 targeting functions, but sets the charInfo targetIds instead of the context.actionTargets
   //I plan on creating a function to reduce redundancy between this and the aforemtnioned targeting functions
-  void preplanAITargets(characterInfo characterInstance, callInfo functionInfo)
-  {
-    string targetFunctionName = functionInfo.functionName;
-    if (targetFunctionName.Equals("autoSelectTargets"))
-    {
-      characterInstance.targetIds.Clear();
-      int targetLimit = int.Parse(functionInfo.parametersArray[0].Substring(4));
-      bool allowFriendly = functionInfo.parametersArray[1].Equals("bool:true");
-      bool allowHostile = functionInfo.parametersArray[2].Equals("bool:true");
-
-      if (allowFriendly) { characterInstance.targetIds.AddRange(BattleManager.core.activeEnemyTeam); }
-      if (allowHostile) { characterInstance.targetIds.AddRange(BattleManager.core.activePlayerTeam); }
-      
-      //Excluding invalid characters
-      List<InstanceID> deadCharacters = new List<InstanceID>();
-      for (int i = 0; i < characterInstance.targetIds.Count; i++)
-      {
-        var characterId = characterInstance.targetIds[i];
-        if (!BattleManager.core.findCharacterInstanceById(characterId).isAlive)
-        {
-          deadCharacters.Add(characterId);
-        }
-      }
-      foreach (var index in deadCharacters)
-      {
-        characterInstance.targetIds.Remove(index);
-      }
-      
-      List<InstanceID> selected = new List<InstanceID>();
-      while ( targetLimit > 0 && characterInstance.targetIds.Count > 0 )
-      {
-        int index = Random.Range( 0, characterInstance.targetIds.Count );
-        var charId = characterInstance.targetIds[index];
-        characterInstance.targetIds.RemoveAt( index );
-        if(selected.Count < targetLimit) {
-          selected.Add(charId);
-        }
-      }
-      characterInstance.targetIds = selected;
-    } else if (targetFunctionName.Equals("selectCharacter"))
-    {
-      characterInstance.targetIds.Clear();
-      
-      bool targetSameTeam = functionInfo.parametersArray[0].Equals("bool:true");
-      int targetLimit = int.Parse(functionInfo.parametersArray[1].Substring(4));
-
-      var playerTeam = new List<InstanceID>(BattleManager.core.activePlayerTeam);
-      var enemyTeam = new List<InstanceID>(BattleManager.core.activeEnemyTeam);
-      
-      if (targetSameTeam){
-        foreach (var enemy in enemyTeam)
-        {
-          characterInstance.targetIds.Add(enemy);
-        }
-      } else {  
-        foreach (var player in playerTeam)
-        {
-          characterInstance.targetIds.Add(player);
-        }      
-      }
-
-      List<InstanceID> selected = new List<InstanceID>();
-      while ( targetLimit > 0 && characterInstance.targetIds.Count > 0 )
-      {
-        int index = UnityEngine.Random.Range( 0, characterInstance.targetIds.Count );
-        var charId = characterInstance.targetIds[index];
-        characterInstance.targetIds.RemoveAt( index );
-        selected.Add(charId);
-      }
-      characterInstance.targetIds = selected;
-      
-      //Excluding invalid characters
-      List<InstanceID> deadCharacters = new List<InstanceID>();
-      for (int i = 0; i < characterInstance.targetIds.Count; i++)
-      {
-        var characterId = characterInstance.targetIds[i];
-        if (!BattleManager.core.findCharacterInstanceById(characterId).isAlive)
-        {
-          deadCharacters.Add(characterId);
-        }
-      }
-      foreach (var index in deadCharacters)
-      {
-        characterInstance.targetIds.Remove(index);
-      }
-
-      //Getting random character
-      InstanceID randIndex = AIGetRandomTarget( characterInstance.targetIds );
-      characterInstance.targetIds.Clear();
-      //Adding character to targets
-      characterInstance.targetIds.Add( randIndex );
-    }
-  }
+  // void preplanAITargets(characterInfo characterInstance, callInfo functionInfo)
+  // {
+  //   string targetFunctionName = functionInfo.functionName;
+  //   if (targetFunctionName.Equals("autoSelectTargets"))
+  //   {
+  //     characterInstance.targetIds.Clear();
+  //     int targetLimit = int.Parse(functionInfo.parametersArray[0].Substring(4));
+  //     bool allowFriendly = functionInfo.parametersArray[1].Equals("bool:true");
+  //     bool allowHostile = functionInfo.parametersArray[2].Equals("bool:true");
+  //
+  //     if (allowFriendly) { characterInstance.targetIds.AddRange(BattleManager.core.activeEnemyTeam); }
+  //     if (allowHostile) { characterInstance.targetIds.AddRange(BattleManager.core.activePlayerTeam); }
+  //     
+  //     //Excluding invalid characters
+  //     List<InstanceID> deadCharacters = new List<InstanceID>();
+  //     for (int i = 0; i < characterInstance.targetIds.Count; i++)
+  //     {
+  //       var characterId = characterInstance.targetIds[i];
+  //       if (!BattleManager.core.findCharacterInstanceById(characterId).isAlive)
+  //       {
+  //         deadCharacters.Add(characterId);
+  //       }
+  //     }
+  //     foreach (var index in deadCharacters)
+  //     {
+  //       characterInstance.targetIds.Remove(index);
+  //     }
+  //     
+  //     List<InstanceID> selected = new List<InstanceID>();
+  //     while ( targetLimit > 0 && characterInstance.targetIds.Count > 0 )
+  //     {
+  //       int index = Random.Range( 0, characterInstance.targetIds.Count );
+  //       var charId = characterInstance.targetIds[index];
+  //       characterInstance.targetIds.RemoveAt( index );
+  //       if(selected.Count < targetLimit) {
+  //         selected.Add(charId);
+  //       }
+  //     }
+  //     characterInstance.targetIds = selected;
+  //   } else if (targetFunctionName.Equals("selectCharacter"))
+  //   {
+  //     characterInstance.targetIds.Clear();
+  //     
+  //     bool targetSameTeam = functionInfo.parametersArray[0].Equals("bool:true");
+  //     int targetLimit = int.Parse(functionInfo.parametersArray[1].Substring(4));
+  //
+  //     var playerTeam = new List<InstanceID>(BattleManager.core.activePlayerTeam);
+  //     var enemyTeam = new List<InstanceID>(BattleManager.core.activeEnemyTeam);
+  //     
+  //     if (targetSameTeam){
+  //       foreach (var enemy in enemyTeam)
+  //       {
+  //         characterInstance.targetIds.Add(enemy);
+  //       }
+  //     } else {  
+  //       foreach (var player in playerTeam)
+  //       {
+  //         characterInstance.targetIds.Add(player);
+  //       }      
+  //     }
+  //
+  //     List<InstanceID> selected = new List<InstanceID>();
+  //     while ( targetLimit > 0 && characterInstance.targetIds.Count > 0 )
+  //     {
+  //       int index = UnityEngine.Random.Range( 0, characterInstance.targetIds.Count );
+  //       var charId = characterInstance.targetIds[index];
+  //       characterInstance.targetIds.RemoveAt( index );
+  //       selected.Add(charId);
+  //     }
+  //     characterInstance.targetIds = selected;
+  //     
+  //     //Excluding invalid characters
+  //     List<InstanceID> deadCharacters = new List<InstanceID>();
+  //     for (int i = 0; i < characterInstance.targetIds.Count; i++)
+  //     {
+  //       var characterId = characterInstance.targetIds[i];
+  //       if (!BattleManager.core.findCharacterInstanceById(characterId).isAlive)
+  //       {
+  //         deadCharacters.Add(characterId);
+  //       }
+  //     }
+  //     foreach (var index in deadCharacters)
+  //     {
+  //       characterInstance.targetIds.Remove(index);
+  //     }
+  //
+  //     //Getting random character
+  //     InstanceID randIndex = AIGetRandomTarget( characterInstance.targetIds );
+  //     characterInstance.targetIds.Clear();
+  //     //Adding character to targets
+  //     characterInstance.targetIds.Add( randIndex );
+  //   }
+  // }
 
   public skill selectAISkill(characterInfo characterInstance)
   {
@@ -337,21 +366,35 @@ public class BattleMethods : MonoBehaviour
 
   }
 
+  void selectTargets(BattleManager.BattleManagerContext context, int targetLimit, bool allowFriendly, bool allowHostile )
+  { 
+      context.targetLimit = targetLimit;
+      var targets = BattleGen.core.getValidTargets( context, allowFriendly, allowHostile, 99 );
+      
+      context.actionTargets.Clear();
+      
+      while ( context.actionTargets.Count < targetLimit && targets.Count > 0 )
+      {
+        //Getting random character
+        InstanceID randIndex = AIGetRandomTarget( targets );
 
-  void autoSelectTargets( BattleManager.BattleManagerContext context, int targetLimit, bool allowFriendly, bool allowHostile )
+        context.actionTargets.Add( randIndex );
+        targets.Remove( randIndex );
+      }
+      
+      BattleManager.setQueueStatus( context,  "selectTargets", false );
+  }
+
+  void preselectedTargets( BattleManager.BattleManagerContext context, int targetIndex )
   {
     //Getting character
     var characterInstance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
-    if (characterInstance.targetIds.Count > 0)
+    if (characterInstance.preplannedTargets.Count > targetIndex)
     {
-      context.actionTargets = new List<InstanceID>( characterInstance.targetIds );
+      var pt = characterInstance.preplannedTargets[targetIndex];
+      context.actionTargets = new List<InstanceID>( pt.targetIds );
     } 
-    else 
-    {
-      context.targetLimit = targetLimit;
-      context.actionTargets = BattleGen.core.getValidTargets( context, allowFriendly, allowHostile, targetLimit );
-    }
-    BattleManager.setQueueStatus( context,  "autoSelectTargets", false );
+    BattleManager.setQueueStatus( context,  "preselectedTargets", false );
   }
   
   void selectTeam( BattleManager.BattleManagerContext context, bool allowFriendly, bool allowHostile )
@@ -362,12 +405,67 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "selectTeam", false );
   }
 
+  void targetSelf(BattleManager.BattleManagerContext context)
+  {
+    context.actionTargets.Add(context.activeCharacterId);
+    BattleManager.setQueueStatus( context,  "targetSelf", false );
+  }
+  
   void clearTargets( BattleManager.BattleManagerContext context )
   {
     context.actionTargets.Clear();
     BattleManager.setQueueStatus( context,  "clearTargets", false );
   }
+  
 
+  /*
+	Target selection used by skills and items.
+	If targetSameTeam is true, a list of allies will be displayed to the player to choose from.
+	Otherwise the enemy team members will be displayed.
+	Only active character will be displayed.
+	TargetLimit is the maximum amount of targets the player can select. All targets are fed into the action targets list of BattleManager.
+	 */
+
+  void selectCharacter( BattleManager.BattleManagerContext context, bool targetSameTeam, int targetLimit, int preselectedIndex )
+  {
+
+    context.targetLimit = targetLimit;
+    context.actionTargets.Clear();
+
+    if ( !( BattleManager.core.autoBattle || BattleManager.core.activeTeam == 1 ) )
+    {
+      if ( targetSameTeam ) BattleGen.core.targetGen( context, true, false, targetLimit );
+      else BattleGen.core.targetGen( context, false, true, targetLimit );
+
+    }
+    else
+    {
+
+      //Getting character info
+      var instance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
+      if ( preselectedIndex > -1 )
+      {
+        if ( preselectedIndex >= instance.preplannedTargets.Count )
+        {
+          Debug.LogError( $"Skill {context.activeSkillId} doesn't have preplanned target ID {preselectedIndex}." );
+        }
+        else
+        {
+          context.actionTargets .AddRange( instance.preplannedTargets[preselectedIndex].targetIds );
+        }
+
+      }
+      else
+      {
+        Debug.Log( $"Don't do this anymore. This cannot be predicted. Fix those skills." );
+        context.targetLimit = 99;
+        context.actionTargets = BattleGen.core.getValidTargets( context, targetSameTeam, !targetSameTeam, targetLimit );
+      }
+    }
+
+    BattleManager.setQueueStatus( context,  "selectCharacter", false );
+  }
+  
   enum mathOperation
   {
     equal,
@@ -377,13 +475,12 @@ public class BattleMethods : MonoBehaviour
     lessThan,
   }
 
-  void filterTargets( BattleManager.BattleManagerContext context, string attrName, string value )
+  private void GetOperationValue( string value, out mathOperation op, out float v )
   {
     
     //This function converts a string to an expression and assings the derived value to the attribute
-    float v = 0f;
-
-    mathOperation op = mathOperation.equal;
+    v = 0f;
+    op = mathOperation.equal;
 
     switch (value.Substring( 0, 1 ))
     {
@@ -420,6 +517,55 @@ public class BattleMethods : MonoBehaviour
       default:
         break;
     }
+  }
+
+  private bool operationResult(float attrValue, mathOperation op, float v)
+  {
+    bool result = false;
+    switch ( op )
+      {
+        case mathOperation.equal:
+          if ( Mathf.Approximately( attrValue, v ) )
+          {
+            result = true;
+          }
+
+          break;
+        case mathOperation.equalGreaterThan:
+          if ( attrValue >= v )
+          {
+            result = true;
+          }
+          break;
+        case mathOperation.equalLessThan:
+          if ( attrValue <= v )
+          {
+            result = true;
+          }
+          break;
+        case mathOperation.greaterThan:
+          if ( attrValue > v )
+          {
+            result = true;
+          }
+          break;
+        case mathOperation.lessThan:
+          if ( attrValue < v )
+          {
+            result = true;
+          }
+          break;
+        default:
+          throw new ArgumentOutOfRangeException();
+      }
+
+    return result;
+  }
+
+  void filterTargets( BattleManager.BattleManagerContext context, string attrName, string value )
+  {
+
+    GetOperationValue( value, out var op, out float v );
 
     List<InstanceID> targets = new List<InstanceID>(context.actionTargets);
 
@@ -440,44 +586,7 @@ public class BattleMethods : MonoBehaviour
         attrValue = attribute.curValue;
       }
 
-      bool remove = false;
-      switch ( op )
-      {
-        case mathOperation.equal:
-          if ( !Mathf.Approximately( attrValue, v ) )
-          {
-            remove = true;
-          }
-
-          break;
-        case mathOperation.equalGreaterThan:
-          if ( attrValue < v )
-          {
-            remove = true;
-          }
-          break;
-        case mathOperation.equalLessThan:
-          if ( attrValue > v )
-          {
-            remove = true;
-          }
-          break;
-        case mathOperation.greaterThan:
-          if ( attrValue <= v )
-          {
-            remove = true;
-          }
-          break;
-        case mathOperation.lessThan:
-          if ( attrValue >= v )
-          {
-            remove = true;
-          }
-          break;
-        default:
-          throw new ArgumentOutOfRangeException();
-      }
-
+      bool remove = !operationResult(attrValue, op, v);
       if ( remove )
       {
          if ( context.DEBUG ) Debug.Log( $"Removing {character} from actionTargets for skill {context.activeSkillId}. Test: {attrName} {value}" );
@@ -529,77 +638,30 @@ public class BattleMethods : MonoBehaviour
     BattleManager.setQueueStatus( context,  "filterTargetsIfAttributeIsNotCurrentActorId", false );
   }
 
-  /*
-	Target selection used by skills and items.
-	If targetSameTeam is true, a list of allies will be displayed to the player to choose from.
-	Otherwise the enemy team members will be displayed.
-	Only active character will be displayed.
-	TargetLimit is the maximum amount of targets the player can select. All targets are fed into the action targets list of BattleManager.
-	 */
-
-  void selectCharacter( BattleManager.BattleManagerContext context, bool targetSameTeam, int targetLimit )
+  void filterTargetsAttributeValueHighest(BattleManager.BattleManagerContext context, string attrName, int limit)
   {
+    List<InstanceID> targets = new List<InstanceID>(context.actionTargets);
+    var pass = targets
+      .OrderBy( x => FunctionDB.core.findAttributeByName( x, attrName )?.curValue ?? 0f )
+      .ToList();
 
-    context.targetLimit = targetLimit;
-    context.actionTargets.Clear();
+    context.actionTargets = pass.GetRange( 0, Mathf.Min( limit, pass.Count ) );
 
-    if ( !( BattleManager.core.autoBattle || BattleManager.core.activeTeam == 1 ) )
-    {
-
-      if ( targetSameTeam ) BattleGen.core.targetGen( context, true, false, targetLimit );
-      else BattleGen.core.targetGen( context, false, true, targetLimit );
-
-    }
-    else
-    {
-
-      //Getting target list
-      int targetInt = targetSameTeam ? 0 : 1;
-      List<InstanceID> targets = BattleManager.core.activeTeam == targetInt
-        ? context.attackerTeam
-        : context.defenderTeam;
-
-      //Excluding invalid characters
-      for ( int i = 0; i < targets.Count; i++ )
-      {
-        //Id
-        var charId = targets[i];
-        
-        //If health is 0, exclude character
-        var characterInstance = BattleManager.core.findCharacterInstanceById( charId );
-        if ( !characterInstance.isAlive )
-        {
-          targets.RemoveAt( i );
-        }
-      }
-
-      //Getting random character
-      InstanceID randIndex = AIGetRandomTarget( targets );
-      
-      //Getting character info
-      var instance = BattleManager.core.findCharacterInstanceById( context.activeCharacterId );
-
-      //Adding character to targets if unit doesn't already have target
-      if (instance.targetIds.Count == 0)
-      {
-        context.actionTargets.Add( randIndex );
-      }
-      else
-      {
-        context.actionTargets.Add(instance.targetIds[0]);
-      }
-    }
-
-    BattleManager.setQueueStatus( context,  "selectCharacter", false );
-
+    BattleManager.setQueueStatus( context,  "filterTargetsAttributeValueHighest", false );
   }
   
-  void targetSelf(BattleManager.BattleManagerContext context)
+  void filterTargetsAttributeValueLowest(BattleManager.BattleManagerContext context, string attrName, int limit)
   {
-    context.actionTargets.Add(context.activeCharacterId);
-    BattleManager.setQueueStatus( context,  "targetSelf", false );
-  }
+    List<InstanceID> targets = new List<InstanceID>(context.actionTargets);
+    var pass = targets
+      .OrderByDescending( x => FunctionDB.core.findAttributeByName( x, attrName )?.curValue ?? 0f )
+      .ToList();
 
+    context.actionTargets = pass.GetRange( 0, Mathf.Min( limit, pass.Count ) );
+
+    BattleManager.setQueueStatus( context,  "filterTargetsAttributeValueHighest", false );
+  }
+  
   void updateAITargeting(BattleManager.BattleManagerContext context)
   {
     BattleManager.core.replanAI();
@@ -1841,8 +1903,30 @@ The condition name is the name of the Animator's parameter which will be set to 
     
     BattleManager.setQueueStatus( context,  "jump", false );
   }
-  
-  
+
+  void jumpIfTargetCountTest( BattleManager.BattleManagerContext context, string test, string jumpTo )
+  {
+    GetOperationValue( test, out var op, out float v );
+    bool pass = operationResult( context.actionTargets.Count, op, v );
+
+    if ( pass )
+    {
+      int jumpIndex = FunctionDB.core.findFunctionQueueJumpIndexByName( context, jumpTo );
+      if ( jumpIndex == -1 )
+      {
+        Debug.LogWarning( $"Unable to find jump index {jumpTo} in skill {context.activeSkillId}" );
+      }
+      else
+      {
+        if(context.DEBUG)Debug.Log( $"Jump to {jumpTo} ({jumpIndex}) in skill {context.activeSkillId}." );
+        context.runningFunctionIndex = jumpIndex;
+      }
+    }
+
+    BattleManager.setQueueStatus( context,  "jumpIfTargetCountTest", false );
+  }
+
+
   void Awake() { if (core == null) core = this; }
 }
 

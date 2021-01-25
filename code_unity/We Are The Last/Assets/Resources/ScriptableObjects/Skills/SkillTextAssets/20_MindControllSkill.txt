@@ -1,6 +1,6 @@
 FUNCTIONS
 
-selectCharacter,,,,bool:false,int:1
+selectCharacter,,,,bool:false,int:1,int:0
 waitForSelection,W,C,,bool:true
 toggleActions,W,,,bool:false
 swapTargetTeam,W,,,

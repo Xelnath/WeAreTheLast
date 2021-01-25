@@ -133,7 +133,7 @@ public class BattleGen : MonoBehaviour
         info.characterInstanceId = charId;
         info.instanceObject = instance;
         info.spawnPointObject = teamSpawns[counter];
-        info.targetIds = new List<InstanceID>();
+        info.preplannedTargets = new List<characterInfo.targetInfo>();
         info.threatArrows = new List<GameObject>();
         info.lastSkillUsed = -1;
 

@@ -1,6 +1,14 @@
+TARGET0
+selectTeam,W,,,int:99,bool:false,bool:true
+filterTargets,W,,,string:DOOM,string:<1
+jumpIfTargetCountTest,W,,,string:>0,string:end
+selectTargets,W,,,int:1,bool:false,bool:true
+:end,W,,,
+
+
 FUNCTIONS
 
-selectCharacter,,,,bool:false,int:1
+selectCharacter,,,,bool:false,int:1,int:0
 waitForSelection,W,C,,bool:true
 toggleActions,W,,,bool:false
 playAnimation,W,,,int:-1,string:walk

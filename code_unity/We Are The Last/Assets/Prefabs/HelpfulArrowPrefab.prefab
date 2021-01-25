@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6406548972099597637}
   m_Layer: 0
-  m_Name: ThreatArrowPrefab
+  m_Name: HelpfulArrowPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +103,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c4a3b2e065090b14f940b67f1f3ba6c6, type: 3}
-  m_Color: {r: 1, g: 0.5430124, b: 0, a: 0.3137255}
+  m_Color: {r: 0, g: 1, b: 0.11449838, a: 0.3137255}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

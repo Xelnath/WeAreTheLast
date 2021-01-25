@@ -500,14 +500,8 @@ public class BattleManager : MonoBehaviour
 
   private IEnumerator call( BattleManagerContext context, callInfo ftc )
   {
-    var method = ftc.functionName;
-
-    object[] parametersArray =
-      ftc.parametersArray.Select( x => sudoParameterDecoder( x ) ).Prepend( context ).ToArray();
-
     //Getting current element index
     int queueIndex = FunctionDB.core.findFunctionQueueIndexByCallInfo( context, ftc );
-
     if ( queueIndex != context.runningFunctionIndex )
     {
       Debug.Log( $"WTF {queueIndex} vs {context.runningFunctionIndex}" );
@@ -554,6 +548,16 @@ public class BattleManager : MonoBehaviour
     {
       Debug.Log( $"Jump happened: {queueIndex} vs {context.runningFunctionIndex}" );
     }
+
+    callFtc( context, ftc, queueIndex );
+  }
+
+  public void callFtc(BattleManagerContext context, callInfo ftc, int queueIndex)
+  {
+    var method = ftc.functionName;
+
+    object[] parametersArray =
+      ftc.parametersArray.Select( x => sudoParameterDecoder( x ) ).Prepend( context ).ToArray();
     
     if ( context.functionQueue.Contains( ftc ) && context.runningFunctionIndex == queueIndex )
     {
@@ -1039,7 +1043,7 @@ public class BattleManager : MonoBehaviour
             {
               foreach ( var character in characterInstances )
               {
-                character.targetIds.Clear();
+                character.preplannedTargets.Clear();
                 
                 //Decrementing Betrayal
                 var attr = FunctionDB.core.findAttributeByName(  character.characterInstanceId, "BETRAYAL" );
@@ -1357,11 +1361,10 @@ public class BattleManager : MonoBehaviour
 
   void preplanAI()
   {
-    // TODO: Fix this to use instance data instead of dynamic
     foreach ( var charInstanceID in activeEnemyTeam )
     {
       int characterIndex = findCharacterInstanceIndexById( charInstanceID );
-      if ( characterInstances[characterIndex].targetIds.Count == 0 )
+      if ( characterInstances[characterIndex].preplannedTargets.Count == 0 )
       {
         BattleMethods.core.preplanAI( charInstanceID );
         setThreatArrows( charInstanceID );
@@ -1374,15 +1377,6 @@ public class BattleManager : MonoBehaviour
     clearThreatArrows();
     foreach ( var characterId in activeEnemyTeam )
     {
-      int characterIndex = 0;
-      for ( int i = 0; i < characterInstances.Count; i++ )
-      {
-        if ( characterInstances[i].characterInstanceId == characterId )
-        {
-          characterIndex = i;
-        }
-      }
-
       BattleMethods.core.preplanAI( characterId );
       setThreatArrows( characterId );
     }
@@ -1399,14 +1393,35 @@ public class BattleManager : MonoBehaviour
       return; 
     }
     
-    for ( int i = 0; i < charInfo.targetIds.Count; i++ )
+    for ( int i = 0; i < charInfo.preplannedTargets.Count; i++ )
     {
-      var threatSpawn = FunctionDB.core.findCharSpawnById( charInfo.targetIds[i] );
-      var threatArrow = Instantiate( ObjectDB.core.ThreatArrowPrefab, charInfo.spawnPointObject.transform.position,
-        Quaternion.identity );
-      threatArrow.transform.LookAt( threatSpawn.transform.position );
-      threatArrow.transform.parent = ObjectDB.core.threatArrowSpawn.transform;
-      charInfo.threatArrows.Add( threatArrow );
+      var pt = charInfo.preplannedTargets[i];
+      GameObject prefab = null;
+      switch (pt.type)
+      {
+        case targetProvider.ArrowType.NormalHostile:
+          prefab = ObjectDB.core.NormalThreatArrowPrefab;
+          break;
+        case targetProvider.ArrowType.SpecialHostile:
+          prefab = ObjectDB.core.SpecialThreatArrowPrefab;
+          break;
+        case targetProvider.ArrowType.NormalFriendly:
+          prefab = ObjectDB.core.FriendlyArrowPrefab;
+          break;
+        case targetProvider.ArrowType.SpecialFriendly:
+          prefab = ObjectDB.core.SpecialFriendlyArrowPrefab;
+          break;
+      }
+      
+      for ( int j = 0; j < pt.targetIds.Count; ++j )
+      {
+        var threatSpawn = FunctionDB.core.findCharSpawnById( pt.targetIds[j] );
+        var threatArrow = Instantiate( prefab, charInfo.spawnPointObject.transform.position,
+          Quaternion.identity );
+        threatArrow.transform.LookAt( threatSpawn.transform.position );
+        threatArrow.transform.parent = ObjectDB.core.threatArrowSpawn.transform;
+        charInfo.threatArrows.Add( threatArrow );
+      }
     }
   }
 

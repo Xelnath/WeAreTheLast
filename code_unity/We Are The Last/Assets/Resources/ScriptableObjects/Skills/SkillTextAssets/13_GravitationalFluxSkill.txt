@@ -1,6 +1,11 @@
-FUNCTIONS
+TARGET0
+selectTargets,W,,,int:1,bool:false,bool:true
 
-autoSelectTargets,W,,,int:1,bool:false,bool:true
+FUNCTIONS
+preselectedTargets,W,,,int:0
+jumpIfTargetCountTest,W,,,string:>0,string:go
+selectTargets,W,,,int:1,bool:false,bool:true
+:go,W,,,
 playAnimation,W,,,int:-1,string:walk
 stepForward,W,C,,float:2,float:0.1
 playAnimation,W,,,int:-1,string:attack

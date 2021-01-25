@@ -23,73 +23,24 @@ public class SkillTextExporter : MonoBehaviour
         }
 
         File.WriteAllText(path, String.Empty);
-        
+        for ( int i = 0; i < skill.targetProviders.Count; ++i )
+        {
+            File.AppendAllText(path, $"TARGET{i}");
+            AppendFunctions( path, skill.targetProviders[i].targetCalls );
+        }
+
         //Content of the file
         string header = "FUNCTIONS\n\n";
         File.AppendAllText(path, header);
-        foreach (callInfo function in skill.functionsToCall)
-        {
-            string name = function.functionName;
-            string wait = "";
-            if (function.waitForPreviousFunction) wait = "W";
-            string coroutine = "";
-            if (function.isCoroutine) coroutine = "C";
-            string running = "";
-            if (function.isRunning) running = "R";
-            string parameters = "";
-            foreach (var parameter in function.parametersArray)
-            {
-                parameters += $"{parameter},";
-            }
-            if (!parameters.IsNullOrWhitespace()) parameters = parameters.Substring(0, parameters.Length - 1);
-
-            string line = $"{name},{wait},{coroutine},{running},{parameters}\n";
-            File.AppendAllText(path, line);
-        }
+        AppendFunctions( path, skill.functionsToCall );
 
         header = "\n\nENDOFROUND\n\n";
         File.AppendAllText(path, header);
-        foreach (callInfo function in skill.endOfRound)
-        {
-            string name = function.functionName;
-            string wait = "";
-            if (function.waitForPreviousFunction) wait = "W";
-            string coroutine = "";
-            if (function.isCoroutine) coroutine = "C";
-            string running = "";
-            if (function.isRunning) running = "R";
-            string parameters = "";
-            foreach (var parameter in function.parametersArray)
-            {
-                parameters += $"{parameter},";
-            }
-            if (!parameters.IsNullOrWhitespace()) parameters = parameters.Substring(0, parameters.Length - 1);
-
-            string line = $"{name},{wait},{coroutine},{running},{parameters}\n";
-            File.AppendAllText(path, line);
-        }
+        AppendFunctions( path, skill.endOfRound );
 
         header = "\n\nSACRIFICE\n\n";
         File.AppendAllText(path, header);
-        foreach (callInfo function in skill.sacrificeActions)
-        {
-            string name = function.functionName;
-            string wait = "";
-            if (function.waitForPreviousFunction) wait = "W";
-            string coroutine = "";
-            if (function.isCoroutine) coroutine = "C";
-            string running = "";
-            if (function.isRunning) running = "R";
-            string parameters = "";
-            foreach (var parameter in function.parametersArray)
-            {
-                parameters += $"{parameter},";
-            }
-            if (!parameters.IsNullOrWhitespace()) parameters = parameters.Substring(0, parameters.Length - 1);
-
-            string line = $"{name},{wait},{coroutine},{running},{parameters}\n";
-            File.AppendAllText(path, line);
-        }
+        AppendFunctions( path, skill.sacrificeActions );
         
         AssetDatabase.Refresh();
         
@@ -101,5 +52,28 @@ public class SkillTextExporter : MonoBehaviour
         }
 
         return textAsset;
+    }
+
+    private static void AppendFunctions(string path, List<callInfo> calls)
+    { 
+        foreach (callInfo function in calls )
+        {
+            string name = function.functionName;
+            string wait = "";
+            if (function.waitForPreviousFunction) wait = "W";
+            string coroutine = "";
+            if (function.isCoroutine) coroutine = "C";
+            string running = "";
+            if (function.isRunning) running = "R";
+            string parameters = "";
+            foreach (var parameter in function.parametersArray)
+            {
+                parameters += $"{parameter},";
+            }
+            if (!parameters.IsNullOrWhitespace()) parameters = parameters.Substring(0, parameters.Length - 1);
+
+            string line = $"{name},{wait},{coroutine},{running},{parameters}\n";
+            File.AppendAllText(path, line);
+        }
     }
 }

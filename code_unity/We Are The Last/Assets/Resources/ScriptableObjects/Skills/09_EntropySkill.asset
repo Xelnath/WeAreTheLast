@@ -23,8 +23,20 @@ MonoBehaviour:
     turnPointCost: 100
     manaCost: 0
     superCost: 0
+    targetProviders:
+    - preserved: 0
+      arrowType: 0
+      targetCalls:
+      - functionName: selectTargets
+        parametersArray:
+        - int:1
+        - bool:false
+        - bool:true
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
     functionsToCall:
-    - functionName: randomTargets
+    - functionName: selectTargets
       parametersArray:
       - int:1
       - bool:false

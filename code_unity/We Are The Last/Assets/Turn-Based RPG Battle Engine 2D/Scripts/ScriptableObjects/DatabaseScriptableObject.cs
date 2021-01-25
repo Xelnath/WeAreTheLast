@@ -153,13 +153,7 @@ public class DatabaseScriptableObject : ScriptableObject
 		var allSkills = Resources.FindObjectsOfTypeAll<SkillAsset>();
 		foreach (SkillAsset skill in allSkills)
 		{
-			if (skill.SkillText != null)
-			{
-				skill.Skill.functionsToCall = SkillTextParser.parseFunctionsToCall(skill.SkillText);
-				skill.Skill.endOfRound = SkillTextParser.parseEndOfRound(skill.SkillText);
-				skill.Skill.sacrificeActions = SkillTextParser.parseSacrifice(skill.SkillText);
-				EditorUtility.SetDirty(skill);
-			}
+			skill.ImportSkillFunctions(false);
 		}
 		AssetDatabase.SaveAssets();
 		AssetDatabase.Refresh();

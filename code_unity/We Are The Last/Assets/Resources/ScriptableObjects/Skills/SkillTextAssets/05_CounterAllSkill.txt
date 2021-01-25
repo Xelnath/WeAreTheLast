@@ -1,3 +1,7 @@
+TARGET0
+selectTeam,W,,,int:1,bool:true,bool:false
+
+
 FUNCTIONS
 
 autoSelectTargets,,,,int:4,bool:true,bool:false
@@ -14,7 +18,7 @@ subtractTurnPoints,W,,,int:0,int:1
 
 ENDOFROUND
 
-autoSelectTargets,,,,int:4,bool:true,bool:false
+selectTeam,,,,bool:true,bool:false
 addOrChangeAttribute,,,,bool:false,string:COUNTER,string:=0,float:100,bool:false
 addOrChangeAttribute,,,,bool:true,string:COUNTER,string:=1,float:100,bool:false
 clearTargets,,,,

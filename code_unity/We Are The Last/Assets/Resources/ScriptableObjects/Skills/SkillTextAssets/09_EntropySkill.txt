@@ -1,6 +1,9 @@
+TARGET0
+selectTargets,W,,,int:1,bool:false,bool:true
+
 FUNCTIONS
 
-randomTargets,W,,,int:1,bool:false,bool:true
+selectTargets,W,,,int:1,bool:false,bool:true
 playAnimation,W,,,int:-1,string:walk
 stepForward,W,C,,float:2,float:0.1
 playAnimation,W,,,int:-1,string:attack

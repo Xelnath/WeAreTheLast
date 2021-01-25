@@ -22,6 +22,20 @@ public class SkillTextParser : MonoBehaviour
         return parseText(skillText, "SACRIFICE");
     }
 
+    public static List<callInfo> parseTarget(TextAsset skillText, int i)
+    {
+        return parseText(skillText, "TARGET"+i);
+    }
+
+    // Terrible, inefficient... don't care
+    public static int parseTargetCount( TextAsset skillText )
+    {
+        int i = 0;
+        while ( skillText.text.Contains( "TARGET" + i ) ) i++;
+
+        return i;
+    }
+
     static List<callInfo> parseText(TextAsset skillText, string startingLine)
     {
         List<callInfo> functionCalls = new List<callInfo>();
@@ -30,7 +44,7 @@ public class SkillTextParser : MonoBehaviour
         bool parsing = false;
         foreach (var line in skillTextLines)
         {
-            if((line.Contains("SACRIFICE") || line.Contains("ENDOFROUND") || line.Contains("FUNCTIONS")) && parsing)
+            if((line.Contains("SACRIFICE") || line.Contains("ENDOFROUND") || line.Contains("FUNCTIONS") || line.Contains("TARGET") ) && parsing)
             {
                 break;
             }

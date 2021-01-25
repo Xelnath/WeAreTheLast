@@ -23,6 +23,7 @@ MonoBehaviour:
     turnPointCost: 100
     manaCost: 10
     superCost: 0
+    targetProviders: []
     functionsToCall:
     - functionName: toggleActions
       parametersArray:

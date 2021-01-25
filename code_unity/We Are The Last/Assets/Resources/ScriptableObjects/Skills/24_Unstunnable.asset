@@ -23,9 +23,9 @@ MonoBehaviour:
     turnPointCost: 100
     manaCost: 0
     superCost: 0
+    targetProviders: []
     functionsToCall: []
-    endOfRound: []
-    sacrificeActions:
+    endOfRound:
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:true
@@ -36,6 +36,7 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    sacrificeActions:
     - functionName: displayFX
       parametersArray:
       - bool:true
