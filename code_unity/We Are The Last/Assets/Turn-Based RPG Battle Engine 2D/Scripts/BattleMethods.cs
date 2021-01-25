@@ -453,7 +453,7 @@ public class BattleMethods : MonoBehaviour
         }
         else
         {
-          context.actionTargets .AddRange( instance.preplannedTargets[preselectedIndex].targetIds );
+          context.actionTargets.AddRange( instance.preplannedTargets[preselectedIndex].targetIds );
         }
 
       }

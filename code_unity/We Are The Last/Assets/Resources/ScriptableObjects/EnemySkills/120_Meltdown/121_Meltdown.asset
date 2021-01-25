@@ -120,10 +120,9 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: selectTeam
+    - functionName: preselectedTargets
       parametersArray:
-      - bool:false
-      - bool:true
+      - int:0
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
