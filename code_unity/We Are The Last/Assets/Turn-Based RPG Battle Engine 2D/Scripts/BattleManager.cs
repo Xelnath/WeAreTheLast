@@ -367,7 +367,8 @@ public class BattleManager : MonoBehaviour
       var instanceID = new InstanceID( charID );
       activeEnemyTeam.Add( instanceID );
     }
-
+    
+    clearThreatArrows();
     charGenNextWave();
 
     StartCoroutine( newRound( nextWave ) );
@@ -1404,6 +1405,7 @@ public class BattleManager : MonoBehaviour
       var threatArrow = Instantiate( ObjectDB.core.ThreatArrowPrefab, charInfo.spawnPointObject.transform.position,
         Quaternion.identity );
       threatArrow.transform.LookAt( threatSpawn.transform.position );
+      threatArrow.transform.parent = ObjectDB.core.threatArrowSpawn.transform;
       charInfo.threatArrows.Add( threatArrow );
     }
   }
@@ -1421,6 +1423,11 @@ public class BattleManager : MonoBehaviour
 
         charInfo.threatArrows.Clear();
       }
+    }
+
+    foreach (Transform arrow in ObjectDB.core.threatArrowSpawn.transform)
+    {
+      Destroy( arrow.gameObject );
     }
   }
 

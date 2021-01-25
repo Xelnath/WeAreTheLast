@@ -63,6 +63,9 @@ public class ObjectDB : MonoBehaviour {
 	//FX prefab
 	public GameObject FXPrefab;
 	
+	//Enemy Threat Arrow parent object
+	public GameObject threatArrowSpawn;
+	
 	//Enemy Threat Arrow prefab
 	public GameObject ThreatArrowPrefab;
 
