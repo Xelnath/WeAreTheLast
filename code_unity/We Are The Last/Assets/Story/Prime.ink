@@ -1,6 +1,9 @@
 LIST chars = Therapist, Model, Rockstar 
 VAR CurrChar = Therapist
 VAR Deaths = 0
+VAR Reset = 0
+VAR Wave = 0
+VAR Victory = false
 
 VAR Th = "0" // Therapist
 VAR Mo = "1" // Model
@@ -265,7 +268,6 @@ VAR Meltdown = "120"
 ->DONE
 
 == Sacrifice_StunRage
-
 ->DONE
 
 
