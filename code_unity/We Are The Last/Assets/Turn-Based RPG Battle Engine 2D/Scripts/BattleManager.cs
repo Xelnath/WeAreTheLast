@@ -567,6 +567,11 @@ public class BattleManager : MonoBehaviour
         MethodInfo mi = type.GetMethod( method,
           BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance );
 
+        if ( mi == null )
+        {
+          Debug.LogError( $"Invalid method {method}. in {context.activeSkillId}." );
+        }
+
         // Default parameters support 
         var parametersFinal = mi.GetParameters().Select(param => param.HasDefaultValue ? param.DefaultValue : null).ToArray();
         for ( int i = 0; i < parametersArray.Length && i < parametersFinal.Length; ++i )

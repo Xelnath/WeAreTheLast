@@ -4,7 +4,7 @@ selectTeam,W,,,bool:true,bool:false
 
 FUNCTIONS
 
-autoSelectTargets,,,,int:4,bool:true,bool:false
+selectTeam,,,,bool:true,bool:false
 toggleActions,W,,,bool:false
 addOrChangeAttribute,,,,bool:false,string:COUNTER,string:=1,float:100,bool:false
 addOrChangeAttribute,,,,bool:false,string:COUNTERSOURCE,string:=0,float:100,bool:false

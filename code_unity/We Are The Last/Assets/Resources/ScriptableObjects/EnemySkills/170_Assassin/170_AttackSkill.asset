@@ -10,37 +10,45 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: 05_CounterAllSkill
+  m_Name: 170_AttackSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Counter All
-    id: 5
-    description: Counter all attacks this round
+    name: Attack
+    id: 170
+    description: A basic attack
     DEBUG: 0
-    sacrificeReplacementId: 21
+    sacrificeReplacementId: -1
     activeSkill: 1
-    isAttack: 0
+    isAttack: 1
     turnPointCost: 100
     manaCost: 0
-    superCost: 100
+    superCost: 0
     targetProviders:
     - preserved: 0
       arrowType: 0
       targetCalls:
-      - functionName: selectTeam
+      - functionName: selectTargets
         parametersArray:
-        - bool:true
+        - int:1
         - bool:false
+        - bool:true
         waitForPreviousFunction: 1
         isCoroutine: 0
         isRunning: 0
     functionsToCall:
-    - functionName: selectTeam
+    - functionName: selectCharacter
       parametersArray:
-      - bool:true
       - bool:false
+      - int:1
+      - int:0
       waitForPreviousFunction: 0
       isCoroutine: 0
+      isRunning: 0
+    - functionName: waitForSelection
+      parametersArray:
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 1
       isRunning: 0
     - functionName: toggleActions
       parametersArray:
@@ -48,32 +56,47 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: addOrChangeAttribute
+    - functionName: playAnimation
       parametersArray:
-      - bool:false
-      - string:COUNTER
-      - string:=1
-      - float:100
-      - bool:false
+      - int:-1
+      - string:walk
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: moveToTarget
+      parametersArray:
+      - float:2
+      - float:0.1
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:attack
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAudioOnce
+      parametersArray:
+      - int:1
+      - int:1
       waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
-    - functionName: addOrChangeAttribute
+    - functionName: damageTargets
       parametersArray:
-      - bool:false
-      - string:COUNTERSOURCE
-      - string:=0
-      - float:100
-      - bool:false
-      waitForPreviousFunction: 0
+      - int:10
+      - int:0
+      waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     - functionName: displayFX
       parametersArray:
       - bool:false
       - float:2
-      - string:heal
-      - float:-0.8
+      - string:attack
+      - float:0
       - float:0
       waitForPreviousFunction: 1
       isCoroutine: 0
@@ -84,99 +107,79 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 1
       isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:idle
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: provokeReaction
+      parametersArray:
+      - int:0
+      - int:0
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: waitForReaction
+      parametersArray:
+      - int:0
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: rotateCharacter
+      parametersArray:
+      - int:-1
+      - float:180
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:walk
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: moveBack
+      parametersArray:
+      - float:0.2
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: rotateCharacter
+      parametersArray:
+      - int:-1
+      - float:180
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:idle
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: toggleActions
       parametersArray:
       - bool:true
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: Bark
-      parametersArray:
-      - string:CounterAll
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: clearTargets
-      parametersArray: []
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     - functionName: subtractTurnPoints
       parametersArray:
       - int:0
-      - int:1
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    endOfRound:
-    - functionName: selectTeam
-      parametersArray:
-      - bool:true
-      - bool:false
-      waitForPreviousFunction: 0
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: addOrChangeAttribute
-      parametersArray:
-      - bool:false
-      - string:COUNTER
-      - string:=0
-      - float:100
-      - bool:false
-      waitForPreviousFunction: 0
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: addOrChangeAttribute
-      parametersArray:
-      - bool:true
-      - string:COUNTER
-      - string:=1
-      - float:100
-      - bool:false
-      waitForPreviousFunction: 0
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: clearTargets
-      parametersArray: []
-      waitForPreviousFunction: 0
-      isCoroutine: 0
-      isRunning: 0
-    sacrificeActions:
-    - functionName: changeAttribute
-      parametersArray:
-      - bool:true
       - int:0
-      - string:+50
-      - bool:true
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
     - functionName: generateMana
       parametersArray:
-      - int:100
-      waitForPreviousFunction: 1
+      - int:10
+      waitForPreviousFunction: 0
       isCoroutine: 0
       isRunning: 0
-    - functionName: displayFX
-      parametersArray:
-      - bool:true
-      - float:2
-      - string:heal
-      - float:-0.8
-      - float:0
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-    - functionName: wait
-      parametersArray:
-      - float:0.4
-      waitForPreviousFunction: 1
-      isCoroutine: 1
-      isRunning: 0
-    - functionName: Bark
-      parametersArray:
-      - string:Sacrifice_DefendAll
-      waitForPreviousFunction: 1
-      isCoroutine: 0
-      isRunning: 0
-  SkillText: {fileID: 4900000, guid: cee08124d01d79042a8539f0c65f2c85, type: 3}
+    endOfRound: []
+    sacrificeActions: []
+  SkillText: {fileID: 4900000, guid: ad5f27d21b474be44b958a4be1e19ccc, type: 3}

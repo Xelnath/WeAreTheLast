@@ -386,6 +386,25 @@ public class BattleMethods : MonoBehaviour
       
       BattleManager.setQueueStatus( context,  "selectTargets", false );
   }
+  
+  void selectFirstNTargets(BattleManager.BattleManagerContext context, int targetLimit, bool allowFriendly, bool allowHostile )
+  { 
+      context.targetLimit = targetLimit;
+      var targets = new List<InstanceID>( context.actionTargets );
+      
+      context.actionTargets.Clear();
+      
+      while ( context.actionTargets.Count < targetLimit && targets.Count > 0 )
+      {
+        //Getting random character
+        InstanceID randIndex = targets[0];
+
+        context.actionTargets.Add( randIndex );
+        targets.Remove( randIndex );
+      }
+      
+      BattleManager.setQueueStatus( context,  "selectFirstNTargets", false );
+  }
 
   void preselectedTargets( BattleManager.BattleManagerContext context, int targetIndex )
   {
@@ -661,7 +680,7 @@ public class BattleMethods : MonoBehaviour
 
     context.actionTargets = pass.GetRange( 0, Mathf.Min( limit, pass.Count ) );
 
-    BattleManager.setQueueStatus( context,  "filterTargetsAttributeValueHighest", false );
+    BattleManager.setQueueStatus( context,  "filterTargetsAttributeValueLowest", false );
   }
   
   void updateAITargeting(BattleManager.BattleManagerContext context)

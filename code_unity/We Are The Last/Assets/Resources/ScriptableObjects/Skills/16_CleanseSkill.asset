@@ -70,7 +70,7 @@ MonoBehaviour:
       - bool:false
       - float:2
       - string:heal
-      - float:-1
+      - float:-0.6
       - float:1
       waitForPreviousFunction: 1
       isCoroutine: 0

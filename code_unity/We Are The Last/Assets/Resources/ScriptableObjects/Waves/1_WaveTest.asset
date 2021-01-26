@@ -15,7 +15,7 @@ MonoBehaviour:
   OrderID: 1
   Disabled: 0
   wave:
-    Creatures: a000000078000000
+    Creatures: a000000078000000aa000000
     onSpawn:
     - actions:
       - functionName: Bark

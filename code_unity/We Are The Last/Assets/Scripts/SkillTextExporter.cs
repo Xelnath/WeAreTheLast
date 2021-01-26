@@ -25,7 +25,7 @@ public class SkillTextExporter : MonoBehaviour
         File.WriteAllText(path, String.Empty);
         for ( int i = 0; i < skill.targetProviders.Count; ++i )
         {
-            File.AppendAllText(path, $"TARGET{i}");
+            File.AppendAllText(path, $"TARGET{i}\n\n");
             AppendFunctions( path, skill.targetProviders[i].targetCalls );
         }
 

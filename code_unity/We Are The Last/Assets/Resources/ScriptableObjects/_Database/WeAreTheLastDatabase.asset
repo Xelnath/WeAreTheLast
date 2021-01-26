@@ -51,6 +51,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b36ff7345da9a1e4abfe9ca50ae47401, type: 2}
   - {fileID: 11400000, guid: 343c1e1125e00a342ada5559053e6f14, type: 2}
   - {fileID: 11400000, guid: e8d7d2ae06ed3934f88b136000874efb, type: 2}
+  - {fileID: 11400000, guid: ecd9cc5c061e339429f5bc63528f014a, type: 2}
+  - {fileID: 11400000, guid: 894d56d401580484e88b0ea5f3b8883a, type: 2}
   CharacterAssets:
   - {fileID: 11400000, guid: cc46ccba0904f5f41b69e1b7f745f57e, type: 2}
   - {fileID: 11400000, guid: 5a3ad06e9f2d4d9478713d566addf9e7, type: 2}
@@ -63,6 +65,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d0428077498e2ae4d903b05d743bc024, type: 2}
   - {fileID: 11400000, guid: 9b2d9eb2d97f7d84eab193657578fdf6, type: 2}
   - {fileID: 11400000, guid: c8b26968fa468d344b04791f7f49921a, type: 2}
+  - {fileID: 11400000, guid: 89cab1e8bb289c64a81f57bea6820010, type: 2}
   FXPrefabs:
   - {fileID: 4168080033651754804, guid: 5240e1f1d0b42f04c8b0bae2bc80537a, type: 3}
   - {fileID: 156202960979001671, guid: 6ef87b1403dd09c498828402ce6bcae6, type: 3}
