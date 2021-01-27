@@ -117,7 +117,8 @@ public class BattleGen : MonoBehaviour
         GameObject instance = Instantiate(character.prefab, teamSpawns[counter].transform);
         
         //Setting charId
-        instance.GetComponent<Character>().id = character.id.ToString();
+        var view = instance.GetComponent<Character>();
+        view.id = character.id.ToString();
         
         //Setting GameObject's name
         instance.name = character.name;
@@ -126,7 +127,7 @@ public class BattleGen : MonoBehaviour
         var spriteRotation = team == 1 ? 180 : 0;
         instance.transform.Rotate(0, spriteRotation, 0);
 
-        story.Actors.Add(instance.GetComponent<Character>());
+        story.Actors.Add(view);
         
         //Adding element to instances
         characterInfo info = new characterInfo(character);
@@ -138,6 +139,7 @@ public class BattleGen : MonoBehaviour
         info.lastSkillUsed = -1;
 
         BattleManager.core.characterInstances.Add(info);
+        BattleManager.core.StartHealthManagerForCharacter( charId, view.healthPos );
 
         //Incrementing character
         counter++;

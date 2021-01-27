@@ -305,13 +305,6 @@ public class BattleManager : MonoBehaviour
         List<InstanceID> characters = new List<InstanceID>();
         characters.AddRange( activeEnemyTeam );
         characters.AddRange( activePlayerTeam );
-
-        foreach ( InstanceID i in characters )
-        {
-
-          //Starting coroutine to display health.
-          StartCoroutine( battleAreahealthManager( i, 1.1f ) );
-        }
       }
 
 
@@ -893,8 +886,14 @@ public class BattleManager : MonoBehaviour
 
   }
 
+  public void StartHealthManagerForCharacter( InstanceID charID, Vector3 offset )
+  {
+    
+    StartCoroutine( battleAreahealthManager( charID, offset ) );
+  }
+
   //This function displays and continuously update attributes in the battle area
-  IEnumerator battleAreahealthManager( InstanceID charId, float yOffset )
+  IEnumerator battleAreahealthManager( InstanceID charId, Vector3 offset )
   {
 
     //Getting character instance by id
@@ -914,7 +913,7 @@ public class BattleManager : MonoBehaviour
 
     //Adjusted position
     Vector3 pos = charInstanceGameObjectById.transform.position;
-    Vector3 newPos = new Vector3( pos.x, pos.y + yOffset, pos.z );
+    Vector3 newPos = pos + offset;
 
     //Spawning
     GameObject t = Instantiate( valuePrefab, newPos, Quaternion.identity, spawnArea.transform );
@@ -932,7 +931,7 @@ public class BattleManager : MonoBehaviour
 
       //Adjusting coordinates
       pos = charInstanceGameObjectById.transform.position;
-      newPos = new Vector3( pos.x, pos.y + yOffset, pos.z );
+      newPos = pos + offset;
       FunctionDB.uiCoordinateCheck( t, newPos );
 
       //Updating text
