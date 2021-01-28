@@ -3,8 +3,8 @@ selectTeam,W,,,int:1,bool:false,bool:true
 
 FUNCTIONS
 
-preselectedTargets,W,,,int:0
-jumpIfTargetCountTest,W,,,string:>0,string:found
+:preselectedTargets,W,,,int:0
+:jumpIfTargetCountTest,W,,,string:>0,string:found
 selectTeam,W,,,bool:false,bool:true
 :found,W,,,
 toggleActions,W,,,bool:false

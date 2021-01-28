@@ -36,13 +36,13 @@ MonoBehaviour:
         isCoroutine: 0
         isRunning: 0
     functionsToCall:
-    - functionName: preselectedTargets
+    - functionName: :preselectedTargets
       parametersArray:
       - int:0
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-    - functionName: jumpIfTargetCountTest
+    - functionName: :jumpIfTargetCountTest
       parametersArray:
       - string:>0
       - string:found
