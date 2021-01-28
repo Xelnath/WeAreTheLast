@@ -142,6 +142,8 @@ public class BattleManager : MonoBehaviour
   [Tooltip( "Current player's team." )] public List<InstanceID> activePlayerTeam = new List<InstanceID>();
 
   [Tooltip( "Current enemy team." )] public List<InstanceID> activeEnemyTeam = new List<InstanceID>();
+  
+  public List<InstanceID> turnOrder = new List<InstanceID>();
 
   //Public variables
   [Tooltip( "Initial player's team." )] public List<int> initialPlayerTeam = new List<int>();
@@ -291,7 +293,8 @@ public class BattleManager : MonoBehaviour
 
         //Starting Coroutines
         StartCoroutine( characterInfoManager() );
-        StartCoroutine( turnManager() );
+        StartCoroutine( newTurnManager() );
+        //StartCoroutine( turnManager() );
         StartCoroutine( healthManager() );
         StartCoroutine( autoBattleManager() );
         StartCoroutine( animationManager() );
@@ -942,6 +945,130 @@ public class BattleManager : MonoBehaviour
 
   }
 
+  private void StartOfRound()
+  {
+    preplanTurnOrder();
+    clearThreatArrows();
+     preplanAI();
+  }
+
+  private void preplanTurnOrder()
+  {
+    BattleManager.core.turnOrder.Clear();
+
+    BattleManager.core.turnOrder.AddRange( BattleManager.core.activePlayerTeam );
+    BattleManager.core.turnOrder.AddRange( BattleManager.core.activeEnemyTeam );
+    BattleManager.core.turnOrder.Sort( ( a, b ) => { 
+      
+      var cA = BattleManager.core.findCharacterInstanceById( a );
+      var cB = BattleManager.core.findCharacterInstanceById( b );
+
+      // Highest speed should go first, otherwise don't change order
+      return cB.characterCopy.speed.CompareTo( cA.characterCopy.speed );
+    } );
+  }
+
+  private void EndOfWaveCheck( out bool waveEnded, out bool playerDefeat )
+  {
+      //Getting player and enemy team count
+      int playerCount = CurrentContext.attackerTeam.Where( x => core.findCharacterInstanceById( x ).isAlive )
+        .ToArray().Count();
+      int enemyCount = CurrentContext.defenderTeam.Where( x => core.findCharacterInstanceById( x ).isAlive )
+        .ToArray().Count();
+
+      waveEnded = ( playerCount == 0 || enemyCount == 0 );
+      playerDefeat = playerCount == 0;
+  }
+
+  private void StartOfTurn(BattleManagerContext context)
+  {
+    turnPoints = maxTurnPoints;
+    BattleMethods.core.toggleActions( context, true );
+    Debug.Log( $"Turn started" );
+  }
+
+  private bool DEBUG = false;
+  IEnumerator newTurnManager()
+  {
+    while ( true )
+    {
+      var context = BattleManager.core.CurrentContext;
+
+      StartOfRound();
+      if (DEBUG) Debug.Log( $"Round started." );
+
+      for ( int i = 0; i < core.turnOrder.Count; ++i )
+      {
+        skipChar = false;
+        
+        EndOfWaveCheck( out bool waveEnded, out bool playersDefeated );
+
+        if ( waveEnded )
+        {
+          if ( playersDefeated )
+          {
+            if (DEBUG) Debug.Log( $"Players defeated." );
+
+            yield return new WaitForSeconds( 2 );
+            EndGame( context, 1 );
+            break;
+          }
+
+          if ( WavesDone() )
+          {
+            if (DEBUG) Debug.Log( $"Players win." );
+            
+            yield return new WaitForSeconds( 2 );
+            EndGame( context, 0 );
+            break;
+          }
+          else
+          {
+            if (DEBUG) Debug.Log( $"Next wave." );
+
+            yield return new WaitForSeconds( 2 );
+            NextWave();
+            break;
+          }
+        }
+
+        var instanceId = core.turnOrder[i];
+        var characterInstance = BattleManager.core.findCharacterInstanceById( instanceId );
+        bool isPlayerTeam = core.activePlayerTeam.Contains( instanceId );
+        BattleManager.core.activeTeam  = isPlayerTeam ? 0 : 1;
+        
+        if (DEBUG) Debug.Log( $"Checking if {characterInstance.characterCopy.name} wasn't alive" );
+
+        // Don't run actions for dead people ^_^
+        if ( !characterInstance.isAlive ) continue;
+
+        context.activeCharacterId = instanceId;
+
+        StartOfTurn(context);
+        
+        //Set new character id
+        //Generate menu
+        if (DEBUG) Debug.Log( $"Generating menu for {characterInstance.characterCopy.name}" );
+
+        BattleGen.core.mainGen();
+        if ( !isPlayerTeam || autoBattle )
+        {
+          BattleMethods.core.toggleActions( context, false );
+          runAI( context ); 
+          if (DEBUG) Debug.Log( $"AI run {characterInstance.characterCopy.name}" );
+        }
+        
+        while ( turnPoints > 0 && !skipChar )
+        {
+          yield return new WaitForEndOfFrame();
+        }
+        BattleMethods.core.toggleActions( context, false );
+
+        if (DEBUG) Debug.Log( $"Turn finished {characterInstance.characterCopy.name}" );
+      }
+    }
+  }
+
   //This function manages turns
   IEnumerator turnManager()
   {
@@ -1045,17 +1172,7 @@ public class BattleManager : MonoBehaviour
             // The enemies finished going.
             if ( activeTeam == 0 )
             {
-              foreach ( var character in characterInstances )
-              {
-                character.preplannedTargets.Clear();
-                
-                //Decrementing Betrayal
-                var attr = FunctionDB.core.findAttributeByName(  character.characterInstanceId, "BETRAYAL" );
-                if (attr != null && attr.curValue > 0)
-                {
-                  attr.curValue--;
-                }
-              }
+
 
               EndRound( BattleManager.core.CurrentContext );
               plan = true;
@@ -1082,6 +1199,18 @@ public class BattleManager : MonoBehaviour
 
   private void EndRound( BattleManager.BattleManagerContext context )
   {
+    foreach ( var character in characterInstances )
+    {
+      character.preplannedTargets.Clear();
+      
+      //Decrementing Betrayal
+      var attr = FunctionDB.core.findAttributeByName(  character.characterInstanceId, "BETRAYAL" );
+      if (attr != null && attr.curValue > 0)
+      {
+        attr.curValue--;
+      }
+    }
+    
     foreach ( InstanceID charId in activePlayerTeam )
     {
       var characterInstance = BattleManager.core.findCharacterInstanceById( charId );

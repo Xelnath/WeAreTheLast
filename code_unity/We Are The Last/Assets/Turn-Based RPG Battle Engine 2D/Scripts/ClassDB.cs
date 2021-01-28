@@ -95,6 +95,8 @@ namespace ClassDB {
 		public string description;
 		public Sprite icon;
 
+		public int speed;
+		
 		//Animator component
 		public GameObject prefab;
 
@@ -147,6 +149,11 @@ namespace ClassDB {
 		public List<callInfo> getOnDeath()
 		{
 			return new List<callInfo>( onDeath );
+		}
+
+		public int getSpeed()
+		{
+			return speed;
 		}
 
 		public void addDontReplaceAttribute( characterAttribute newAttribute )

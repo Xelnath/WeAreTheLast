@@ -101,7 +101,7 @@ public class StoryControl : MonoBehaviour
             { 
             temp[1] = temp[1].Replace("\r\n", "");
             temp[1] = temp[1].Trim();
-            Debug.Log(temp[1]);
+            //Debug.Log(temp[1]);
             }
             if ( stats.Length > 2 && !string.IsNullOrEmpty(temp[1]))
             {
@@ -125,6 +125,12 @@ public class StoryControl : MonoBehaviour
         
         foreach (Character c in Actors)
         {
+            if ( c == null )
+            {
+                //Debug.Log( $"Destroyed {c.name}." );
+                continue;
+            }
+
             if (actor == c.id)
             {
                 CurrTalker = c;
