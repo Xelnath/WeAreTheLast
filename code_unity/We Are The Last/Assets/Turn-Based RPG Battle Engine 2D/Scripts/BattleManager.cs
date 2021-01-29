@@ -1497,8 +1497,9 @@ public class BattleManager : MonoBehaviour
   {
     foreach ( var charInstanceID in activeEnemyTeam )
     {
-      int characterIndex = findCharacterInstanceIndexById( charInstanceID );
-      if ( characterInstances[characterIndex].preplannedTargets.Count == 0 )
+      //int characterIndex = findCharacterInstanceIndexById( charInstanceID );
+      //if ( characterInstances[characterIndex].preplannedTargets.Count == 0 )
+      //var characterInstance = BattleManager.core.findCharacterInstanceById( charInstanceID );
       {
         BattleMethods.core.preplanAI( charInstanceID );
         setThreatArrows( charInstanceID );

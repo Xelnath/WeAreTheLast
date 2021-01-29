@@ -482,6 +482,10 @@ public class BattleMethods : MonoBehaviour
         context.targetLimit = 99;
         context.actionTargets = BattleGen.core.getValidTargets( context, targetSameTeam, !targetSameTeam, targetLimit );
       }
+      
+      //Clearing current actions window
+      // Not sure why this was here before tbh. 
+      BattleManager.core.curActions.Clear();
     }
 
     BattleManager.setQueueStatus( context,  "selectCharacter", false );

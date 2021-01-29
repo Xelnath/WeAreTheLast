@@ -1,4 +1,5 @@
 TARGET0
+clearTargets,W,,,,
 selectTargets,W,,,int:1,bool:true,bool:false
 
 FUNCTIONS

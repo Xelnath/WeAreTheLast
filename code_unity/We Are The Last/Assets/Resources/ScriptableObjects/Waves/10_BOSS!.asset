@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69bc30355f0348a1a5ccb798982001c1, type: 3}
-  m_Name: 2_WaveTest
+  m_Name: 10_BOSS!
   m_EditorClassIdentifier: 
-  OrderID: 2
-  Disabled: 0
+  OrderID: 10
+  Disabled: 1
   wave:
-    Creatures: 780000006e00000082000000
+    Creatures: a0000000640000008c000000
     onSpawn:
     - actions:
       - functionName: Bark
         parametersArray:
-        - string:Wave_Test
+        - string:Wave_10
         waitForPreviousFunction: 1
         isCoroutine: 0
         isRunning: 0

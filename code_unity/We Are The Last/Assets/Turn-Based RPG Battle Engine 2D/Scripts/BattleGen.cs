@@ -447,9 +447,6 @@ public class BattleGen : MonoBehaviour
       }
     }
 
-    //Clearing current actions window
-    BattleManager.core.curActions.Clear();
-
     List<InstanceID> selected = new List<InstanceID>();
     while ( targetLimit > 0 && toGen.Count > 0 )
     {

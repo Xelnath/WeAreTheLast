@@ -1,3 +1,7 @@
+TARGET0
+clearTargets,W,,,,
+selectTeam,,,,bool:true,bool:true
+
 FUNCTIONS
 
 selectTeam,,,,bool:true,bool:true

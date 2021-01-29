@@ -3,6 +3,7 @@ testAttributeJump,W,,,bool:true,string:MELTDOWN,float:2,bool:false,string:target
 testAttributeJump,W,,,bool:true,string:MELTDOWN,float:1,bool:false,string:end
 testAttributeJump,W,,,bool:true,string:MELTDOWN,float:0,bool:false,string:end
 :target,W,,,
+clearTargets,W,,,,
 selectTeam,W,,,bool:false,bool:true
 :end,W,,,
 

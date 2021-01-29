@@ -182,4 +182,4 @@ MonoBehaviour:
       isRunning: 0
     endOfRound: []
     sacrificeActions: []
-  SkillText: {fileID: 4900000, guid: ad5f27d21b474be44b958a4be1e19ccc, type: 3}
+  SkillText: {fileID: 4900000, guid: 8f9c3f0b14e95d34da2ced2f6cbadab0, type: 3}

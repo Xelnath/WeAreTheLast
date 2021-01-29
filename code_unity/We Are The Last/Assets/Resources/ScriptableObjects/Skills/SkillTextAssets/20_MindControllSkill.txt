@@ -1,3 +1,7 @@
+TARGET0
+clearTargets,W,,,,
+selectTargets,W,,,int:1,bool:true,bool:false
+
 FUNCTIONS
 
 selectCharacter,,,,bool:false,int:1,int:0

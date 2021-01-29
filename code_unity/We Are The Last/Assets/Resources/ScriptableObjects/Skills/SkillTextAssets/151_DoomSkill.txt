@@ -1,4 +1,5 @@
 TARGET0
+clearTargets,W,,,,
 selectTeam,W,,,bool:false,bool:true
 filterTargets,W,,,string:DOOM,string:<1
 jumpIfTargetCountTest,W,,,string:>0,string:end

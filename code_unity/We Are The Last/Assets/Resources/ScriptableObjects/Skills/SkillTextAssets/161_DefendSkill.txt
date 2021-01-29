@@ -1,3 +1,4 @@
+TARGET0
 targetSelf,W,,,
 
 FUNCTIONS

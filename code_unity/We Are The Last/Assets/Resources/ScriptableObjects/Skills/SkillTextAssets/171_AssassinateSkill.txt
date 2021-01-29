@@ -1,4 +1,5 @@
 TARGET0
+clearTargets,W,,,,
 selectTeam,,,,bool:false,bool:true
 filterTargetsAttributeValueHighest,W,,,string:HP,int:3
 selectFirstNTargets,W,,,int:1,bool:false,bool:true

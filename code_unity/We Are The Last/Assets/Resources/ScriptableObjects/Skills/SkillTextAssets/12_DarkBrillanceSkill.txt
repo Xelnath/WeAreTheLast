@@ -1,4 +1,5 @@
 TARGET0
+clearTargets,W,,,,
 selectTeam,W,,,bool:true,bool:true
 
 FUNCTIONS
