@@ -949,23 +949,24 @@ public class BattleManager : MonoBehaviour
   {
     preplanTurnOrder();
     clearThreatArrows();
-     preplanAI();
+    preplanAI();
   }
 
   private void preplanTurnOrder()
   {
     BattleManager.core.turnOrder.Clear();
-
     BattleManager.core.turnOrder.AddRange( BattleManager.core.activePlayerTeam );
     BattleManager.core.turnOrder.AddRange( BattleManager.core.activeEnemyTeam );
-    BattleManager.core.turnOrder.Sort( ( a, b ) => { 
-      
-      var cA = BattleManager.core.findCharacterInstanceById( a );
-      var cB = BattleManager.core.findCharacterInstanceById( b );
+    BattleManager.core.turnOrder.Sort( turnComparison );
+  }
 
-      // Highest speed should go first, otherwise don't change order
-      return cB.characterCopy.speed.CompareTo( cA.characterCopy.speed );
-    } );
+  private int turnComparison( InstanceID a, InstanceID b )
+  {
+    var cA = BattleManager.core.findCharacterInstanceById( a );
+    var cB = BattleManager.core.findCharacterInstanceById( b );
+
+    // Highest speed should go first, otherwise don't change order
+    return cB.characterCopy.speed.CompareTo( cA.characterCopy.speed );
   }
 
   private void EndOfWaveCheck( out bool waveEnded, out bool playerDefeat )

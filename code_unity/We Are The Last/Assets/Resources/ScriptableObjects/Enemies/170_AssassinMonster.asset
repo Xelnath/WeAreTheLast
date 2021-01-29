@@ -17,6 +17,7 @@ MonoBehaviour:
     id: 170
     description: Attacks the lowest health monster
     icon: {fileID: 21300000, guid: 477e4c02342791547a4ab223fd0cf81e, type: 3}
+    speed: 10
     prefab: {fileID: 1634988220540438, guid: bc41821ad5eaa074ba79b53096d4c239, type: 3}
     skills: ab000000
     items: []
