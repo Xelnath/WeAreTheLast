@@ -290,6 +290,10 @@ public class BattleManager : MonoBehaviour
 
         //Generating characters
         charGenInitiator();
+        
+        // Remove dud references used for spacing
+        BattleManager.core.activePlayerTeam.RemoveAll( x => x.CharacterID == -1 );
+        BattleManager.core.activeEnemyTeam.RemoveAll( x => x.CharacterID == -1 );
 
         //Starting Coroutines
         StartCoroutine( characterInfoManager() );
@@ -351,6 +355,10 @@ public class BattleManager : MonoBehaviour
   {
     WaveIndex++;
     SpawnEnemyTeamWave();
+    
+    // Remove empty character reference
+    BattleManager.core.activePlayerTeam.RemoveAll( x => x.CharacterID == -1 );
+    BattleManager.core.activeEnemyTeam.RemoveAll( x => x.CharacterID == -1 );
   }
 
   public void SpawnEnemyTeamWave()
@@ -964,6 +972,7 @@ public class BattleManager : MonoBehaviour
     BattleManager.core.turnOrder.Clear();
     BattleManager.core.turnOrder.AddRange( BattleManager.core.activePlayerTeam );
     BattleManager.core.turnOrder.AddRange( BattleManager.core.activeEnemyTeam );
+    BattleManager.core.turnOrder.RemoveAll( x => x.CharacterID == -1 );
     BattleManager.core.turnOrder.Sort( turnComparison );
   }
 
@@ -992,7 +1001,7 @@ public class BattleManager : MonoBehaviour
   {
     turnPoints = maxTurnPoints;
     BattleMethods.core.toggleActions( context, true );
-    Debug.Log( $"Turn started" );
+    if ( DEBUG) Debug.Log( $"Turn started" );
   }
 
   private bool DEBUG = false;
@@ -1000,6 +1009,7 @@ public class BattleManager : MonoBehaviour
   {
     while ( true )
     {
+
       var context = BattleManager.core.CurrentContext;
 
       StartOfRound();
@@ -1074,135 +1084,11 @@ public class BattleManager : MonoBehaviour
 
         if (DEBUG) Debug.Log( $"Turn finished {characterInstance.characterCopy.name}" );
       }
-    }
-  }
-
-  //This function manages turns
-  IEnumerator turnManager()
-  {
-    bool plan = true;
-    while ( true )
-    {
-
-      var context = BattleManager.core.CurrentContext;
-
-      //Preplan AI action if not planned
-      if ( plan )
-      {
-        clearThreatArrows();
-        preplanAI();
-        plan = false;
-      }
-
-      if ( turnPoints <= 0 || skipChar )
-      {
-
-        var tempRunAI = false;
-        BattleMethods.core.toggleActions( context, true );
-
-        if ( activeTeam != -1 )
-        {
-
-          var counter = 0;
-
-          while ( true )
-          {
-
-            //Getting player and enemy team count
-            int playerCount = CurrentContext.attackerTeam.Where( x => core.findCharacterInstanceById( x ).isAlive )
-              .ToArray().Count();
-            int enemyCount = CurrentContext.defenderTeam.Where( x => core.findCharacterInstanceById( x ).isAlive )
-              .ToArray().Count();
-
-            //Since there are only 2 teams, a value above 1 means a third loop.
-            //This means that something went wrong (and one of the teams probably won).
-            //However, to make sure that we don't continue the battle on second loop if a team has won, we need to make sure that both teams have more than 1 active members.
-            if ( counter > 1 || playerCount == 0 || enemyCount == 0 )
-            {
-              yield return new WaitForSeconds( 2 );
-              int victor = playerCount > enemyCount ? 0 : 1;
-
-              if ( WavesDone() )
-              {
-                EndGame( context, victor );
-                break;
-              }
-              else
-              {
-                NextWave();
-                CurrentContext.activeCharacterId = InstanceID.InvalidID;
-              }
-            }
-
-            //Getting active team.
-            List<InstanceID> team = activeTeam == 0 ? CurrentContext.attackerTeam : CurrentContext.defenderTeam;
-
-            // TODO: REPLACE THIS LOGIC ENTIRELY
-            //Getting team's char index
-            var teamCharIndex = team.FindIndex( x => x == CurrentContext.activeCharacterId );
-            if ( teamCharIndex == -1 )
-            {
-              teamCharIndex = 0;
-            }
-
-            //Checking list length
-            if (  (team.Count - 1 ) >= teamCharIndex )
-            {
-              var inc = counter == 1 ? 0 : 1;
-              var aCharIndex = FunctionDB.core.activeCharacter( team, teamCharIndex, inc );
-
-              //Does the character exist
-              if ( aCharIndex != -1 )
-              {
-                CurrentContext.activeCharacterId = team[aCharIndex];
-
-                //Set new character id
-                //Generate menu
-                BattleGen.core.mainGen();
-
-                //If the character's team is the enemy team, active A.I.
-                //Likewise, if auto battle is on, activate A.I.
-                if ( activeTeam == 1 || autoBattle )
-                {
-                  BattleMethods.core.toggleActions( context, false );
-                  tempRunAI = true;
-                }
-
-                break;
-              }
-            }
-
-            //If function fails to break loop, it means that it failed to find an active player in the given list
-            //Swap teams and try again
-            swapTeam( CurrentContext );
-            counter++;
-
-            // The enemies finished going.
-            if ( activeTeam == 0 )
-            {
-
-
-              EndRound( BattleManager.core.CurrentContext );
-              plan = true;
-            }
-
-          }
-
-        }
-
-        //Reset turn points
-        turnPoints = maxTurnPoints;
-
-        //Reset skip char
-        skipChar = false;
-
-        if ( tempRunAI ) runAI( BattleManager.core.CurrentContext );
-
-      }
-
+      
+      EndRound( context );
+      
       yield return new WaitForEndOfFrame();
     }
-
   }
 
   private void EndRound( BattleManager.BattleManagerContext context )
@@ -1504,9 +1390,7 @@ public class BattleManager : MonoBehaviour
   {
     foreach ( var charInstanceID in activeEnemyTeam )
     {
-      //int characterIndex = findCharacterInstanceIndexById( charInstanceID );
-      //if ( characterInstances[characterIndex].preplannedTargets.Count == 0 )
-      //var characterInstance = BattleManager.core.findCharacterInstanceById( charInstanceID );
+      if ( charInstanceID.CharacterID > -1 ) 
       {
         BattleMethods.core.preplanAI( charInstanceID );
         setThreatArrows( charInstanceID );

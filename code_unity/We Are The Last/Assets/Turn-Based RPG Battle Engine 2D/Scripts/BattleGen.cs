@@ -102,7 +102,7 @@ public class BattleGen : MonoBehaviour
     for (int i = 0; i < charTeam.Count; ++i )
     {
       InstanceID charId  = charTeam[i];
-      if ( charId == null )
+      if ( charId == null || charId.CharacterID == -1)
       {
         counter++;
         continue;
