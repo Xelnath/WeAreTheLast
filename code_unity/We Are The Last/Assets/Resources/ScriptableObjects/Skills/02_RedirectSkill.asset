@@ -27,6 +27,11 @@ MonoBehaviour:
     - preserved: 0
       arrowType: 0
       targetCalls:
+      - functionName: clearTargets
+        parametersArray: []
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
       - functionName: selectTargets
         parametersArray:
         - int:1

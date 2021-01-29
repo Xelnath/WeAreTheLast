@@ -1,7 +1,6 @@
 TARGET0
-clearTargets,W,,,,
-selectTargets,W,,,int:1,bool:false,bool:true
 
+selectTargets,W,,,int:1,bool:false,bool:true
 FUNCTIONS
 
 selectCharacter,,,,bool:false,int:1,int:0

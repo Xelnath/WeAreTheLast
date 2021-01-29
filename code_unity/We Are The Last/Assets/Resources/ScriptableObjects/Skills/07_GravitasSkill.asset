@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: 07_GravitySqueezeSkill
+  m_Name: 07_GravitasSkill
   m_EditorClassIdentifier: 
   Skill:
     name: Gravitas
@@ -235,4 +235,4 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-  SkillText: {fileID: 4900000, guid: 9a05b028efbb0bd48836b752805e9b38, type: 3}
+  SkillText: {fileID: 4900000, guid: fe7982c4c70d2be40ba669ded7ab5fbf, type: 3}
