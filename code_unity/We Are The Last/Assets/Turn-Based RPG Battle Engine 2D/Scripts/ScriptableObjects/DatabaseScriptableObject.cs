@@ -122,6 +122,7 @@ public class DatabaseScriptableObject : ScriptableObject
 	[Sirenix.OdinInspector.ShowInInspector]
 	public void LoadAllAssets()
 	{
+		AssetDatabase.Refresh();
 		var allSkills = Resources.FindObjectsOfTypeAll<SkillAsset>();
 		var allCharacters = Resources.FindObjectsOfTypeAll<CharacterAsset>();
 		var allWaves = Resources.FindObjectsOfTypeAll<WaveAsset>();

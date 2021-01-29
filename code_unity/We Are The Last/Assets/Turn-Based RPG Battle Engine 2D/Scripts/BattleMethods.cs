@@ -1466,6 +1466,7 @@ public class BattleMethods : MonoBehaviour
       var victim = BattleManager.core.findCharacterInstanceById( victimID );
       var source = BattleManager.core.findCharacterInstanceById( sourceID );
       var wardrumValue = FunctionDB.core.findAttributeByName( sourceID, "WARDRUM" )?.curValue ?? 0f;
+      var enrageValue = FunctionDB.core.findAttributeByName( sourceID, "ENRAGE" )?.curValue ?? 0f;
       var doomValue = FunctionDB.core.findAttributeByName( sourceID, "DOOM" )?.curValue ?? 0f;
 
       int defense = 0;
@@ -1490,9 +1491,14 @@ public class BattleMethods : MonoBehaviour
       float reduction = Mathf.Clamp( defense / 100f, 0f, 1f );
       float damagePostDefense = damageAmount - ( damageAmount * reduction );
 
+      float multi = 1f;
+
       // Apply major status effects
-      if ( wardrumValue > 0f ) damagePostDefense *= 2f;
-      if ( doomValue > 0f ) damagePostDefense *= 0.5f;
+      if ( wardrumValue > 0f ) multi += 1f;
+      if ( doomValue > 0f ) multi -= 0.5f;
+      if ( enrageValue > 0 ) multi += 0.5f;
+
+      damagePostDefense *= multi;
       
       var index = FunctionDB.core.findAttributeIndexByName( "HP", victim.characterCopy );
       if ( index == -1 )
