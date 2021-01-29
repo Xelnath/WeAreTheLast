@@ -12,7 +12,7 @@ playAnimation,W,,,int:-1,string:attack
 playAudioOnce,,,,int:1,int:1
 displayFX,W,,,bool:false,float:2,string:attack,float:0,float:0
 displayFX,W,,,bool:false,float:2,string:heal,float:-0.7,float:1
-damageTargets,W,,,int:80,int:3
+damageTargets,W,,,int:40,int:3
 wait,W,C,,float:0.4
 generateSuper,W,,,int:10
 playAnimation,W,,,int:-1,string:idle
