@@ -275,6 +275,102 @@ VAR Meltdown = "120"
 {CurrChar},1,1;They persist... 
 ->DONE
 
+== Wave_1
+->DONE
+
+== Wave_2
+->DONE
+
+== Wave_3
+->DONE
+
+== Wave_4
+->DONE
+
+== Wave_5
+->DONE
+
+== Wave_6
+->DONE
+
+== Wave_7
+->DONE
+
+== Wave_8
+->DONE
+
+== Wave_9
+->DONE
+
+== Wave_10
+->DONE
+
+== Wave_11
+->DONE
+
+== Wave_12
+->DONE
+
+== Wave_13
+->DONE
+
+== Wave_14
+->DONE
+
+== Wave_15
+->DONE
+
+== Wave_16
+->DONE
+
+== Wave_17
+->DONE
+
+== Wave_18
+->DONE
+
+== Wave_19
+->DONE
+
+== Wave_20
+->DONE
+
+== Wave_21
+->DONE
+
+== Wave_22
+->DONE
+
+== Wave_23
+->DONE
+
+== Wave_24
+->DONE
+
+== Wave_25
+->DONE
+
+== Wave_26
+->DONE
+
+== Wave_27
+->DONE
+
+== Wave_28
+->DONE
+
+
+== Wave_29
+->DONE
+
+== Wave_30
+->DONE
+
+== Wave_31
+->DONE
+
+
+
 ==	FinalScreenTiff
 {	Deaths:
 	-1:Oh no. One more reality is consumed. Don't worry there are infinite universes. All it takes is to succeed in one.

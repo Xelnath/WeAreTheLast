@@ -99,9 +99,16 @@ public class BattleGen : MonoBehaviour
     //A counter is kept in order to ensure that there are available spawn points
     var counter = 0;
 
-    foreach (InstanceID charId in charTeam)
+    for (int i = 0; i < charTeam.Count; ++i )
     {
-      //Getting character
+      InstanceID charId  = charTeam[i];
+      if ( charId == null )
+      {
+        counter++;
+        continue;
+      }
+
+        //Getting character
       int charIndex = FunctionDB.core.findCharacterTemplateIndexByCharacterID( charId.CharacterID );
       if ( charIndex == -1 )
       {
@@ -156,6 +163,7 @@ public class BattleGen : MonoBehaviour
         Debug.Log("Character with id" + charId.ToString() + " was not spawned due to the lack of spawn points.");
       }
     }
+    charTeam.RemoveAll( x => x == null );
   }
 
   private void setupUI(InstanceID charId, character character )

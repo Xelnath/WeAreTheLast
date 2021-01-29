@@ -360,8 +360,15 @@ public class BattleManager : MonoBehaviour
     for ( int i = 0; i  < nextWave.Creatures.Count; ++i )
     {
       int charID = nextWave.Creatures[i];
-      var instanceID = new InstanceID( charID );
-      activeEnemyTeam.Add( instanceID );
+      if ( charID > -1 )
+      {
+        var instanceID = new InstanceID( charID );
+        activeEnemyTeam.Add( instanceID );
+      }
+      else
+      {
+        activeEnemyTeam.Add( null );
+      }
     }
     
     clearThreatArrows();
