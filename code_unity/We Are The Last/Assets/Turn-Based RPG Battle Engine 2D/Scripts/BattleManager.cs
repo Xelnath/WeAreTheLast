@@ -1007,7 +1007,8 @@ public class BattleManager : MonoBehaviour
   private bool DEBUG = false;
   IEnumerator newTurnManager()
   {
-    while ( true )
+    bool gameOver = false;
+    while ( !gameOver )
     {
 
       var context = BattleManager.core.CurrentContext;
@@ -1029,6 +1030,7 @@ public class BattleManager : MonoBehaviour
 
             yield return new WaitForSeconds( 2 );
             EndGame( context, 1 );
+            gameOver = true;
             break;
           }
 
@@ -1038,7 +1040,7 @@ public class BattleManager : MonoBehaviour
             
             yield return new WaitForSeconds( 2 );
             EndGame( context, 0 );
-            break;
+            
           }
           else
           {
