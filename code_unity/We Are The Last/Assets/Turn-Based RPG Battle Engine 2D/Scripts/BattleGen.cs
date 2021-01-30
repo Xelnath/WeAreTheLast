@@ -613,7 +613,7 @@ public class BattleGen : MonoBehaviour
     }
 
     //Excluding invalid characters
-    for (int i = 0; i < toGen.Count; i++)
+    for (int i = toGen.Count-1; i >= 0; i--)
     {
       //Getting character
       var instanceData = BattleManager.core.findCharacterInstanceById( toGen[i] );
