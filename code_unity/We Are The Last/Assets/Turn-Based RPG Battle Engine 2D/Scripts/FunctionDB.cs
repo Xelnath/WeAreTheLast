@@ -146,29 +146,7 @@ public class FunctionDB : MonoBehaviour {
 			Destroy(i.gameObject);
 		}
 	}
-
 	
-	//This method is used to get the first active character in a characters list
-	public int activeCharacter (List<InstanceID> l, int startingIndex, int inc) {
-
-		for (int e = startingIndex + inc; e < l.Count; e++)
-		{
-			var instanceId = l[e];
-			var character = BattleManager.core.findCharacterInstanceById( instanceId );
-            var stun = FunctionDB.core.findAttributeByName( instanceId , "STUN" );
-            if ( stun != null && stun.curValue > 0 )
-            {
-	            continue;
-            }
-			
-			if (character.isAlive) {
-				return e;
-			}
-		}
-
-		return -1;
-	}
-
 	Coroutine audioTransitionRoutine;
 
 	//Changing current audio

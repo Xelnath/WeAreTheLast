@@ -16,7 +16,7 @@ MonoBehaviour:
     name: Meltdown
     id: 121
     description: All enemies take massive damage if you aren't slain first
-    DEBUG: 1
+    DEBUG: 0
     sacrificeReplacementId: -1
     activeSkill: 1
     isAttack: 1

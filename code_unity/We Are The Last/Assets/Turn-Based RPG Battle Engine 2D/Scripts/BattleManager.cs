@@ -1061,6 +1061,13 @@ public class BattleManager : MonoBehaviour
 
         // Don't run actions for dead people ^_^
         if ( !characterInstance.isAlive ) continue;
+        
+        // Skip turns for the stunned:
+        var stun = FunctionDB.core.findAttributeByName( instanceId , "STUN" );
+        if ( stun != null && stun.curValue > 0 )
+        {
+	          continue;
+        }
 
         context.activeCharacterId = instanceId;
 
@@ -1416,7 +1423,12 @@ public class BattleManager : MonoBehaviour
     
     var attrBetrayal = FunctionDB.core.findAttributeByName(  characterId, "BETRAYAL" );
     var attrHP = FunctionDB.core.findAttributeByName(  characterId, "HP" );
-    if (attrBetrayal != null && attrBetrayal.curValue > 0 || attrHP.curValue <= 0)
+    var attrStun = FunctionDB.core.findAttributeByName(  characterId, "STUN" );
+    var attrParalyze = FunctionDB.core.findAttributeByName(  characterId, "PARALYZE" );
+    if ( attrHP.curValue <= 0
+      || (attrBetrayal?.curValue ?? 0f) > 0 
+      || (attrStun?.curValue ?? 0f) > 0 
+      || (attrParalyze?.curValue ?? 0f) > 0 )
     {
       return; 
     }
