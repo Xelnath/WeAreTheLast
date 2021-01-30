@@ -637,7 +637,7 @@ public class BattleManager : MonoBehaviour
     var colonIndex = sp.IndexOf( ":" );
     if ( colonIndex == -1 )
     {
-      Debug.Log( "It seems that you have not properly defined your parameters." );
+      Debug.Log( $"It seems that you have not properly defined your parameters. ({sp})" );
       Debug.Log(
         "You parameters can be in any of the following forms: bool:true or false, string:yourString, float:yourFloat or int:anyInt" );
       return sp;

@@ -1,17 +1,18 @@
 TARGET0
-selectTeam,W,,,bool:true,bool:false
-
+clearTargets,W,,,
+selectTargets,W,,,int:1,bool:true,bool:false
 
 FUNCTIONS
 
-selectTeam,,,,bool:true,bool:false
+selectCharacter,,,,bool:true,int:1,int:0
+waitForSelection,W,C,,bool:true
 toggleActions,W,,,bool:false
 addOrChangeAttribute,,,,bool:false,string:COUNTER,string:=1,float:100,bool:false
 setAttributeToActiveCharacter,W,,,bool:false,string:COUNTERSOURCE
-displayFX,W,,,bool:false,float:2,string:heal,float:-0.8,float:0
+displayFX,W,,,bool:false,float:2,string:heal,float:-0.8,float:1
 wait,W,C,,float:0.4
 toggleActions,W,,,bool:true
-Bark,W,,,string:CounterAll
+Bark,W,,,string:Intervene
 clearTargets,W,,,
 subtractTurnPoints,W,,,int:0,int:1
 
@@ -30,4 +31,4 @@ changeAttribute,W,,,bool:true,int:0,string:+50,bool:true
 generateMana,W,,,int:100
 displayFX,W,,,bool:true,float:2,string:heal,float:-0.8,float:0
 wait,W,C,,float:0.4
-Bark,W,,,string:Sacrifice_DefendAll
+Bark,W,,,string:Sacrifice_Intervene

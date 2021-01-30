@@ -102,6 +102,9 @@ namespace ClassDB {
 
 		//A list of all available skills
 		public List<int> skills = new List<int>();
+		
+		//A list of all available skills
+		public List<int> ultimates = new List<int>();
 
 		//A list of items available to the player by ids
 		public List<characterItemInfo> items = new List<characterItemInfo>();
@@ -219,6 +222,7 @@ namespace ClassDB {
 			counterSkill = toCopy.counterSkill;
 
 			skills = toCopy.skills.DeepClone();
+			ultimates = toCopy.ultimates.DeepClone();
 			items = toCopy.items.DeepClone();
 			characterAttributes = toCopy.characterAttributes.DeepClone();
 			aiFunctions = toCopy.aiFunctions.DeepClone();

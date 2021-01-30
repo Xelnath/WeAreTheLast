@@ -103,6 +103,10 @@ VAR Meltdown = "120"
 {Th},1,1;{~You got this.|We talked about it, I got you.||}
 ->DONE
 
+== Intervene
+{Th},1,1;{~You got this.|We talked about it, I got you.||}
+->DONE
+
 == Cleanse
 {Th},1,1;{~Do your affirmations, you'll be fine.|Think again.||}
 ->DONE
@@ -188,6 +192,10 @@ VAR Meltdown = "120"
 
 == Sacrifice_Defend
 {Th},1,1;Sacrifice_Defend BARK
+->DONE
+
+== Sacrifice_Intervene
+{Th},1,1;Sacrifice_Intervene BARK
 ->DONE
 
 == Sacrifice_Cleanse

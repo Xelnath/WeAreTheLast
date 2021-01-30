@@ -816,8 +816,10 @@ public class BattleMethods : MonoBehaviour
         {
           //Getting attribute
           characterAttribute counterSource = character.characterAttributes[counterSourceIndex];
-          counterActorID = new InstanceID( Mathf.FloorToInt( counterSource.curValue ) );
-          counteringCharacter = BattleManager.core.findCharacterInstanceById(counterActorID).characterCopy;
+          var instanceIdValue = counterSource.curValue;
+          characterInfo counterActor = BattleManager.core.characterInstances.First( x => x.characterInstanceId.CharacterID == Mathf.FloorToInt(instanceIdValue) );
+          counterActorID = counterActor.characterInstanceId;
+          counteringCharacter = counterActor.characterCopy;
         }
         
         var c = new BattleManager.BattleManagerContext();

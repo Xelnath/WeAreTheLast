@@ -333,6 +333,122 @@ public class BattleGen : MonoBehaviour
 
   }
 
+  //Generating skills list
+  void ultimateGen()
+  {
+
+    //Emptying list
+    FunctionDB.core.emptyWindow(actionsWindow);
+
+    //Getting character id
+    var instanceID = BattleManager.core.CurrentContext.activeCharacterId;
+
+    //Getting skill list
+    var characterInstance = BattleManager.core.findCharacterInstanceById( instanceID );
+    var character = characterInstance.characterCopy;
+    var skillList = character.ultimates;
+
+    //Used to set focus on the first element instantiated
+    bool focusSet = false;
+
+    //Clearing current actions window
+    BattleManager.core.curActions.Clear();
+
+    foreach (int s in skillList)
+    {
+
+      //Getting skill data
+      var skillIndex = FunctionDB.core.findSkillIndexById(s);
+      var skill = Database.dynamic.skills[skillIndex];
+
+      var paralyze = FunctionDB.core.findAttributeByName( instanceID, "PARALYZE" );
+      bool attacksDisabled = paralyze != null && paralyze.curValue > 0f; 
+
+      if (skill.activeSkill && !(skill.isAttack && attacksDisabled) )
+      {
+        //Getting function data
+        var functionsToCall = skill.functionsToCall;
+
+        //Instantiating gameObject
+        GameObject t = Instantiate(optionPrefab, actionsWindow.transform);
+
+        //Set skill text
+        t.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = skill.name;
+
+        //Getting button component
+        Button b = t.GetComponent<Button>();
+
+        //Setting focus
+        if (!focusSet)
+        {
+          EventSystem.current.SetSelectedGameObject(t);
+          focusSet = true;
+        }
+
+        //Set new listeners for each function
+        //current turn points
+        var curTp = BattleManager.core.turnPoints;
+
+        //Setting listeners
+        b.onClick.AddListener(delegate
+        {
+          var index = FunctionDB.core.findAttributeIndexByName( "MP", character );
+          float currentMana = 9999f;
+          //Getting attribute
+          if ( index >= 0 )
+          {
+            characterAttribute attribute = character.characterAttributes[index];
+            currentMana = attribute.curValue;
+          }
+          var superIndex = FunctionDB.core.findAttributeIndexByName( "SP", character );
+          float superPower = 0f;
+          //Getting attribute
+          if ( superIndex >= 0 )
+          {
+            characterAttribute attribute = character.characterAttributes[superIndex];
+            superPower = attribute.curValue;
+          }
+
+          if ( currentMana < skill.manaCost )
+          { 
+            BattleManager.core.startWarningRoutine("Insufficient mana", 2f);
+          }
+          else if ( superPower < skill.superCost )
+          { 
+            BattleManager.core.startWarningRoutine("Super skill not charged", 2f);
+          }
+          else if ( ( curTp - skill.turnPointCost ) < 0 )
+          { 
+            BattleManager.core.startWarningRoutine( "Insufficient turn points", 2f );
+          }
+          else
+          {
+              BattleManager.core.CurrentContext.functionQueue = new List<callInfo>( functionsToCall );
+              BattleManager.core.CurrentContext.activeSkillId = skill.id;
+              BattleManager.core.StartCoroutine(
+                BattleManager.core.functionQueueCaller( BattleManager.core.CurrentContext ) );
+          }
+        });
+
+        //Adding element to current action list
+        curActionInfo cai = new curActionInfo();
+        cai.actionObject = t;
+        cai.description = skill.description;
+        cai.turnPointCost = skill.turnPointCost;
+        cai.manaPointCost = skill.manaCost;
+        cai.superCost = skill.superCost;
+
+        BattleManager.core.curActions.Add(cai);
+      }
+
+
+    }
+
+    //Instantiating back button
+    instantiateBackButton(focusSet);
+
+  }
+
   public void itemGen()
   {
 
@@ -654,7 +770,9 @@ public class BattleGen : MonoBehaviour
 
     //Getting character
     var characterInstance = BattleManager.core.findCharacterInstanceById( characterId );
-    var character = characterInstance.characterCopy;    toGen.AddRange( character.skills );
+    var character = characterInstance.characterCopy;
+    toGen.AddRange( character.skills );
+    toGen.AddRange( character.ultimates );
 
     //Excluding invalid characters
     for (int i = 0; i < toGen.Count; i++)
@@ -750,12 +868,19 @@ public class BattleGen : MonoBehaviour
       context.activeSkillId = skill.id; 
       context.DEBUG = skill.DEBUG;
 
-
       for ( int i = 0; i < character.skills.Count; ++i )
       {
         if ( character.skills[i] == skillId )
         {
           character.skills[i] = skill.sacrificeReplacementId;
+          functionsToCall.AddRange( skill.sacrificeActions );
+        }
+      }
+      for ( int i = 0; i < character.ultimates.Count; ++i )
+      {
+        if ( character.ultimates[i] == skillId )
+        {
+          character.ultimates[i] = skill.sacrificeReplacementId;
           functionsToCall.AddRange( skill.sacrificeActions );
         }
       }

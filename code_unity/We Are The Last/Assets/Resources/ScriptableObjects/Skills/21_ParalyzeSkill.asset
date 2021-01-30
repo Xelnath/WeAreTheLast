@@ -22,7 +22,7 @@ MonoBehaviour:
     isAttack: 0
     turnPointCost: 100
     manaCost: 0
-    superCost: 0
+    superCost: 100
     targetProviders:
     - preserved: 0
       arrowType: 0

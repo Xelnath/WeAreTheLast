@@ -17,7 +17,7 @@ MonoBehaviour:
     id: 4
     description: Target takes less damage this around.
     DEBUG: 0
-    sacrificeReplacementId: -1
+    sacrificeReplacementId: 9
     activeSkill: 1
     isAttack: 0
     turnPointCost: 100

@@ -9,10 +9,10 @@ selectTeam,W,,,bool:false,bool:true
 
 FUNCTIONS
 
-testAttributeJump,W,,R,bool:true,string:MELTDOWN,float:3,bool:false,string:boom
-testAttributeJump,W,,R,bool:true,string:MELTDOWN,float:2,bool:false,string:end
-testAttributeJump,W,,R,bool:true,string:MELTDOWN,float:1,bool:false,string:end
-testAttributeJump,W,,R,bool:true,string:MELTDOWN,float:0,bool:false,string:end
+testAttributeJump,W,,,bool:true,string:MELTDOWN,float:3,bool:false,string:boom
+testAttributeJump,W,,,bool:true,string:MELTDOWN,float:2,bool:false,string:end
+testAttributeJump,W,,,bool:true,string:MELTDOWN,float:1,bool:false,string:end
+testAttributeJump,W,,,bool:true,string:MELTDOWN,float:0,bool:false,string:end
 :boom,W,,,
 preselectedTargets,W,,,int:0
 playAnimation,W,,,int:-1,string:walk

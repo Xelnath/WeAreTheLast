@@ -10,37 +10,50 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb79f4fe7de459387300479704a8bab, type: 3}
-  m_Name: 05_CounterAllSkill
+  m_Name: 26_InterveneSkill
   m_EditorClassIdentifier: 
   Skill:
-    name: Counter All
-    id: 5
-    description: Counter all attacks this round
+    name: Intervention
+    id: 26
+    description: Take the hit for someone else
     DEBUG: 0
-    sacrificeReplacementId: 21
+    sacrificeReplacementId: 4
     activeSkill: 1
     isAttack: 0
     turnPointCost: 100
     manaCost: 0
-    superCost: 100
+    superCost: 0
     targetProviders:
     - preserved: 0
       arrowType: 0
       targetCalls:
-      - functionName: selectTeam
+      - functionName: clearTargets
+        parametersArray: []
+        waitForPreviousFunction: 1
+        isCoroutine: 0
+        isRunning: 0
+      - functionName: selectTargets
         parametersArray:
+        - int:1
         - bool:true
         - bool:false
         waitForPreviousFunction: 1
         isCoroutine: 0
         isRunning: 0
     functionsToCall:
-    - functionName: selectTeam
+    - functionName: selectCharacter
       parametersArray:
       - bool:true
-      - bool:false
+      - int:1
+      - int:0
       waitForPreviousFunction: 0
       isCoroutine: 0
+      isRunning: 0
+    - functionName: waitForSelection
+      parametersArray:
+      - bool:true
+      waitForPreviousFunction: 1
+      isCoroutine: 1
       isRunning: 0
     - functionName: toggleActions
       parametersArray:
@@ -71,7 +84,7 @@ MonoBehaviour:
       - float:2
       - string:heal
       - float:-0.8
-      - float:0
+      - float:1
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -89,7 +102,7 @@ MonoBehaviour:
       isRunning: 0
     - functionName: Bark
       parametersArray:
-      - string:CounterAll
+      - string:Intervene
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
@@ -172,8 +185,8 @@ MonoBehaviour:
       isRunning: 0
     - functionName: Bark
       parametersArray:
-      - string:Sacrifice_DefendAll
+      - string:Sacrifice_Intervene
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
-  SkillText: {fileID: 4900000, guid: cee08124d01d79042a8539f0c65f2c85, type: 3}
+  SkillText: {fileID: 4900000, guid: c3af20184dfeb284cb473b476ede5b29, type: 3}
