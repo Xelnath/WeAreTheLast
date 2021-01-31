@@ -1,8 +1,7 @@
 LIST chars = Therapist, Model, Rockstar 
 VAR CurrChar = Therapist
 VAR Deaths = 0
-VAR Reset = 0
-VAR Wave = 0
+VAR Resets = 0
 VAR Victory = false
 
 VAR Th = "0" // Therapist
@@ -13,6 +12,7 @@ VAR Trauma = "110"
 VAR Meltdown = "120"
 
 ==	Start
+{Resets>=3:->EndStart}
 {	Deaths:
 -0:->First
 -1:->DONE
@@ -61,6 +61,131 @@ VAR Meltdown = "120"
 	-{Th},1,1;The bitch didn't lie.
 	-{Ro},1,1;If this is a fucking private concert, I swear.
 	-{Th},1,1;This has to stop. We can't go on like this.
+}
+->DONE
+
+==	EndStart
+{	Deaths:
+-0:->First
+-1:->CluelessFirst
+-else:->Clueless
+}
+=	First
+{Th},1,1;SHE'S PLAYING US
+{Mo},1,1;THIS CAN'T BE HAPPENING
+{Ro},1,1;IT'S A NIGHTMARE
+->DONE
+
+=	CluelessFirst
+{Mo},1,1;We'll kill her.
+{Th},1,1;It's the only way.
+{Ro},1,1;Whatever it takes.
+->DONE
+
+=	Clueless
+{shuffle:
+	-{Mo},1,1;Positivity is pointless now.
+	-{Mo},1,1;I refuse to perish in ignominy.
+	-{Mo},1,1;I will poison her world.
+	-{Ro},1,1;Swan song it is. Again.
+	-{Ro},1,1;Metal will live on!
+	-{Ro},1,1;I'm not dying alone!
+	-{Th},1,1;We're staying strong. She doesn't get to win.
+	-{Th},1,1;I've taught you how to stay the course. We're doing it now.
+	-{Th},1,1;It's hard for me to. We must stay the course. We can't stop.
+	-{Mo},1,1;
+	-{Mo},1,1;
+	-{Mo},1,1;
+}
+
+==	FinalScreenTiff
+{	Resets:
+	-0:->ResetReality
+	-1:->ResetTime
+	-2:->ResetWhatever
+	-3:->ResetVersionControl
+	-else:->ResetBored
+}
+
+=	ResetReality
+{	Deaths:
+	-1:One more reality is consumed. Don't worry there are infinite universes. All it takes is to succeed in one.
+	-2:Keep going. I don't need to remind you of my love. You're special and you can do this.
+	-3:Rise up, stand up, head over heart, heart over stomach. Now get in there and smash them.
+	-4:Just don't waver. Their plan is flawed. Just one victory is all we need and you have infinite tries.
+	-5:This is getting boring. Can you, like, fight better? Sure it's dire but it doesn't bear repeating.
+	-6:I'm officially bored. This is a neverending nightmare. How does that make you feel?
+	-7:Oh my god, omigod, you guys. You died again like maggots in a vacuum pump.
+	-8:What's up, last three people on Earth still with their brains in a solid state?
+	-9:Let's try again. I'm a nice and kind boring bitch again. You'll do fine.
+	-10:Is this really how you tried to kill me that first original time? Phenomenal arrogance.
+	-11:I think I'll just reset your memories. Yeah, that should be fun. Let's do it.
+	-else:I'm Tiff and whatever happened is deveveloper's fault. Ergo, it's a bug.
+}
+->DONE
+
+=	ResetTime
+{	Deaths:
+	-1:Don't worry! I'm turning back time right now. Go get'em darlings!
+	-2:They have no idea how powerful my time travel is. Go back. Take it all back.
+	-3:Learn from your mistakes. You can try as many times as you can. They are always on the first try.
+	-4:Bad guys need to win everytime! Good guys need to win just once. Go get it.
+	-5:Rise up, stand up, head over heart, heart over stomach. Now get in there and smash them.
+	-6:Oh shit I've said that head over heart thing already. Oh well. Enjoying your torture yet?
+	-7:Work with me here. Let's workshop something that's fun for me. It's like we're going in circles.
+	-8:Circles maybe? You like circles? Oh fuck you gotta love the circles. Can't do shit with circles.
+	-9:I'm thinking. Just go at it again. Shoosh.
+	-10:I think it's another reset. You know what, I'm feeling magnanimous. Go at it again.
+	-11:You're pushing my buttons. Like, you really are. Let's have a do over.
+	-else:I'm Tiff and whatever happened is deveveloper's fault. Ergo, it's a bug.
+}
+->DONE
+=	ResetWhatever
+{	Deaths:
+	-1:You're immortal now! Yes, I've made you immortal! You die and you come back and you do it again!
+	-2:You'll never die, you'll never relent! I have faith in you!
+	-3:The enemy is tough but you're getting tougher every run! Victory is inevitable!
+	-4:Learn from this mistake. Like really try. C'mon. Try!
+	-5:I though this whole grab the last humans and make them immortal would be fun.
+	-6:Yeah, like, whatever.
+	-7:You died again? Jeez, color me surprised.
+	-8:...
+	-9:...
+	-10:I've got an idea. Let me get back to you.
+	-11:I'm giving you all of your memories back. All your deaths and failures. Enjoy.
+	-else:I'm Tiff and whatever happened is deveveloper's fault. Ergo, it's a bug.
+}
+->DONE
+=	ResetVersionControl
+{	Deaths:
+	-1:Yes, finally! Fun!
+	-2:Yes, resentment! A two way street, yes. YES! 
+	-3:I hate you so much. Your whole deal, so despicable. Who knew honesty feels so awesome. 
+	-4:You did kill a lot of my goons. All of that was real. I just have an infinite amount of them.
+	-5:This game is rigged. You don't get to win. Not ever. Even if I'm on the battlements, I can only lose control over you. That means you die.
+	-6:I like that you still persevere. I don't need to alter your brains and make you do stuff. You just march and die all on your own.
+	-7:Can you even remember how it all begun? I sure don't. It's been so long ago. So mundane now. 
+	-8:Did you create me? Summon me? Did I turn on you? You're a hateful bunch I see no problem with that hypothesis.
+	-9:That's right. I remember now. That makes sense. I'm definitely not telling you.
+	-10:You're my curse you know that. I've saved the last ones and everything but you bore me so much. And yet without you I'd have nothing.
+	-11:I'm going to put you on autopilot. It's so pedestrian again. I'll pop back from time to time don't worry.
+	-else:I'm Tiff and whatever happened is deveveloper's fault. Ergo, it's a bug.
+}
+->DONE
+=	ResetBored
+{shuffle:
+	-	Yeah Yeah. You died again. Shocker.
+	-	Still kicking? Good for you.
+	-	Yes, yes. I was definitely paying attention.
+	-	What's that? Oh, you died again. Cool.
+	-	Should I reset you again? Nah, it's a hassle.
+	-	The returns sure are diminishing.
+	-	You're no longer fun. I just want you to know that.
+	-	Everyone who you love is still dead. Just saying.
+	-	You will never die. Enjoy.
+	-	...
+	-	...
+	-	...
 }
 ->DONE
 
@@ -284,9 +409,11 @@ VAR Meltdown = "120"
 ->DONE
 
 == Wave_1
+{Ro},1,1;The audience these days, jeeez.
 ->DONE
 
 == Wave_2
+{Th},1,1;Blocking their bullshit is getting draining.
 ->DONE
 
 == Wave_3
@@ -376,22 +503,17 @@ VAR Meltdown = "120"
 
 == Wave_31
 ->DONE
-
-
-
-==	FinalScreenTiff
+== Wave
 {	Deaths:
-	-1:Oh no. One more reality is consumed. Don't worry there are infinite universes. All it takes is to succeed in one.
-	-2:Keep going. I don't need to remind you of my love. You're special and you can do this.
-	-3:Rise up, stand up, head over heart, heart over stomach. Now get in there and smash them.
-	-4:Just don't waver. Their plan is flawed. Just one victory is all we need and you have infinite tries.
-	-5:This is getting boring. Can you, like, fight better? Sure it's dire but it doesn't bear repeating.
-	-6:I'm officially bored. This is a neverending nightmare. How does that make you feel?
-	-7:Oh my god, omigod, you guys. You died again like maggots in a vacuum pump.
-	-8:What's up, last three people still with their brains in a solid state?
-	-9:Let's try again. I'm a nice and kind boring bitch again. You'll do fine.
-	-10:Is this really how you tried to kill me the first time? Phenomenal arrogance.
-	-11:If you don't entertain me, I think I'll just reset your memories.
-	-else:I'm Tiff and whatever happened is deveveloper's fault. Ergo, it's a bug.
+	-1:{Ro},1,1;The audience these days, jeeez.
+	-2:{Th},1,1;Blocking their bullshit is getting draining.
+	-3:{Mo},1,1;Why they gotta be so ugly.
+	-4:{Th},1,1;Just stay strong, people.
+	-5:{Ro},1,1;I'm wasted on this rabble.
+	-6:{Mo},1,1;The audience these days, jeeez.
+	-7:{Ro},1,1;The audience these days, jeeez. 
 }
 ->DONE
+
+
+
