@@ -97,6 +97,7 @@ VAR Meltdown = "120"
 	-{Mo},1,1;
 	-{Mo},1,1;
 }
+->DONE
 
 ==	FinalScreenTiff
 {	Resets:

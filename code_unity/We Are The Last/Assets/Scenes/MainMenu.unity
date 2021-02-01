@@ -241,15 +241,15 @@ MonoBehaviour:
   Failures:
   - MinFailures: 0
     Label: 'Escape Attempts: {0}'
-  - MinFailures: 5
+  - MinFailures: 11
     Label: 'Disappointments: {0}'
-  - MinFailures: 10
+  - MinFailures: 22
     Label: 'Failures: {0}'
-  - MinFailures: 15
+  - MinFailures: 33
     Label: 'Abject Nightmares: {0}'
-  - MinFailures: 20
+  - MinFailures: 44
     Label: 'Wasted Lives: {0}'
-  - MinFailures: 25
+  - MinFailures: 55
     Label: 'Grotesque Incompetences: {0}'
 --- !u!4 &19450268
 Transform:

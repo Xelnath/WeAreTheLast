@@ -23,13 +23,15 @@ public class MMControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        int resetThreshold = 11;
         int deathCount = PlayerPrefs.GetInt( "FAILURES", 0 );
+        int resets = deathCount / resetThreshold;
 
         for ( int i = Failures.Length - 1; i >= 0; i-- )
         {
             if ( Failures[i].MinFailures <= deathCount )
             {
-                AttemptsLabel.text = string.Format( Failures[i].Label, deathCount );
+                AttemptsLabel.text = string.Format( Failures[i].Label, deathCount % resetThreshold );
                 break;
             }
         }
