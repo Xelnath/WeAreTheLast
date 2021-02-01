@@ -1145,8 +1145,9 @@ public class BattleManager : MonoBehaviour
   {
     int deathCount = PlayerPrefs.GetInt( "FAILURES", 0 );
     int resets = deathCount / 11;
+    int deathVariable = deathCount % 11;
     ObjectDB.core.story._inkStory.variablesState["Resets"] = resets;
-    ObjectDB.core.story._inkStory.variablesState["Deaths"] = deathCount;
+    ObjectDB.core.story._inkStory.variablesState["Deaths"] = deathVariable;
   }
 
   private void StartStory()
