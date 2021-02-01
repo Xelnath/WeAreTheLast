@@ -17,7 +17,7 @@ subtractTurnPoints,W,,,int:0,int:2
 
 ENDOFROUND
 
-autoSelectTargets,W,,,int:10,bool:true,bool:true
+selectTeam,W,,,bool:true,bool:true
 filterTargets,W,,,string:STRESS,string:>0
 damageTargetsTimesTargetPower,W,,,int:10,int:0,string:STRESSPOWER
 addOrChangeAttribute,W,,,bool:false,string:STRESS,string:-1,float:100,bool:false
