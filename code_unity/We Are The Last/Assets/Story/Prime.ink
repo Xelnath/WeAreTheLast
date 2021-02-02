@@ -409,100 +409,143 @@ VAR Meltdown = "120"
 ->DONE
 
 == Wave_1
-{Ro},1,1;The audience these days, jeeez.
+
 ->DONE
 
 == Wave_2
-{Th},1,1;Blocking their bullshit is getting draining.
+{Th},1,1;This is a nasty beast. Not sure I can counter that.
 ->DONE
 
 == Wave_3
+{Ro},1,1;No need to panic. Same shit.
 ->DONE
 
 == Wave_4
+{Mo},1,1;Smells familiar.
 ->DONE
 
 == Wave_5
+{Mo},1,1;Now this I know very well.
 ->DONE
 
 == Wave_6
+{Th},1,1;Usual suspect, huh?
 ->DONE
 
 == Wave_7
+{Th},1,1;Be careful this combo has claimed millions.
 ->DONE
 
 == Wave_8
+{Ro},1,1;I feel called out.
 ->DONE
 
 == Wave_9
+{Ro},1,1;Now this is personal. No worries, I've dealt with this in the past.
 ->DONE
 
 == Wave_10
+{Th},1,1;TBD BOSS ONE
 ->DONE
 
 == Wave_11
+{Th},1,1;This is too much trauma to deal with for free.
 ->DONE
 
 == Wave_12
+{Ro},1,1;Are they Lennoning me?
 ->DONE
 
 == Wave_13
+{Ro},1,1;They are double Lennoning me!
 ->DONE
 
 == Wave_14
+{Ro},1,1;I feel good about this. I feel right. I feel wrath!
 ->DONE
 
 == Wave_15
+{Mo},1,1;This isn't us. Never us.
 ->DONE
 
 == Wave_16
+{Mo},1,1;This was me. This will never be me again.
 ->DONE
 
 == Wave_17
+{Th},1,1;Careful. Stress is the worst deceiver.
 ->DONE
 
 == Wave_18
+{Th},1,1;These one's are called rockstar killers.
+{Ro},1,1;What's their play?
+{Th},1,1;You're their prey.
 ->DONE
 
 == Wave_19
+{Ro},1,1;Look at that. Therapy breakers.
+{Th},1,1;Uncalled for. Don't turn on each other.
 ->DONE
 
 == Wave_20
+{Mo},1,1;TBD BOSS ONE
 ->DONE
 
 == Wave_21
+{Mo},1,1;Overwhelming vanity? That's what I call my mirror.
 ->DONE
 
 == Wave_22
+{Mo},1,1;NOOOOOOOOOOOOO
+{Ro},1,1;TOOOO MUCH
+{Th},1,1;Stop! Breathe! Fight!
 ->DONE
 
 == Wave_23
+{Th},1,1;Years of therapy undone in a second.
 ->DONE
 
 == Wave_24
+{Th},1,1;Fuck.
+{Ro},1,1;She's rattled. Not good.
 ->DONE
 
 == Wave_25
+{Mo},1,1;I hate it. All of it.
 ->DONE
 
 == Wave_26
+{Mo},1,1;Too much. It's too much. It's coming back. All of it.
+{Th},1,1;Resist. For all you care. Resist.
 ->DONE
 
 == Wave_27
+{Th},1,1;These monsters must die. They must go.
+{Mo},1,1;Send them down the runway to hell.
+{Ro},1,1;That's our concerto.
 ->DONE
 
 == Wave_28
+{Th},1,1;I won't take this no more!
 ->DONE
 
-
 == Wave_29
+{Mo},1,1;A saint?
+{Th},1,1;A lie about to die.
+{Ro},1,1;Only LA has saints.
+{Th},1,1;It's a song not a saying.
+{Ro},1,1;Same difference.
 ->DONE
 
 == Wave_30
+{Ro},1,1;TBD BOSS THREE
 ->DONE
 
 == Wave_31
+{Ro},1,1;TBD TIFFANY!
 ->DONE
+
+
 == Wave
 {	Deaths:
 	-1:{Ro},1,1;The audience these days, jeeez.
