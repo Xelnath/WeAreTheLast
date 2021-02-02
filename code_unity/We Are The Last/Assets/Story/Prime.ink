@@ -120,13 +120,13 @@ VAR Meltdown = "120"
 	-8:What's up, last three people on Earth still with their brains in a solid state?
 	-9:Let's try again. I'm a nice and kind boring bitch again. You'll do fine.
 	-10:Is this really how you tried to kill me that first original time? Phenomenal arrogance.
-	-11:I think I'll just reset your memories. Yeah, that should be fun. Let's do it.
 	-else: Reset I'm Tiff and whatever happened is deveveloper's fault. Ergo, it's a bug.
 }
 ->DONE
 
 ==	ResetTime
 {	Deaths:
+	-0:I think I'll just reset your memories. Yeah, that should be fun. Let's do it.
 	-1:Don't worry! I'm turning back time right now. Go get'em darlings!
 	-2:They have no idea how powerful my time travel is. Go back. Take it all back.
 	-3:Learn from your mistakes. You can try as many times as you can. They are always on the first try.
@@ -137,12 +137,12 @@ VAR Meltdown = "120"
 	-8:Circles maybe? You like circles? Oh fuck you gotta love the circles. Can't do shit with circles.
 	-9:I'm thinking. Just go at it again. Shoosh.
 	-10:I think it's another reset. You know what, I'm feeling magnanimous. Go at it again.
-	-11:You're pushing my buttons. Like, you really are. Let's have a do over.
 	-else: ResetTime I'm Tiff and whatever happened is deveveloper's fault. Ergo, it's a bug.
 }
 ->DONE
 ==	ResetWhatever
 {	Deaths:
+	-0:You're pushing my buttons. Like, you really are. Let's have a do over.
 	-1:You're immortal now! Yes, I've made you immortal! You die and you come back and you do it again!
 	-2:You'll never die, you'll never relent! I have faith in you!
 	-3:The enemy is tough but you're getting tougher every run! Victory is inevitable!
@@ -153,12 +153,12 @@ VAR Meltdown = "120"
 	-8:...
 	-9:...
 	-10:I've got an idea. Let me get back to you.
-	-11:I'm giving you all of your memories back. All your deaths and failures. Enjoy.
 	-else: ResetWhatever I'm Tiff and whatever happened is deveveloper's fault. Ergo, it's a bug.
 }
 ->DONE
 ==	ResetVersionControl
 {	Deaths:
+	-0:I'm giving you all of your memories back. All your deaths and failures. Enjoy.
 	-1:Yes, finally! Fun!
 	-2:Yes, resentment! A two way street, yes. YES! 
 	-3:I hate you so much. Your whole deal, so despicable. Who knew honesty feels so awesome. 
@@ -166,10 +166,9 @@ VAR Meltdown = "120"
 	-5:This game is rigged. You don't get to win. Not ever. Even if I'm on the battlements, I can only lose control over you. That means you die.
 	-6:I like that you still persevere. I don't need to alter your brains and make you do stuff. You just march and die all on your own.
 	-7:Can you even remember how it all begun? I sure don't. It's been so long ago. So mundane now. 
-	-8:Did you create me? Summon me? Did I turn on you? You're a hateful bunch I see no problem with that hypothesis.
-	-9:That's right. I remember now. That makes sense. I'm definitely not telling you.
-	-10:You're my curse you know that. I've saved the last ones and everything but you bore me so much. And yet without you I'd have nothing.
-	-11:I'm going to put you on autopilot. It's so pedestrian again. I'll pop back from time to time don't worry.
+	-8:Did you create me? Summon me? Did I turn on you? You're a hateful bunch I see no problem with that hypothesis. That's right. I remember now. That makes sense!
+	-9:You're my curse you know that. I've saved the last ones and everything but you bore me so much. And yet without you I'd have nothing.
+	-10:I'm going to put you on autopilot. It's so pedestrian again. I'll pop back from time to time don't worry.
 	-else: ResetVersionControl I'm Tiff and whatever happened is deveveloper's fault. Ergo, it's a bug.
 }
 ->DONE
