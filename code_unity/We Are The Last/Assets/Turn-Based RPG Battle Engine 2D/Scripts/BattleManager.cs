@@ -1255,8 +1255,9 @@ public class BattleManager : MonoBehaviour
         if ( info.uiObject != null )
         {
 
+          var charId = info.characterInstanceId;
           //Getting character
-          var characterInstance = BattleManager.core.findCharacterInstanceById( info.characterInstanceId );
+          var characterInstance = BattleManager.core.findCharacterInstanceById( charId );
           var character = characterInstance.characterCopy;
 
           //Attributes list
@@ -1289,21 +1290,24 @@ public class BattleManager : MonoBehaviour
           info.uiObject.transform.GetChild( 6 ).gameObject.SetActive( !character.isActive );
 
 
-          //Getting attribute slots
-          GameObject attributeSlot1 = info.uiObject.transform.GetChild( 2 ).gameObject;
-          GameObject attributeSlot2 = info.uiObject.transform.GetChild( 3 ).gameObject;
-          GameObject attributeSlot3 = info.uiObject.transform.GetChild( 4 ).gameObject;
+          //Setting data
+          var slot = info.uiObject.GetComponent<BattleCharacterSlot>();
 
-          //Setting attributes
+          //Icon
+          slot.PortraitIcon.sprite = character.icon;
+
+          //Name
+          slot.TextName.text = character.name;
+
           if ( attributes.Count >= 2 )
           {
-            attributeSlot1.GetComponent<TextMeshProUGUI>().text = attributes[0].name + " " +
+            slot.TextHealth.text = attributes[0].name + " " +
                                                                   attributes[0].curValue.ToString() + " / " +
                                                                   attributes[0].maxValue.ToString();
-            attributeSlot2.GetComponent<TextMeshProUGUI>().text = attributes[1].name + " " +
+            slot.TextMana.text = attributes[1].name + " " +
                                                                   attributes[1].curValue.ToString() + " / " +
                                                                   attributes[1].maxValue.ToString();
-            attributeSlot3.GetComponent<TextMeshProUGUI>().text = attributes[2].name + " " +
+            slot.TextSpecial.text = attributes[2].name + " " +
                                                                   attributes[2].curValue.ToString() + " / " +
                                                                   attributes[2].maxValue.ToString();
           }
@@ -1312,10 +1316,45 @@ public class BattleManager : MonoBehaviour
             Debug.Log(
               "The default configuration requires at least 2 attributes per character. Please add more attributes or change the configuration." );
           }
+          
+          // Status Effects
+          var stun = FunctionDB.core.findAttributeByName(  charId, "STUN" )?.curValue ?? 0f;
+          var paralysis = FunctionDB.core.findAttributeByName(  charId, "PARALYSIS" )?.curValue ?? 0f;
+          var counter = FunctionDB.core.findAttributeByName(  charId, "COUNTER" )?.curValue ?? 0f;
+          var defend = FunctionDB.core.findAttributeByName(  charId, "DEFENDROUNDS" )?.curValue ?? 0f;
+          var regenerate = FunctionDB.core.findAttributeByName(  charId, "REGENERATE" )?.curValue ?? 0f;
+          var warsong = FunctionDB.core.findAttributeByName(  charId, "WARSONG" )?.curValue ?? 0f;
+          var poison = FunctionDB.core.findAttributeByName(  charId, "POISON" )?.curValue ?? 0f;
+          var stress = FunctionDB.core.findAttributeByName(  charId, "STRESS" )?.curValue ?? 0f;
+          var stressPower = FunctionDB.core.findAttributeByName(  charId, "STRESSPOWER" )?.curValue ?? 0f;
+          var enrage = FunctionDB.core.findAttributeByName(  charId, "ENRAGE" )?.curValue ?? 0f;
+          var doom = FunctionDB.core.findAttributeByName(  charId, "DOOM" )?.curValue ?? 0f;
+          var despair = FunctionDB.core.findAttributeByName(  charId, "DESPAIR" )?.curValue ?? 0f;
 
+          Dictionary<GameObject, float> mappings = new Dictionary<GameObject, float>();
+          mappings[slot.CounterIcon.gameObject] = counter;
+          mappings[slot.ParalysisIcon.gameObject] = paralysis;
+          mappings[slot.StunIcon.gameObject] = stun;
+          mappings[slot.DefendedIcon.gameObject] = defend;
+          mappings[slot.RegenerateIcon.gameObject] = regenerate;
+          mappings[slot.WarsongIcon.gameObject] = warsong;
+          mappings[slot.PoisonIcon.gameObject] = poison;
+          mappings[slot.StressIcon.gameObject] = stress;
+          mappings[slot.EnrageIcon.gameObject] = enrage;
+          mappings[slot.DoomIcon.gameObject] = doom;
+          mappings[slot.DespairIcon.gameObject] = despair;
+
+          foreach ( var kvp in mappings )
+          {
+            if ( kvp.Value > 0 && !kvp.Key.activeSelf ) 
+              kvp.Key.SetActive( true );
+            else if ( kvp.Key.activeSelf && kvp.Value <= 0f ) 
+              kvp.Key.SetActive( false );
+          }
+
+          slot.StressCount.text = $"{stressPower:0}";
+          slot.DoomCount.text = $"{doom:0}";
         }
-
-
       }
 
       yield return new WaitForEndOfFrame();

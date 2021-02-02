@@ -1,0 +1,2518 @@
+fileFormatVersion: 2
+guid: 10a43fb901b79da40bfd8fca0f8c4892
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: glyphsheet2_0
+  - first:
+      213: 21300002
+    second: glyphsheet2_1
+  - first:
+      213: 21300004
+    second: glyphsheet2_2
+  - first:
+      213: 21300006
+    second: glyphsheet2_3
+  - first:
+      213: 21300008
+    second: glyphsheet2_4
+  - first:
+      213: 21300010
+    second: glyphsheet2_5
+  - first:
+      213: 21300012
+    second: glyphsheet2_6
+  - first:
+      213: 21300014
+    second: glyphsheet2_7
+  - first:
+      213: 21300016
+    second: glyphsheet2_8
+  - first:
+      213: 21300018
+    second: glyphsheet2_9
+  - first:
+      213: 21300020
+    second: glyphsheet2_10
+  - first:
+      213: 21300022
+    second: glyphsheet2_11
+  - first:
+      213: 21300024
+    second: glyphsheet2_12
+  - first:
+      213: 21300026
+    second: glyphsheet2_13
+  - first:
+      213: 21300028
+    second: glyphsheet2_14
+  - first:
+      213: 21300030
+    second: glyphsheet2_15
+  - first:
+      213: 21300032
+    second: glyphsheet2_16
+  - first:
+      213: 21300034
+    second: glyphsheet2_17
+  - first:
+      213: 21300036
+    second: glyphsheet2_18
+  - first:
+      213: 21300038
+    second: glyphsheet2_19
+  - first:
+      213: 21300040
+    second: glyphsheet2_20
+  - first:
+      213: 21300042
+    second: glyphsheet2_21
+  - first:
+      213: 21300044
+    second: glyphsheet2_22
+  - first:
+      213: 21300046
+    second: glyphsheet2_23
+  - first:
+      213: 21300048
+    second: glyphsheet2_24
+  - first:
+      213: 21300050
+    second: glyphsheet2_25
+  - first:
+      213: 21300052
+    second: glyphsheet2_26
+  - first:
+      213: 21300054
+    second: glyphsheet2_27
+  - first:
+      213: 21300056
+    second: glyphsheet2_28
+  - first:
+      213: 21300058
+    second: glyphsheet2_29
+  - first:
+      213: 21300060
+    second: glyphsheet2_30
+  - first:
+      213: 21300062
+    second: glyphsheet2_31
+  - first:
+      213: 21300064
+    second: glyphsheet2_32
+  - first:
+      213: 21300066
+    second: glyphsheet2_33
+  - first:
+      213: 21300068
+    second: glyphsheet2_34
+  - first:
+      213: 21300070
+    second: glyphsheet2_35
+  - first:
+      213: 21300072
+    second: glyphsheet2_36
+  - first:
+      213: 21300074
+    second: glyphsheet2_37
+  - first:
+      213: 21300076
+    second: glyphsheet2_38
+  - first:
+      213: 21300078
+    second: glyphsheet2_39
+  - first:
+      213: 21300080
+    second: glyphsheet2_40
+  - first:
+      213: 21300082
+    second: glyphsheet2_41
+  - first:
+      213: 21300084
+    second: glyphsheet2_42
+  - first:
+      213: 21300086
+    second: glyphsheet2_43
+  - first:
+      213: 21300088
+    second: glyphsheet2_44
+  - first:
+      213: 21300090
+    second: glyphsheet2_45
+  - first:
+      213: 21300092
+    second: glyphsheet2_46
+  - first:
+      213: 21300094
+    second: glyphsheet2_47
+  - first:
+      213: 21300096
+    second: glyphsheet2_48
+  - first:
+      213: 21300098
+    second: glyphsheet2_49
+  - first:
+      213: 21300100
+    second: glyphsheet2_50
+  - first:
+      213: 21300102
+    second: glyphsheet2_51
+  - first:
+      213: 21300104
+    second: glyphsheet2_52
+  - first:
+      213: 21300106
+    second: glyphsheet2_53
+  - first:
+      213: 21300108
+    second: glyphsheet2_54
+  - first:
+      213: 21300110
+    second: glyphsheet2_55
+  - first:
+      213: 21300112
+    second: glyphsheet2_56
+  - first:
+      213: 21300114
+    second: glyphsheet2_57
+  - first:
+      213: 21300116
+    second: glyphsheet2_58
+  - first:
+      213: 21300118
+    second: glyphsheet2_59
+  - first:
+      213: 21300120
+    second: glyphsheet2_60
+  - first:
+      213: 21300122
+    second: glyphsheet2_61
+  - first:
+      213: 21300124
+    second: glyphsheet2_62
+  - first:
+      213: 21300126
+    second: glyphsheet2_63
+  - first:
+      213: 21300128
+    second: glyphsheet2_64
+  - first:
+      213: 21300130
+    second: glyphsheet2_65
+  - first:
+      213: 21300132
+    second: glyphsheet2_66
+  - first:
+      213: 21300134
+    second: glyphsheet2_67
+  - first:
+      213: 21300136
+    second: glyphsheet2_68
+  - first:
+      213: 21300138
+    second: glyphsheet2_69
+  - first:
+      213: 21300140
+    second: glyphsheet2_70
+  - first:
+      213: 21300142
+    second: glyphsheet2_71
+  - first:
+      213: 21300144
+    second: glyphsheet2_72
+  - first:
+      213: 21300146
+    second: glyphsheet2_73
+  - first:
+      213: 21300148
+    second: glyphsheet2_74
+  - first:
+      213: 21300150
+    second: glyphsheet2_75
+  - first:
+      213: 21300152
+    second: glyphsheet2_76
+  - first:
+      213: 21300154
+    second: glyphsheet2_77
+  - first:
+      213: 21300156
+    second: glyphsheet2_78
+  - first:
+      213: 21300158
+    second: glyphsheet2_79
+  - first:
+      213: 21300160
+    second: glyphsheet2_80
+  - first:
+      213: 21300162
+    second: glyphsheet2_81
+  - first:
+      213: 21300164
+    second: glyphsheet2_82
+  - first:
+      213: 21300166
+    second: glyphsheet2_83
+  - first:
+      213: 21300168
+    second: glyphsheet2_84
+  - first:
+      213: 21300170
+    second: glyphsheet2_85
+  - first:
+      213: 21300172
+    second: glyphsheet2_86
+  - first:
+      213: 21300174
+    second: glyphsheet2_87
+  - first:
+      213: 21300176
+    second: glyphsheet2_88
+  - first:
+      213: 21300178
+    second: glyphsheet2_89
+  - first:
+      213: 21300180
+    second: glyphsheet2_90
+  - first:
+      213: 21300182
+    second: glyphsheet2_91
+  - first:
+      213: 21300184
+    second: glyphsheet2_92
+  - first:
+      213: 21300186
+    second: glyphsheet2_93
+  - first:
+      213: 21300188
+    second: glyphsheet2_94
+  - first:
+      213: 21300190
+    second: glyphsheet2_95
+  - first:
+      213: 21300192
+    second: glyphsheet2_96
+  - first:
+      213: 21300194
+    second: glyphsheet2_97
+  - first:
+      213: 21300196
+    second: glyphsheet2_98
+  - first:
+      213: 21300198
+    second: glyphsheet2_99
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 2
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: XboxOne
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: glyphsheet2_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 452
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eb771c86a0518547824107a0564f988
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_1
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 452
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ebac5b89d2e9f1478d3d719c5313380
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_2
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 452
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7c64c51f73ed2341a3b55ce1c1b015d
+      internalID: 21300004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_3
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 452
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42698ccc7e839bd43aceba0047da84fb
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_4
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 452
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40eef13a4b107264f8f0ec2aa61db63e
+      internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_5
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 452
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 199099981a6f1334b8d392346f06d338
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_6
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 452
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d05839d19b7abe449a46a859d3072c30
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_7
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 452
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02c59ecdf862c264da2882aa0c8204bc
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_8
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 452
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cadaf60cbe80347498464a77bbc062d5
+      internalID: 21300016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_9
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 452
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc7775664f313d54c877a970b616e7bc
+      internalID: 21300018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_10
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 402
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2308d3cf86ebd8439949f0bc74d0c56
+      internalID: 21300020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_11
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 402
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 756adac261ef4a145b8ed8823a6bfe62
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_12
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 402
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce97a60e96cbdac41bdca405fde20478
+      internalID: 21300024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_13
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 402
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 460f6c36098b6fd4e94f1efa1490ba86
+      internalID: 21300026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_14
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 402
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4861405acdfdc7c4999e2452f2f8f98e
+      internalID: 21300028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_15
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 402
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e29dd8ea2f50010459fe1f88eda0729a
+      internalID: 21300030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_16
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 402
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4db1f8e94b0fb7341a02e01c97e0b64f
+      internalID: 21300032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_17
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 402
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ae0a4f60c52a1f46a05f55b918bd8db
+      internalID: 21300034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_18
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 402
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17dbf810b26eff844856a27981e558c5
+      internalID: 21300036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_19
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 402
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02f96224cf4feae4cb7c732e9f36f4c9
+      internalID: 21300038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_20
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 352
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17a57c9fd99684a4da291075a6ee4ed3
+      internalID: 21300040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_21
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 352
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 397fc9f0b81123e48837bcf884222f38
+      internalID: 21300042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_22
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 352
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe639c55400ad3440a8428a718cbcf2e
+      internalID: 21300044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_23
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 352
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67a6f306ea6d0de4fa74c54403e29358
+      internalID: 21300046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_24
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 352
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b7d31429f87bf9418d076a5413b38b2
+      internalID: 21300048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_25
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 352
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdb4d4f6e69c494458387823ca5d3e51
+      internalID: 21300050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_26
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 352
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da7f61ffffe7c974e9e263b1c96ac197
+      internalID: 21300052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_27
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 352
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4d56b2467cdfa247a73fdb252575fa4
+      internalID: 21300054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_28
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 352
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4fbbf5757d633246a6563886086462d
+      internalID: 21300056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_29
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 352
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c18364f227b78af4e8c254a359b2e2b7
+      internalID: 21300058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_30
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 302
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c2135a652e30b84d91a8fc02ba2b2a5
+      internalID: 21300060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_31
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 302
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e37a64c1a1d5c554dbd725461541ed5b
+      internalID: 21300062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_32
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 302
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f589ca48318b644448feeb27f9dcf8cb
+      internalID: 21300064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_33
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 302
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cb5a3c9ef5ba0f4c8d236e061ee8a08
+      internalID: 21300066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_34
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 302
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ce2eccb042b12544a29a3fa3b1a0925
+      internalID: 21300068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_35
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 302
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f4790de4bc503b4cbef776681f57c7c
+      internalID: 21300070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_36
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 302
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a86bb64e83c260e42a1624c54443d442
+      internalID: 21300072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_37
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 302
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ccb07890969837449038927510d0ac9
+      internalID: 21300074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_38
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 302
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85d767b87697d3b4cbb4a944353f5737
+      internalID: 21300076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_39
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 302
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bbedb50513c08c4e8258e3bd1ed1d57
+      internalID: 21300078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_40
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 252
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2358a2ecb70700746be1c7e04faae06e
+      internalID: 21300080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_41
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 252
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baf3be479c261a94f860e287fb2711e0
+      internalID: 21300082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_42
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 252
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eebe7f1987569d4c943480a5691dcfc
+      internalID: 21300084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_43
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 252
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f131536224e0f6e41982dc205e9237ab
+      internalID: 21300086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_44
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 252
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6aabc1031fe37dc4682bcdede4e9cda3
+      internalID: 21300088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_45
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 252
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad28c92fef80af04186dc1da1bdad3dd
+      internalID: 21300090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_46
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 252
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b821c6453d8e244b8aa84a4e0b4f9d4
+      internalID: 21300092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_47
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 252
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e26914d701363f64ab7c37dd34226863
+      internalID: 21300094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_48
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 252
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e927dc992a3d7b4697c243712c48283
+      internalID: 21300096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_49
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 252
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77f47384244fec0459c777f0c98a90de
+      internalID: 21300098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_50
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 202
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed7ec899eba48b34bab62ab628dd17ae
+      internalID: 21300100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_51
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 202
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05501861254bae0438cdc4913c9bf7de
+      internalID: 21300102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_52
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 202
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b05e7bed79d871944a7ad6181a3baa5a
+      internalID: 21300104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_53
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 202
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47578297ae27a204898cbab56ccec6cc
+      internalID: 21300106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_54
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 202
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85d33e9a19021b54c9e6ed29f80af79b
+      internalID: 21300108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_55
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 202
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d10a1771529eca4eb48baa3dae4be39
+      internalID: 21300110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_56
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 202
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4805b60f156ca6a4ba4a8ddf933ac02c
+      internalID: 21300112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_57
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 202
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70be45c1c3449ea4e8bbf3fa8ed9a8e9
+      internalID: 21300114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_58
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 202
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bcc6eafd15473a49b9c1708db956682
+      internalID: 21300116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_59
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 202
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3723029d2c88c14ca237ae6bc77f50d
+      internalID: 21300118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_60
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 152
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 095c59dccc53eb94881f6de0674d0c8e
+      internalID: 21300120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_61
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 152
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8b59343ee6115f40b779fc019f67cca
+      internalID: 21300122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_62
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 152
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 169aecd7ce2e2074caf3b2c318591b46
+      internalID: 21300124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_63
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 152
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30ba218cdaa049f479c49aa558618385
+      internalID: 21300126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_64
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 152
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f515baab0d3ba9f4d99fbe9039191c86
+      internalID: 21300128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_65
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 152
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ad3c848d7a9b3d43b74a78cb59f7cac
+      internalID: 21300130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_66
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 152
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 333bd258484277b46b5db86cf696f69a
+      internalID: 21300132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_67
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 152
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9ab7750a1435f3439a1ea4160e5537c
+      internalID: 21300134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_68
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 152
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d7b864dc2310f044910f683a5a61cf1
+      internalID: 21300136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_69
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 152
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e52ea67a03c740244a7c3a2c0687869a
+      internalID: 21300138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_70
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 102
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a131956fe4e9d7b499137e56222c50ac
+      internalID: 21300140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_71
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 102
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a6f7b1642e513644bc3d2d3a5d0b35f
+      internalID: 21300142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_72
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 102
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55c05ab663866e04d8613716242fefbf
+      internalID: 21300144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_73
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 102
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d492fce2bd839114e86e0f104ae0fc38
+      internalID: 21300146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_74
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 102
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f2bdd334d1824a429cd455ae39c2515
+      internalID: 21300148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_75
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 102
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c1d3b7e104e3e0478fd4ec1cca39b38
+      internalID: 21300150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_76
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 102
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ebd818e08ab21e43bbafdc079361a6f
+      internalID: 21300152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_77
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 102
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53081aa167046c14091d9340f031cc67
+      internalID: 21300154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_78
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 102
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34af7cb20964b27488da3ed96811a25a
+      internalID: 21300156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_79
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 102
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8d823e7021984446af5b9130d1c2c9e
+      internalID: 21300158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_80
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 52
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e7f7cb9fc803da4d9dbc587d5de656f
+      internalID: 21300160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_81
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 52
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d22bec22e93be3e45a232808d875d9a6
+      internalID: 21300162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_82
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 52
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5869bb1f6314527428dedbdafbfff7f3
+      internalID: 21300164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_83
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 52
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d13a00a19d03434088da65b4ab44358
+      internalID: 21300166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_84
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 52
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39dc15b06a6cbe74dbcab85adfa6a43f
+      internalID: 21300168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_85
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 52
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8eb16b1e1e8b574408f8426e2ffff990
+      internalID: 21300170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_86
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 52
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cca0ab4b2cb6304a98865aae4d445e7
+      internalID: 21300172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_87
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 52
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a171b26ad49254548807791302e6f335
+      internalID: 21300174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_88
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 52
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2836645e558c45c4da32850ae91e1d11
+      internalID: 21300176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_89
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 52
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ede81791dfe6f674c96cd6d638de50cd
+      internalID: 21300178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_90
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da484698d7852a44690f53dcc243a869
+      internalID: 21300180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_91
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 2
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d2b4438b8fa1e94391746c3817cc944
+      internalID: 21300182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_92
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 2
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5bf07bff054b4046b640f67fddf8323
+      internalID: 21300184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_93
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 2
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78f62e9183db9e14da31605259eb71b0
+      internalID: 21300186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_94
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 2
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 379d76fc826600f42b3f369a96e7263d
+      internalID: 21300188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_95
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 2
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 696a2e120e55764468d38bf1087d8c6d
+      internalID: 21300190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_96
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 2
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43eaf31e008e4cd44a1ab881e37afc72
+      internalID: 21300192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_97
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 2
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdf4536e6fe85544483ac69bb4ec0404
+      internalID: 21300194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_98
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 2
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91ca083878fd6d74e89eeaba06f57036
+      internalID: 21300196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: glyphsheet2_99
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 2
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64ff8313aa7320d45be3a7bd37f4db02
+      internalID: 21300198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: d26c7c2d0801d0a4eaccc34882f62e23
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

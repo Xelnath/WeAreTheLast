@@ -9080,7 +9080,7 @@ MonoBehaviour:
     type: 3}
   battleUIActionsWindow: {fileID: 983608007}
   battleUIActionDescriptionObject: {fileID: 1747009780}
-  battleUICharacterInfoPrefab: {fileID: 1542855468002970, guid: d87dba90d6ae34748a1c3f0fb761772d,
+  battleUICharacterInfoPrefab: {fileID: 1542855468002970, guid: 84667ef00aa0329468d2cf70314d91c2,
     type: 3}
   battleUICharacterInfoWindow: {fileID: 461384657}
   battleUIBody: {fileID: 1280922315}

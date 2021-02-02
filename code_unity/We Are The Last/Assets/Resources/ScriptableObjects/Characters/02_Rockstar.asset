@@ -50,7 +50,7 @@ MonoBehaviour:
     - name: WARDRUM
       id: 6
       maxValue: 100
-      curValue: 0
+      curValue: 1
     aiFunctions:
     - functionName: sampleAi
       parametersArray: []

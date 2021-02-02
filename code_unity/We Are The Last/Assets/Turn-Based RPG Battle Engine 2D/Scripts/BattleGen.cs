@@ -182,30 +182,26 @@ public class BattleGen : MonoBehaviour
 
       //Setting data
       Transform gt = g.transform;
-      GameObject iconObject = gt.GetChild( 0 ).gameObject;
-      GameObject nameObject = gt.GetChild( 1 ).gameObject;
-      GameObject attributeSlot1 = gt.GetChild( 2 ).gameObject;
-      GameObject attributeSlot2 = gt.GetChild( 3 ).gameObject;
-      GameObject attributeSlot3 = gt.GetChild( 4 ).gameObject;
+      var slot = gt.GetComponent<BattleCharacterSlot>();
 
       //Icon
-      iconObject.GetComponent<Image>().sprite = character.icon;
+      slot.PortraitIcon.sprite = character.icon;
 
       //Name
-      nameObject.GetComponent<TextMeshProUGUI>().text = character.name;
+      slot.TextName.text = character.name;
 
       //Attribute1
       var attributes = character.characterAttributes;
 
       if ( attributes.Count >= 2 )
       {
-        attributeSlot1.GetComponent<TextMeshProUGUI>().text = attributes[0].name + " " +
+        slot.TextHealth.text = attributes[0].name + " " +
                                                               attributes[0].curValue.ToString() + " / " +
                                                               attributes[0].maxValue.ToString();
-        attributeSlot2.GetComponent<TextMeshProUGUI>().text = attributes[1].name + " " +
+        slot.TextMana.text = attributes[1].name + " " +
                                                               attributes[1].curValue.ToString() + " / " +
                                                               attributes[1].maxValue.ToString();
-        attributeSlot3.GetComponent<TextMeshProUGUI>().text = attributes[2].name + " " +
+        slot.TextSpecial.text = attributes[2].name + " " +
                                                               attributes[2].curValue.ToString() + " / " +
                                                               attributes[2].maxValue.ToString();
       }
