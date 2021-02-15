@@ -976,7 +976,7 @@ public class BattleMethods : MonoBehaviour
     //Moving character back
     var destPos = spawnPointObject.transform.position;
 
-    while ( true )
+    while ( true && charObject != null )
     {
 
       if ( charObject.transform.position == destPos ) break;

@@ -26,7 +26,7 @@ MonoBehaviour:
     - name: HP
       id: 0
       maxValue: 100
-      curValue: 100
+      curValue: 30
     - name: MP
       id: 1
       maxValue: 100

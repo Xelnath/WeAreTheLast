@@ -119,25 +119,34 @@ public class FunctionDB : MonoBehaviour {
 	public void setAnimation (InstanceID characterId, string animationName) {
 
 		//Getting character
-		int characterIndex = findBattleManagerCharactersIndexById (characterId);
-		characterInfo character = BattleManager.core.characterInstances[characterIndex];
+		characterInfo character = BattleManager.core.findCharacterInstanceById(characterId);
 
-		//Setting animation
-		character.currentAnimation = animationName;
+		if ( character != null )
+		{
+			//Setting animation
+			character.currentAnimation = animationName;
+		}
+		else
+		{
+			Debug.Log( $"Missing character {characterId}." );
+		}
 	}
 
 	//Checking animation status
 	public bool checkAnimation (InstanceID characterId, string animationName) {
 
 		//Getting character
-		int characterIndex = findBattleManagerCharactersIndexById (characterId);
-		var character = BattleManager.core.characterInstances[characterIndex];
-		var instance = character.instanceObject;
-		Animator charAnimator = instance.GetComponent<Animator>();
+		characterInfo character = BattleManager.core.findCharacterInstanceById(characterId);
+		var instance = character?.instanceObject;
+		if ( instance != null )
+		{
+			Animator charAnimator = instance.GetComponent<Animator>();
 
-		//Returning status
-		return charAnimator.GetBool(animationName);
+			//Returning status
+			return charAnimator.GetBool( animationName );
+		}
 
+		return false;
 	}
 
 	//This function deletes all children of a gameobject
