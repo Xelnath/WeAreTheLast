@@ -12,7 +12,7 @@ public class AnimationAsset : ScriptableObject
 	public bool Looping = false;
 	public Sprite[] sprites;
 
-	public int FPS = 6;
+	public int FPS = 15;
 
 	public enum AlternateRule
 	{
