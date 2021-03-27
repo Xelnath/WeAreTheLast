@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0a3a3517b2146ba8e8bd7333f4d888c, type: 3}
-  m_Name: therapistAttack
+  m_Name: therapistCleanse
   m_EditorClassIdentifier: 
-  Name: attack
+  Name: cleanse
   Looping: 0
   sprites:
-  - {fileID: 21300000, guid: 397b20592a5d0f144a429803e5c6ca12, type: 3}
+  - {fileID: 21300000, guid: af05a7fb33d2b9744af7c3ba3349a2d8, type: 3}
   FPS: 6
   Alternates: []

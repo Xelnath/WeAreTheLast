@@ -61,6 +61,13 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:cleanse
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: cleanseEffects
       parametersArray:
       - bool:false
@@ -83,6 +90,19 @@ MonoBehaviour:
     - functionName: Bark
       parametersArray:
       - string:Cleanse
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:0.4
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:idle
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

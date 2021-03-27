@@ -48,6 +48,13 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:counterall
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: addOrChangeAttribute
       parametersArray:
       - bool:false

@@ -6,6 +6,7 @@ FUNCTIONS
 
 selectTeam,,,,bool:true,bool:false
 toggleActions,W,,,bool:false
+playAnimation,W,,,int:-1,string:counterall
 addOrChangeAttribute,,,,bool:false,string:COUNTER,string:=1,float:100,bool:false
 setAttributeToActiveCharacter,W,,,bool:false,string:COUNTERSOURCE
 displayFX,W,,,bool:false,float:2,string:heal,float:-0.8,float:0

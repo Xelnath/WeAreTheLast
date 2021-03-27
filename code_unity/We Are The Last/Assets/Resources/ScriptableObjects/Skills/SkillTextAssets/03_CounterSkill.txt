@@ -2,7 +2,7 @@ FUNCTIONS
 
 playAnimation,,,,int:-1,string:walk
 moveToTarget,W,C,,float:2,float:0.1
-playAnimation,W,,,int:-1,string:attack
+playAnimation,W,,,int:-1,string:counter
 playAudioOnce,,,,int:1,int:1
 damageTargets,W,,,int:10,int:2
 displayFX,W,,,bool:false,float:2,string:deflect,float:0,float:0

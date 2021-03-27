@@ -20,11 +20,13 @@ MonoBehaviour:
     speed: 0
     prefab: {fileID: 1634988220540438, guid: 4b871ae434b637e479a4a5b29e9d9a7d, type: 3}
     Animations:
+    - {fileID: 11400000, guid: f4e172420855e0d4cb4671e5711e97ac, type: 2}
     - {fileID: 11400000, guid: 294f0091367aa69459f56dd4a92017c9, type: 2}
+    - {fileID: 11400000, guid: 1750cd29272f8f64d9a6bc8d8f485646, type: 2}
     - {fileID: 11400000, guid: d097eece8b37aca42be53a0c9ca8fc84, type: 2}
     - {fileID: 11400000, guid: 7c3cecab73287e64f98e520274cef4e0, type: 2}
-    - {fileID: 11400000, guid: 3e8d842135dd71343bd40af2500b3f30, type: 2}
     - {fileID: 11400000, guid: d58229f3e9da4794cae1dbd7f4ae431b, type: 2}
+    - {fileID: 11400000, guid: 3e8d842135dd71343bd40af2500b3f30, type: 2}
     - {fileID: 11400000, guid: 04c92feb111e73846bf0796ae401718b, type: 2}
     skills: 030000001a00000010000000
     ultimates: 05000000
@@ -43,7 +45,7 @@ MonoBehaviour:
     - name: SP
       id: 4
       maxValue: 100
-      curValue: 0
+      curValue: 100
     - name: TAUNT
       id: 2
       maxValue: 5
