@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f48bf4e098aa4d70934e80258b4bcae3, type: 3}
-  m_Name: 120_BombMonster
+  m_Name: 120_MeltdownMonster
   m_EditorClassIdentifier: 
   Character:
     name: Meltdown
     id: 120
     description: Unstable, explosive monster
     icon: {fileID: -2753483536666533341, guid: eab4af3f873585e4583339e5dc5ce8ff, type: 3}
+    speed: 0
     prefab: {fileID: 1634988220540438, guid: 56bcd61c175510b4ba85cc76555f9b08, type: 3}
     skills: 79000000
+    ultimates: 
     items: []
     characterAttributes:
     - name: HP

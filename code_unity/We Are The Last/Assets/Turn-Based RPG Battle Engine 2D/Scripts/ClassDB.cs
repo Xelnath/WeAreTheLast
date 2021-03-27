@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -99,6 +100,8 @@ namespace ClassDB {
 		
 		//Animator component
 		public GameObject prefab;
+
+		public AnimationAsset[] Animations;
 
 		//A list of all available skills
 		public List<int> skills = new List<int>();
@@ -220,6 +223,7 @@ namespace ClassDB {
 			aiFunctions = toCopy.aiFunctions;
 			isActive = toCopy.isActive;
 			counterSkill = toCopy.counterSkill;
+			Animations = toCopy.Animations;
 
 			skills = toCopy.skills.DeepClone();
 			ultimates = toCopy.ultimates.DeepClone();
@@ -282,11 +286,59 @@ namespace ClassDB {
 		public GameObject uiObject;
 		public GameObject spawnPointObject;
 		public List<GameObject> threatArrows;
-		public string currentAnimation;
+		public string currentAnimation = "idle";
+		public AnimationAsset currentAnimationAsset;
+		public int currentAnimationFrame = 0;
+		public float currentAnimationTime = 0f;
 		public InstanceID characterInstanceId;
 		public bool isAlive = true;
 		public character characterCopy;
 		public int lastSkillUsed;
+
+		public AnimationAsset GetAnimationAsset( string name )
+		{
+			AnimationAsset asset = null;
+			if ( characterCopy.Animations == null )
+			{
+				return null;
+			}
+
+			foreach ( var animationAsset in characterCopy.Animations )
+			{
+				if ( animationAsset.Name == name )
+				{
+					asset = animationAsset;
+					break;
+				}
+			}
+
+			// Cheap and lazy
+			if ( (asset?.Alternates?.Length ?? 0) > 0 )
+			{
+				bool chosen = false;
+				foreach ( var alternateAsset in asset.Alternates )
+				{
+					switch (alternateAsset.Rule)
+					{
+						case AnimationAsset.AlternateRule.LowHealth:
+							var index = FunctionDB.core.findAttributeIndexByName( "HP", characterCopy );
+							var charAttribute = characterCopy.characterAttributes[index];
+
+							if ( charAttribute.curValue < 2f )
+							{
+								asset = alternateAsset.Alternate;
+								chosen = true;
+							}
+							break;
+					}
+
+					if ( chosen ) break;
+				}
+			}
+
+			return asset;
+		}
+
 	}
 	
 	//Used by main action menu, not skills and items.

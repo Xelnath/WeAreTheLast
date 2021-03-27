@@ -19,7 +19,8 @@ public class SkillTextExporter : MonoBehaviour
         //Create File or clear it
         if  ( !File.Exists( path ) )
         {
-            using ( File.Create( path ) ) ;
+            using ( File.Create( path ) )
+            { } ;
         }
 
         File.WriteAllText(path, String.Empty);

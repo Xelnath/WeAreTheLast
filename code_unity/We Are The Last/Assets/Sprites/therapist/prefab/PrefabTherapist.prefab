@@ -94,7 +94,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634988220540438}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 241b9021678cb8e4cb2a79dc3041ebe9, type: 2}
   m_CullingMode: 0
@@ -119,6 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubbleLoc: {fileID: 8108683183270960226}
   healthLoc: {fileID: 7696903388668968897}
+  spriteRenderer: {fileID: 212732545476762636}
   id: 
 --- !u!1 &7696903388668968897
 GameObject:

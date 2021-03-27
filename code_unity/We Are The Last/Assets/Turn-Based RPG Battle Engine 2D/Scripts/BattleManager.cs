@@ -775,17 +775,52 @@ public class BattleManager : MonoBehaviour
       foreach ( characterInfo info in characterInstances )
       {
         var instance = info.instanceObject;
-        Animator charAnimator = instance.GetComponent<Animator>();
+        var view = instance.GetComponent<Character>();
 
-        foreach ( AnimatorControllerParameter animcp in charAnimator.parameters )
+        if ( view != null )
         {
-          if ( animcp.name == info.currentAnimation )
+          info.currentAnimationTime += Time.deltaTime;
+          if (info.currentAnimation != null && (info.currentAnimationAsset == null || info.currentAnimationAsset?.Name != info.currentAnimation) )
           {
-            charAnimator.SetBool( animcp.name, true );
+            info.currentAnimationFrame = 0;
+            info.currentAnimationTime = 0f;
+            info.currentAnimationAsset = info.GetAnimationAsset( info.currentAnimation );
           }
-          else
+
+          if ( info.currentAnimationAsset != null )
           {
-            charAnimator.SetBool( animcp.name, false );
+            // Advance frames
+            float frameRate = 1f / info.currentAnimationAsset.FPS;
+            int frame = Mathf.RoundToInt( info.currentAnimationTime / frameRate );
+            if ( info.currentAnimationAsset.Looping )
+            {
+              frame = frame % info.currentAnimationAsset.sprites.Length;
+            }
+            else
+            {
+              frame = Math.Min( info.currentAnimationAsset.sprites.Length-1, frame );
+            }
+
+            info.currentAnimationFrame = frame;
+
+            Sprite anim = info.currentAnimationAsset.sprites[frame];
+            view.spriteRenderer.sprite = anim;
+          }
+        }
+
+        Animator charAnimator = instance.GetComponent<Animator>();
+        if ( charAnimator )
+        {
+          foreach ( AnimatorControllerParameter animcp in charAnimator.parameters )
+          {
+            if ( animcp.name == info.currentAnimation )
+            {
+              charAnimator.SetBool( animcp.name, true );
+            }
+            else
+            {
+              charAnimator.SetBool( animcp.name, false );
+            }
           }
         }
       }

@@ -119,6 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubbleLoc: {fileID: 7130575876203087653}
   healthLoc: {fileID: 1377228373066943592}
+  spriteRenderer: {fileID: 212732545476762636}
   id: 
 --- !u!1 &1377228373066943592
 GameObject:
