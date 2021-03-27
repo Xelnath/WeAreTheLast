@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: dead
   Looping: 0
-  sprites: []
+  sprites:
+  - {fileID: 21300000, guid: d029c94144dc07240bfd7a136cd9d245, type: 3}
   FPS: 6
   Alternates: []

@@ -15,6 +15,7 @@ MonoBehaviour:
   Name: walk
   Looping: 0
   sprites:
-  - {fileID: 4344580066947705144, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  FPS: 6
+  - {fileID: -608106345311185100, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
+  - {fileID: 4253578787339828477, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
+  FPS: 15
   Alternates: []

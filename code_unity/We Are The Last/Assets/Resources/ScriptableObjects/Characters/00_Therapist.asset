@@ -24,6 +24,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: d097eece8b37aca42be53a0c9ca8fc84, type: 2}
     - {fileID: 11400000, guid: 7c3cecab73287e64f98e520274cef4e0, type: 2}
     - {fileID: 11400000, guid: 3e8d842135dd71343bd40af2500b3f30, type: 2}
+    - {fileID: 11400000, guid: d58229f3e9da4794cae1dbd7f4ae431b, type: 2}
+    - {fileID: 11400000, guid: 04c92feb111e73846bf0796ae401718b, type: 2}
     skills: 030000001a00000010000000
     ultimates: 05000000
     items:

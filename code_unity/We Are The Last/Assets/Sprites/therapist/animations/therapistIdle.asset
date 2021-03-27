@@ -13,15 +13,9 @@ MonoBehaviour:
   m_Name: therapistIdle
   m_EditorClassIdentifier: 
   Name: idle
-  Looping: 0
+  Looping: 1
   sprites:
-  - {fileID: 4344580066947705144, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: -2059993454654911822, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: 7923406865473956385, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: -3670754436965036243, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: -7416659034681025952, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: 8842615726906264294, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: 3110989167953360914, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: 1917840015716836961, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  FPS: 6
+  - {fileID: 6433078366516376361, guid: 018039664387d1243916ba0d388c79a7, type: 3}
+  - {fileID: 4378025595644109129, guid: 018039664387d1243916ba0d388c79a7, type: 3}
+  FPS: 15
   Alternates: []

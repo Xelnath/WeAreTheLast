@@ -15,15 +15,6 @@ MonoBehaviour:
   Name: attack
   Looping: 0
   sprites:
-  - {fileID: 929747616229168797, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: -8613893559307406191, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: 4992966174507967389, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: -608106345311185100, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: 1328181545973392355, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: -9026265515335879138, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: -4084878617026229775, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: -7526501678190853256, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: 4253578787339828477, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
-  - {fileID: -7836013898870580239, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
+  - {fileID: 21300000, guid: 397b20592a5d0f144a429803e5c6ca12, type: 3}
   FPS: 6
   Alternates: []
