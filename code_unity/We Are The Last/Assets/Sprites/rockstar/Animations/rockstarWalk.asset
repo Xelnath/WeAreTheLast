@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0a3a3517b2146ba8e8bd7333f4d888c, type: 3}
-  m_Name: therapistIdle
+  m_Name: therapistWalk 1
   m_EditorClassIdentifier: 
-  Name: idle
-  Looping: 1
+  Name: walk
+  Looping: 0
   sprites:
-  - {fileID: 6433078366516376361, guid: 018039664387d1243916ba0d388c79a7, type: 3}
-  - {fileID: 4378025595644109129, guid: 018039664387d1243916ba0d388c79a7, type: 3}
-  FPS: 2
-  Alternates:
-  - Rule: 0
-    Alternate: {fileID: 11400000, guid: 7c3cecab73287e64f98e520274cef4e0, type: 2}
+  - {fileID: -608106345311185100, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
+  - {fileID: 4253578787339828477, guid: c3f41905a47d7834583eedf96be4efab, type: 3}
+  FPS: 15
+  Alternates: []

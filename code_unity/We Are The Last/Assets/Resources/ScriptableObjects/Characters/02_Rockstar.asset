@@ -19,6 +19,8 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 0f97d0bf8cd7e8f4b83f74f1c98b929b, type: 3}
     speed: 0
     prefab: {fileID: 1634988220540438, guid: 09ac00026a1b6ab4699023110d4976dd, type: 3}
+    Animations:
+    - {fileID: 11400000, guid: 2b06f38b47cce9b448d8aa179297ee42, type: 2}
     skills: 0a00000008000000010000000f000000
     ultimates: 0b000000
     items: []
