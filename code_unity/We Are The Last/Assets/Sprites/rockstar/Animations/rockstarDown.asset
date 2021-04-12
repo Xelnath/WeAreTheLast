@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0a3a3517b2146ba8e8bd7333f4d888c, type: 3}
-  m_Name: therapistDown 1
+  m_Name: rockstarDown
   m_EditorClassIdentifier: 
   Name: down
   Looping: 0
