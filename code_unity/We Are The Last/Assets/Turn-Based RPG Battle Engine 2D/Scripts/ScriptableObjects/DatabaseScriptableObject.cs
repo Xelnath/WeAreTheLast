@@ -11,13 +11,17 @@ using UnityEngine;
 [Guid("3A635FB1-E3ED-4913-9C0B-6EDF250F84FA")]
 public class DatabaseScriptableObject : ScriptableObject
 {
+	public bool CheatIgnoreResourceCosts = true;
+	
 	private static DatabaseScriptableObject m_instance;
 	public static DatabaseScriptableObject core {
 		get {
 			if ( m_instance == null )
 			{
+				// WARNING EDITOR ONLY
 				var assets = AssetDatabase.FindAssets( "t:DatabaseScriptableObject" );
-				m_instance = AssetDatabase.LoadAssetAtPath<DatabaseScriptableObject>( assets[0] );
+				var path = AssetDatabase.GUIDToAssetPath( assets[0] );
+				m_instance = AssetDatabase.LoadAssetAtPath<DatabaseScriptableObject>( path );
 			}
 
 			return m_instance;

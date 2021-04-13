@@ -272,6 +272,7 @@ public class BattleGen : MonoBehaviour
         //Setting listeners
         b.onClick.AddListener(delegate
         {
+          
           var index = FunctionDB.core.findAttributeIndexByName( "MP", character );
           float currentMana = 9999f;
           //Getting attribute
@@ -289,15 +290,16 @@ public class BattleGen : MonoBehaviour
             superPower = attribute.curValue;
           }
 
-          if ( currentMana < skill.manaCost )
+          bool cheat = DatabaseScriptableObject.core.CheatIgnoreResourceCosts; 
+          if ( !cheat && currentMana < skill.manaCost )
           { 
             BattleManager.core.startWarningRoutine("Insufficient mana", 2f);
           }
-          else if ( superPower < skill.superCost )
+          else if ( !cheat && superPower < skill.superCost )
           { 
             BattleManager.core.startWarningRoutine("Super skill not charged", 2f);
           }
-          else if ( ( curTp - skill.turnPointCost ) < 0 )
+          else if (  !cheat && ( curTp - skill.turnPointCost ) < 0 )
           { 
             BattleManager.core.startWarningRoutine( "Insufficient turn points", 2f );
           }
@@ -404,16 +406,18 @@ public class BattleGen : MonoBehaviour
             characterAttribute attribute = character.characterAttributes[superIndex];
             superPower = attribute.curValue;
           }
+          
+          bool cheat = DatabaseScriptableObject.core.CheatIgnoreResourceCosts; 
 
-          if ( currentMana < skill.manaCost )
+          if ( !cheat && currentMana < skill.manaCost )
           { 
             BattleManager.core.startWarningRoutine("Insufficient mana", 2f);
           }
-          else if ( superPower < skill.superCost )
+          else if ( !cheat && superPower < skill.superCost )
           { 
             BattleManager.core.startWarningRoutine("Super skill not charged", 2f);
           }
-          else if ( ( curTp - skill.turnPointCost ) < 0 )
+          else if ( !cheat &&  ( curTp - skill.turnPointCost ) < 0 )
           { 
             BattleManager.core.startWarningRoutine( "Insufficient turn points", 2f );
           }
