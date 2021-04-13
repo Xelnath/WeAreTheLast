@@ -15,6 +15,6 @@ MonoBehaviour:
   Name: trust
   Looping: 0
   sprites:
-  - {fileID: 21300000, guid: af05a7fb33d2b9744af7c3ba3349a2d8, type: 3}
+  - {fileID: 21300000, guid: 6ed2b64ac4d302f4c88b77cf43be010b, type: 3}
   FPS: 6
   Alternates: []

@@ -15,6 +15,6 @@ MonoBehaviour:
   Name: down
   Looping: 0
   sprites:
-  - {fileID: 21300000, guid: 118a3d9af4cddb24ea3fa71e67587f60, type: 3}
+  - {fileID: 21300000, guid: c494e4e508107da4786da68e05134013, type: 3}
   FPS: 6
   Alternates: []

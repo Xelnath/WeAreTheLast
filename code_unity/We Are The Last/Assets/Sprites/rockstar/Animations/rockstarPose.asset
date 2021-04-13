@@ -15,6 +15,6 @@ MonoBehaviour:
   Name: pose
   Looping: 1
   sprites:
-  - {fileID: 21300000, guid: a3d3b0d40976edd408bc0448e5ac73bc, type: 3}
+  - {fileID: 21300000, guid: 2708a3ac2c878fd428d71691a3c71846, type: 3}
   FPS: 6
   Alternates: []

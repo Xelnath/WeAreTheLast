@@ -15,6 +15,6 @@ MonoBehaviour:
   Name: showoff
   Looping: 0
   sprites:
-  - {fileID: 21300000, guid: 397b20592a5d0f144a429803e5c6ca12, type: 3}
+  - {fileID: 21300000, guid: 864a22b832a77f14fa55b6da86656ac1, type: 3}
   FPS: 6
   Alternates: []
