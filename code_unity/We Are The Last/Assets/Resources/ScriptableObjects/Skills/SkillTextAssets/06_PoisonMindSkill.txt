@@ -12,10 +12,18 @@ FUNCTIONS
 selectCharacter,,,,bool:false,int:1
 waitForSelection,W,C,,bool:true
 toggleActions,W,,,bool:false
+stepForward,W,C,,float:2,float:0.1
+playAnimation,W,,,int:-1,string:glare
 addOrChangeAttribute,W,,,bool:false,string:POISON,string:=10,float:100,bool:false
 displayFX,W,,,bool:false,float:2,string:poison,float:0,float:0
-wait,W,C,,float:0.6
 Bark,W,,,string:PoisonMind
+wait,W,C,,float:0.6
+playAnimation,W,,,int:-1,string:idle
+rotateCharacter,W,,,int:-1,float:180
+playAnimation,W,,,int:-1,string:walk
+moveBack,W,C,,float:0.2
+rotateCharacter,W,,,int:-1,float:180
+playAnimation,W,,,int:-1,string:idle
 toggleActions,W,,,bool:true
 subtractTurnPoints,W,,,int:0,int:2
 

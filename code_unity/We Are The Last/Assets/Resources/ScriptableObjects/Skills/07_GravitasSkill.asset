@@ -73,7 +73,7 @@ MonoBehaviour:
     - functionName: playAnimation
       parametersArray:
       - int:-1
-      - string:attack
+      - string:gravitas
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

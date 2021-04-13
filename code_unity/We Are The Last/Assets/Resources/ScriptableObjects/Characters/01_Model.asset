@@ -19,6 +19,16 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 4129ca514a4b89b4f9b9830b06595789, type: 3}
     speed: 0
     prefab: {fileID: 1634988220540438, guid: 5def9b13e61471a4f92395cc050c2946, type: 3}
+    Animations:
+    - {fileID: 11400000, guid: beea63247aef4ad4096133a61509d04b, type: 2}
+    - {fileID: 11400000, guid: 1b4ac441060012349a8bd086d4c52e03, type: 2}
+    - {fileID: 11400000, guid: df1a2e49190ee2146a9b2ca32ff05f19, type: 2}
+    - {fileID: 11400000, guid: 4ce0b04b12a4de945b28a4422fb1dead, type: 2}
+    - {fileID: 11400000, guid: d967191e03c362d4bb2734b6bf222b0c, type: 2}
+    - {fileID: 11400000, guid: bc4568932dfbb8948aa129d99debd392, type: 2}
+    - {fileID: 11400000, guid: 870b9e4f9954965479050ec032732482, type: 2}
+    - {fileID: 11400000, guid: f3382f1157cf2574c86dd750f41144d5, type: 2}
+    - {fileID: 11400000, guid: 55bd37cf462748b4192a226476ab3a53, type: 2}
     skills: 18000000070000000200000006000000
     ultimates: 14000000
     items: []

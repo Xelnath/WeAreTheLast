@@ -8,7 +8,7 @@ waitForSelection,W,C,,bool:true
 toggleActions,W,,,bool:false
 playAnimation,W,,,int:-1,string:walk
 stepForward,W,C,,float:2,float:0.1
-playAnimation,W,,,int:-1,string:attack
+playAnimation,W,,,int:-1,string:gravitas
 playAudioOnce,,,,int:1,int:1
 displayFX,W,,,bool:false,float:2,string:attack,float:0,float:0
 displayFX,W,,,bool:false,float:2,string:heal,float:-0.7,float:1
