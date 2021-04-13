@@ -290,7 +290,7 @@ public class BattleGen : MonoBehaviour
             superPower = attribute.curValue;
           }
 
-          bool cheat = DatabaseScriptableObject.core.CheatIgnoreResourceCosts; 
+          bool cheat = DatabaseScriptableObject.core?.CheatIgnoreResourceCosts??false; 
           if ( !cheat && currentMana < skill.manaCost )
           { 
             BattleManager.core.startWarningRoutine("Insufficient mana", 2f);
@@ -407,7 +407,7 @@ public class BattleGen : MonoBehaviour
             superPower = attribute.curValue;
           }
           
-          bool cheat = DatabaseScriptableObject.core.CheatIgnoreResourceCosts; 
+          bool cheat = DatabaseScriptableObject.core?.CheatIgnoreResourceCosts??false; 
 
           if ( !cheat && currentMana < skill.manaCost )
           { 
