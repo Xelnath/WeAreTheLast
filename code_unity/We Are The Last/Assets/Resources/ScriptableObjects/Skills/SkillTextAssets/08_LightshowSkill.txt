@@ -10,7 +10,7 @@ selectTeam,W,,,bool:false,bool:true
 toggleActions,W,,,bool:false
 playAnimation,W,,,int:-1,string:walk
 stepForward,W,C,,float:2,float:0.1
-playAnimation,W,,,int:-1,string:attack
+playAnimation,W,,,int:-1,string:showoff
 playAudioOnce,,,,int:1,int:1
 displayFX,W,,,bool:true,float:2,string:aoe,float:10,float:0
 damageTargets,W,,,int:20,int:4

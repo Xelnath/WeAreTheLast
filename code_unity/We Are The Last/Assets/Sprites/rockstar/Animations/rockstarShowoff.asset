@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0a3a3517b2146ba8e8bd7333f4d888c, type: 3}
-  m_Name: rockstarIdle
+  m_Name: rockstarShowoff
   m_EditorClassIdentifier: 
-  Name: idle
-  Looping: 1
+  Name: showoff
+  Looping: 0
   sprites:
-  - {fileID: 21300000, guid: a37266633c44c974ead25ce2c6e50d66, type: 3}
-  FPS: 2
-  Alternates:
-  - Rule: 0
-    Alternate: {fileID: 11400000, guid: ef6a4dae9c0b1874c87167036d22b5eb, type: 2}
+  - {fileID: 21300000, guid: 397b20592a5d0f144a429803e5c6ca12, type: 3}
+  FPS: 6
+  Alternates: []

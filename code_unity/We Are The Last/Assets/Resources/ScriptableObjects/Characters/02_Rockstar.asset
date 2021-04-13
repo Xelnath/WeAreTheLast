@@ -20,7 +20,15 @@ MonoBehaviour:
     speed: 0
     prefab: {fileID: 1634988220540438, guid: 09ac00026a1b6ab4699023110d4976dd, type: 3}
     Animations:
+    - {fileID: 11400000, guid: 3a78f7d314791bb4a8c24f2d5547c6cb, type: 2}
+    - {fileID: 11400000, guid: ef6a4dae9c0b1874c87167036d22b5eb, type: 2}
     - {fileID: 11400000, guid: 2b06f38b47cce9b448d8aa179297ee42, type: 2}
+    - {fileID: 11400000, guid: 800119435ffa72846a34c792624d0954, type: 2}
+    - {fileID: 11400000, guid: e40588a2d9ad5d8488ce9c03039db434, type: 2}
+    - {fileID: 11400000, guid: b275381f840de1a4ea03112924f78e26, type: 2}
+    - {fileID: 11400000, guid: d771588c4dc7b56499f8774cb59ef745, type: 2}
+    - {fileID: 11400000, guid: 06cd61cc8b0bc5049bc6ce9ea4897465, type: 2}
+    - {fileID: 11400000, guid: 17eefbdbfdaa2de41850188f3a07b182, type: 2}
     skills: 0a00000008000000010000000f000000
     ultimates: 0b000000
     items: []

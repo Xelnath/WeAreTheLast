@@ -84,7 +84,7 @@ MonoBehaviour:
     - functionName: playAnimation
       parametersArray:
       - int:-1
-      - string:attack
+      - string:showoff
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0

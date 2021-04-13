@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0a3a3517b2146ba8e8bd7333f4d888c, type: 3}
-  m_Name: rockstarCounterAll
+  m_Name: rockstarHopesong
   m_EditorClassIdentifier: 
-  Name: counterall
-  Looping: 1
+  Name: hopesong
+  Looping: 0
   sprites:
-  - {fileID: 21300000, guid: a3d3b0d40976edd408bc0448e5ac73bc, type: 3}
+  - {fileID: 21300000, guid: 532e2687746761a4eb582357db2931e3, type: 3}
   FPS: 6
   Alternates: []

@@ -6,10 +6,18 @@ FUNCTIONS
 
 selectTeam,,,,bool:true,bool:false
 toggleActions,W,,,bool:false
+stepForward,W,C,,float:2,float:0.1
+playAnimation,W,,,int:-1,string:hopesong
 addOrChangeAttribute,,,,bool:false,string:WARDRUM,string:=3,float:100,bool:false
 displayFX,W,,,bool:true,float:2,string:power,float:0,float:0
-wait,W,C,,float:0.4
 Bark,W,,,string:Wardrum
+wait,W,C,,float:0.4
+playAnimation,W,,,int:-1,string:idle
+rotateCharacter,W,,,int:-1,float:180
+playAnimation,W,,,int:-1,string:walk
+moveBack,W,C,,float:0.2
+rotateCharacter,W,,,int:-1,float:180
+playAnimation,W,,,int:-1,string:idle
 toggleActions,W,,,bool:true
 clearTargets,W,,,
 subtractTurnPoints,W,,,int:0,int:1

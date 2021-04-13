@@ -61,6 +61,20 @@ MonoBehaviour:
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
+    - functionName: stepForward
+      parametersArray:
+      - float:2
+      - float:0.1
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:trust
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
     - functionName: healTargets
       parametersArray:
       - bool:false
@@ -82,6 +96,53 @@ MonoBehaviour:
     - functionName: Bark
       parametersArray:
       - string:Heal
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: wait
+      parametersArray:
+      - float:0.4
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:idle
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: rotateCharacter
+      parametersArray:
+      - int:-1
+      - float:180
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:walk
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: moveBack
+      parametersArray:
+      - float:0.2
+      waitForPreviousFunction: 1
+      isCoroutine: 1
+      isRunning: 0
+    - functionName: rotateCharacter
+      parametersArray:
+      - int:-1
+      - float:180
+      waitForPreviousFunction: 1
+      isCoroutine: 0
+      isRunning: 0
+    - functionName: playAnimation
+      parametersArray:
+      - int:-1
+      - string:idle
       waitForPreviousFunction: 1
       isCoroutine: 0
       isRunning: 0
